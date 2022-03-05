@@ -31,8 +31,7 @@ const server = http.createServer(app);
 /*
 * ///////////// Importing the Server class from socket.io module and initiating the socket.io using the above server /////////////
 * */
-import { Server } from 'socket.io';
-const io = new Server(server);
+const io = require('socket.io')(server);
 
 /*
 * ///////////// Importing the middlewares /////////////
