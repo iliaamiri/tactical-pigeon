@@ -1,9 +1,9 @@
 # Tactical Pigeon: Pigeon Life Simulator Game
 
-## Gaming Motivations:  
+## Gaming Motivations  
 A light and funny game to experience with friends or strangers that can become competitive. The players compete to last the longest in the round and gain status if they win.
 
-## Player Experience Goals:  
+## Player Experience Goals  
 It will be easy to learn with simple game play which is essentially an upgraded rock paper scissors. Although it starts out random, players can win bonus lives or special moves that they will have to use wisely to win the game.
 
 ## Tactical Pigeon Story
