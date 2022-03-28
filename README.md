@@ -1,5 +1,5 @@
-# Tactical Pigion
-🐦 A pigeon focused, turn based multiplayer strategy game where you attack, defend, and steal food  from rival pigeons. 🐦
+# Tactical Pigion 🐦
+A pigeon focused, turn based multiplayer strategy game where you attack, defend, and steal food  from rival pigeons.
 
 #### Gaming Motivations
 A light and funny game to experience with friends or strangers that can become competitive. The players compete to last the longest in the round and gain status if they win.
