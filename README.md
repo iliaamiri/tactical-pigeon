@@ -1,5 +1,5 @@
-# tactical-people
-A pigeon focused, turn based multiplayer strategy game where you attack, defend, and steal food  from rival pigeons.
+# Tactical Pigion
+🐦 A pigeon focused, turn based multiplayer strategy game where you attack, defend, and steal food  from rival pigeons. 🐦
 
 #### Gaming Motivations
 A light and funny game to experience with friends or strangers that can become competitive. The players compete to last the longest in the round and gain status if they win.
@@ -10,7 +10,7 @@ It will be easy to learn with simple game play which is essentially an upgraded 
 ## Game Concept
 Imagine you are a pigeon living in the big city. People drop food left and right, hot dog stands dropping dogs off the carts - there's a plethora or food to scavenge for. However, under the surface, these spots are the grounds for pigeon warfare. Under the hood, it’s a bloody battle for crumbs. Who’s gonna get that dog?
 
-#### Game bjectives
+#### Game Objectives
 The objective of the game is to last for all the rounds or until the other player loses all its lives first. The board is basically split into three rows with however many columns(rounds). Each row represents a body part so head, torso, legs. Every pigeon starts with the same amount of lives and the same number of defenses and attacks. Players have a timer for each round where they will set their defenses and attacks but there is a limited amount so they must be strategic to predict moves and/or force the other player's hand. If an attack hits an undefended area, then that player loses a life. If you win the game, you can purchase items at the grocery store such as new skins, attacks and other bonus material to use in games.
 
 #### Gameplay Progression
