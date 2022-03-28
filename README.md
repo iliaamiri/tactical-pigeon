@@ -1,4 +1,4 @@
-# Tactical Pigion 🐦
+# Tactical Pigeon: Pigeon Life Simulator 🐦
 A pigeon focused, turn based multiplayer strategy game where you attack, defend, and steal food  from rival pigeons.
 
 #### Gaming Motivations
