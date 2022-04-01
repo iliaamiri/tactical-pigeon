@@ -133,3 +133,5 @@ dist
 
 # Jetbrains IDEs
 .idea
+
+package-lock.json

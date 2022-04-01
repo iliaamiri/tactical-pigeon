@@ -57,7 +57,7 @@ app.use(session(sessionOptions));
 * Importing all the routers from /routes folder
 * */
 // ... Sample:
-// const homeRoutes = require('./routes/home.js');
+const homeRoutes = require('./routes/home.js');
 
 
 /*
