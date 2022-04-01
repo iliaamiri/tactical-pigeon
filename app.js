@@ -46,11 +46,11 @@ const cors = require('cors');
 * */
 app.use((req, res, next) => { req.io = io; next(); })
 app.set('trust proxy', 1);
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.set('view engine', 'ejs')
 app.use(session(sessionOptions));
-app.use(cors(corsOptions));
-app.use(express.json());
+// app.use(cors(corsOptions));
+// app.use(express.json());
 
 /*
 * ///////////// Importing the routers /////////////
