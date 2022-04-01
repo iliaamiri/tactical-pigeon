@@ -1,5 +1,10 @@
 const express = require('express');
 const homeRouter = express.Router();
+
+homeRouter.get("/", (req, res) => {
+    res.render('home', {lastStatus})
+})
+
 const singleCompare = require('../test/compare-moves.js');
 
 homeRouter.post('/', async (req, res, next) => {
@@ -30,5 +35,6 @@ homeRouter.post('/', async (req, res, next) => {
         res.render('home', { status: false, error: err });
     }
 });
+
 
 module.exports = homeRouter;
