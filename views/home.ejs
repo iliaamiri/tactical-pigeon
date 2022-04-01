@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Welcome</h1>
+    <form action="/" method="POST">
+        <label for="moves">Choose a move:</label>
+        <select id="move" name="move">
+            <option value="attack">Attack</option>
+            <option value="block">Block</option>
+            <option value="none">None</option>
+        </select>
+        <input type="submit">
+    </form>
+    <% if (lastStatus) { %>
+        <h2>You</h2><%= lastStatus %><h2>!</h2>
+    <% } else { %>
+        <%= error %> 
+        <p>Please reflect the page.</p> 
+     <% } %> 
+</body>
+</html>
