@@ -44,9 +44,10 @@ const cors = require('cors');
 * ///////////// Using the middlewares /////////////
 * Assigning the middlewares to express' instance
 * */
-app.use((req, res, next) => { req.io = io; next(); })
+//app.use((req, res, next) => { req.io = io; next(); })
 app.set('trust proxy', 1);
 app.set('view engine', 'ejs');
+app.use(express.urlencoded());
 app.use(express.static('public'));
 app.use(session(sessionOptions));
 // app.use(cors(corsOptions));
@@ -65,12 +66,13 @@ const homeRoutes = require('./routes/home.js');
 * Assigning the routes to express' instance
 * */
 // ... Sample:
-// app.use('/', homeRoutes);
+app.use('/', homeRoutes);
 
 // centralized 505 error.
 app.use((err, req, res, next) => {
+    console.log(err);
     // handles any internal error so user won't see weird things
-    res.render('layout/505.ejs', { error: err })
+    res.render('layouts/505.ejs', { error: err })
 });
 
 module.exports = server;
