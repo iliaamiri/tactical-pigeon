@@ -19,8 +19,8 @@
         </select>
         <input type="submit">
     </form>
-    <% if (lastStatus) { %>
-        <h2>You</h2><%= lastStatus %><h2>!</h2>
+    <% if (status) { %>
+        <h2>You <%= result %>!</h2>
     <% } else { %>
         <%= error %> 
         <p>Please reflect the page.</p> 
