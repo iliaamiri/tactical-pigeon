@@ -1,17 +1,16 @@
+const makeApp = require('./app');
+
 /*
-* ///////////// Importing the dotenv module to handle reading environment variables from .env file /////////////
+* ///////////// Importing the express module and initiating it (app) /////////////
+* https://expressjs.com/
 * */
-const dotenv = require('dotenv');
+const express = require("express");
+const app = express();
 
 /*
 * ///////////// Importing the HTTP server Socket.io + Express.js, from app.js /////////////
 * */
-const server = require('./app.js');
-
-/*
-* ///////////// Loading the environment variable configurations from .env file /////////////
-* */
-dotenv.config();
+const server = makeApp(app);
 
 /*
 * ///////////// Setting the port that the app is listening on /////////////
@@ -22,5 +21,5 @@ const PORT = process.env.PORT || 8080;
 * ///////////// Start listening /////////////
 * */
 server.listen(PORT, () => {
-    console.log("Running on port " + PORT)
+    console.log(`Running on: http://localhost:${PORT}`);
 });
