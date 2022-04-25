@@ -1,4 +1,14 @@
 /*
+* ///////////// Importing the dotenv module to handle reading environment variables from .env file /////////////
+* */
+const dotenv = require('dotenv');
+
+/*
+* ///////////// Loading the environment variable configurations from .env file /////////////
+* */
+dotenv.config();
+
+/*
 * ///////////// Importing the basic configuration values /////////////
 * These configuration may include the options for session, cors, etc.
 * */
@@ -53,26 +63,10 @@ app.use(session(sessionOptions));
 // app.use(cors(corsOptions));
 // app.use(express.json());
 
-/*
-* ///////////// Importing the routers /////////////
-* Importing all the routers from /routes folder
-* */
-// ... Sample:
-const homeRoutes = require('./routes/home.js');
-
 
 /*
-* ///////////// Using the routers /////////////
-* Assigning the routes to express' instance
+* Injecting all the routes to app.
 * */
-// ... Sample:
-app.use('/', homeRoutes);
-
-// centralized 505 error.
-app.use((err, req, res, next) => {
-    console.log(err);
-    // handles any internal error so user won't see weird things
-    res.render('layouts/505.ejs', { error: err })
-});
+app.use('/', require('./routes/index'));
 
 module.exports = server;
