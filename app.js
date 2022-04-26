@@ -13,7 +13,6 @@ dotenv.config();
 * These configuration may include the options for session, cors, etc.
 * */
 const sessionOptions = require('./config/session.js');
-const corsOptions = require('./config/cors.js')
 
 /*
 * ///////////// Importing the express-session to handle (server-side) sessions /////////////
@@ -41,13 +40,6 @@ function makeApp(app) {
     const io = require('socket.io')(server);
 
     /*
-    * ///////////// Importing the middlewares /////////////
-    * Some of these middlewares are popular and have been used in API projects. Cors Middleware is one example.
-    * Most of them are created and used within this project based on the project's needs.
-    * */
-    const cors = require('cors');
-
-    /*
     * ///////////// Using the middlewares /////////////
     * Assigning the middlewares to express' instance
     * */
@@ -57,8 +49,6 @@ function makeApp(app) {
     app.use(express.urlencoded());
     app.use(express.static('public'));
     app.use(session(sessionOptions));
-    // app.use(cors(corsOptions));
-    // app.use(express.json());
 
 
     /*
