@@ -3,7 +3,7 @@ const singleCompare = require("../../test/compare-moves");
 const HomeController = {
     async gameHome(req, res) {
         let lastStatus = "";
-        res.render('home');
+        res.render('index'); // 
     },
 };
 
