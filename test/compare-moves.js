@@ -34,6 +34,6 @@ function singleCompare(move1, move2) {
   if (move1 === 'b' && move2 === 'b') {
     return 'nothing happened';
   }
-};
+}
 
 module.exports = singleCompare;
