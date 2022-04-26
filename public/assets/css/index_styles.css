@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #B1D2D1;
+  min-height: 100vh;
+}
+
+div.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+div.start {
+  display: flex;
+  flex-direction: column;
+  background-image: url('/assets/img/TPguielements-starting-09.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 45vh;
+  width: 21vw;
+  align-items: center;
+  justify-content: center;
+  margin: 2em;
+}
+
+div.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2em;
+}
+
+div.start img {
+  height: 10vh;
+  /* TODO MAKE BUTTON RESIZE WITH SCREEN WIDTH */
+}
+
+div.logo img {
+  height: 45vh;
+}
+
+button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
