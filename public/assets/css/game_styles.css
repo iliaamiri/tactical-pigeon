@@ -35,6 +35,28 @@ div.asset-padding {
   padding: 1%;
 }
 
+/* Result Banner */
+div.result-banner { /* TODO: change this to bootstrap row and use justify-content:center to center it.
+                       This way will spare us from using left. */
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 25%;
+    width: 35%;
+    top: 5%;
+    left: 36%;
+    z-index: 20;
+}
+
+div.result-banner.victory {
+    background-image: url('/assets/img/GUI-controls/Results/Victory.png');
+}
+div.result-banner.draw {
+    background-image: url('/assets/img/GUI-controls/Results/Draw.png');
+}
+div.result-banner.defeat {
+    background-image: url('/assets/img/GUI-controls/Results/Defeat.png');
+}
+
 /* Timer Counter */
 
 /* TODO: make the numbers PNG files to be actual fonts in order to make responsiveness easier to implement (MAYBE)
@@ -246,15 +268,27 @@ div.pigeons-container img {
   /*bottom: 15px;*/
   height: 340px;
   bottom: -65px;
-  z-index: -1;
+  z-index: -10;
 }
 
 div.pigeons-container img.pigeon-left {
   left: var(--left-pigeon-distance-from-the-edges);
 }
 
+div.pigeons-container img.pigeon-left.picking-move-animation {
+    animation-name: pigeon-pick-move;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
+    animation-name: revert-pigeon-pick-move;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+
 div.pigeons-container img.pigeon-right {
   right: var(--right-pigeon-distance-from-the-edges);
+  z-index: -19;
 }
 
 
@@ -269,7 +303,7 @@ div.hotdog-container {
 div.hotdog-container img {
   position: absolute;
   bottom: 30px;
-  z-index: -2;
+  z-index: -20;
 }
 
 div.hotdog-container img.hotdog-pray {
@@ -320,3 +354,125 @@ div > div.heart-empty {
   background-repeat: no-repeat;
 }
 
+
+/* Move Picker */
+div.round-title {
+    position: absolute;
+    top: -22px;
+    right: -10px;
+    height: 40px;
+    width: 60%;
+    background-image: url('/assets/img/GUI-controls/Round/Round 1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+div.move-picker-overlay {
+    opacity: 0;
+    width: 30%;
+    bottom: 40px;
+    left: 40%;
+    z-index: -15;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+div.move-picker-overlay.show-animation {
+    animation-name: show-move-picker-overlay;
+    animation-fill-mode: forwards;
+    animation-duration: 0.8s;
+}
+div.move-picker-overlay.hide-animation {
+    animation-name: hide-move-picker-overlay;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+
+div.move-picker-overlay div.row {
+    padding: 30px 35px 20px 80px;
+}
+
+div.move-picker-overlay div.hints-box {
+    font-family: "Comic Sans MS", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #44575d;
+}
+
+div.moves-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.mv-placeholder {
+    height: 60px;
+    width: 60px;
+}
+
+div.mv-placeholder.head {
+    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-head.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+div.mv-placeholder.body {
+    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-body.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+div.mv-placeholder.legs {
+    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Animations */
+@keyframes pigeon-pick-move {
+    from {
+        height: 340px;
+        left: var(--left-pigeon-distance-from-the-edges);
+        bottom: -65px;
+    }
+    to {
+        height: 750px;
+        left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
+        bottom: -260px;
+    }
+}
+
+@keyframes revert-pigeon-pick-move {
+    from {
+        height: 750px;
+        left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
+        bottom: -260px;
+    }
+    to {
+        height: 340px;
+        left: var(--left-pigeon-distance-from-the-edges);
+        bottom: -65px;
+    }
+}
+
+@keyframes show-move-picker-overlay {
+    from {
+        /*width: 0;*/
+        opacity: 0;
+    }
+    to {
+        /*width: 30%;*/
+        opacity: 1;
+    }
+}
+
+@keyframes hide-move-picker-overlay {
+    from {
+        /*width: 30%;*/
+        opacity: 1;
+    }
+    to {
+        /*width: 0;*/
+        opacity: 0;
+    }
+}
