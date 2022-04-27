@@ -2,6 +2,16 @@
   /* derived from [(the pixels amount) x 100] / 896 */
   --left-pigeon-distance-from-the-edges: 26.7857142857142%;
   --right-pigeon-distance-from-the-edges: 18.9732142857142%;
+  --tally-table-cell-size: 40px;
+
+    /* TODO: have separate variables for each resolution and change them using MEDIA QUERY CSS */
+  /*
+    --tally-table-cell-size-on-mobile: 40px;
+    --tally-table-cell-size-on-tablet: 80px;
+      .
+      .
+      .
+   */
 }
 
 
@@ -26,8 +36,14 @@ div.asset-padding {
 }
 
 /* Timer Counter */
+
+/* TODO: make the numbers PNG files to be actual fonts in order to make responsiveness easier to implement (MAYBE)
+    - It would loud faster.
+    - Easier to do DOM manipulation (CSS rendering technically).
+    */
+
 div.timer-counter {
-    position: fixed;
+    position: absolute;
     background-image: url('/assets/img/GUI-controls/TimerRounds/TimerBG.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -102,6 +118,9 @@ div.timer-counter div.number-9 {
 }
 
 
+
+
+
 /* Shield and Attack Counters */
 img.shield-icon {
   /*height: 75px;*/
@@ -172,10 +191,6 @@ div.row.board {
   height: 45%;
 }
 
-table.tally, table.tally tbody {
-    z-index: 100;
-}
-
 table.tally.opponent-tally {
   margin-right: 6%;
 }
@@ -183,33 +198,36 @@ table.tally.opponent-tally {
 table.tally tr td {
   border: 1px solid rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.50);
-  width: 40px;
-  height: 40px;
+  width: var(--tally-table-cell-size);
+  height: var(--tally-table-cell-size); /* TODO: Responsive Table Cells -> Use Media Queries CSS (and of course use bigger/smaller pixels) */
   text-align: center;
 }
 
 table.tally tr td.cell-attacked {
-  background-image: url('/assets/img/GUI-controls/MainControls/Attack.png');
+  background-image: url('/assets/img/GUI-controls/MainControls/sword-noBK.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 table.tally tr td.cell-blocked {
-  background-image: url('/assets/img/GUI-controls/MainControls/Shield.png');
+  background-image: url('/assets/img/GUI-controls/MainControls/sheild-noBK.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 table.tally tr td.round-won {
-  background-color: rgba(255, 220, 75, 0.7);
+  background-color: rgba(255, 220, 75, 0.4);
 }
 
 table.tally tr td.round-draw {
-  background-color: rgba(186, 186, 187, 0.7);
+  background-color: rgba(186, 186, 187, 0.4);
 }
 
 table.tally tr td.round-defeat {
-  background-color: rgba(231, 135, 151, 0.7);
+  background-color: rgba(231, 135, 151, 0.4);
+}
+table.tally tr td.round-defeat.hit {
+    background-color: rgba(231, 135, 151, 1);
 }
 
 
@@ -226,7 +244,7 @@ div.pigeons-container img {
   position: absolute;
   height: 170px;
   bottom: 15px;
-  z-index: 1;
+  z-index: -1;
 }
 
 div.pigeons-container img.pigeon-left {
@@ -249,7 +267,7 @@ div.hotdog-container {
 div.hotdog-container img {
   position: absolute;
   bottom: 30px;
-  z-index: 0;
+  z-index: -2;
 }
 
 div.hotdog-container img.hotdog-pray {
