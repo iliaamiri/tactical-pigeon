@@ -1,3 +1,10 @@
+:root {
+  /* derived from [(the pixels amount) x 100] / 896 */
+  --left-pigeon-distance-from-the-edges: 26.7857142857142%;
+  --right-pigeon-distance-from-the-edges: 18.9732142857142%;
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +12,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  /*overflow: hidden; !* preventing the users to see random stuff accidently if we had bugs *!*/
 }
 
 body.default-background {
@@ -15,6 +23,248 @@ body.default-background {
 
 div.asset-padding {
   padding: 1%;
+}
+
+/* Timer Counter */
+div.timer-counter {
+    position: fixed;
+    background-image: url('/assets/img/GUI-controls/TimerRounds/TimerBG.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 60px;
+    top: 0;
+    left: 24%;
+}
+
+div.timer-counter div {
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    width: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.timer-counter div.time-no-decimal {
+    left: 22%;
+}
+
+div.timer-counter div.time-left-decimal {
+    left: 5%;
+}
+
+div.timer-counter div.time-right-decimal {
+    left: 38%;
+}
+
+div.timer-counter div.number-0 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/0.png');
+    height: 38px;
+    width: 35px;
+    bottom: 1%;
+}
+div.timer-counter div.number-0.time-right-decimal {
+    left: 35%;
+}
+div.timer-counter div.number-0.time-left-decimal {
+    left: 1%;
+}
+div.timer-counter div.number-1 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/1.png');
+}
+div.timer-counter div.number-1.time-left-decimal {
+    left: 7%;
+}
+div.timer-counter div.number-2 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/2.png');
+}
+div.timer-counter div.number-3 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/3.png');
+}
+div.timer-counter div.number-4 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/4.png');
+}
+div.timer-counter div.number-5 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/5.png');
+}
+div.timer-counter div.number-6 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/6.png');
+}
+div.timer-counter div.number-7 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/7.png');
+}
+div.timer-counter div.number-8 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/8.png');
+}
+div.timer-counter div.number-9 {
+    background-image: url('/assets/img/GUI-controls/TimerRounds/9.png');
+}
+
+
+/* Shield and Attack Counters */
+img.shield-icon {
+  /*height: 75px;*/
+  width: 58%;
+  z-index: 3;
+}
+
+img.attack-icon {
+  /*height: 75px;*/
+  width: 58%;
+  z-index: 2;
+}
+
+div.counter-box {
+  background: #656F74;
+  width: 50%;
+  text-align: right;
+  padding: 1% 5% 1% 1%;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+div.opponent-counter-box {
+    margin-right: 1%;
+}
+
+div.counter-box.my-counter {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+}
+
+div.counter-box.opponent-counter {
+  z-index: -1;
+  position: absolute;
+  top: 40%;
+  right: 18%;
+}
+
+
+
+
+
+/* Table Labels */
+div.table-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1%;
+  height: 131px;
+}
+
+div.table-labels div.tabol-labol {
+  text-align: right;
+  width: 100%;
+}
+
+div.table-labels div.tabol-labol > img {
+  height: 26px;
+}
+
+
+
+
+/* Tally Table */
+div.row.board {
+  height: 45%;
+}
+
+table.tally, table.tally tbody {
+    z-index: 100;
+}
+
+table.tally.opponent-tally {
+  margin-right: 6%;
+}
+
+table.tally tr td {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.50);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+table.tally tr td.cell-attacked {
+  background-image: url('/assets/img/GUI-controls/MainControls/Attack.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+table.tally tr td.cell-blocked {
+  background-image: url('/assets/img/GUI-controls/MainControls/Shield.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+table.tally tr td.round-won {
+  background-color: rgba(255, 220, 75, 0.7);
+}
+
+table.tally tr td.round-draw {
+  background-color: rgba(186, 186, 187, 0.7);
+}
+
+table.tally tr td.round-defeat {
+  background-color: rgba(231, 135, 151, 0.7);
+}
+
+
+
+
+
+/* Pigeons Container */
+div.pigeons-container {
+  width: 100%;
+  bottom: 0;
+}
+
+div.pigeons-container img {
+  position: absolute;
+  height: 170px;
+  bottom: 15px;
+  z-index: 1;
+}
+
+div.pigeons-container img.pigeon-left {
+  left: var(--left-pigeon-distance-from-the-edges);
+}
+
+div.pigeons-container img.pigeon-right {
+  right: var(--right-pigeon-distance-from-the-edges);
+}
+
+
+
+
+/* The Hotdog */
+div.hotdog-container {
+  width: 100%;
+  bottom: 0;
+}
+
+div.hotdog-container img {
+  position: absolute;
+  bottom: 30px;
+  z-index: 0;
+}
+
+div.hotdog-container img.hotdog-pray {
+  height: 100px;
+  left: 42.96875%; /* derived from [(the pixels amount) x 100] / 896 */
+}
+
+
+
+/* Health Bars */
+div.health-bars {
+  position: absolute;
+  bottom: 5%;
+  left: 2.5%;
+  width: 95%;
 }
 
 div.health-container {
@@ -46,49 +296,7 @@ div > div.heart-filled {
 div > div.heart-empty {
   background-image: url('/assets/img/GUI-controls/LifeGUI/Healthminus.png');
   background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
-div.tabol-labol img {
-  width: 100%;
-}
-
-img.shield-icon {
-  width: 100%;
-}
-
-div.row.board {
-  height: 45%;
-}
-
-table.tally {
-  width: 60%;
-  height: 100%;
-}
-
-table.tally tr td {
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.50);
-  width: 10%;
-  height: 33%;
-}
-
-div.pigeon {
-  position: relative;
-  height: 100px;
-}
-
-div.pigeon img.pigeon-left {
-  left: 150px;
-}
-
-div.pigeon img.pigeon-right {
-  right: 150px;
-}
-
-div.pigeon img {
-  position: absolute;
-  height: 200px;
-  width: auto;
-  bottom: 0;
-}
