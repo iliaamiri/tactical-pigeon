@@ -1,6 +1,7 @@
 const singleCompare = require("../../test/compare-moves");
+
 const GameController = {
-    async submitGameMove(req, res, next) {
+    async submitGameMove(req, res) {
         try {
             console.log("api /games/submitMove post hit");
             const {move} = req.body;
@@ -37,7 +38,7 @@ const GameController = {
         }
     },
 
-    async showGamePage(req, res, next) {
+    async showGamePage(req, res) {
         res.render('play');
     }
 };
