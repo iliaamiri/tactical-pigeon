@@ -35,6 +35,10 @@ const GameController = {
                 status: false, error: err
             });
         }
+    },
+
+    async showGamePage(req, res, next) {
+        res.render('play');
     }
 };
 

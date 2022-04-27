@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+body.default-background {
+  background-image: url('/assets/img/backgrounds/background-01.png');
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+div.asset-padding {
+  padding: 1%;
+}
+
+div.health-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url('/assets/img/GUI-controls/LifeGUI/LifeLineBG.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+}
+
+div > div.heart {
+  height: 72%;
+  width: 72%;
+  /* margin-right: 4px; */
+  /* margin-left: 6px; */
+}
+
+div > div.heart-filled {
+  background-image: url('/assets/img/GUI-controls/LifeGUI/Healthplus.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+div > div.heart-empty {
+  background-image: url('/assets/img/GUI-controls/LifeGUI/Healthminus.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+div.tabol-labol img {
+  width: 100%;
+}
+
+img.shield-icon {
+  width: 100%;
+}
+
+div.row.board {
+  height: 45%;
+}
+
+table.tally {
+  width: 60%;
+  height: 100%;
+}
+
+table.tally tr td {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.50);
+  width: 10%;
+  height: 33%;
+}
+
+div.pigeon {
+  position: relative;
+  height: 100px;
+}
+
+div.pigeon img.pigeon-left {
+  left: 150px;
+}
+
+div.pigeon img.pigeon-right {
+  right: 150px;
+}
+
+div.pigeon img {
+  position: absolute;
+  height: 200px;
+  width: auto;
+  bottom: 0;
+}
