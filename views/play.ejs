@@ -17,7 +17,7 @@
 <body class="default-background"> <!-- Background Image as CSS class -->
 
 <!-- Game Result Banner -->
-<div class="result-banner victory position-absolute">
+<div class="result-banner victory position-absolute d-none">
 
 </div>
 
@@ -103,23 +103,23 @@
 
                 <!-- My Tally Board Components -->
                 <div class="col-sm-8 asset-padding">
-                    <table class="tally">
+                    <table class="tally my-tally">
                         <tr>
-                            <td class="cell-attacked round-defeat"></td>
+                            <td ></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td class="round-defeat hit"></td>
+                            <td ></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td class="cell-blocked round-defeat"></td>
+                            <td ></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -134,21 +134,21 @@
         <div class="col-sm-6 d-flex justify-content-end asset-padding">
             <table class="tally opponent-tally">
                 <tr>
-                    <td class="cell-blocked round-won"></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="cell-attacked round-won"></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="cell-blocked round-won"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td ></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -211,9 +211,7 @@
     <div class="mv-placeholder legs"></div>
 </div>
 
-<button class="done position-absolute show-animation">
-    DONE
-</button>
+<div class="done position-absolute show-animation"></div>
 
 <!-- <h1>Welcome</h1>
 <form class="gameMoveForm">
