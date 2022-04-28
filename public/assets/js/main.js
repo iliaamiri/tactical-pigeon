@@ -1,111 +1,64 @@
-let selectedMoveType;
+import Move from './classes/Move.js';
+import MovePlaceholder from './classes/MovePlaceholder.js';
+import Inventory from "./classes/Inventory.js";
 
-let myMoves = {
-    head: null,
-    body: null,
-    legs: null
-};
-
-const moveTypeEnum = ['attack', 'block'];
+let currentSelectedInventory;
 
 const gameResultEnum = ['loss', 'win', 'draw'];
-
-class Inventory {
-    #counter = 4;
-    type;
-    counterRange = [0, 4];
-
-    set counter(intendedResult) {
-        if (intendedResult > this.counterRange[1]) {
-            this.#counter = this.counterRange[1];
-        } else if (intendedResult < this.counterRange[0]) {
-            this.#counter = this.counterRange[0];
-        } else {
-            this.#counter = intendedResult;
-        }
-    }
-
-    increaseCounter() {
-        this.counter++;
-    }
-
-    decreaseCounter() {
-        this.counter--;
-    }
-};
-
-class MovePlaceholder {
-    checked = false;
-
-    bodyPartType;
-    moveType;
-    target;
-    
-
-    constructor(selectedMoveType, target) {
-        this.moveType = selectedMoveType;
-        this.target = target;
-        myMoves[bodyPartType] = selectedMoveType;
-    }
-
-    set moveType(newMoveType) {
-        if (moveTypeEnum.includes(newMoveType)) {
-            this.moveType = newMoveType;
-        }
-    }
-
-    check() {
-        this.checked = !this.checked;
-
-        if (this.checked) {
-            /* do stuff as if it's ON */
-            this.target.classList.add(`filled-${this.moveType}`);
-
-        } else {
-            /* do stuff as if it's OFF */
-            this.target.classList.remove(`filled-${this.moveType}`);
-
-        }
-    }
-
-};
 
 
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
 });
 
+document.querySelector('button.done').addEventListener('click', async event => {
+    console.log("HERE")
+});
+
 document.querySelector('img.my-shield').addEventListener('click', async event => {
     console.log('shield success!');
-    selectedMoveType = 'block';
+    Move.selectedMoveType = 'block';
+    const myBlockCounter = document.querySelector('span.my-block-counter');
+    currentSelectedInventory = Inventory.all['block'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
     console.log('sword success!');
-    selectedMoveType = 'attack';
+    Move.selectedMoveType = 'attack';
+    const myAttackCounter = document.querySelector('span.my-attack-counter');
+    currentSelectedInventory = Inventory.all['attack'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
     let target = event.target;
-    console.log('selectedMoveType', selectedMoveType);
-    if (target.tagName === 'DIV' && selectedMoveType) {
-
-        let movePlaceholder = new MovePlaceholder(selectedMoveType, target);
-
+    console.log('selectedMoveType', Move.selectedMoveType);
+    if (target.tagName === 'DIV' && Move.selectedMoveType && target.classList.contains('mv-placeholder')) {
+        let bodyPartType;
         if (target.classList.contains('head') ) {
-            console.log('head');
-            movePlaceholder.bodyPartType = 'head';
+            console.log('hitting head');
+            bodyPartType = 'head';
         } else if (target.classList.contains('body')) {
-            console.log('body');
-            movePlaceholder.bodyPartType = 'body';
+            console.log('hitting body');
+            bodyPartType = 'body';
         } else if (target.classList.contains('legs')) {
-            console.log('legs');
-            movePlaceholder.bodyPartType = 'legs';
+            console.log('hitting legs');
+            bodyPartType = 'legs';
         }
 
-        console.log('my moves object', myMoves)
+        let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
+        if (currentMovePlaceholder) {
+            currentMovePlaceholder.bodyPartType = bodyPartType;
+            currentMovePlaceholder.moveType = Move.selectedMoveType;
+            currentMovePlaceholder.target = target;
+        } else {
+            MovePlaceholder.all[bodyPartType] = new MovePlaceholder(bodyPartType, Move.selectedMoveType, target);
+            currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
+        }
+
+        currentMovePlaceholder.check();
+        console.log(currentMovePlaceholder);
+        console.log('my moves object', Move.myMoves);
     }
-    //console.log(target, 'head');
 });
 
 /* 

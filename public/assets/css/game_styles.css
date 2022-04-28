@@ -387,6 +387,19 @@ div.round-title {
   background-repeat: no-repeat;
 }
 
+button.done {
+  opacity: 0;
+  bottom: 15%;
+  left: 50%;
+  z-index: 1500;
+}
+
+.show-animation {
+  animation-name: show-move-picker-overlay;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+}
+
 
 div.move-picker-overlay {
   opacity: 0;
@@ -399,11 +412,11 @@ div.move-picker-overlay {
   border-radius: 8px;
 }
 
-div.move-picker-overlay.show-animation {
-  animation-name: show-move-picker-overlay;
-  animation-fill-mode: forwards;
-  animation-duration: 0.8s;
-}
+/*div.move-picker-overlay.show-animation {*/
+/*  animation-name: show-move-picker-overlay;*/
+/*  animation-fill-mode: forwards;*/
+/*  animation-duration: 0.8s;*/
+/*}*/
 
 div.move-picker-overlay.hide-animation {
   animation-name: hide-move-picker-overlay;
@@ -423,11 +436,12 @@ div.move-picker-overlay div.hints-box {
 }
 
 div.moves-placeholder {
+  opacity: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* right: 7%; */
-  z-index: 6000;
+  z-index: 1000;
   right: 23%;
   top: 43%;
 }
@@ -435,9 +449,9 @@ div.moves-placeholder {
 div.mv-placeholder {
   height: 60px;
   width: 60px;
+  background-color: transparent;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #FFDC4B;
 }
 
 div.mv-placeholder.head {
@@ -454,9 +468,16 @@ div.mv-placeholder.legs {
 }
 
 div.mv-placeholder.filled-attack {
-
+  border-radius: 10px;
+  background-color: #FFDC4B;
+  background-image: url('/assets/img/GUI-controls/MainControls/Attack.png');
 }
 
+div.mv-placeholder.filled-block {
+  border-radius: 10px;
+  background-color: #FFDC4B;
+  background-image: url('/assets/img/GUI-controls/MainControls/Shield.png');
+}
 
 
 
