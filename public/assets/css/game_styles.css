@@ -4,7 +4,7 @@
   --right-pigeon-distance-from-the-edges: 12.27678571428571%;
   --tally-table-cell-size: 40px;
 
-    /* TODO: have separate variables for each resolution and change them using MEDIA QUERY CSS */
+  /* TODO: have separate variables for each resolution and change them using MEDIA QUERY CSS */
   /*
     --tally-table-cell-size-on-mobile: 40px;
     --tally-table-cell-size-on-tablet: 80px;
@@ -36,25 +36,28 @@ div.asset-padding {
 }
 
 /* Result Banner */
-div.result-banner { /* TODO: change this to bootstrap row and use justify-content:center to center it.
+div.result-banner {
+  /* TODO: change this to bootstrap row and use justify-content:center to center it.
                        This way will spare us from using left. */
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 25%;
-    width: 35%;
-    top: 5%;
-    left: 36%;
-    z-index: 20;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 25%;
+  width: 35%;
+  top: 5%;
+  left: 36%;
+  z-index: 20;
 }
 
 div.result-banner.victory {
-    background-image: url('/assets/img/GUI-controls/Results/Victory.png');
+  background-image: url('/assets/img/GUI-controls/Results/Victory.png');
 }
+
 div.result-banner.draw {
-    background-image: url('/assets/img/GUI-controls/Results/Draw.png');
+  background-image: url('/assets/img/GUI-controls/Results/Draw.png');
 }
+
 div.result-banner.defeat {
-    background-image: url('/assets/img/GUI-controls/Results/Defeat.png');
+  background-image: url('/assets/img/GUI-controls/Results/Defeat.png');
 }
 
 /* Timer Counter */
@@ -65,78 +68,90 @@ div.result-banner.defeat {
     */
 
 div.timer-counter {
-    position: absolute;
-    background-image: url('/assets/img/GUI-controls/TimerRounds/TimerBG.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 70px;
-    height: 60px;
-    top: 0;
-    left: 24%;
+  position: absolute;
+  background-image: url('/assets/img/GUI-controls/TimerRounds/TimerBG.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 70px;
+  height: 60px;
+  top: 0;
+  left: 24%;
 }
 
 div.timer-counter div {
-    position: absolute;
-    bottom: 0;
-    height: 40px;
-    width: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 div.timer-counter div.time-no-decimal {
-    left: 22%;
+  left: 22%;
 }
 
 div.timer-counter div.time-left-decimal {
-    left: 5%;
+  left: 5%;
 }
 
 div.timer-counter div.time-right-decimal {
-    left: 38%;
+  left: 38%;
 }
 
 div.timer-counter div.number-0 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/0.png');
-    height: 38px;
-    width: 35px;
-    bottom: 1%;
+  background-image: url('/assets/img/GUI-controls/TimerRounds/0.png');
+  height: 38px;
+  width: 35px;
+  bottom: 1%;
 }
+
 div.timer-counter div.number-0.time-right-decimal {
-    left: 35%;
+  left: 35%;
 }
+
 div.timer-counter div.number-0.time-left-decimal {
-    left: 1%;
+  left: 1%;
 }
+
 div.timer-counter div.number-1 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/1.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/1.png');
 }
+
 div.timer-counter div.number-1.time-left-decimal {
-    left: 7%;
+  left: 7%;
 }
+
 div.timer-counter div.number-2 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/2.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/2.png');
 }
+
 div.timer-counter div.number-3 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/3.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/3.png');
 }
+
 div.timer-counter div.number-4 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/4.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/4.png');
 }
+
 div.timer-counter div.number-5 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/5.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/5.png');
 }
+
 div.timer-counter div.number-6 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/6.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/6.png');
 }
+
 div.timer-counter div.number-7 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/7.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/7.png');
 }
+
 div.timer-counter div.number-8 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/8.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/8.png');
 }
+
 div.timer-counter div.number-9 {
-    background-image: url('/assets/img/GUI-controls/TimerRounds/9.png');
+  background-image: url('/assets/img/GUI-controls/TimerRounds/9.png');
 }
 
 
@@ -166,7 +181,7 @@ div.counter-box {
 }
 
 div.opponent-counter-box {
-    margin-right: 1%;
+  margin-right: 1%;
 }
 
 div.counter-box.my-counter {
@@ -201,7 +216,7 @@ div.table-labels div.tabol-labol {
   width: 100%;
 }
 
-div.table-labels div.tabol-labol > img {
+div.table-labels div.tabol-labol>img {
   height: 26px;
 }
 
@@ -221,7 +236,8 @@ table.tally tr td {
   border: 1px solid rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.50);
   width: var(--tally-table-cell-size);
-  height: var(--tally-table-cell-size); /* TODO: Responsive Table Cells -> Use Media Queries CSS (and of course use bigger/smaller pixels) */
+  height: var(--tally-table-cell-size);
+  /* TODO: Responsive Table Cells -> Use Media Queries CSS (and of course use bigger/smaller pixels) */
   text-align: center;
 }
 
@@ -248,8 +264,9 @@ table.tally tr td.round-draw {
 table.tally tr td.round-defeat {
   background-color: rgba(231, 135, 151, 0.4);
 }
+
 table.tally tr td.round-defeat.hit {
-    background-color: rgba(231, 135, 151, 1);
+  background-color: rgba(231, 135, 151, 1);
 }
 
 
@@ -276,14 +293,15 @@ div.pigeons-container img.pigeon-left {
 }
 
 div.pigeons-container img.pigeon-left.picking-move-animation {
-    animation-name: pigeon-pick-move;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
+  animation-name: pigeon-pick-move;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
 }
+
 div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
-    animation-name: revert-pigeon-pick-move;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
+  animation-name: revert-pigeon-pick-move;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
 }
 
 div.pigeons-container img.pigeon-right {
@@ -308,7 +326,8 @@ div.hotdog-container img {
 
 div.hotdog-container img.hotdog-pray {
   height: 100px;
-  left: 42.96875%; /* derived from [(the pixels amount) x 100] / 896 */
+  left: 42.96875%;
+  /* derived from [(the pixels amount) x 100] / 896 */
 }
 
 
@@ -333,21 +352,21 @@ div.health-container {
   padding: 10px;
 }
 
-div > div.heart {
+div>div.heart {
   height: 72%;
   width: 72%;
   /* margin-right: 4px; */
   /* margin-left: 6px; */
 }
 
-div > div.heart-filled {
+div>div.heart-filled {
   background-image: url('/assets/img/GUI-controls/LifeGUI/Healthplus.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-div > div.heart-empty {
+div>div.heart-empty {
   background-image: url('/assets/img/GUI-controls/LifeGUI/Healthminus.png');
   background-size: contain;
   background-position: center;
@@ -357,122 +376,141 @@ div > div.heart-empty {
 
 /* Move Picker */
 div.round-title {
-    position: absolute;
-    top: -22px;
-    right: -10px;
-    height: 40px;
-    width: 60%;
-    background-image: url('/assets/img/GUI-controls/Round/Round 1.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+  position: absolute;
+  top: -22px;
+  right: -10px;
+  height: 40px;
+  width: 60%;
+  background-image: url('/assets/img/GUI-controls/Round/Round 1.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
 div.move-picker-overlay {
-    opacity: 0;
-    width: 30%;
-    bottom: 40px;
-    left: 40%;
-    z-index: -15;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
+  opacity: 0;
+  width: 30%;
+  height: 55%;
+  bottom: 40px;
+  left: 40%;
+  z-index: -15;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
 }
 
 div.move-picker-overlay.show-animation {
-    animation-name: show-move-picker-overlay;
-    animation-fill-mode: forwards;
-    animation-duration: 0.8s;
+  animation-name: show-move-picker-overlay;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
 }
+
 div.move-picker-overlay.hide-animation {
-    animation-name: hide-move-picker-overlay;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
+  animation-name: hide-move-picker-overlay;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
 }
 
 div.move-picker-overlay div.row {
-    padding: 30px 35px 20px 80px;
+  padding: 30px 35px 20px 80px;
 }
 
 div.move-picker-overlay div.hints-box {
-    font-family: "Comic Sans MS", sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    color: #44575d;
+  font-family: "Comic Sans MS", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: #44575d;
 }
 
 div.moves-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* right: 7%; */
+  z-index: 6000;
+  right: 23%;
+  top: 43%;
 }
 
 div.mv-placeholder {
-    height: 60px;
-    width: 60px;
+  height: 60px;
+  width: 60px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #FFDC4B;
 }
 
 div.mv-placeholder.head {
-    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-head.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-head.png');
 }
+
 div.mv-placeholder.body {
-    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-body.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-body.png');
+
 }
+
 div.mv-placeholder.legs {
-    background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png');
 }
+
+div.mv-placeholder.filled-attack {
+
+}
+
+
+
+
+
 
 /* Animations */
 @keyframes pigeon-pick-move {
-    from {
-        height: 340px;
-        left: var(--left-pigeon-distance-from-the-edges);
-        bottom: -65px;
-    }
-    to {
-        height: 750px;
-        left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
-        bottom: -260px;
-    }
+  from {
+    height: 340px;
+    left: var(--left-pigeon-distance-from-the-edges);
+    bottom: -65px;
+  }
+
+  to {
+    height: 750px;
+    left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
+    bottom: -260px;
+  }
 }
 
 @keyframes revert-pigeon-pick-move {
-    from {
-        height: 750px;
-        left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
-        bottom: -260px;
-    }
-    to {
-        height: 340px;
-        left: var(--left-pigeon-distance-from-the-edges);
-        bottom: -65px;
-    }
+  from {
+    height: 750px;
+    left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
+    bottom: -260px;
+  }
+
+  to {
+    height: 340px;
+    left: var(--left-pigeon-distance-from-the-edges);
+    bottom: -65px;
+  }
 }
 
 @keyframes show-move-picker-overlay {
-    from {
-        /*width: 0;*/
-        opacity: 0;
-    }
-    to {
-        /*width: 30%;*/
-        opacity: 1;
-    }
+  from {
+    /*width: 0;*/
+    opacity: 0;
+  }
+
+  to {
+    /*width: 30%;*/
+    opacity: 1;
+  }
 }
 
 @keyframes hide-move-picker-overlay {
-    from {
-        /*width: 30%;*/
-        opacity: 1;
-    }
-    to {
-        /*width: 0;*/
-        opacity: 0;
-    }
+  from {
+    /*width: 30%;*/
+    opacity: 1;
+  }
+
+  to {
+    /*width: 0;*/
+    opacity: 0;
+  }
 }

@@ -39,7 +39,7 @@
         <!-- My Shield View Components -->
         <div class="col-sm-2 asset-padding">
             <div class="d-flex justify-content-end">
-                <img src="/assets/img/GUI-controls/MainControls/Shield.png" alt="" class="shield-icon">
+                <img src="/assets/img/GUI-controls/MainControls/Shield.png" alt="" class="shield-icon my-shield">
             </div>
             <div class="counter-box my-counter">
                 <span class="my-block-counter">X7</span>
@@ -61,7 +61,7 @@
         <!-- My Attack View Components -->
         <div class="col-sm-2 d-flex justify-content-end asset-padding">
             <div class="d-flex justify-content-end">
-                <img src="/assets/img/GUI-controls/MainControls/Attack.png" alt="" class="shield-icon">
+                <img src="/assets/img/GUI-controls/MainControls/Attack.png" alt="" class="shield-icon my-attack">
             </div>
             <div class="counter-box my-counter">
                 <span class="my-attack-counter">X7</span>
@@ -194,7 +194,7 @@
 </div>
 
 <!-- Move Picker Overlay Component -->
-<div class="container-fluid move-picker-overlay position-absolute">
+<div class="container-fluid move-picker-overlay position-absolute show-animation">
     <div class="round-title"></div>
     <div class="row">
         <div class="col-sm-9 hints-box">
@@ -202,12 +202,14 @@
             <b>your</b>
             <b>move!</b>
         </div>
-        <div class="col-sm-3 moves-placeholder">
-            <div class="mv-placeholder head filled-attack"></div>
-            <div class="mv-placeholder body"></div>
-            <div class="mv-placeholder legs filled-block"></div>
-        </div>
+        
     </div>
+</div>
+
+<div class="col-sm-3 moves-placeholder position-absolute">
+    <div class="mv-placeholder head"></div>
+    <div class="mv-placeholder body"></div>
+    <div class="mv-placeholder legs"></div>
 </div>
 
 <!-- <h1>Welcome</h1>
@@ -226,6 +228,6 @@
 </div> -->
 
 
-<%- include('_partials/commonJSFooters.ejs') -%>
+<%- include('_partials/commonJsFooters.ejs') -%>
 </body>
 </html>
