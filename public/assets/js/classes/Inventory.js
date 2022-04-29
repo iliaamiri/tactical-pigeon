@@ -1,12 +1,25 @@
+let myBlockCounter = document.querySelector('span.my-block-counter');
+
+let myAttackCounter = document.querySelector('span.my-attack-counter');
+
+let opponentBlockCounter = document.querySelector('span.opponent-block-counter');
+
+let opponentAttackCounter = document.querySelector('span.opponent-attack-counter');
+
 class Inventory {
+    
     #counter = 4;
 
     type;
 
     counterRange = [0, 4];
 
-    constructor(type) {
+    element;
+
+    constructor(type, element) {
         this.type = type;
+        this.element = element;
+        this.element.innerHTML = `X${this.counter}`;
     }
 
     get counter() { return this.#counter; }
@@ -22,16 +35,20 @@ class Inventory {
 
     increaseCounter() {
         this.counter++;
+        this.element.innerHTML = `X${this.counter}`;
     }
 
     decreaseCounter() {
         this.counter--;
+        this.element.innerHTML = `X${this.counter}`;
     }
 
     static all = {
-        'block': new Inventory('block'),
-        'attack': new Inventory('attack')
-    };
+        'myBlock': new Inventory('block', myBlockCounter),
+        'myAttack': new Inventory('attack', myAttackCounter),
+        'opponentBlock': new Inventory('block', opponentBlockCounter),
+        'opponentAttack': new Inventory('attack', opponentAttackCounter)
+    }
 }
 
 export default Inventory;

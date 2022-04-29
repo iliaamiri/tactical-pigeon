@@ -61,6 +61,12 @@ function tripletCompare(moves) {
 
   console.log('opponentMove', opponentMove);
 
+
+
+
+
+
+
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
 });
@@ -87,8 +93,10 @@ document.querySelector('div.done').addEventListener('click', async event => {
         let moveComponent = Object.values(opponentMove)[index];
         if (moveComponent === 'attack') {
             td.classList.add('cell-attacked');
+            Inventory.all.opponentAttack.decreaseCounter();
         } else if (moveComponent === 'block') {
             td.classList.add('cell-blocked');
+            Inventory.all.opponentBlock.decreaseCounter();
         }
         
     });
@@ -132,14 +140,14 @@ document.querySelector('img.my-shield').addEventListener('click', async event =>
     console.log('shield success!');
     Move.selectedMoveType = 'block';
     const myBlockCounter = document.querySelector('span.my-block-counter');
-    currentSelectedInventory = Inventory.all['block'];
+    currentSelectedInventory = Inventory.all['myBlock'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
     console.log('sword success!');
     Move.selectedMoveType = 'attack';
     const myAttackCounter = document.querySelector('span.my-attack-counter');
-    currentSelectedInventory = Inventory.all['attack'];
+    currentSelectedInventory = Inventory.all['myAttack'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
@@ -150,12 +158,15 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         if (target.classList.contains('head') ) {
             console.log('hitting head');
             bodyPartType = 'head';
+
         } else if (target.classList.contains('body')) {
             console.log('hitting body');
             bodyPartType = 'body';
+
         } else if (target.classList.contains('legs')) {
             console.log('hitting legs');
             bodyPartType = 'legs';
+
         }
 
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
