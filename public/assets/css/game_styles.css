@@ -424,7 +424,7 @@ div.move-picker-overlay {
 /*  animation-duration: 0.8s;*/
 /*}*/
 
-div.move-picker-overlay.hide-animation {
+.hide-animation {
   animation-name: hide-move-picker-overlay;
   animation-fill-mode: forwards;
   animation-duration: 0.5s;
@@ -527,6 +527,7 @@ div.mv-placeholder.filled-block {
   to {
     /*width: 30%;*/
     opacity: 1;
+    display: block;
   }
 }
 
@@ -539,5 +540,6 @@ div.mv-placeholder.filled-block {
   to {
     /*width: 0;*/
     opacity: 0;
+    display: none;
   }
 }

@@ -1,6 +1,7 @@
 import Move from './classes/Move.js';
 import MovePlaceholder from './classes/MovePlaceholder.js';
 import Inventory from "./classes/Inventory.js";
+import Life from './classes/Life.js';
 
 let currentSelectedInventory;
 
@@ -61,12 +62,6 @@ function tripletCompare(moves) {
 
   console.log('opponentMove', opponentMove);
 
-
-
-
-
-
-
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
 });
@@ -118,6 +113,7 @@ document.querySelector('div.done').addEventListener('click', async event => {
         opponentTallyFirstColumn.forEach(td => {
             td.classList.add('round-defeat');
         });
+        Life.all.opponentLife.decreaseCounter();
     } else if (roundResult === 2) {
         myTallyFirstColumn.forEach(td => {
             td.classList.add('round-defeat');
@@ -125,6 +121,7 @@ document.querySelector('div.done').addEventListener('click', async event => {
         opponentTallyFirstColumn.forEach(td => {
             td.classList.add('round-won');
         });
+        Life.all.myLife.decreaseCounter();
     } else {
         myTallyFirstColumn.forEach(td => {
             td.classList.add('round-draw');
@@ -134,6 +131,15 @@ document.querySelector('div.done').addEventListener('click', async event => {
         });
     }
     
+    document.querySelectorAll('.show-animation').forEach(element => {
+        console.log('element',element);
+        element.classList.add('hide-animation');
+        element.classList.remove('show-animation');
+    });
+
+    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+    pigeon.classList.add('revert-pigeon-pick-move');
+    pigeon.classList.remove('picking-move-animation');
 });
 
 document.querySelector('img.my-shield').addEventListener('click', async event => {
