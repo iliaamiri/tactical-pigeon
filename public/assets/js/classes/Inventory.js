@@ -31,16 +31,16 @@ class Inventory {
         } else {
             this.#counter = intendedResult;
         }
+
+        this.element.innerHTML = `X${this.counter}`;
     }
 
     increaseCounter() {
         this.counter++;
-        this.element.innerHTML = `X${this.counter}`;
     }
 
     decreaseCounter() {
         this.counter--;
-        this.element.innerHTML = `X${this.counter}`;
     }
 
     static all = {
