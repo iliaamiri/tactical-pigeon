@@ -1,6 +1,6 @@
-import MovePlaceholder from './classes/MovePlaceholder.js';
-import Inventory from "./classes/Inventory.js";
-import Life from './classes/Life.js';
+import MovePlaceholder from './components/MovePlaceholder.js';
+import Inventory from "./components/Inventory.js";
+import Life from './components/Life.js';
 
 // Helpers
 import Players from "./helpers/Players.js";

@@ -1,4 +1,4 @@
-import Inventory from "../classes/Inventory.js";
+import Inventory from "../components/Inventory.js";
 import Player from "./Player.js";
 import RoundMove from "./RoundMove.js";
 
