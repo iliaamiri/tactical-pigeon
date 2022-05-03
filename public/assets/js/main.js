@@ -1,68 +1,43 @@
-import Move from './classes/Move.js';
 import MovePlaceholder from './classes/MovePlaceholder.js';
 import Inventory from "./classes/Inventory.js";
 import Life from './classes/Life.js';
+
+// Helpers
+import Players from "./helpers/Players.js";
+import Player from "./helpers/Player.js";
+import BotPlayer from "./helpers/BotPlayer.js";
+import RoundMove from "./helpers/RoundMove.js";
+
+// Initiating the players.
+Players.all.player1 = new Player("AklBm4", "Me");
+Players.all.player2 = new BotPlayer();
 
 let currentSelectedInventory;
 
 const gameResultEnum = ['loss', 'win', 'draw'];
 
 function singleCompare(move1, move2) {
-    if (move1 === 'attack' && move2 === null) {
-      return 1;
-    } else if (move1 === null && move2 === 'attack') {
-      return 2;
+    if (move1 === 'attack' && move2 === 'none') {
+        return 1;
+    } else if (move1 === 'none' && move2 === 'attack') {
+        return 2;
     } else {
-      return 0;
+        return 0;
     }
-  };
+}
 
 function tripletCompare(moves) {
     let ones = moves.filter(number => number === 1).length;
     let twos = moves.filter(number => number === 2).length;
 
     if (ones > twos) {
-        console.log()
-        return 1
+        return 1;
     } else if (ones < twos) {
-        return 2
+        return 2;
     } else {
         return 0;
     }
 }
-
-  const acceptableMovesEnums = ["attack", "block", "none"];
-
-  const acceptableMoves = {
-      "attack": "a",
-      "block": "b",
-      "none": ""
-  };
-
-  const results = {
-      "player 1 wins": "won",
-      "player 2 wins": "lost",
-      "nothing happened": "draw"
-  };
-
-  const getRandomMove = () => acceptableMovesEnums[Math.floor(Math.random() * acceptableMovesEnums.length)];
-
-  
-
-  /* const opponentMove = {
-      'head': getRandomMove(),
-      'body': getRandomMove(),
-      'legs': getRandomMove()
-  } */
-
-  const opponentMove = {
-    'head': 'attack',
-    'body': 'block',
-    'legs': null
-    };
-
-  console.log('opponentMove', opponentMove);
-
 
 
 
@@ -79,13 +54,14 @@ function clearBoardForNewRound() {
             'legs': new MovePlaceholder('legs', null, null)
         };
 
-        Move.myMoves = {
-            head: null,
-            body: null,
-            legs: null
-        };
-        Move.selectedMoveType = null;
-
+        //Move.myMoves = {
+            //head: null,
+            //body: null,
+            //legs: null
+        //};
+        //Move.selectedMoveType = null;
+        Players.all.player1.resetMoves();
+        RoundMove.selectedMoveType = null;
 
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
@@ -113,18 +89,28 @@ document.querySelector('body').addEventListener('click', async event => {
 });
 
 document.querySelector('div.done').addEventListener('click', async event => {
+
     console.log("HERE");
 
     let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
     console.log('my column', myTallyColumn);
+    //myTallyColumn.forEach((td, index) => {
+        //let moveComponent = Object.values(Move.myMoves)[index];
+
+    // Generating the Bot player's moves.
+    const opponentMove = Players.all.player2.generateRandomMoves();
+
+    //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
+
     myTallyColumn.forEach((td, index) => {
-        let moveComponent = Object.values(Move.myMoves)[index];
+        let moveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
+
         if (moveComponent === 'attack') {
             td.classList.add('cell-attacked');
         } else if (moveComponent === 'block') {
             td.classList.add('cell-blocked');
         }
-        
+
     });
 
     let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
@@ -133,21 +119,19 @@ document.querySelector('div.done').addEventListener('click', async event => {
         let moveComponent = Object.values(opponentMove)[index];
         if (moveComponent === 'attack') {
             td.classList.add('cell-attacked');
-            Inventory.all.opponentAttack.decreaseCounter();
         } else if (moveComponent === 'block') {
             td.classList.add('cell-blocked');
-            Inventory.all.opponentBlock.decreaseCounter();
         }
-        
+
     });
 
     let playerMoves = [];
     for (let index = 0; index < 3; index++) {
-        let myMoveComponent = Object.values(Move.myMoves)[index];
+        let myMoveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
         let opponentMoveComponent = Object.values(opponentMove)[index];
         playerMoves.push(singleCompare(myMoveComponent, opponentMoveComponent));
     }
-    
+
     console.log('playermoves', playerMoves);
 
     let roundResult = tripletCompare(playerMoves);
@@ -175,9 +159,9 @@ document.querySelector('div.done').addEventListener('click', async event => {
             td.classList.add('round-draw');
         });
     }
-    
+
     document.querySelectorAll('.show-animation').forEach(element => {
-        console.log('element',element);
+        console.log('element', element);
         element.classList.add('hide-animation');
         element.classList.remove('show-animation');
     });
@@ -198,24 +182,24 @@ document.querySelector('div.done').addEventListener('click', async event => {
 
 document.querySelector('img.my-shield').addEventListener('click', async event => {
     console.log('shield selector hit!');
-    Move.selectedMoveType = 'block';
+    RoundMove.selectedMoveType = 'block';
     const myBlockCounter = document.querySelector('span.my-block-counter');
     currentSelectedInventory = Inventory.all['block-left'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
     console.log('sword selector hit!');
-    Move.selectedMoveType = 'attack';
+    RoundMove.selectedMoveType = 'attack';
     const myAttackCounter = document.querySelector('span.my-attack-counter');
     currentSelectedInventory = Inventory.all['attack-left'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
     let target = event.target;
-    console.log('selectedMoveType', Move.selectedMoveType);
-    if (target.tagName === 'DIV' && Move.selectedMoveType && target.classList.contains('mv-placeholder')) {
+    console.log('selectedMoveType', RoundMove.selectedMoveType);
+    if (target.tagName === 'DIV' && RoundMove.selectedMoveType && target.classList.contains('mv-placeholder')) {
         let bodyPartType;
-        if (target.classList.contains('head') ) {
+        if (target.classList.contains('head')) {
             console.log('hitting head');
             bodyPartType = 'head';
 
@@ -226,18 +210,15 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         } else if (target.classList.contains('legs')) {
             console.log('hitting legs');
             bodyPartType = 'legs';
-
         }
 
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
         currentMovePlaceholder.bodyPartType = bodyPartType;
-        currentMovePlaceholder.moveType = Move.selectedMoveType;
+        currentMovePlaceholder.moveType = RoundMove.selectedMoveType;
         currentMovePlaceholder.target = target;
-
         currentMovePlaceholder.check();
-
         console.log('currentMovePlaceholder', currentMovePlaceholder);
-        console.log('my moves object', Move.myMoves);
+        console.log('my moves object', Players.all.player1.moves);
     }
 });
 
