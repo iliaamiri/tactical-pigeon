@@ -14,7 +14,6 @@
    */
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -26,7 +25,7 @@ body {
 }
 
 body.default-background {
-  background-image: url('/assets/img/backgrounds/background-01.png');
+  background-image: url("/assets/img/backgrounds/background-01.png");
   background-size: auto;
   background-repeat: no-repeat;
 }
@@ -49,15 +48,15 @@ div.result-banner {
 }
 
 div.result-banner.victory {
-  background-image: url('/assets/img/GUI-controls/Results/Victory.png');
+  background-image: url("/assets/img/GUI-controls/Results/Victory.png");
 }
 
 div.result-banner.draw {
-  background-image: url('/assets/img/GUI-controls/Results/Draw.png');
+  background-image: url("/assets/img/GUI-controls/Results/Draw.png");
 }
 
 div.result-banner.defeat {
-  background-image: url('/assets/img/GUI-controls/Results/Defeat.png');
+  background-image: url("/assets/img/GUI-controls/Results/Defeat.png");
 }
 
 /* Timer Counter */
@@ -69,13 +68,16 @@ div.result-banner.defeat {
 
 div.timer-counter {
   position: absolute;
-  background-image: url('/assets/img/GUI-controls/TimerRounds/TimerBG.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.png");
   background-size: contain;
   background-repeat: no-repeat;
-  width: 70px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   top: 0;
   left: 24%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.timer-counter div {
@@ -85,6 +87,15 @@ div.timer-counter div {
   width: 40px;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+span.time-nums {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: #407d96;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+  margin-top: 10px;
 }
 
 div.timer-counter div.time-no-decimal {
@@ -100,7 +111,7 @@ div.timer-counter div.time-right-decimal {
 }
 
 div.timer-counter div.number-0 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/0.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/0.png");
   height: 38px;
   width: 35px;
   bottom: 1%;
@@ -115,7 +126,7 @@ div.timer-counter div.number-0.time-left-decimal {
 }
 
 div.timer-counter div.number-1 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/1.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/1.png");
 }
 
 div.timer-counter div.number-1.time-left-decimal {
@@ -123,40 +134,36 @@ div.timer-counter div.number-1.time-left-decimal {
 }
 
 div.timer-counter div.number-2 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/2.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/2.png");
 }
 
 div.timer-counter div.number-3 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/3.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/3.png");
 }
 
 div.timer-counter div.number-4 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/4.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/4.png");
 }
 
 div.timer-counter div.number-5 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/5.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/5.png");
 }
 
 div.timer-counter div.number-6 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/6.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/6.png");
 }
 
 div.timer-counter div.number-7 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/7.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/7.png");
 }
 
 div.timer-counter div.number-8 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/8.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/8.png");
 }
 
 div.timer-counter div.number-9 {
-  background-image: url('/assets/img/GUI-controls/TimerRounds/9.png');
+  background-image: url("/assets/img/GUI-controls/TimerRounds/9.png");
 }
-
-
-
-
 
 /* Shield and Attack Counters */
 img.shield-icon {
@@ -172,12 +179,12 @@ img.attack-icon {
 }
 
 div.counter-box {
-  background: #656F74;
+  background: #656f74;
   width: 50%;
   text-align: right;
   padding: 1% 5% 1% 1%;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 div.opponent-counter-box {
@@ -197,10 +204,6 @@ div.counter-box.opponent-counter {
   right: 18%;
 }
 
-
-
-
-
 /* Table Labels */
 div.table-labels {
   display: flex;
@@ -216,12 +219,9 @@ div.table-labels div.tabol-labol {
   width: 100%;
 }
 
-div.table-labels div.tabol-labol>img {
+div.table-labels div.tabol-labol > img {
   height: 26px;
 }
-
-
-
 
 /* Tally Table */
 div.row.board {
@@ -234,7 +234,7 @@ table.tally.opponent-tally {
 
 table.tally tr td {
   border: 1px solid rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.50);
+  background-color: rgba(255, 255, 255, 0.5);
   width: var(--tally-table-cell-size);
   height: var(--tally-table-cell-size);
   /* TODO: Responsive Table Cells -> Use Media Queries CSS (and of course use bigger/smaller pixels) */
@@ -242,14 +242,15 @@ table.tally tr td {
 }
 
 table.tally tr td.cell-attacked {
-  background-image: url('/assets/img/GUI-controls/MainControls/sword-noBK.png');
-  background-size: cover;
+  background-image: url("/assets/img/GUI-controls/MainControls/ForkNBG.png");
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 table.tally tr td.cell-blocked {
-  background-image: url('/assets/img/GUI-controls/MainControls/sheild-noBK.png');
-  background-size: cover;
+  background-image: url("/assets/img/GUI-controls/MainControls/ShieldNBG.png");
+  background-size: contain;
   background-repeat: no-repeat;
 }
 
@@ -268,10 +269,6 @@ table.tally tr td.round-defeat {
 table.tally tr td.round-defeat.hit {
   background-color: rgba(231, 135, 151, 1);
 }
-
-
-
-
 
 /* Pigeons Container */
 div.pigeons-container {
@@ -300,17 +297,15 @@ div.pigeons-container img.pigeon-left.picking-move-animation {
 
 div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
   animation-name: revert-pigeon-pick-move;
-  animation-fill-mode: forwards;
+  animation-fill-mode: backwards;
   animation-duration: 0.5s;
+  animation-delay: 0.4s;
 }
 
 div.pigeons-container img.pigeon-right {
   right: var(--right-pigeon-distance-from-the-edges);
   z-index: -19;
 }
-
-
-
 
 /* The Hotdog */
 div.hotdog-container {
@@ -330,8 +325,6 @@ div.hotdog-container img.hotdog-pray {
   /* derived from [(the pixels amount) x 100] / 896 */
 }
 
-
-
 /* Health Bars */
 div.health-bars {
   position: absolute;
@@ -344,7 +337,7 @@ div.health-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url('/assets/img/GUI-controls/LifeGUI/LifeLineBG.png');
+  background-image: url("/assets/img/GUI-controls/LifeGUI/LifeLineBG.png");
   background-size: contain;
   background-repeat: no-repeat;
   height: 50px;
@@ -352,27 +345,26 @@ div.health-container {
   padding: 10px;
 }
 
-div>div.heart {
+div > div.heart {
   height: 72%;
   width: 72%;
   /* margin-right: 4px; */
   /* margin-left: 6px; */
 }
 
-div>div.heart-filled {
-  background-image: url('/assets/img/GUI-controls/LifeGUI/Healthplus.png');
+div > div.heart-filled {
+  background-image: url("/assets/img/GUI-controls/LifeGUI/Healthplus.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-div>div.heart-empty {
-  background-image: url('/assets/img/GUI-controls/LifeGUI/Healthminus.png');
+div > div.heart-empty {
+  background-image: url("/assets/img/GUI-controls/LifeGUI/Healthminus.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
-
 
 /* Move Picker */
 div.round-title {
@@ -381,7 +373,7 @@ div.round-title {
   right: -10px;
   height: 40px;
   width: 60%;
-  background-image: url('/assets/img/GUI-controls/Round/Round 1.png');
+  background-image: url("/assets/img/GUI-controls/Round/Round 1.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -390,22 +382,22 @@ div.round-title {
 div.done {
   opacity: 0;
   bottom: 7.5%;
-  left: 47%;
-  z-index: 1500;
+  left: 50%;
+  z-index: 50;
   height: 20%;
-  width: 12%;
-  background-image: url('/assets/img/GUI-controls/MainControls/Done.png');
+  width: 8%;
+  background-image: url("/assets/img/GUI-controls/MainControls/Done1.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.show-animation {
+/* .show-animation {
   animation-name: show-move-picker-overlay;
   animation-fill-mode: forwards;
   animation-duration: 0.8s;
-}
-
+  animation-delay: 0.25s;
+} */
 
 div.move-picker-overlay {
   opacity: 0;
@@ -418,16 +410,18 @@ div.move-picker-overlay {
   border-radius: 8px;
 }
 
-/*div.move-picker-overlay.show-animation {*/
-/*  animation-name: show-move-picker-overlay;*/
-/*  animation-fill-mode: forwards;*/
-/*  animation-duration: 0.8s;*/
-/*}*/
-
-.hide-animation {
-  animation-name: hide-move-picker-overlay;
+div.move-picker-overlay.show-animation {
+  animation-name: slide-in;
   animation-fill-mode: forwards;
   animation-duration: 0.5s;
+  animation-delay: 0.25s;
+}
+
+.hide-animation {
+  animation-name: slide-out;
+  animation-fill-mode: backwards;
+  animation-duration: 0.3s;
+  animation-delay: 0.25s;
 }
 
 div.move-picker-overlay div.row {
@@ -437,8 +431,21 @@ div.move-picker-overlay div.row {
 div.move-picker-overlay div.hints-box {
   font-family: "Comic Sans MS", sans-serif;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   color: #44575d;
+}
+
+.pop-in-animation {
+  animation-name: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 0.2s;
+}
+
+.pop-out-animation {
+  animation-name: pop-out;
+  animation-fill-mode: backwards;
+  animation-duration: 0.2s;
 }
 
 div.moves-placeholder {
@@ -447,7 +454,7 @@ div.moves-placeholder {
   flex-direction: column;
   align-items: center;
   /* right: 7%; */
-  z-index: 1000;
+  z-index: 40;
   right: 23%;
   top: 43%;
 }
@@ -461,33 +468,28 @@ div.mv-placeholder {
 }
 
 div.mv-placeholder.head {
-  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-head.png');
+  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-head.png");
 }
 
 div.mv-placeholder.body {
-  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-body.png');
-
+  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-body.png");
 }
 
 div.mv-placeholder.legs {
-  background-image: url('/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png');
+  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png");
 }
 
 div.mv-placeholder.filled-attack {
   border-radius: 10px;
-  background-color: #FFDC4B;
-  background-image: url('/assets/img/GUI-controls/MainControls/Attack.png');
+  background-color: #ffdc4b;
+  background-image: url("/assets/img/GUI-controls/MainControls/attackfork-1.png");
 }
 
 div.mv-placeholder.filled-block {
   border-radius: 10px;
-  background-color: #FFDC4B;
-  background-image: url('/assets/img/GUI-controls/MainControls/Shield.png');
+  background-color: #ffdc4b;
+  background-image: url("/assets/img/GUI-controls/MainControls/vikingshield-1.png");
 }
-
-
-
-
 
 /* Animations */
 @keyframes pigeon-pick-move {
@@ -518,28 +520,79 @@ div.mv-placeholder.filled-block {
   }
 }
 
-@keyframes show-move-picker-overlay {
+@keyframes slide-in {
   from {
-    /*width: 0;*/
-    opacity: 0;
+    width: 0;
+    opacity: 1;
+    display: none;
   }
 
   to {
-    /*width: 30%;*/
+    width: 30%;
     opacity: 1;
     display: block;
   }
 }
 
-@keyframes hide-move-picker-overlay {
+@keyframes slide-out {
   from {
-    /*width: 30%;*/
+    width: 30%;
     opacity: 1;
+    display: block;
   }
 
   to {
-    /*width: 0;*/
+    width: 0;
     opacity: 0;
     display: none;
   }
+}
+
+@keyframes pop-in {
+  50% {
+    transform: scale(1.3);
+    opacity: 0;
+    display: none;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    display: block;
+  }
+}
+
+@keyframes pop-out {
+  50% {
+    transform: scale(1);
+    opacity: 1;
+    display: block;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+
+
+@media only screen and (min-width: 600px) and (orientation: landscape) {
+  div.flip-overlay {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+  div.flip-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    left: 0;
+    background-color: #FFDC4B;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 }
