@@ -38,7 +38,7 @@ class RoundMove {
 
     // Gets the valid move type, safely.
     static getValidMoveType(moveType) {
-        return (RoundMove.moveTypeEnum.indexOf(moveType) > -1) ? moveType : 'attack';
+        return (RoundMove.moveTypeEnum.indexOf(moveType) > -1) ? moveType : 'none';
     }
 
     // Converts the properties to a JSON object to be used in other places of the application without errors.

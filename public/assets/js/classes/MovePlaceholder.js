@@ -37,13 +37,16 @@ class MovePlaceholder {
     }
 
     check() {
+        if (this.moveType === 'none') {
+            return;
+        }
+
         this.checked = !this.checked;
-        
         if (this.checked) {
             /* do stuff as if it's ON */
             if (Inventory.all[`${this.moveType}-left`].counter === 0) { // if we have no inventory left, don't do place a move
                 this.checked = !this.checked;
-                Move.myMoves[this.bodyPartType] = null;
+                Players.all.player1.moves[this.bodyPartType] = 'none';
             } else {
                 this.target.classList.add(`filled-${this.moveType}`);
                 this.movePlaced = this.moveType;
@@ -69,9 +72,9 @@ class MovePlaceholder {
 
 
     static all = {
-        'head': new MovePlaceholder('head', null, null),
+        /* 'head': new MovePlaceholder('head', null, null),
         'body': new MovePlaceholder('body', null, null),
-        'legs': new MovePlaceholder('legs', null, null)
+        'legs': new MovePlaceholder('legs', null, null) */
     };
 }
 

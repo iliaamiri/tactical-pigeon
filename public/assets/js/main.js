@@ -12,6 +12,12 @@ import RoundMove from "./helpers/RoundMove.js";
 Players.all.player1 = new Player("AklBm4", "Me");
 Players.all.player2 = new BotPlayer();
 
+MovePlaceholder.all = {
+    'head': new MovePlaceholder('head', 'none', null),
+    'body': new MovePlaceholder('body', 'none', null),
+    'legs': new MovePlaceholder('legs', 'none', null)
+};
+
 let currentSelectedInventory;
 
 const gameResultEnum = ['loss', 'win', 'draw'];
@@ -47,11 +53,12 @@ const roundCounterMax = 5; // 5 rounds per game
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
     setTimeout(() => {
-        MovePlaceholder.checked = false;
+        
+        //MovePlaceholder.checked = false;
         MovePlaceholder.all = {
-            'head': new MovePlaceholder('head', null, null),
-            'body': new MovePlaceholder('body', null, null),
-            'legs': new MovePlaceholder('legs', null, null)
+            'head': new MovePlaceholder('head', 'none', null),
+            'body': new MovePlaceholder('body', 'none', null),
+            'legs': new MovePlaceholder('legs', 'none', null)
         };
 
         //Move.myMoves = {
@@ -61,13 +68,20 @@ function clearBoardForNewRound() {
         //};
         //Move.selectedMoveType = null;
         Players.all.player1.resetMoves();
-        RoundMove.selectedMoveType = null;
+        RoundMove.selectedMoveType = 'none';
+
+        console.log('MovePlaceholder', MovePlaceholder.all);
 
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
             element.classList.remove('filled-block');
             element.classList.remove('filled-attack');
-        })
+        });
+
+        document.querySelectorAll('.pop-out-animation').forEach((element) => {
+            element.classList.add('pop-in-animation');
+            element.classList.remove('pop-out-animation');
+        });
 
         const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
         console.log('left pigeon', leftPigeon);
@@ -207,7 +221,7 @@ document.querySelector('img.my-attack').addEventListener('click', async event =>
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
     let target = event.target;
     console.log('selectedMoveType', RoundMove.selectedMoveType);
-    if (target.tagName === 'DIV' && RoundMove.selectedMoveType && target.classList.contains('mv-placeholder')) {
+    if (target.tagName === 'DIV' && (RoundMove.selectedMoveType !== 'none') && target.classList.contains('mv-placeholder')) {
         let bodyPartType;
         if (target.classList.contains('head')) {
             console.log('hitting head');
