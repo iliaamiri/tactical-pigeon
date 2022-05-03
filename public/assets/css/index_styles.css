@@ -5,7 +5,13 @@
 body {
   margin: 0;
   background-color: #B1D2D1;
-  min-height: 100vh;
+  min-height: 100vh; 
+}
+
+p {
+  font-family: 'Titan One', cursive;
+  color: #4f7c93;
+  font-size: 1.5rem;
 }
 
 div.container {
@@ -17,16 +23,16 @@ div.container {
 
 div.start {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   background-image: url('/assets/img/TPguielements-starting-09.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 45vh;
-  width: 21vw;
+  height: 55vh;
+  width: 36vw; 
   align-items: center;
   justify-content: center;
-  margin: 2em;
+  padding: 3%;
 }
 
 div.logo {
@@ -38,12 +44,12 @@ div.logo {
 }
 
 div.start img {
-  height: 10vh;
-  /* TODO MAKE BUTTON RESIZE WITH SCREEN WIDTH */
+  height: 14vh;
+  margin-top: 15px;
 }
 
 div.logo img {
-  height: 45vh;
+  height: 50vh;
 }
 
 button {
@@ -51,3 +57,102 @@ button {
   background-color: transparent;
   border: none;
 }
+
+input {
+  padding: 6px;
+  margin-top: -5px;
+  border-radius: 3px; 
+  display:inline-block;
+  font-family: 'Titan One', cursive;
+  color: #4f7c93;
+  font-size:1.5vw;
+  text-align:center;
+  letter-spacing: 1px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  input {
+    width: 20vw;
+    height:auto;
+    margin:0;
+    padding:2px;
+  }
+
+  p {
+    font-size: 2.3vw;
+  }
+
+  div.start img {
+    width: 25vw;
+    height:auto;
+    margin-bottom: 10px;
+  }
+
+  div.start {
+    height: 60vh;
+    width: 45vw;
+    margin: 0;
+  }
+
+  div.logo img {
+    width: 52vw;
+    height:auto;
+  }
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  input {
+    width: 25vw;
+    margin:0;
+    font-size:1.7vw;
+  }
+  
+  div.start {
+    height: 60vh;
+    width: 40vw;
+    margin: 0;
+  }
+   div.start img {
+    width: 22vw;
+    height:auto;
+  }
+
+  p {
+    font-size:2.7vw;
+  }
+
+  div.logo img {
+    width: 50vw;
+    height:auto;
+  }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  input {
+    width: 20vw;
+    margin:0;
+    font-size:1.7vw;
+  }
+  p{
+    font-size:2.3vw;
+  }
+  div.start img {
+    width: 16vw;
+    height:auto;
+    margin-bottom: 10px;
+  }
+  div.logo img {
+    width: 40vw;
+    height:auto;
+  }
+  div.container {
+    margin-left: 12vw;
+    margin-right: 12vw;
+  }
+}
+
