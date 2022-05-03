@@ -49,12 +49,6 @@ class MovePlaceholder {
                 Inventory.all[`${this.moveType}-left`].decreaseCounter();
             }
             
-            /* if (this.moveType === 'attack') {
-                Inventory.all['attack-left'].decreaseCounter();
-            } else if (this.moveType === 'block') {
-                Inventory.all['block-left'].decreaseCounter();
-            } */
-            
         } else {
             /* do stuff as if it's OFF */
             console.log("ay?")
