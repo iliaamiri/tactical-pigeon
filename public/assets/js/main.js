@@ -12,10 +12,11 @@ import RoundMove from "./helpers/RoundMove.js";
 Players.all.player1 = new Player("AklBm4", "Me");
 Players.all.player2 = new BotPlayer();
 
+// Initiating the move placeholders.
 MovePlaceholder.all = {
-    'head': new MovePlaceholder('head', 'none', null),
-    'body': new MovePlaceholder('body', 'none', null),
-    'legs': new MovePlaceholder('legs', 'none', null)
+    'head': new MovePlaceholder('head'),
+    'body': new MovePlaceholder('body'),
+    'legs': new MovePlaceholder('legs')
 };
 
 let currentSelectedInventory;
@@ -55,11 +56,16 @@ function clearBoardForNewRound() {
     setTimeout(() => {
         
         //MovePlaceholder.checked = false;
-        MovePlaceholder.all = {
-            'head': new MovePlaceholder('head', 'none', null),
-            'body': new MovePlaceholder('body', 'none', null),
-            'legs': new MovePlaceholder('legs', 'none', null)
-        };
+
+        // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
+        // MovePlaceholder.all = {
+        //     'head': new MovePlaceholder('head'),
+        //     'body': new MovePlaceholder('body'),
+        //     'legs': new MovePlaceholder('legs')
+        // };
+
+        // Resetting/Re-initializing the MovePlaceholders
+        MovePlaceholder.resetAll();
 
         //Move.myMoves = {
             //head: null,
@@ -239,8 +245,11 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
         currentMovePlaceholder.bodyPartType = bodyPartType;
         currentMovePlaceholder.moveType = RoundMove.selectedMoveType;
-        currentMovePlaceholder.target = target;
+
+        // -- We don't need this anymore, because we are already giving this to the instance when we initialize it (See MovePlaceholder.js constructor function).
+        //currentMovePlaceholder.target = target;
         currentMovePlaceholder.check();
+
         console.log('currentMovePlaceholder', currentMovePlaceholder);
         console.log('my moves object', Players.all.player1.moves);
     }

@@ -5,16 +5,21 @@ import Players from "../helpers/Players.js";
 class MovePlaceholder {
     checked = false;
 
+    // The placeholder body-type. It can be either of these three: `head`, `body`, `legs`.
     #bodyPartType;
 
-    #moveType;
+    // The move type that the user selected. This value is 'none' by default. It will be changed later for every instance.
+    #moveType = 'none';
 
+    // The move the user placed on a particular placeholder. This value is 'none' by default and will be changed later.
+    movePlaced = 'none';
+
+    // The DOM element corresponding to either the `head`, `body`, or `legs` placeholders.
     target;
 
-    constructor(bodyPartType, selectedMoveType, target) {
-        this.moveType = selectedMoveType;
-        this.target = target;
-        this.movePlaced = this.moveType;
+    constructor(bodyPartType) {
+        // Here, at the very beginning of initializing this, we tell the instance to recognize the DOM element.
+        this.target = document.querySelector(`div.mv-placeholder.${bodyPartType}`);
         this.bodyPartType = bodyPartType;
     }
 
@@ -69,7 +74,16 @@ class MovePlaceholder {
         }
     }
 
-
+    /**
+     * Resets/Re-initialize every placeholder to make it ready for the next round.
+     */
+    static resetAll() {
+        MovePlaceholder.all = {
+            'head': new MovePlaceholder('head'),
+            'body': new MovePlaceholder('body'),
+            'legs': new MovePlaceholder('legs')
+        }
+    }
 
     static all = {
         /* 'head': new MovePlaceholder('head', null, null),
