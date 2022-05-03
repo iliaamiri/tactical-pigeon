@@ -22,6 +22,7 @@ function tripletCompare(moves) {
     let twos = moves.filter(number => number === 2).length;
 
     if (ones > twos) {
+        console.log()
         return 1
     } else if (ones < twos) {
         return 2
@@ -58,21 +59,64 @@ function tripletCompare(moves) {
     'head': 'attack',
     'body': 'block',
     'legs': null
-    }
+    };
 
   console.log('opponentMove', opponentMove);
+
+
+
+
+let roundCounter = 1; // easier to start at 1 to use in nth-child()
+const roundCounterMax = 5; // 5 rounds per game
+
+// simple timeout between rounds, no extra animations
+function clearBoardForNewRound() {
+    if (roundCounter < roundCounterMax) {
+        
+    }
+    setTimeout(() => {
+        MovePlaceholder.checked = false;
+        MovePlaceholder.all = {};
+
+        Move.myMoves = {
+            head: null,
+            body: null,
+            legs: null
+        };
+        Move.selectedMoveType = null;
+
+
+
+        document.querySelectorAll('div.mv-placeholder').forEach((element) => {
+            element.classList.remove('filled-block');
+            element.classList.remove('filled-attack');
+        })
+
+        const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+        console.log('left pigeon', leftPigeon);
+        leftPigeon.classList.add('picking-move-animation');
+        leftPigeon.classList.remove('revert-pigeon-pick-move');
+
+        document.querySelectorAll('.hide-animation').forEach(element => {
+            element.classList.add('show-animation');
+            element.classList.remove('hide-animation');
+        });
+    }, 2000);
+};
+
+
+
 
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
 });
 
 document.querySelector('div.done').addEventListener('click', async event => {
-    console.log("HERE")
-    let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
-   
-    console.log('my', myTallyFirstColumn);
-    
-    myTallyFirstColumn.forEach((td, index) => {
+    console.log("HERE");
+
+    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
+    console.log('my column', myTallyColumn);
+    myTallyColumn.forEach((td, index) => {
         let moveComponent = Object.values(Move.myMoves)[index];
         if (moveComponent === 'attack') {
             td.classList.add('cell-attacked');
@@ -82,9 +126,9 @@ document.querySelector('div.done').addEventListener('click', async event => {
         
     });
 
-    let opponentTallyFirstColumn = document.querySelectorAll('table.tally.opponent-tally td:first-child');
-    console.log('opponent', opponentTallyFirstColumn);
-    opponentTallyFirstColumn.forEach((td, index) => {
+    let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
+    console.log('opponent', opponentTallyColumn);
+    opponentTallyColumn.forEach((td, index) => {
         let moveComponent = Object.values(opponentMove)[index];
         if (moveComponent === 'attack') {
             td.classList.add('cell-attacked');
@@ -107,26 +151,26 @@ document.querySelector('div.done').addEventListener('click', async event => {
 
     let roundResult = tripletCompare(playerMoves);
     if (roundResult === 1) {
-        myTallyFirstColumn.forEach(td => {
+        myTallyColumn.forEach(td => {
             td.classList.add('round-won');
         });
-        opponentTallyFirstColumn.forEach(td => {
+        opponentTallyColumn.forEach(td => {
             td.classList.add('round-defeat');
         });
         Life.all.opponentLife.decreaseCounter();
     } else if (roundResult === 2) {
-        myTallyFirstColumn.forEach(td => {
+        myTallyColumn.forEach(td => {
             td.classList.add('round-defeat');
         });
-        opponentTallyFirstColumn.forEach(td => {
+        opponentTallyColumn.forEach(td => {
             td.classList.add('round-won');
         });
         Life.all.myLife.decreaseCounter();
     } else {
-        myTallyFirstColumn.forEach(td => {
+        myTallyColumn.forEach(td => {
             td.classList.add('round-draw');
         });
-        opponentTallyFirstColumn.forEach(td => {
+        opponentTallyColumn.forEach(td => {
             td.classList.add('round-draw');
         });
     }
@@ -140,6 +184,13 @@ document.querySelector('div.done').addEventListener('click', async event => {
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
+
+    if (roundCounter < roundCounterMax) {
+        clearBoardForNewRound();
+        roundCounter++;
+    }
+
+    
 });
 
 document.querySelector('img.my-shield').addEventListener('click', async event => {
@@ -186,7 +237,7 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         }
 
         currentMovePlaceholder.check();
-        console.log(currentMovePlaceholder);
+        console.log('currentMovePlaceholder', currentMovePlaceholder);
         console.log('my moves object', Move.myMoves);
     }
 });
