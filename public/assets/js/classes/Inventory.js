@@ -31,21 +31,21 @@ class Inventory {
         } else {
             this.#counter = intendedResult;
         }
+
+        this.element.innerHTML = `X${this.counter}`;
     }
 
     increaseCounter() {
         this.counter++;
-        this.element.innerHTML = `X${this.counter}`;
     }
 
     decreaseCounter() {
         this.counter--;
-        this.element.innerHTML = `X${this.counter}`;
     }
 
     static all = {
-        'myBlock': new Inventory('block', myBlockCounter),
-        'myAttack': new Inventory('attack', myAttackCounter),
+        'block-left': new Inventory('block', myBlockCounter),
+        'attack-left': new Inventory('attack', myAttackCounter),
         'opponentBlock': new Inventory('block', opponentBlockCounter),
         'opponentAttack': new Inventory('attack', opponentAttackCounter)
     }

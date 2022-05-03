@@ -1,5 +1,6 @@
-import Move from './Move.js';
 import Inventory from './Inventory.js';
+import RoundMove from "../helpers/RoundMove.js";
+import Players from "../helpers/Players.js";
 
 class MovePlaceholder {
     checked = false;
@@ -25,13 +26,14 @@ class MovePlaceholder {
 
     get moveType() { return this.#moveType; }
     set moveType(newMoveType) {
-        if (Move.moveTypeEnum.includes(newMoveType)) {
+        if (RoundMove.moveTypeEnum.includes(newMoveType)) {
             this.#moveType = newMoveType;
         }
     }
 
     changeMove(newMove) {
-        Move.myMoves[this.bodyPartType] = newMove;
+        console.log(Players.all.player1.moves)
+        Players.all.player1.moves[this.bodyPartType] = newMove;
     }
 
     check() {
@@ -39,24 +41,25 @@ class MovePlaceholder {
         
         if (this.checked) {
             /* do stuff as if it's ON */
-            this.target.classList.add(`filled-${this.moveType}`);
-            this.movePlaced = this.moveType;
-            this.changeMove(this.movePlaced);
-            if (this.moveType === 'attack') {
-                Inventory.all.myAttack.decreaseCounter();
-            } else if (this.moveType === 'block') {
-                Inventory.all.myBlock.decreaseCounter();
+            if (Inventory.all[`${this.moveType}-left`].counter === 0) { // if we have no inventory left, don't do place a move
+                this.checked = !this.checked;
+                Move.myMoves[this.bodyPartType] = null;
+            } else {
+                this.target.classList.add(`filled-${this.moveType}`);
+                this.movePlaced = this.moveType;
+                this.changeMove(this.movePlaced);
+                Inventory.all[`${this.moveType}-left`].decreaseCounter();
             }
             
         } else {
             /* do stuff as if it's OFF */
             console.log("ay?")
-            this.target.classList.remove(`filled-${Move.moveTypeEnum[0]}`, `filled-${Move.moveTypeEnum[1]}`);
+            this.target.classList.remove(`filled-${RoundMove.moveTypeEnum[0]}`, `filled-${RoundMove.moveTypeEnum[1]}`);
             this.changeMove(null);
             if (this.movePlaced === 'attack') {
-                Inventory.all.myAttack.increaseCounter();
+                Inventory.all['attack-left'].increaseCounter();
             } else if (this.movePlaced === 'block') {
-                Inventory.all.myBlock.increaseCounter();
+                Inventory.all['block-left'].increaseCounter();
             }
 
             this.movePlaced = null;
@@ -65,7 +68,11 @@ class MovePlaceholder {
 
 
 
-    static all = {};
+    static all = {
+        'head': new MovePlaceholder('head', null, null),
+        'body': new MovePlaceholder('body', null, null),
+        'legs': new MovePlaceholder('legs', null, null)
+    };
 }
 
 export default MovePlaceholder;
