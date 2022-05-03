@@ -71,12 +71,13 @@ const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
-    if (roundCounter < roundCounterMax) {
-        
-    }
     setTimeout(() => {
         MovePlaceholder.checked = false;
-        MovePlaceholder.all = {};
+        MovePlaceholder.all = {
+            'head': new MovePlaceholder('head', null, null),
+            'body': new MovePlaceholder('body', null, null),
+            'legs': new MovePlaceholder('legs', null, null)
+        };
 
         Move.myMoves = {
             head: null,
@@ -188,23 +189,25 @@ document.querySelector('div.done').addEventListener('click', async event => {
     if (roundCounter < roundCounterMax) {
         clearBoardForNewRound();
         roundCounter++;
+    } else {
+        window.alert("Thank you for playing! Refresh the page to play again!");
     }
 
     
 });
 
 document.querySelector('img.my-shield').addEventListener('click', async event => {
-    console.log('shield success!');
+    console.log('shield selector hit!');
     Move.selectedMoveType = 'block';
     const myBlockCounter = document.querySelector('span.my-block-counter');
-    currentSelectedInventory = Inventory.all['myBlock'];
+    currentSelectedInventory = Inventory.all['block-left'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
-    console.log('sword success!');
+    console.log('sword selector hit!');
     Move.selectedMoveType = 'attack';
     const myAttackCounter = document.querySelector('span.my-attack-counter');
-    currentSelectedInventory = Inventory.all['myAttack'];
+    currentSelectedInventory = Inventory.all['attack-left'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
@@ -227,16 +230,12 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         }
 
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
-        if (currentMovePlaceholder) {
-            currentMovePlaceholder.bodyPartType = bodyPartType;
-            currentMovePlaceholder.moveType = Move.selectedMoveType;
-            currentMovePlaceholder.target = target;
-        } else {
-            MovePlaceholder.all[bodyPartType] = new MovePlaceholder(bodyPartType, Move.selectedMoveType, target);
-            currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
-        }
+        currentMovePlaceholder.bodyPartType = bodyPartType;
+        currentMovePlaceholder.moveType = Move.selectedMoveType;
+        currentMovePlaceholder.target = target;
 
         currentMovePlaceholder.check();
+
         console.log('currentMovePlaceholder', currentMovePlaceholder);
         console.log('my moves object', Move.myMoves);
     }
