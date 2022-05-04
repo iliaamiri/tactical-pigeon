@@ -61,8 +61,6 @@ const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
-    setTimeout(() => {
-
         //MovePlaceholder.checked = false;
 
         // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
@@ -84,7 +82,7 @@ function clearBoardForNewRound() {
         Players.all.player1.resetMoves();
         RoundMove.selectedMoveType = 'none';
 
-        console.log('MovePlaceholder', MovePlaceholder.all);
+        //console.log('MovePlaceholder', MovePlaceholder.all);
 
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
@@ -98,7 +96,7 @@ function clearBoardForNewRound() {
         });
 
         const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-        console.log('left pigeon', leftPigeon);
+        //console.log('left pigeon', leftPigeon);
         leftPigeon.classList.add('picking-move-animation');
         leftPigeon.classList.remove('revert-pigeon-pick-move');
 
@@ -106,8 +104,8 @@ function clearBoardForNewRound() {
             element.classList.add('show-animation');
             element.classList.remove('hide-animation');
         });
-
-        // Enabling everything back for the next new round
+  
+   // Enabling everything back for the next new round
         doneButton.enableClick(); // enabling done button
 
         Object.values(AmmoIcon.all)
@@ -115,8 +113,42 @@ function clearBoardForNewRound() {
 
         Object.values(MovePlaceholder.all)
             .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
-    }, 2000);
-}
+
+};
+
+
+function calculateGameResults() {
+    console.log('calculating game results...');
+    if (Life.all.myLife.counter > Life.all.opponentLife.counter) {
+        //console.log('my lives', Life.all.myLife.counter);
+        //console.log('opponent lives', Life.all.opponentLife.counter);
+        return 'win';
+    } else if (Life.all.myLife.counter < Life.all.opponentLife.counter) {
+        //console.log('my lives', Life.all.myLife.counter);
+        //console.log('opponent lives', Life.all.opponentLife.counter);
+        return 'lose';
+    }
+
+    // if there's a draw, one can win by inventory counts
+    let leftPlayerTotalInventory = Inventory.all['attack-left'].counter + Inventory.all['block-left'].counter;
+    let rightPlayerTotalInventory = Inventory.all.opponentAttack.counter + Inventory.all.opponentBlock.counter;
+    if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
+        /* console.log('my lives', Life.all.myLife.counter);
+        console.log('opponent lives', Life.all.opponentLife.counter);
+        console.log('my total inventory', leftPlayerTotalInventory);
+        console.log('opponent total inventory', rightPlayerTotalInventory); */
+        return 'win';
+    } else if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
+        /* console.log('my lives', Life.all.myLife.counter);
+        console.log('opponent lives', Life.all.opponentLife.counter);
+        console.log('my total inventory', leftPlayerTotalInventory);
+        console.log('opponent total inventory', rightPlayerTotalInventory); */
+        return 'draw';
+    }
+
+    // if lives and inventories are exactly equal,
+    return 'draw';
+};
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
@@ -126,8 +158,6 @@ document.querySelector('body').addEventListener('click', async event => {
 
     // Checking if this element is not clickable
     let anyClosestCurrentlyNotClickable = target.closest('*.currently-not-clickable');
-
-    console.log("AYO? ----------------", anyClosestCurrentlyNotClickable)
 
     if (anyClosestCurrentlyNotClickable) { // If it was not, just return here. Don't execute further. Stop. Die.
         return;
@@ -154,6 +184,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
         // Generating the Bot player's moves.
         const opponentMove = Players.all.player2.generateRandomMoves();
+
 
         //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
 
@@ -229,13 +260,13 @@ document.querySelector('body').addEventListener('click', async event => {
 
 
     document.querySelectorAll('.show-animation').forEach(element => {
-        console.log('element', element);
+        //console.log('element', element);
         element.classList.add('hide-animation');
         element.classList.remove('show-animation');
     });
 
     document.querySelectorAll('.pop-in-animation').forEach(element => {
-        console.log('element',element);
+        //console.log('element', element);
         element.classList.add('pop-out-animation');
         element.classList.remove('pop-in-animation');
     });
@@ -243,13 +274,25 @@ document.querySelector('body').addEventListener('click', async event => {
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
+
     document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
     document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
-    if (roundCounter < roundCounterMax && (Life.all.myLife.counter > 0) && (Life.all.opponentLife.counter > 0)) {
-        clearBoardForNewRound();
-        roundCounter++;
+    //console.log('*** round finished ***');
+    console.log('life.all', Life.all);
+    if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
+        setTimeout(() => {
+            clearBoardForNewRound();
+            roundCounter++;
+        }, 2000);
     } else {
-        window.alert("Thank you for playing! Refresh the page to play again!");
+        setTimeout(() => {
+            //clearBoardForNewRound();
+            window.alert(calculateGameResults());
+            setTimeout(() => {
+                window.alert("Thank you for playing! Refresh the page to play again!");
+            }, 500);
+        }, 2000);
+  
     }
 
     /* ---- My Ammo ---- */
@@ -291,6 +334,7 @@ document.querySelector('body').addEventListener('click', async event => {
     ) {
         console.log('selectedMoveType', RoundMove.selectedMoveType);
         let bodyPartType;
+        //console.log('hello!');
         if (target.classList.contains('head')) {
             bodyPartType = 'head';
         } else if (target.classList.contains('body')) {
@@ -308,8 +352,8 @@ document.querySelector('body').addEventListener('click', async event => {
         //currentMovePlaceholder.target = target;
         currentMovePlaceholder.check();
 
-        console.log('currentMovePlaceholder', currentMovePlaceholder);
-        console.log('my moves object', Players.all.player1.moves);
+        //console.log('currentMovePlaceholder', currentMovePlaceholder);
+        //console.log('my moves object', Players.all.player1.moves);
     }
 });
 

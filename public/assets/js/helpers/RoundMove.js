@@ -38,6 +38,8 @@ class RoundMove {
 
     // Gets the valid move type, safely.
     static getValidMoveType(moveType) {
+        //console.log('movetype enum', RoundMove.moveTypeEnum);
+        //console.log('index of movetype', RoundMove.moveTypeEnum.indexOf(moveType));
         return (RoundMove.moveTypeEnum.indexOf(moveType) > -1) ? moveType : 'none';
     }
 
