@@ -228,6 +228,15 @@ document.querySelector('body').addEventListener('click', async event => {
             // connect result calculation here
             let resultOverlay = document.querySelector(".result-banner");
             resultOverlay.classList.add('victory');
+            let gameResult = calculateGameResults();
+            console.log('game result', gameResult);
+            if (gameResult === 'win') {
+                resultOverlay.classList.add('victory');
+            } else if (gameResult === 'loss') {
+                resultOverlay.classList.add('defeat');
+            } else {
+                resultOverlay.classList.add('draw');
+            }
             // resultOverlay.classList.add('draw');
             // resultOverlay.classList.add('defeat');
             // console.log(resultOverlay);
