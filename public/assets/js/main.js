@@ -227,17 +227,29 @@ document.querySelector('body').addEventListener('click', async event => {
             element.classList.remove('pop-in-animation');
         });
 
-        let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
-        pigeon.classList.add('revert-pigeon-pick-move');
-        pigeon.classList.remove('picking-move-animation');
-        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png")
-        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png")
-        if (roundCounter < roundCounterMax) {
-            clearBoardForNewRound();
-            roundCounter++;
-        } else {
-            window.alert("Thank you for playing! Refresh the page to play again!");
-        }
+
+    document.querySelectorAll('.show-animation').forEach(element => {
+        console.log('element', element);
+        element.classList.add('hide-animation');
+        element.classList.remove('show-animation');
+    });
+
+    document.querySelectorAll('.pop-in-animation').forEach(element => {
+        console.log('element',element);
+        element.classList.add('pop-out-animation');
+        element.classList.remove('pop-in-animation');
+    });
+
+    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+    pigeon.classList.add('revert-pigeon-pick-move');
+    pigeon.classList.remove('picking-move-animation');
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+    if (roundCounter < roundCounterMax && (Life.all.myLife.counter > 0) && (Life.all.opponentLife.counter > 0)) {
+        clearBoardForNewRound();
+        roundCounter++;
+    } else {
+        window.alert("Thank you for playing! Refresh the page to play again!");
     }
 
     /* ---- My Ammo ---- */
