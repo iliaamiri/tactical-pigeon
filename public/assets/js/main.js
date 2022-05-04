@@ -187,8 +187,8 @@ document.querySelector('body').addEventListener('click', async event => {
     }
 
   if (target.tagName === "DIV" && target.classList.contains("play-again")) {
-      console.log("user wants to play again!")
-    return location.reload()
+    console.log("user wants to play again!")
+    return location.reload();
 
     // Do not delete this yet
     // let replayBtn = document.querySelector(".play-again")
@@ -235,7 +235,7 @@ document.querySelector('body').addEventListener('click', async event => {
     // // reset timer
   // windows reload 
   // or reset everything 
-}
+    }
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
 
@@ -332,59 +332,60 @@ document.querySelector('body').addEventListener('click', async event => {
         });
 
 
-    document.querySelectorAll('.show-animation').forEach(element => {
-        //console.log('element', element);
-        element.classList.add('hide-animation');
-        element.classList.remove('show-animation');
-    });
+        document.querySelectorAll('.show-animation').forEach(element => {
+            //console.log('element', element);
+            element.classList.add('hide-animation');
+            element.classList.remove('show-animation');
+        });
 
-    document.querySelectorAll('.pop-in-animation').forEach(element => {
-        //console.log('element', element);
+        document.querySelectorAll('.pop-in-animation').forEach(element => {
+            //console.log('element', element);
 
-        element.classList.add('pop-out-animation');
-        element.classList.remove('pop-in-animation');
-    });
+            element.classList.add('pop-out-animation');
+            element.classList.remove('pop-in-animation');
+        });
 
-    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+        let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
 
-    pigeon.classList.add('revert-pigeon-pick-move');
-    pigeon.classList.remove('picking-move-animation');
+        pigeon.classList.add('revert-pigeon-pick-move');
+        pigeon.classList.remove('picking-move-animation');
 
 
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
-    //console.log('*** round finished ***');
-    console.log('life.all', Life.all);
-    if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
-        setTimeout(() => {
-            roundCounter++;
-            clearBoardForNewRound();
-        }, 2000);
-    } else {
-        setTimeout(() => {
-            //clearBoardForNewRound();
-            window.alert(calculateGameResults());
+        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
+        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+        //console.log('*** round finished ***');
+        console.log('life.all', Life.all);
+        if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
             setTimeout(() => {
-                // results tied to clicking the done button, results show faster than animation though
-        // connect result calculation here
+                roundCounter++;
+                clearBoardForNewRound();
+            }, 2000);
+        } else {
+            setTimeout(() => {
+                //clearBoardForNewRound();
+                window.alert(calculateGameResults());
+                setTimeout(() => {
+                    // results tied to clicking the done button, results show faster than animation though
+                    // connect result calculation here
 
-        let resultOverlay = document.querySelector(".result-banner");
-        resultOverlay.classList.add('victory');
-        // resultOverlay.classList.add('draw');
-        // resultOverlay.classList.add('defeat');
+                    let resultOverlay = document.querySelector(".result-banner");
+                    resultOverlay.classList.add('victory');
+                    // resultOverlay.classList.add('draw');
+                    // resultOverlay.classList.add('defeat');
 
-        console.log(resultOverlay);
+                    console.log(resultOverlay);
 
-        let replayBtn = document.querySelector(".play-again");
-        replayBtn.classList.add('replay-in-animation');
-        replayBtn.classList.remove('replay-out-animation');
+                    let replayBtn = document.querySelector(".play-again");
+                    replayBtn.classList.add('replay-in-animation');
+                    replayBtn.classList.remove('replay-out-animation');
 
-        document.querySelector('div.done').classList.add('d-none');
-        document.querySelector('div.moves-placeholder').classList.add('d-none');
+                    document.querySelector('div.done').classList.add('d-none');
+                    document.querySelector('div.moves-placeholder').classList.add('d-none');
 
-        roundCounter = 1;
-            }, 500);
-        }, 2000);
+                    roundCounter = 1;
+                }, 500);
+            }, 2000);
+        }
     }
 
     /* ---- My Ammo ---- */
