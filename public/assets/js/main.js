@@ -1,6 +1,12 @@
+// Importing the init.js and calling the function BEFORE EVERYTHING.
+import init from "./init.js";
+init();
+
+// Component classes
 import MovePlaceholder from './components/MovePlaceholder.js';
-import Inventory from "./components/Inventory.js";
+// import Inventory from "./components/Inventory.js";
 import Life from './components/Life.js';
+import AmmoIcon from "./components/AmmoIcon.js";
 
 // Helpers
 import Players from "./helpers/Players.js";
@@ -19,7 +25,10 @@ MovePlaceholder.all = {
     'legs': new MovePlaceholder('legs')
 };
 
-let currentSelectedInventory;
+// let currentSelectedInventory;
+
+// We need to have this DOM element for enabling/disabling it later on.
+const doneButton = document.querySelector('div.done');
 
 const gameResultEnum = ['loss', 'win', 'draw'];
 
@@ -47,14 +56,11 @@ function tripletCompare(moves) {
 }
 
 
-
 let roundCounter = 1; // easier to start at 1 to use in nth-child()
 const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
-
-        
         //MovePlaceholder.checked = false;
 
         // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
@@ -68,9 +74,9 @@ function clearBoardForNewRound() {
         MovePlaceholder.resetAll();
 
         //Move.myMoves = {
-            //head: null,
-            //body: null,
-            //legs: null
+        //head: null,
+        //body: null,
+        //legs: null
         //};
         //Move.selectedMoveType = null;
         Players.all.player1.resetMoves();
@@ -98,10 +104,17 @@ function clearBoardForNewRound() {
             element.classList.add('show-animation');
             element.classList.remove('hide-animation');
         });
+  
+   // Enabling everything back for the next new round
+        doneButton.enableClick(); // enabling done button
+
+        Object.values(AmmoIcon.all)
+            .map(ammoIconComponent => ammoIconComponent.iconElement.enableClick()); // enabling inventory ammo images/buttons.
+
+        Object.values(MovePlaceholder.all)
+            .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
 
 };
-
-
 
 
 function calculateGameResults() {
@@ -137,84 +150,114 @@ function calculateGameResults() {
     return 'draw';
 };
 
-
-
-
+// Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
-});
 
-document.querySelector('div.done').addEventListener('click', async event => {
+    let target = event.target;
 
-    //console.log("HERE");
+    // Checking if this element is not clickable
+    let anyClosestCurrentlyNotClickable = target.closest('*.currently-not-clickable');
 
-    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
-    //console.log('my column', myTallyColumn);
-    //myTallyColumn.forEach((td, index) => {
+    if (anyClosestCurrentlyNotClickable) { // If it was not, just return here. Don't execute further. Stop. Die.
+        return;
+    }
+
+    /* ---- Done ---- */
+    if (target.tagName === "DIV" && target.classList.contains('done')) {
+
+        console.log("DONE CLICKED");
+
+        // disabling buttons for a moment
+        target.disableClick(); // disabling done button
+
+        Object.values(AmmoIcon.all)
+            .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
+
+        Object.values(MovePlaceholder.all)
+            .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
+
+        let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
+        console.log('my column', myTallyColumn);
+        //myTallyColumn.forEach((td, index) => {
         //let moveComponent = Object.values(Move.myMoves)[index];
 
-    // Generating the Bot player's moves.
-    const opponentMove = Players.all.player2.generateRandomMoves();
+        // Generating the Bot player's moves.
+        const opponentMove = Players.all.player2.generateRandomMoves();
 
-    //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
 
-    myTallyColumn.forEach((td, index) => {
-        let moveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
+        //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
 
-        if (moveComponent === 'attack') {
-            td.classList.add('cell-attacked');
-        } else if (moveComponent === 'block') {
-            td.classList.add('cell-blocked');
+        myTallyColumn.forEach((td, index) => {
+            let moveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
+
+            if (moveComponent === 'attack') {
+                td.classList.add('cell-attacked');
+            } else if (moveComponent === 'block') {
+                td.classList.add('cell-blocked');
+            }
+
+        });
+
+        let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
+        console.log('opponent', opponentTallyColumn);
+        opponentTallyColumn.forEach((td, index) => {
+            let moveComponent = Object.values(opponentMove)[index];
+            if (moveComponent === 'attack') {
+                td.classList.add('cell-attacked');
+            } else if (moveComponent === 'block') {
+                td.classList.add('cell-blocked');
+            }
+
+        });
+
+        let playerMoves = [];
+        for (let index = 0; index < 3; index++) {
+            let myMoveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
+            let opponentMoveComponent = Object.values(opponentMove)[index];
+            playerMoves.push(singleCompare(myMoveComponent, opponentMoveComponent));
         }
 
-    });
+        console.log('playermoves', playerMoves);
 
-    let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
-    //console.log('opponent', opponentTallyColumn);
-    opponentTallyColumn.forEach((td, index) => {
-        let moveComponent = Object.values(opponentMove)[index];
-        if (moveComponent === 'attack') {
-            td.classList.add('cell-attacked');
-        } else if (moveComponent === 'block') {
-            td.classList.add('cell-blocked');
+        let roundResult = tripletCompare(playerMoves);
+        if (roundResult === 1) {
+            myTallyColumn.forEach(td => {
+                td.classList.add('round-won');
+            });
+            opponentTallyColumn.forEach(td => {
+                td.classList.add('round-defeat');
+            });
+            Life.all.opponentLife.decreaseCounter();
+        } else if (roundResult === 2) {
+            myTallyColumn.forEach(td => {
+                td.classList.add('round-defeat');
+            });
+            opponentTallyColumn.forEach(td => {
+                td.classList.add('round-won');
+            });
+            Life.all.myLife.decreaseCounter();
+        } else {
+            myTallyColumn.forEach(td => {
+                td.classList.add('round-draw');
+            });
+            opponentTallyColumn.forEach(td => {
+                td.classList.add('round-draw');
+            });
         }
 
-    });
+        document.querySelectorAll('.show-animation').forEach(element => {
+            console.log('element', element);
+            element.classList.add('hide-animation');
+            element.classList.remove('show-animation');
+        });
 
-    let playerMoves = [];
-    for (let index = 0; index < 3; index++) {
-        let myMoveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
-        let opponentMoveComponent = Object.values(opponentMove)[index];
-        playerMoves.push(singleCompare(myMoveComponent, opponentMoveComponent));
-    }
+        document.querySelectorAll('.pop-in-animation').forEach(element => {
+            console.log('element', element);
+            element.classList.add('pop-out-animation');
+            element.classList.remove('pop-in-animation');
+        });
 
-    //console.log('playermoves', playerMoves);
-
-    let roundResult = tripletCompare(playerMoves);
-    if (roundResult === 1) {
-        myTallyColumn.forEach(td => {
-            td.classList.add('round-won');
-        });
-        opponentTallyColumn.forEach(td => {
-            td.classList.add('round-defeat');
-        });
-        Life.all.opponentLife.decreaseCounter();
-    } else if (roundResult === 2) {
-        myTallyColumn.forEach(td => {
-            td.classList.add('round-defeat');
-        });
-        opponentTallyColumn.forEach(td => {
-            td.classList.add('round-won');
-        });
-        Life.all.myLife.decreaseCounter();
-    } else {
-        myTallyColumn.forEach(td => {
-            td.classList.add('round-draw');
-        });
-        opponentTallyColumn.forEach(td => {
-            td.classList.add('round-draw');
-        });
-    }
 
     document.querySelectorAll('.show-animation').forEach(element => {
         //console.log('element', element);
@@ -231,8 +274,9 @@ document.querySelector('div.done').addEventListener('click', async event => {
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
     //console.log('*** round finished ***');
     console.log('life.all', Life.all);
     if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
@@ -248,54 +292,57 @@ document.querySelector('div.done').addEventListener('click', async event => {
                 window.alert("Thank you for playing! Refresh the page to play again!");
             }, 500);
         }, 2000);
-        
-        
-        
-        
+  
     }
 
-});
+    /* ---- My Ammo ---- */
+    if (target.tagName === "IMG" && target.classList.contains('my-shield')) {
+        console.log('shield selector hit!');
 
-document.querySelector('img.my-shield').addEventListener('click', async event => {
-    //console.log('shield selector hit!');
-    RoundMove.selectedMoveType = 'block';
-    //console.log('selected move type', RoundMove.selectedMoveType);
-    const myBlockCounter = document.querySelector('span.my-block-counter');
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png");
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
-    currentSelectedInventory = Inventory.all['block-left'];
-});
+        // Here, we could move these logics to AmmoIcon class .click() method. And then just calling it here.
+        // like this: (this currently wont work though. don't uncomment these).
+        // AmmoIcon.all.player1_shield.click();
+        // AmmoIcon.all.player1_attack.unclick();
 
-document.querySelector('img.my-attack').addEventListener('click', async event => {
-    //console.log('sword selector hit!');
-    RoundMove.selectedMoveType = 'attack';
-    //console.log('selected move type', RoundMove.selectedMoveType);
-    const myAttackCounter = document.querySelector('span.my-attack-counter');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png");
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
-    currentSelectedInventory = Inventory.all['attack-left'];
-});
+        RoundMove.selectedMoveType = 'block';
+        // const myBlockCounter = document.querySelector('span.my-block-counter');
+        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedShield.png")
+        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png")
+        // currentSelectedInventory = Inventory.all['block-left'];
+    }
+    if (target.tagName === "IMG" && target.classList.contains('my-attack')) {
+        console.log('sword selector hit!');
 
-document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
-    let target = event.target;
-    //console.log('selectedMoveType', RoundMove.selectedMoveType);
-    //console.log('target', target);
+        // Here, we could move these logics to AmmoIcon class .click() method. And then just calling it here.
+        // like this: (this currently wont work though. don't uncomment these).
+        // AmmoIcon.all.player1_attack.click();
+        // AmmoIcon.all.player1_shield.unclick();
 
-    if (target.tagName === 'DIV' && (RoundMove.selectedMoveType !== 'none') && target.classList.contains('mv-placeholder')) {
+        RoundMove.selectedMoveType = 'attack';
+        // const myAttackCounter = document.querySelector('span.my-attack-counter');
+        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedFork.png")
+        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+        // currentSelectedInventory = Inventory.all['attack-left'];
+    }
+
+    /* ---- Moves Placeholders ---- */
+    let movesPlaceholder = target.closest('div.moves-placeholder');
+    if (movesPlaceholder &&
+        target.tagName === 'DIV' &&
+        RoundMove.selectedMoveType !== 'none' &&
+        target.classList.contains('mv-placeholder')
+    ) {
+        console.log('selectedMoveType', RoundMove.selectedMoveType);
         let bodyPartType;
         //console.log('hello!');
         if (target.classList.contains('head')) {
-            //console.log('hitting head');
             bodyPartType = 'head';
-
         } else if (target.classList.contains('body')) {
-            //console.log('hitting body');
             bodyPartType = 'body';
-
         } else if (target.classList.contains('legs')) {
-            //console.log('hitting legs');
             bodyPartType = 'legs';
         }
+        console.log(`hitting ${bodyPartType}`);
 
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
         currentMovePlaceholder.bodyPartType = bodyPartType;
