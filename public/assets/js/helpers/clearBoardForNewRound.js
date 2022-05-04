@@ -11,7 +11,7 @@ import changeRoundTitle from "../helpers/changeRoundTitle.js";
 const doneButton = document.querySelector('div.done');
 
 // simple timeout between rounds, no extra animations
-function clearBoardForNewRound() {
+function clearBoardForNewRound(roundCounter) {
 
   //MovePlaceholder.checked = false;
 
@@ -54,7 +54,7 @@ function clearBoardForNewRound() {
   leftPigeon.classList.add('picking-move-animation');
   leftPigeon.classList.remove('revert-pigeon-pick-move');
 
-  changeRoundTitle();
+  changeRoundTitle(roundCounter);
 
   document.querySelectorAll('.hide-animation').forEach(element => {
       element.classList.add('show-animation');

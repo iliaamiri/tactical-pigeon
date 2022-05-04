@@ -221,7 +221,7 @@ document.querySelector('body').addEventListener('click', async event => {
         if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
             setTimeout(() => {
                 roundCounter++;
-                clearBoardForNewRound();
+                clearBoardForNewRound(roundCounter);
             }, 1500);
         } else {
             // results tied to clicking the done button, results show faster than animation though
