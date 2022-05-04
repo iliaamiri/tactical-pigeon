@@ -1,6 +1,7 @@
 import MovePlaceholder from './components/MovePlaceholder.js';
 import Inventory from "./components/Inventory.js";
 import Life from './components/Life.js';
+import Timer from './components/Timer.js';
 
 // Helpers
 import Players from "./helpers/Players.js";
@@ -18,6 +19,14 @@ MovePlaceholder.all = {
     'body': new MovePlaceholder('body'),
     'legs': new MovePlaceholder('legs')
 };
+
+// Initiating Timer.
+// let myTimerCounter = document.querySelector('span.time-nums');
+console.log(Timer.all)
+
+// Timer.all['myTimer'].resetCounter();
+// Timer.all['myTimer'].startCounter();
+// This is not working yet
 
 let currentSelectedInventory;
 
@@ -47,14 +56,14 @@ function tripletCompare(moves) {
 }
 
 
-
-let roundCounter = 1; // easier to start at 1 to use in nth-child()
+//PHOENIX CHANGE THIS BACK BEFORE COMMIT
+let roundCounter = 1; // easier to start at 1 to use in nth-child() 
 const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
     setTimeout(() => {
-        
+
         //MovePlaceholder.checked = false;
 
         // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
@@ -68,9 +77,9 @@ function clearBoardForNewRound() {
         MovePlaceholder.resetAll();
 
         //Move.myMoves = {
-            //head: null,
-            //body: null,
-            //legs: null
+        //head: null,
+        //body: null,
+        //legs: null
         //};
         //Move.selectedMoveType = null;
         Players.all.player1.resetMoves();
@@ -78,6 +87,8 @@ function clearBoardForNewRound() {
 
         console.log('MovePlaceholder', MovePlaceholder.all);
 
+        document.querySelector('div.done').classList.remove('d-none')
+        document.querySelector('div.moves-placeholder').classList.remove('d-none')
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
             element.classList.remove('filled-block');
@@ -102,12 +113,11 @@ function clearBoardForNewRound() {
 };
 
 
-
-
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
 });
 
+// Show each move after clicking done
 document.querySelector('div.done').addEventListener('click', async event => {
 
     console.log("HERE");
@@ -115,7 +125,7 @@ document.querySelector('div.done').addEventListener('click', async event => {
     let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
     console.log('my column', myTallyColumn);
     //myTallyColumn.forEach((td, index) => {
-        //let moveComponent = Object.values(Move.myMoves)[index];
+    //let moveComponent = Object.values(Move.myMoves)[index];
 
     // Generating the Bot player's moves.
     const opponentMove = Players.all.player2.generateRandomMoves();
@@ -187,48 +197,120 @@ document.querySelector('div.done').addEventListener('click', async event => {
     });
 
     document.querySelectorAll('.pop-in-animation').forEach(element => {
-        console.log('element',element);
+        console.log('element', element);
         element.classList.add('pop-out-animation');
         element.classList.remove('pop-in-animation');
     });
 
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+
+    document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
+    document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+
     if (roundCounter < roundCounterMax) {
         clearBoardForNewRound();
         roundCounter++;
     } else {
-        window.alert("Thank you for playing! Refresh the page to play again!");
+        // results tied to clicking the done button, results show faster than animation though
+        // connect result calculation here
+
+        let resultOverlay = document.querySelector(".result-banner");
+        resultOverlay.classList.add('victory');
+        // resultOverlay.classList.add('draw');
+        // resultOverlay.classList.add('defeat');
+
+        console.log(resultOverlay);
+
+        let replayBtn = document.querySelector(".play-again");
+        replayBtn.classList.add('replay-in-animation');
+        replayBtn.classList.remove('replay-out-animation');
+
+        document.querySelector('div.done').classList.add('d-none');
+        document.querySelector('div.moves-placeholder').classList.add('d-none');
+
+        roundCounter = 1;
+
+        // window.alert("Thank you for playing! Refresh the page to play again!");
     }
 
 });
 
+document.querySelector(".play-again").addEventListener("click", async event => {
+    console.log("user wants to play again!")
+
+    let replayBtn = document.querySelector(".play-again")
+    replayBtn.classList.add('replay-out-animation');
+    replayBtn.classList.remove('replay-in-animation');
+
+    let resultOverlay = document.querySelector(".result-banner")
+    resultOverlay.classList.remove('victory');
+
+    // reset move picker
+    clearBoardForNewRound()
+
+    // reset tally board
+    let myTally = document.querySelectorAll(`table.tally.my-tally td`);
+    console.log('my empty tally', myTally);
+    myTally.forEach((td) => {
+        td.classList.remove('cell-attacked');
+        td.classList.remove('cell-blocked');
+        td.classList.remove('round-won');
+        td.classList.remove('round-draw');
+        td.classList.remove('round-defeat');
+    });
+
+    let opponentTally = document.querySelectorAll(`table.tally.opponent-tally td`);
+    console.log('opponent empty tally', opponentTally);
+    opponentTally.forEach((td) => {
+        td.classList.remove('cell-attacked');
+        td.classList.remove('cell-blocked');
+        td.classList.remove('round-won');
+        td.classList.remove('round-draw');
+        td.classList.remove('round-defeat');
+    });
+
+    // reset ammo
+    Inventory.all["block-left"].resetCounter();
+    Inventory.all["attack-left"].resetCounter();
+    Inventory.all["opponentBlock"].resetCounter();
+    Inventory.all["opponentAttack"].resetCounter();
+
+    // reset lives
+    Life.all['myLife'].resetCounter();
+    Life.all['opponentLife'].resetCounter();
+
+    // reset timer
+
+})
+
 document.querySelector('img.my-shield').addEventListener('click', async event => {
     console.log('shield selector hit!');
     RoundMove.selectedMoveType = 'block';
-    const myBlockCounter = document.querySelector('span.my-block-counter');
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png")
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
+    const myBlockCounter = document.querySelector('span.my-block-counter');     // are we using this anymore?
+    document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedShield.png")
+    document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png")
     currentSelectedInventory = Inventory.all['block-left'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
     console.log('sword selector hit!');
     RoundMove.selectedMoveType = 'attack';
-    const myAttackCounter = document.querySelector('span.my-attack-counter');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+    const myAttackCounter = document.querySelector('span.my-attack-counter');   // are we using this anymore?
+    document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedFork.png")
+    document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png")
     currentSelectedInventory = Inventory.all['attack-left'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
     let target = event.target;
     console.log('selectedMoveType', RoundMove.selectedMoveType);
+    console.log(target)
     if (target.tagName === 'DIV' && (RoundMove.selectedMoveType !== 'none') && target.classList.contains('mv-placeholder')) {
         let bodyPartType;
+        console.log("hi")
         if (target.classList.contains('head')) {
             console.log('hitting head');
             bodyPartType = 'head';

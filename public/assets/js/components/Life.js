@@ -45,6 +45,16 @@ class Life {
       }
   }
 
+  resetCounter() {
+    this.counter = 3;
+    for (let index = this.lifeNodeList.length - 1; index >= 0; index--) {
+      if (this.lifeNodeList[index].classList.contains('heart-empty')) {
+        this.lifeNodeList[index].classList.remove('heart-empty');
+        this.lifeNodeList[index].classList.add('heart-filled');
+      }
+    }
+  }
+
   static all = {
       'myLife': new Life(myLifeNodes),
       'opponentLife': new Life(opponentLifeNodes)
