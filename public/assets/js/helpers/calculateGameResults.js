@@ -1,4 +1,5 @@
 import Life from '../components/Life.js';
+import Inventory from "../components/Inventory.js";
 
 function calculateGameResults() {
     const gameResultEnum = ['loss', 'win', 'draw'];
