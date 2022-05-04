@@ -53,7 +53,7 @@ const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
-    setTimeout(() => {
+
         
         //MovePlaceholder.checked = false;
 
@@ -76,7 +76,7 @@ function clearBoardForNewRound() {
         Players.all.player1.resetMoves();
         RoundMove.selectedMoveType = 'none';
 
-        console.log('MovePlaceholder', MovePlaceholder.all);
+        //console.log('MovePlaceholder', MovePlaceholder.all);
 
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
@@ -90,7 +90,7 @@ function clearBoardForNewRound() {
         });
 
         const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-        console.log('left pigeon', leftPigeon);
+        //console.log('left pigeon', leftPigeon);
         leftPigeon.classList.add('picking-move-animation');
         leftPigeon.classList.remove('revert-pigeon-pick-move');
 
@@ -98,7 +98,43 @@ function clearBoardForNewRound() {
             element.classList.add('show-animation');
             element.classList.remove('hide-animation');
         });
-    }, 2000);
+
+};
+
+
+
+
+function calculateGameResults() {
+    console.log('calculating game results...');
+    if (Life.all.myLife.counter > Life.all.opponentLife.counter) {
+        //console.log('my lives', Life.all.myLife.counter);
+        //console.log('opponent lives', Life.all.opponentLife.counter);
+        return 'win';
+    } else if (Life.all.myLife.counter < Life.all.opponentLife.counter) {
+        //console.log('my lives', Life.all.myLife.counter);
+        //console.log('opponent lives', Life.all.opponentLife.counter);
+        return 'lose';
+    }
+
+    // if there's a draw, one can win by inventory counts
+    let leftPlayerTotalInventory = Inventory.all['attack-left'].counter + Inventory.all['block-left'].counter;
+    let rightPlayerTotalInventory = Inventory.all.opponentAttack.counter + Inventory.all.opponentBlock.counter;
+    if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
+        /* console.log('my lives', Life.all.myLife.counter);
+        console.log('opponent lives', Life.all.opponentLife.counter);
+        console.log('my total inventory', leftPlayerTotalInventory);
+        console.log('opponent total inventory', rightPlayerTotalInventory); */
+        return 'win';
+    } else if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
+        /* console.log('my lives', Life.all.myLife.counter);
+        console.log('opponent lives', Life.all.opponentLife.counter);
+        console.log('my total inventory', leftPlayerTotalInventory);
+        console.log('opponent total inventory', rightPlayerTotalInventory); */
+        return 'draw';
+    }
+
+    // if lives and inventories are exactly equal,
+    return 'draw';
 };
 
 
@@ -110,10 +146,10 @@ document.querySelector('body').addEventListener('click', async event => {
 
 document.querySelector('div.done').addEventListener('click', async event => {
 
-    console.log("HERE");
+    //console.log("HERE");
 
     let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
-    console.log('my column', myTallyColumn);
+    //console.log('my column', myTallyColumn);
     //myTallyColumn.forEach((td, index) => {
         //let moveComponent = Object.values(Move.myMoves)[index];
 
@@ -134,7 +170,7 @@ document.querySelector('div.done').addEventListener('click', async event => {
     });
 
     let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
-    console.log('opponent', opponentTallyColumn);
+    //console.log('opponent', opponentTallyColumn);
     opponentTallyColumn.forEach((td, index) => {
         let moveComponent = Object.values(opponentMove)[index];
         if (moveComponent === 'attack') {
@@ -152,7 +188,7 @@ document.querySelector('div.done').addEventListener('click', async event => {
         playerMoves.push(singleCompare(myMoveComponent, opponentMoveComponent));
     }
 
-    console.log('playermoves', playerMoves);
+    //console.log('playermoves', playerMoves);
 
     let roundResult = tripletCompare(playerMoves);
     if (roundResult === 1) {
@@ -181,13 +217,13 @@ document.querySelector('div.done').addEventListener('click', async event => {
     }
 
     document.querySelectorAll('.show-animation').forEach(element => {
-        console.log('element', element);
+        //console.log('element', element);
         element.classList.add('hide-animation');
         element.classList.remove('show-animation');
     });
 
     document.querySelectorAll('.pop-in-animation').forEach(element => {
-        console.log('element',element);
+        //console.log('element', element);
         element.classList.add('pop-out-animation');
         element.classList.remove('pop-in-animation');
     });
@@ -197,48 +233,67 @@ document.querySelector('div.done').addEventListener('click', async event => {
     pigeon.classList.remove('picking-move-animation');
     document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
     document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
-    if (roundCounter < roundCounterMax) {
-        clearBoardForNewRound();
-        roundCounter++;
+    //console.log('*** round finished ***');
+    console.log('life.all', Life.all);
+    if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
+        setTimeout(() => {
+            clearBoardForNewRound();
+            roundCounter++;
+        }, 2000);
     } else {
-        window.alert("Thank you for playing! Refresh the page to play again!");
+        setTimeout(() => {
+            //clearBoardForNewRound();
+            window.alert(calculateGameResults());
+            setTimeout(() => {
+                window.alert("Thank you for playing! Refresh the page to play again!");
+            }, 500);
+        }, 2000);
+        
+        
+        
+        
     }
 
 });
 
 document.querySelector('img.my-shield').addEventListener('click', async event => {
-    console.log('shield selector hit!');
+    //console.log('shield selector hit!');
     RoundMove.selectedMoveType = 'block';
+    //console.log('selected move type', RoundMove.selectedMoveType);
     const myBlockCounter = document.querySelector('span.my-block-counter');
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png")
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png");
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
     currentSelectedInventory = Inventory.all['block-left'];
 });
 
 document.querySelector('img.my-attack').addEventListener('click', async event => {
-    console.log('sword selector hit!');
+    //console.log('sword selector hit!');
     RoundMove.selectedMoveType = 'attack';
+    //console.log('selected move type', RoundMove.selectedMoveType);
     const myAttackCounter = document.querySelector('span.my-attack-counter');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png");
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
     currentSelectedInventory = Inventory.all['attack-left'];
 });
 
 document.querySelector('div.moves-placeholder').addEventListener('click', async event => {
     let target = event.target;
-    console.log('selectedMoveType', RoundMove.selectedMoveType);
+    //console.log('selectedMoveType', RoundMove.selectedMoveType);
+    //console.log('target', target);
+
     if (target.tagName === 'DIV' && (RoundMove.selectedMoveType !== 'none') && target.classList.contains('mv-placeholder')) {
         let bodyPartType;
+        //console.log('hello!');
         if (target.classList.contains('head')) {
-            console.log('hitting head');
+            //console.log('hitting head');
             bodyPartType = 'head';
 
         } else if (target.classList.contains('body')) {
-            console.log('hitting body');
+            //console.log('hitting body');
             bodyPartType = 'body';
 
         } else if (target.classList.contains('legs')) {
-            console.log('hitting legs');
+            //console.log('hitting legs');
             bodyPartType = 'legs';
         }
 
@@ -250,8 +305,8 @@ document.querySelector('div.moves-placeholder').addEventListener('click', async 
         //currentMovePlaceholder.target = target;
         currentMovePlaceholder.check();
 
-        console.log('currentMovePlaceholder', currentMovePlaceholder);
-        console.log('my moves object', Players.all.player1.moves);
+        //console.log('currentMovePlaceholder', currentMovePlaceholder);
+        //console.log('my moves object', Players.all.player1.moves);
     }
 });
 

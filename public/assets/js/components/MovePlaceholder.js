@@ -37,11 +37,12 @@ class MovePlaceholder {
     }
 
     changeMove(newMove) {
-        console.log(Players.all.player1.moves)
+        //console.log(Players.all.player1.moves)
         Players.all.player1.moves[this.bodyPartType] = newMove;
     }
 
     check() {
+        //console.log('inventory.all from inside movePlaceholder', Inventory.all);
         if (this.moveType === 'none') {
             return;
         }
@@ -49,10 +50,13 @@ class MovePlaceholder {
         this.checked = !this.checked;
         if (this.checked) {
             /* do stuff as if it's ON */
+            //console.log('inventory all', Inventory.all);
             if (Inventory.all[`${this.moveType}-left`].counter === 0) { // if we have no inventory left, don't do place a move
+                //console.log('inventory counter should be 0', Inventory.all[`${this.moveType}-left`].counter);
                 this.checked = !this.checked;
                 Players.all.player1.moves[this.bodyPartType] = 'none';
             } else {
+                //console.log('left inventory counter', Inventory.all[`${this.moveType}-left`].counter);
                 this.target.classList.add(`filled-${this.moveType}`);
                 this.movePlaced = this.moveType;
                 this.changeMove(this.movePlaced);
@@ -61,7 +65,8 @@ class MovePlaceholder {
             
         } else {
             /* do stuff as if it's OFF */
-            console.log("ay?")
+            //console.log("ay?")
+            //console.log('inventory all', Inventory.all);
             this.target.classList.remove(`filled-${RoundMove.moveTypeEnum[0]}`, `filled-${RoundMove.moveTypeEnum[1]}`);
             this.changeMove(null);
             if (this.movePlaced === 'attack') {

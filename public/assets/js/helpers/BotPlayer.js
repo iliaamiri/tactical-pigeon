@@ -22,7 +22,8 @@ class BotPlayer extends Player {
         const attackAmmoCount = attackAmmo.counter;
 
         // Assign the move enums to a buffer (temporary variable).
-        const availableMoves = RoundMove.moveTypeEnum;
+        // making a 'copy' of the moveTypeEnum since we're manipulating it later with splice
+        const availableMoves = JSON.parse(JSON.stringify(RoundMove.moveTypeEnum));
 
         // Limit the moves of the bot if they don't have any more attacks left.
         if (blockAmmoCount < 1)
