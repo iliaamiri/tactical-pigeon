@@ -375,14 +375,22 @@ div > div.heart-empty {
 /* Move Picker */
 div.round-title {
   position: absolute;
-  top: -22px;
-  right: -10px;
-  height: 40px;
-  width: 60%;
-  background-image: url("/assets/img/GUI-controls/Round/Round 1.png");
+  top: -12%;
+  right: -3%;
+  /* height: 40px; */
+  width: 65%;
+  /* background-image: url("/assets/img/GUI-controls/Round/Round 1.png");
   background-size: contain;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
+  font-family: "Titan One", cursive;
+  font-size: 2.5em;
+  text-align: right;
+  white-space: nowrap;
+  color: white;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #407d96;
+  
 }
 
 div.done {

@@ -100,6 +100,8 @@ function clearBoardForNewRound() {
         leftPigeon.classList.add('picking-move-animation');
         leftPigeon.classList.remove('revert-pigeon-pick-move');
 
+        changeRoundTitle();
+
         document.querySelectorAll('.hide-animation').forEach(element => {
             element.classList.add('show-animation');
             element.classList.remove('hide-animation');
@@ -149,6 +151,16 @@ function calculateGameResults() {
     // if lives and inventories are exactly equal,
     return 'draw';
 };
+
+
+const roundTitle = document.querySelector('div.round-title');
+
+function changeRoundTitle() {
+    roundTitle.innerHTML = `<span>Round ${roundCounter}</span>`;
+};
+
+changeRoundTitle();
+
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
@@ -281,8 +293,8 @@ document.querySelector('body').addEventListener('click', async event => {
     console.log('life.all', Life.all);
     if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
         setTimeout(() => {
-            clearBoardForNewRound();
             roundCounter++;
+            clearBoardForNewRound();
         }, 2000);
     } else {
         setTimeout(() => {
