@@ -26,8 +26,32 @@ body {
 
 body.default-background {
   background-image: url("/assets/img/backgrounds/background-01.png");
-  background-size: auto;
+  background-size: 100vw;
   background-repeat: no-repeat;
+
+}
+
+.bottom-background {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+}
+
+/*900px and up) */
+@media only screen and (min-width: 900px) {
+  .bottom-background {
+    opacity: 100;
+  }
+
+
+
+}
+
+@media only screen and (min-height: 415px) {
+  .bottom-background {
+    opacity: 100;
+  }
 }
 
 div.asset-padding {
@@ -219,7 +243,7 @@ div.table-labels div.tabol-labol {
   width: 100%;
 }
 
-div.table-labels div.tabol-labol > img {
+div.table-labels div.tabol-labol>img {
   height: 26px;
 }
 
@@ -337,29 +361,31 @@ div.health-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url("/assets/img/GUI-controls/LifeGUI/LifeLineBG.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 50px;
-  width: 100%;
-  padding: 10px;
+  background-color: #CADDE8;
+  border-radius: 8px;
+  border-style: none none inset none;
+  border-color: #83939b;
+  border-width: 3px;
+  height: 8vh;
+  width: 62%;
+  padding: 1vh 1.5vh
 }
 
-div > div.heart {
+div>div.heart {
   height: 72%;
   width: 72%;
   /* margin-right: 4px; */
   /* margin-left: 6px; */
 }
 
-div > div.heart-filled {
+div>div.heart-filled {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthplus.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-div > div.heart-empty {
+div>div.heart-empty {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthminus.png");
   background-size: contain;
   background-position: center;
@@ -431,7 +457,7 @@ div.move-picker-overlay div.row {
 div.move-picker-overlay div.hints-box {
   font-family: "Comic Sans MS", sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 2.5vw;
   color: #44575d;
 }
 
@@ -460,8 +486,8 @@ div.moves-placeholder {
 }
 
 div.mv-placeholder {
-  height: 60px;
-  width: 60px;
+  height: 5.6vw;
+  width: 5.6vw;
   background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
@@ -500,7 +526,7 @@ div.mv-placeholder.filled-block {
   }
 
   to {
-    height: 750px;
+    height: 720px;
     left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
     bottom: -260px;
   }
@@ -508,7 +534,7 @@ div.mv-placeholder.filled-block {
 
 @keyframes revert-pigeon-pick-move {
   from {
-    height: 750px;
+    height: 720px;
     left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
     bottom: -260px;
   }
@@ -554,6 +580,7 @@ div.mv-placeholder.filled-block {
     opacity: 0;
     display: none;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -567,6 +594,7 @@ div.mv-placeholder.filled-block {
     opacity: 1;
     display: block;
   }
+
   to {
     transform: scale(1.2);
     opacity: 0;
@@ -590,9 +618,9 @@ div.mv-placeholder.filled-block {
     top: 0;
     left: 0;
     background-color: #FFDC4B;
-    color:white;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 }

@@ -18,229 +18,222 @@
 </head>
 
 <body class="default-background">
-    <div class="flip-overlay">
-        <!-- Placeholder for incoming D3 asset -->
-        <span class="time-nums">FLIP TO PLAY</span>
-    </div>
-    <!-- Background Image as CSS class -->
-
-    <!-- Game Result Banner -->
-    <div class="result-banner victory position-absolute d-none">
-
-    </div>
-
-    <!-- Timer Counter -->
-    <div class="timer-counter">
-        <!-- Transitioning between two decimals to one vice versa using d-none (display none class utility in Bootstrap),
-     being controlled in JavaScript frontend. -->
-        <!-- <div class="time-no-decimal number-6 d-none"></div>
-        <div class="time-left-decimal number-1"></div>
-        <div class="time-right-decimal number-0"></div> -->
-        <span class="time-nums">60</span>
-    </div>
-
-    <!-- Main Components -->
     <div class="container-fluid">
-
-        <!-- Shields View/Buttons Components -->
-        <div class="row d-flex justify-content-between blocks-row">
-
-            <!-- My Shield View Components -->
-            <div class="col-sm-2 asset-padding">
-                <div class="d-flex justify-content-end">
-                    <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
-                        class="shield-icon my-shield">
-                </div>
-                <div class="counter-box my-counter">
-                    <span class="my-block-counter">X4</span>
-                </div>
-            </div>
-
-            <!-- Opponent's Shield View Components -->
-            <div class="col-sm-2 asset-padding opponent-counter-box">
-                <img src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt="" class="shield-icon">
-                <div class="counter-box opponent-counter">
-                    <span class="opponent-block-counter">X4</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Attack View/Buttons Components -->
-        <div class="row d-flex justify-content-between">
-
-            <!-- My Attack View Components -->
-            <div class="col-sm-2 d-flex justify-content-end asset-padding">
-                <div class="d-flex justify-content-end">
-                    <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
-                        class="shield-icon my-attack">
-                </div>
-                <div class="counter-box my-counter">
-                    <span class="my-attack-counter">X4</span>
-                </div>
-            </div>
-
-            <!-- Opponent's Attack View Components -->
-            <div class="col-sm-2 asset-padding opponent-counter-box">
-                <img src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt="" class="shield-icon">
-                <div class="counter-box opponent-counter">
-                    <span class="opponent-attack-counter">X4</span>
-                </div>
-            </div>
-        </div>
-
-        <!--
-         Table Labels
-            AND
-         Tally Boards Components
-    -->
-        <div class="row d-flex board">
-
-            <!-- Table Labels AND My Tally Board Components -->
-            <div class="col-sm-6">
-                <div class="row">
-
-                    <!-- Table Labels -->
-                    <div class="col-sm-4 asset-padding table-labels">
-                        <div class="tabol-labol head-label">
-                            <img src="/assets/img/GUI-controls/MainControls/AttackHeadPressed.png" alt="">
-                        </div>
-                        <div class="tabol-labol body-label">
-                            <img src="/assets/img/GUI-controls/MainControls/AttackBodyPressed.png" alt="">
-                        </div>
-                        <div class="tabol-labol legs-label">
-                            <img src="/assets/img/GUI-controls/MainControls/AttackLegsPressed.png" alt="">
-                        </div>
-                    </div>
-
-                    <!-- My Tally Board Components -->
-                    <div class="col-sm-8 asset-padding">
-                        <table class="tally my-tally">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Opponent's Tally Board Components -->
-            <div class="col-sm-6 d-flex justify-content-end asset-padding">
-                <table class="tally opponent-tally">
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Health Bars -->
-    <div class="container-fluid health-bars">
-        <div class="row d-flex justify-content-between health">
-            <!-- My Health Bar Components -->
-            <div class="col-sm-2 asset-padding">
-                <div class="health-container myHealthBar">
-                    <div class="heart heart-filled"></div>
-                    <div class="heart heart-filled"></div>
-                    <div class="heart heart-filled"></div>
-                </div>
-            </div>
-
-            <!-- Opponent's Health Bar Components -->
-            <div class="col-sm-2 d-flex justify-content-end asset-padding">
-                <div class="health-container opponentHealthBar">
-                    <div class="heart heart-filled"></div>
-                    <div class="heart heart-filled"></div>
-                    <div class="heart heart-filled"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Characters' Pigeon Components -->
-    <div class="pigeons-container position-absolute">
-        <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.png" alt="" class="pigeon-left picking-move-animation">
-        <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.png" alt="" class="pigeon-right">
-    </div>
-
-    <!-- Hot-dog Pray Component -->
-    <div class="hotdog-container position-absolute">
-        <img src="/assets/img/Food/Hotdog/Hotdog@4x.png" alt="" class="hotdog-pray">
-    </div>
-
-    <!-- Move Picker Overlay Component -->
-    <div class="container-fluid move-picker-overlay position-absolute show-animation">
-        <div class="round-title"></div>
         <div class="row">
-            <div class="col-sm-9 hints-box">
-                <b>Pick</b>
-                <b>your</b>
-                <b>move!</b>
+            <div class="col-md-12">
+
+
+                <div class="flip-overlay">
+                    <!-- Placeholder for incoming D3 asset -->
+                    <span class="time-nums">FLIP TO PLAY</span>
+                </div>
+                <!-- Background Image as CSS class -->
+
+                <!-- Game Result Banner -->
+                <div class="result-banner victory position-absolute d-none">
+
+                </div>
+
+                <!-- Timer Counter -->
+                <div class="timer-counter">
+                    <!-- Transitioning between two decimals to one vice versa using d-none (display none class utility in Bootstrap),
+                 being controlled in JavaScript frontend. -->
+                    <!-- <div class="time-no-decimal number-6 d-none"></div>
+                    <div class="time-left-decimal number-1"></div>
+                    <div class="time-right-decimal number-0"></div> -->
+                    <span class="time-nums">60</span>
+                </div>
+
+                <!-- Main Components -->
+                <div class="container-fluid">
+
+                    <!-- Shields View/Buttons Components -->
+                    <div class="row d-flex justify-content-between blocks-row">
+
+                        <!-- My Shield View Components -->
+                        <div class="col-sm-2 asset-padding">
+                            <div class="d-flex justify-content-end">
+                                <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png"
+                                    alt="" class="shield-icon my-shield">
+                            </div>
+                            <div class="counter-box my-counter">
+                                <span class="my-block-counter">X4</span>
+                            </div>
+                        </div>
+
+                        <!-- Opponent's Shield View Components -->
+                        <div class="col-sm-2 asset-padding opponent-counter-box">
+                            <img src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
+                                class="shield-icon">
+                            <div class="counter-box opponent-counter">
+                                <span class="opponent-block-counter">X4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attack View/Buttons Components -->
+                    <div class="row d-flex justify-content-between">
+
+                        <!-- My Attack View Components -->
+                        <div class="col-sm-2 justify-content-end asset-padding">
+                            <div class="d-flex justify-content-end">
+                                <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png"
+                                    alt="" class="shield-icon my-attack">
+                            </div>
+                            <div class="counter-box my-counter">
+                                <span class="my-attack-counter">X4</span>
+                            </div>
+                        </div>
+
+                        <!-- Opponent's Attack View Components -->
+                        <div class="col-sm-2 asset-padding opponent-counter-box">
+                            <img src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
+                                class="shield-icon">
+                            <div class="counter-box opponent-counter">
+                                <span class="opponent-attack-counter">X4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Label AND Tally Boards Components -->
+                    <div class="row d-flex board">
+
+                        <!-- Table Labels AND My Tally Board Components -->
+                        <div class="col-sm-6">
+                            <div class="row">
+
+                                <!-- Table Labels -->
+                                <div class="col-sm-4 asset-padding table-labels">
+                                    <div class="tabol-labol head-label">
+                                        <img src="/assets/img/GUI-controls/MainControls/AttackHeadPressed.png" alt="">
+                                    </div>
+                                    <div class="tabol-labol body-label">
+                                        <img src="/assets/img/GUI-controls/MainControls/AttackBodyPressed.png" alt="">
+                                    </div>
+                                    <div class="tabol-labol legs-label">
+                                        <img src="/assets/img/GUI-controls/MainControls/AttackLegsPressed.png" alt="">
+                                    </div>
+                                </div>
+
+                                <!-- My Tally Board Components -->
+                                <div class="col-sm-8 asset-padding">
+                                    <table class="tally my-tally">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opponent's Tally Board Components -->
+                        <div class="col-sm-6 col-md-6 d-flex justify-content-end asset-padding">
+                            <table class="tally opponent-tally">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--potential problem?: health bar was removed -->
+                    <div class="row d-flex justify-content-between health">
+                        <!-- My Health Bar Components -->
+                        <div class="col-sm-3 asset-padding">
+                            <div class="health-container myHealthBar">
+                                <div class="heart heart-filled"></div>
+                                <div class="heart heart-filled"></div>
+                                <div class="heart heart-filled"></div>
+                            </div>
+                        </div>
+
+                        <!-- Opponent's Health Bar Components -->
+                        <div class="col-sm-3 d-flex justify-content-end asset-padding">
+                            <div class="health-container opponentHealthBar">
+                                <div class="heart heart-filled"></div>
+                                <div class="heart heart-filled"></div>
+                                <div class="heart heart-filled"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Characters' Pigeon Components -->
+                    <div class="pigeons-container position-absolute">
+                        <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.png" alt=""
+                            class="pigeon-left picking-move-animation">
+                        <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.png" alt="" class="pigeon-right">
+                    </div>
+
+                    <!-- Hot-dog Pray Component -->
+                    <div class="hotdog-container position-absolute">
+                        <img src="/assets/img/Food/Hotdog/Hotdog@4x.png" alt="" class="hotdog-pray">
+                    </div>
+
+                    <!-- Move Picker Overlay Component -->
+                    <div class="container-fluid move-picker-overlay position-absolute show-animation">
+                        <div class="round-title"></div>
+                        <div class="row">
+                            <div class="col-sm-9 col-md-6 hints-box">
+                                <b>Pick</b>
+                                <b>your</b>
+                                <b>move!</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
+                        <div class="mv-placeholder head"></div>
+                        <div class="mv-placeholder body"></div>
+                        <div class="mv-placeholder legs"></div>
+                    </div>
+                    <div class="done position-absolute pop-in-animation"></div>
+                    <%- include('_partials/commonJsFooters.ejs') -%>
+
+                </div>
+
+
             </div>
         </div>
-    </div>
-
-    <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
-        <div class="mv-placeholder head"></div>
-        <div class="mv-placeholder body"></div>
-        <div class="mv-placeholder legs"></div>
-    </div>
-
-    <div class="done position-absolute pop-in-animation"></div>
-
-    <!-- <h1>Welcome</h1>
-<form class="gameMoveForm">
-    <label for="moves">Choose a move:</label>
-    <select id="move" name="move">
-        <option value="attack">Attack</option>
-        <option value="block">Block</option>
-        <option value="none">None</option>
-    </select>
-    <button>Submit!</button>
-</form>
-<div id="resultOfMatch">
-    <p>You haven't played yet.</p>
-    <p>Please reflect the page.</p>
-</div> -->
-
-
-    <%- include('_partials/commonJsFooters.ejs') -%>
+        <div class="row">
+            <div class="col-sm-12 bottom-background">
+            </div>
+        </div>
 </body>
 
 </html>
