@@ -6,6 +6,7 @@ init();
 import MovePlaceholder from './components/MovePlaceholder.js';
 // import Inventory from "./components/Inventory.js";
 import Life from './components/Life.js';
+import Timer from './components/Timer.js';
 import AmmoIcon from "./components/AmmoIcon.js";
 
 // Helpers
@@ -25,7 +26,15 @@ MovePlaceholder.all = {
     'legs': new MovePlaceholder('legs')
 };
 
-// let currentSelectedInventory;
+// Initiating Timer.
+// let myTimerCounter = document.querySelector('span.time-nums');
+console.log(Timer.all)
+
+// Timer.all['myTimer'].resetCounter();
+// Timer.all['myTimer'].startCounter();
+// This is not working yet
+
+let currentSelectedInventory;
 
 // We need to have this DOM element for enabling/disabling it later on.
 const doneButton = document.querySelector('div.done');
@@ -55,12 +64,13 @@ function tripletCompare(moves) {
     }
 }
 
-
 let roundCounter = 1; // easier to start at 1 to use in nth-child()
+
 const roundCounterMax = 5; // 5 rounds per game
 
 // simple timeout between rounds, no extra animations
 function clearBoardForNewRound() {
+
         //MovePlaceholder.checked = false;
 
         // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
@@ -84,6 +94,8 @@ function clearBoardForNewRound() {
 
         //console.log('MovePlaceholder', MovePlaceholder.all);
 
+        document.querySelector('div.done').classList.remove('d-none')
+        document.querySelector('div.moves-placeholder').classList.remove('d-none')
 
         document.querySelectorAll('div.mv-placeholder').forEach((element) => {
             element.classList.remove('filled-block');
@@ -152,7 +164,6 @@ function calculateGameResults() {
     return 'draw';
 };
 
-
 const roundTitle = document.querySelector('div.round-title');
 
 function changeRoundTitle() {
@@ -163,9 +174,9 @@ changeRoundTitle();
 
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
+
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
-
     let target = event.target;
 
     // Checking if this element is not clickable
@@ -175,6 +186,56 @@ document.querySelector('body').addEventListener('click', async event => {
         return;
     }
 
+  if (target.tagName === "DIV" && target.classList.contains("play-again")) {
+      console.log("user wants to play again!")
+    return location.reload()
+
+    // Do not delete this yet
+    // let replayBtn = document.querySelector(".play-again")
+    // replayBtn.classList.add('replay-out-animation');
+    // replayBtn.classList.remove('replay-in-animation');
+
+    // let resultOverlay = document.querySelector(".result-banner")
+    // resultOverlay.classList.remove('victory');
+
+    // // reset move picker
+    // clearBoardForNewRound()
+
+    // // reset tally board
+    // let myTally = document.querySelectorAll(`table.tally.my-tally td`);
+    // console.log('my empty tally', myTally);
+    // myTally.forEach((td) => {
+    //     td.classList.remove('cell-attacked');
+    //     td.classList.remove('cell-blocked');
+    //     td.classList.remove('round-won');
+    //     td.classList.remove('round-draw');
+    //     td.classList.remove('round-defeat');
+    // });
+
+    // let opponentTally = document.querySelectorAll(`table.tally.opponent-tally td`);
+    // console.log('opponent empty tally', opponentTally);
+    // opponentTally.forEach((td) => {
+    //     td.classList.remove('cell-attacked');
+    //     td.classList.remove('cell-blocked');
+    //     td.classList.remove('round-won');
+    //     td.classList.remove('round-draw');
+    //     td.classList.remove('round-defeat');
+    // });
+
+    // // reset ammo
+    // Inventory.all["block-left"].resetCounter();
+    // Inventory.all["attack-left"].resetCounter();
+    // Inventory.all["opponentBlock"].resetCounter();
+    // Inventory.all["opponentAttack"].resetCounter();
+
+    // // reset lives
+    // Life.all['myLife'].resetCounter();
+    // Life.all['opponentLife'].resetCounter();
+
+    // // reset timer
+  // windows reload 
+  // or reset everything 
+}
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
 
@@ -279,13 +340,16 @@ document.querySelector('body').addEventListener('click', async event => {
 
     document.querySelectorAll('.pop-in-animation').forEach(element => {
         //console.log('element', element);
+
         element.classList.add('pop-out-animation');
         element.classList.remove('pop-in-animation');
     });
 
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
+
 
     document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
     document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
@@ -301,10 +365,26 @@ document.querySelector('body').addEventListener('click', async event => {
             //clearBoardForNewRound();
             window.alert(calculateGameResults());
             setTimeout(() => {
-                window.alert("Thank you for playing! Refresh the page to play again!");
+                // results tied to clicking the done button, results show faster than animation though
+        // connect result calculation here
+
+        let resultOverlay = document.querySelector(".result-banner");
+        resultOverlay.classList.add('victory');
+        // resultOverlay.classList.add('draw');
+        // resultOverlay.classList.add('defeat');
+
+        console.log(resultOverlay);
+
+        let replayBtn = document.querySelector(".play-again");
+        replayBtn.classList.add('replay-in-animation');
+        replayBtn.classList.remove('replay-out-animation');
+
+        document.querySelector('div.done').classList.add('d-none');
+        document.querySelector('div.moves-placeholder').classList.add('d-none');
+
+        roundCounter = 1;
             }, 500);
         }, 2000);
-  
     }
 
     /* ---- My Ammo ---- */

@@ -27,23 +27,56 @@ body {
 }
 
 body.default-background {
-  background-image: url('/assets/img/backgrounds/background-01.png');
+  background-image: url("/assets/img/backgrounds/background-01.png");
 }
 body.playground-background {
-  background-image: url('/assets/img/backgrounds/background-02.png');
+  background-image: url("/assets/img/backgrounds/background-02.png");
 }
 body.night-night-background {
-  background-image: url('/assets/img/backgrounds/background-03.png');
+  background-image: url("/assets/img/backgrounds/background-03.png");
 }
 
 div.asset-padding {
   padding: 1%;
 }
 
+/* Replay */
+/* TODO: change this to bootstrap row and use justify-content:center to center it.
+                       This way will spare us from using left. */
+div.play-again {
+  opacity: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 25%;
+  height: 15%;
+  top: 70%;
+  left: 40%;
+  z-index: 30;
+}
+
+div.play-again.replay-in-animation {
+  background-image: url("/assets/img/GUI-controls/MainControls/PlayAgain.png");
+  animation: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 2s;
+}
+
+div.play-again.replay-out-animation {
+  animation-name: pop-out;
+  animation-fill-mode: backwards;
+  animation-duration: 0.2s;
+}
+
+/* #pulse:hover {
+  animation: pulse 1s ease-in infinite;
+}
+
 /* Result Banner */
 div.result-banner {
   /* TODO: change this to bootstrap row and use justify-content:center to center it.
                        This way will spare us from using left. */
+  opacity: 0;
   background-size: contain;
   background-repeat: no-repeat;
   height: 25%;
@@ -55,6 +88,10 @@ div.result-banner {
 
 div.result-banner.victory {
   background-image: url("/assets/img/GUI-controls/Results/Victory.png");
+  animation: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 1s;
 }
 
 div.result-banner.draw {
@@ -104,7 +141,16 @@ span.time-nums {
   margin-top: 10px;
 }
 
-div.timer-counter div.time-no-decimal {
+span.portrait {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: #407d96;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+  margin-top: 10px;
+}
+
+/* div.timer-counter div.time-no-decimal {
   left: 22%;
 }
 
@@ -169,7 +215,7 @@ div.timer-counter div.number-8 {
 
 div.timer-counter div.number-9 {
   background-image: url("/assets/img/GUI-controls/TimerRounds/9.png");
-}
+} */
 
 /* Shield and Attack Counters */
 img.shield-icon {
@@ -272,6 +318,7 @@ table.tally tr td.round-defeat {
   background-color: rgba(231, 135, 151, 0.4);
 }
 
+/* WHAT IS THIS FOR??? */
 table.tally tr td.round-defeat.hit {
   background-color: rgba(231, 135, 151, 1);
 }
@@ -588,6 +635,14 @@ div.mv-placeholder.filled-block {
   }
 }
 
+@keyframes pulse {
+  25% {
+    transform: scale(0.9);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
 
 @media only screen and (min-width: 600px) and (orientation: landscape) {
   div.flip-overlay {
@@ -603,10 +658,10 @@ div.mv-placeholder.filled-block {
     z-index: 60;
     top: 0;
     left: 0;
-    background-color: #FFDC4B;
-    color:white;
+    background-color: #ffdc4b;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 }

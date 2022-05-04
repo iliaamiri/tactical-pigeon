@@ -43,6 +43,10 @@ class Inventory {
         this.counter--;
     }
 
+    resetCounter() {
+        this.counter = 4;
+    }
+
     static all = {
         'block-left': new Inventory('block', myBlockCounter),
         'attack-left': new Inventory('attack', myAttackCounter),
