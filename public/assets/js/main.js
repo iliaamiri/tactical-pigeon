@@ -94,6 +94,8 @@ function clearBoardForNewRound() {
         leftPigeon.classList.add('picking-move-animation');
         leftPigeon.classList.remove('revert-pigeon-pick-move');
 
+        changeRoundTitle();
+
         document.querySelectorAll('.hide-animation').forEach(element => {
             element.classList.add('show-animation');
             element.classList.remove('hide-animation');
@@ -138,6 +140,15 @@ function calculateGameResults() {
 };
 
 
+
+
+const roundTitle = document.querySelector('div.round-title');
+
+function changeRoundTitle() {
+    roundTitle.innerHTML = `<span>Round ${roundCounter}</span>`;
+};
+
+changeRoundTitle();
 
 
 document.querySelector('body').addEventListener('click', async event => {
@@ -237,8 +248,8 @@ document.querySelector('div.done').addEventListener('click', async event => {
     console.log('life.all', Life.all);
     if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
         setTimeout(() => {
-            clearBoardForNewRound();
             roundCounter++;
+            clearBoardForNewRound();
         }, 2000);
     } else {
         setTimeout(() => {
