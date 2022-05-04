@@ -10,6 +10,8 @@ class Life {
 
   constructor(lifeNodeList) {
     this.lifeNodeList = lifeNodeList;
+    // thought we should initialize the counter too
+    this.counter = this.counterRange[1];
   }
 
   get counter() { return this.#counter; }

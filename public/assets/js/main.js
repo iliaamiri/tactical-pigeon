@@ -195,9 +195,9 @@ document.querySelector('div.done').addEventListener('click', async event => {
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
-    if (roundCounter < roundCounterMax) {
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+    if (roundCounter < roundCounterMax && (Life.all.myLife.counter > 0) && (Life.all.opponentLife.counter > 0)) {
         clearBoardForNewRound();
         roundCounter++;
     } else {
@@ -210,8 +210,8 @@ document.querySelector('img.my-shield').addEventListener('click', async event =>
     console.log('shield selector hit!');
     RoundMove.selectedMoveType = 'block';
     const myBlockCounter = document.querySelector('span.my-block-counter');
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png")
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png")
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedShield.png");
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/attackfork-1.png");
     currentSelectedInventory = Inventory.all['block-left'];
 });
 
@@ -219,8 +219,8 @@ document.querySelector('img.my-attack').addEventListener('click', async event =>
     console.log('sword selector hit!');
     RoundMove.selectedMoveType = 'attack';
     const myAttackCounter = document.querySelector('span.my-attack-counter');
-    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png")
-    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png")
+    document.getElementById("attack-image").setAttribute("src","/assets/img/GUI-controls/MainControls/PressedFork.png");
+    document.getElementById("shield-image").setAttribute("src","/assets/img/GUI-controls/MainControls/vikingshield-1.png");
     currentSelectedInventory = Inventory.all['attack-left'];
 });
 
