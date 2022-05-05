@@ -195,10 +195,18 @@ div.result-banner.victory {
 
 div.result-banner.draw {
   background-image: url("/assets/img/GUI-controls/Results/Draw.png");
+  animation: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 1s;
 }
 
 div.result-banner.defeat {
   background-image: url("/assets/img/GUI-controls/Results/Defeat.png");
+  animation: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 1s;
 }
 
 /* Timer Counter */
