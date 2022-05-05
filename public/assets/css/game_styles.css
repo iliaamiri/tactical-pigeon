@@ -815,8 +815,8 @@ screen and (min-height: 414px) {
 /* ---- Large Laptops ---- */
 @media only screen and (min-width: 1440px) {
   table.tally tr td {
-    height: var(--tally-table-cell-size-on-large-laptop);
-    width: var(--tally-table-cell-size-on-large-laptop);
+    height: var(--tally-table-cell-size-on-laptop);
+    width: var(--tally-table-cell-size-on-laptop);
   }
 
 }
