@@ -8,6 +8,7 @@ import MovePlaceholder from './components/MovePlaceholder.js';
 import Life from './components/Life.js';
 import Timer from './components/Timer.js';
 import AmmoIcon from "./components/AmmoIcon.js";
+import Rounds from './components/Rounds.js';
 
 // Helpers
 import Players from "./helpers/Players.js";
@@ -19,6 +20,13 @@ import tripletCompare from "./helpers/tripleCompare.js";
 import clearBoardForNewRound from "./helpers/clearBoardForNewRound.js";
 import calculateGameResults from "./helpers/calculateGameResults.js";
 import changeRoundTitle from "./helpers/changeRoundTitle.js";
+import resetGame from "./helpers/resetGame.js";
+import restingMode from "./helpers/restingMode.js";
+import roundCountdown from "./helpers/roundCountdown.js";
+
+
+//Initiating the game.
+Rounds.all.game1 =  new Rounds()
 
 // Initiating the players.
 Players.all.player1 = new Player("AklBm4", "Me");
@@ -31,20 +39,26 @@ MovePlaceholder.all = {
     'legs': new MovePlaceholder('legs')
 };
 
-// Initiating Timer.
-// let myTimerCounter = document.querySelector('span.time-nums');
-console.log(Timer.all);
-
-// Timer.all['myTimer'].resetCounter();
-// Timer.all['myTimer'].startCounter();
-// This is not working yet
-
 // let currentSelectedInventory;
 const gameResultEnum = ['loss', 'win', 'draw'];
-let roundCounter = 1; // easier to start at 1 to use in nth-child()
-const roundCounterMax = 5; // 5 rounds per game
 
-changeRoundTitle(roundCounter);
+// let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
+// const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
+
+changeRoundTitle(Rounds.all['game1'].counter);
+
+document.querySelector("div.countdown-overlay").classList.remove("d-none");
+roundCountdown();
+
+// First round start timer
+setTimeout(() => {
+    document.querySelector("div.countdown-overlay").classList.add("d-none");
+    Timer.all['myTimer'].startCounter();
+    document.querySelector(".play-again").classList.add("d-none")
+    document.querySelector('.move-picker-overlay').classList.add('show-animation');
+    document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+    document.querySelector('.done').classList.add('pop-in-animation');
+}, 5000)
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
@@ -60,53 +74,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
     if (target.tagName === "DIV" && target.classList.contains("play-again")) {
         console.log("user wants to play again!")
-        return location.reload();
-
-        // Do not delete this yet
-        // let replayBtn = document.querySelector(".play-again")
-        // replayBtn.classList.add('replay-out-animation');
-        // replayBtn.classList.remove('replay-in-animation');
-
-        // let resultOverlay = document.querySelector(".result-banner")
-        // resultOverlay.classList.remove('victory');
-
-        // // reset move picker
-        // clearBoardForNewRound()
-
-        // // reset tally board
-        // let myTally = document.querySelectorAll(`table.tally.my-tally td`);
-        // console.log('my empty tally', myTally);
-        // myTally.forEach((td) => {
-        //     td.classList.remove('cell-attacked');
-        //     td.classList.remove('cell-blocked');
-        //     td.classList.remove('round-won');
-        //     td.classList.remove('round-draw');
-        //     td.classList.remove('round-defeat');
-        // });
-
-        // let opponentTally = document.querySelectorAll(`table.tally.opponent-tally td`);
-        // console.log('opponent empty tally', opponentTally);
-        // opponentTally.forEach((td) => {
-        //     td.classList.remove('cell-attacked');
-        //     td.classList.remove('cell-blocked');
-        //     td.classList.remove('round-won');
-        //     td.classList.remove('round-draw');
-        //     td.classList.remove('round-defeat');
-        // });
-
-        // // reset ammo
-        // Inventory.all["block-left"].resetCounter();
-        // Inventory.all["attack-left"].resetCounter();
-        // Inventory.all["opponentBlock"].resetCounter();
-        // Inventory.all["opponentAttack"].resetCounter();
-
-        // // reset lives
-        // Life.all['myLife'].resetCounter();
-        // Life.all['opponentLife'].resetCounter();
-
-        // // reset timer
-        // windows reload 
-        // or reset everything 
+        resetGame()
     }
 
     /* ---- Done ---- */
@@ -120,13 +88,16 @@ document.querySelector('body').addEventListener('click', async event => {
         Object.values(MovePlaceholder.all)
             .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
 
-        let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${roundCounter})`);
+        Timer.all['myTimer'].resetCounter();
+
+        let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Rounds.all['game1'].counter})`);
         console.log('my column', myTallyColumn);
         //myTallyColumn.forEach((td, index) => {
         //let moveComponent = Object.values(Move.myMoves)[index];
 
         // Generating the Bot player's moves.
         const opponentMove = Players.all.player2.generateRandomMoves();
+        console.log(opponentMove)
 
         //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
         myTallyColumn.forEach((td, index) => {
@@ -140,7 +111,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
         });
 
-        let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${roundCounter})`);
+        let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${Rounds.all['game1'].counter})`);
         console.log('opponent', opponentTallyColumn);
         opponentTallyColumn.forEach((td, index) => {
             let moveComponent = Object.values(opponentMove)[index];
@@ -186,43 +157,42 @@ document.querySelector('body').addEventListener('click', async event => {
             });
         }
 
-        document.querySelectorAll('.show-animation').forEach(element => {
-            console.log('element', element);
-            element.classList.add('hide-animation');
-            element.classList.remove('show-animation');
-        });
+        restingMode()
+        // document.querySelectorAll('.show-animation').forEach(element => {
+        //     console.log('element', element);
+        //     element.classList.add('hide-animation');
+        //     element.classList.remove('show-animation');
+        // });
 
-        document.querySelectorAll('.pop-in-animation').forEach(element => {
-            console.log('element', element);
-            element.classList.add('pop-out-animation');
-            element.classList.remove('pop-in-animation');
-        });
+        // document.querySelectorAll('.pop-in-animation').forEach(element => {
+        //     console.log('element', element);
+        //     element.classList.add('pop-out-animation');
+        //     element.classList.remove('pop-in-animation');
+        // });
 
-        document.querySelectorAll('.show-animation').forEach(element => {
-            //console.log('element', element);
-            element.classList.add('hide-animation');
-            element.classList.remove('show-animation');
-        });
+        // let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+        // pigeon.classList.add('revert-pigeon-pick-move');
+        // pigeon.classList.remove('picking-move-animation');
 
-        document.querySelectorAll('.pop-in-animation').forEach(element => {
-            //console.log('element', element);
-            element.classList.add('pop-out-animation');
-            element.classList.remove('pop-in-animation');
-        });
-
-        let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
-        pigeon.classList.add('revert-pigeon-pick-move');
-        pigeon.classList.remove('picking-move-animation');
-
-        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
-        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+        // document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
+        // document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
         //console.log('*** round finished ***');
+
+        
         console.log('life.all', Life.all);
-        if (roundCounter < roundCounterMax && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
+        if (Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
             setTimeout(() => {
-                roundCounter++;
-                clearBoardForNewRound(roundCounter);
-            }, 1500);
+                document.querySelector("div.countdown-overlay").classList.remove("d-none");
+                roundCountdown();
+            }, 5000)
+
+            setTimeout(() => {
+                // Timer.all['myTimer'].startCounter();
+                document.querySelector("div.countdown-overlay").classList.add("d-none");
+                Rounds.all['game1'].increaseCounter();
+                // console.log(Rounds.all['game1'].counter)
+                clearBoardForNewRound(Rounds.all['game1'].counter);
+            }, 9000);
         } else {
             // results tied to clicking the done button, results show faster than animation though
             // connect result calculation here
@@ -243,9 +213,11 @@ document.querySelector('body').addEventListener('click', async event => {
             let replayBtn = document.querySelector(".play-again");
             replayBtn.classList.add('replay-in-animation');
             replayBtn.classList.remove('replay-out-animation');
+            replayBtn.classList.remove('d-none');
+
             document.querySelector('div.done').classList.add('d-none');
             document.querySelector('div.moves-placeholder').classList.add('d-none');
-            roundCounter = 1;
+            Rounds.all['game1'].resetCounter();
         }
     }
 

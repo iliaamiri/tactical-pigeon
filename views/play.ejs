@@ -21,33 +21,42 @@
     <div class="container-fluid big-container">
         <div class="row">
             <div class="col-md-12">
+            
+            
+             <!-- Portrait Mode Overlay -->
+    <div class="flip-overlay">
+        <!-- Placeholder for incoming D3 asset -->
+        <span class="portrait">FLIP TO PLAY</span>
+    </div>
 
-                <div class="flip-overlay">
-                    <!-- Placeholder for incoming D3 asset -->
-                    <span class="portrait">FLIP TO PLAY</span>
-                </div>
-                <!-- Background Image as CSS class -->
+    <!-- Round Countdown Overlay -->
+    <div class="countdown-overlay d-none">
+        <!-- Placeholder for incoming D3 asset -->
+        <span class="countdown">3</span>
+    </div>
 
-                <!-- Play Again Button -->
-                <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
-                    <div id="pulse" class="play-again mb-5"></div>
-                </div>
+    <!-- Background Image as CSS class -->
 
-                <!-- Game Result Banner -->
-                <div class="result-container position-absolute d-flex justify-content-center">
-                    <div class="result-banner position-absolute mt-4"></div>
-                </div>
+    <!-- Play Again Button -->
+    <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
+        <div id="pulse" class="play-again mb-5"></div>
+    </div>
+
+    <!-- Game Result Banner -->
+    <div class="result-container position-absolute d-flex justify-content-center">
+        <div class="result-banner position-absolute mt-4"></div>
+    </div>
 
 
-                <!-- Timer Counter -->
-                <div class="timer-counter">
-                    <!-- Transitioning between two decimals to one vice versa using d-none (display none class utility in Bootstrap),
-                    being controlled in JavaScript frontend. -->
-                    <!-- <div class="time-no-decimal number-6 d-none"></div>
-                    <div class="time-left-decimal number-1"></div>
-                    <div class="time-right-decimal number-0"></div> -->
-                    <span class="time-nums">60</span>
-                </div>
+    <!-- Timer Counter -->
+    <div class="timer-counter">
+        <!-- Transitioning between two decimals to one vice versa using d-none (display none class utility in Bootstrap),
+     being controlled in JavaScript frontend. -->
+        <!-- <div class="time-no-decimal number-6 d-none"></div>
+        <div class="time-left-decimal number-1"></div>
+        <div class="time-right-decimal number-0"></div> -->
+        <span class="time-nums">30</span>
+    </div>
 
                 <!-- Main Components -->
                 <div class="container-fluid">
