@@ -5,7 +5,7 @@
 body {
   margin: 0;
   background-color: #B1D2D1;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 p {
@@ -23,13 +23,13 @@ div.container {
 
 div.start {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   background-image: url('/assets/img/TPguielements-starting-09.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   height: 55vh;
-  width: 36vw; 
+  width: 36vw;
   align-items: center;
   justify-content: center;
   padding: 3%;
@@ -52,6 +52,27 @@ div.logo img {
   height: 50vh;
 }
 
+.floating {
+  animation-name: floating;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+  }
+
+  50% {
+    transform: translate(0, 15px);
+  }
+
+  100% {
+    transform: translate(0, -0px);
+  }
+}
+
 button {
   padding: 0;
   background-color: transparent;
@@ -61,12 +82,12 @@ button {
 input {
   padding: 6px;
   margin-top: -5px;
-  border-radius: 3px; 
-  display:inline-block;
+  border-radius: 3px;
+  display: inline-block;
   font-family: 'Titan One', cursive;
   color: #4f7c93;
-  font-size:1.5vw;
-  text-align:center;
+  font-size: 1.5vw;
+  text-align: center;
   letter-spacing: 1px;
 }
 
@@ -74,9 +95,9 @@ input {
 @media only screen and (max-width: 600px) {
   input {
     width: 20vw;
-    height:auto;
-    margin:0;
-    padding:2px;
+    height: auto;
+    margin: 0;
+    padding: 2px;
   }
 
   p {
@@ -85,7 +106,7 @@ input {
 
   div.start img {
     width: 25vw;
-    height:auto;
+    height: auto;
     margin-bottom: 10px;
   }
 
@@ -97,36 +118,37 @@ input {
 
   div.logo img {
     width: 52vw;
-    height:auto;
+    height: auto;
   }
-  
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   input {
     width: 25vw;
-    margin:0;
-    font-size:1.7vw;
+    margin: 0;
+    font-size: 1.7vw;
   }
-  
+
   div.start {
     height: 60vh;
     width: 40vw;
     margin: 0;
   }
-   div.start img {
+
+  div.start img {
     width: 22vw;
-    height:auto;
+    height: auto;
   }
 
   p {
-    font-size:2.7vw;
+    font-size: 2.7vw;
   }
 
   div.logo img {
     width: 50vw;
-    height:auto;
+    height: auto;
   }
 }
 
@@ -135,24 +157,27 @@ input {
 @media only screen and (min-width: 992px) {
   input {
     width: 20vw;
-    margin:0;
-    font-size:1.7vw;
+    margin: 0;
+    font-size: 1.7vw;
   }
-  p{
-    font-size:2.3vw;
+
+  p {
+    font-size: 2.3vw;
   }
+
   div.start img {
     width: 16vw;
-    height:auto;
+    height: auto;
     margin-bottom: 10px;
   }
+
   div.logo img {
     width: 40vw;
-    height:auto;
+    height: auto;
   }
+
   div.container {
     margin-left: 12vw;
     margin-right: 12vw;
   }
 }
-
