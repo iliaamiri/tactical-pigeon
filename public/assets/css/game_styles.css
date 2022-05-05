@@ -58,6 +58,8 @@ body {
   opacity: 0;
 }
 
+
+/* white space that appears when browser width gets too thin*/
 /*900px and up) */
 @media only screen and (min-width: 900px) {
   .bottom-background {
@@ -99,7 +101,8 @@ span.portrait {
 }
 
 /* Countdown Overlay */
-span.countdown {
+
+ span.countdown {
   font-family: "Titan One", cursive;
   font-size: 5em;
   color: #407d96;
@@ -119,7 +122,7 @@ div.countdown-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} 
 
 /* Replay */
 /* TODO: change this to bootstrap row and use justify-content:center to center it.
@@ -210,8 +213,8 @@ div.timer-counter {
   background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.png");
   background-size: contain;
   background-repeat: no-repeat;
-  height: 5vw;
-  width: 5vw;
+  height: 5.5vw;
+  width: 5.5vw;
   top: 0;
   left: 24%;
   display: flex;
@@ -228,15 +231,14 @@ div.timer-counter div {
   background-repeat: no-repeat;
 }
 
-/* is this meant to be removed? */
-/* span.time-nums {
+span.time-nums {
   font-family: "Titan One", cursive;
-  font-size: 35px;
+  font-size: 2.5vw;
   color: #407d96;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: white;
   margin-top: 10px;
-} */
+} 
 
 /* Shield and Attack Counters */
 img.shield-icon {
@@ -356,13 +358,15 @@ div.pigeons-container img {
   position: absolute;
   /*height: 170px;*/
   /*bottom: 15px;*/
-  height: 340px;
-  bottom: -65px;
+  /* height: 340px; */
+  height: 35vw;
+  bottom: -5vw;
   z-index: -10;
 }
 
 div.pigeons-container img.pigeon-left {
-  left: var(--left-pigeon-distance-from-the-edges);
+  left: 15%;
+  /* margin-right: 5vw; */
 }
 
 div.pigeons-container img.pigeon-left.picking-move-animation {
@@ -396,7 +400,7 @@ div.hotdog-container img {
 }
 
 div.hotdog-container img.hotdog-pray {
-  height: 100px;
+  height: 8vw;
   left: 42.96875%;
   /* derived from [(the pixels amount) x 100] / 896 */
 }
@@ -579,31 +583,43 @@ div.mv-placeholder.filled-block {
 /* Animations */
 @keyframes pigeon-pick-move {
   from {
-    height: 340px;
-    left: var(--left-pigeon-distance-from-the-edges);
-    bottom: -65px;
+    height: 35vw;
+    left: 15%;
+    /* left: var(--left-pigeon-distance-from-the-edges); */
+    bottom: -5vw;
   }
 
   to {
-    height: 720px;
-    left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
-    bottom: -260px;
+    height: 64vw;
+    /* left: calc(var(--left-pigeon-distance-from-the-edges) - 290px); */
+    left: -4%;
+    bottom: -20vw;
   }
 }
 
 @keyframes revert-pigeon-pick-move {
   from {
-    height: 720px;
+    /* height: 720px;
     left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
-    bottom: -260px;
+    bottom: -260px; */
+
+    height: 64vw;
+    /* left: calc(var(--left-pigeon-distance-from-the-edges) - 290px); */
+    left: -4%;
+    bottom: -20vw;
   }
 
   to {
-    height: 340px;
+    /* height: 340px;
     left: var(--left-pigeon-distance-from-the-edges);
-    bottom: -65px;
+    bottom: -65px; */
+
+    height: 35vw;
+    left: 15%;
+    /* left: var(--left-pigeon-distance-from-the-edges); */
+    bottom: -5vw;
   }
-}
+} 
 
 @keyframes slide-in {
   from {
@@ -712,7 +728,6 @@ screen and (min-height: 414px) {
     height: var(--tally-table-cell-size);
     width: var(--tally-table-cell-size);
   }
-
 }
 
 /* ---- Tablets ---- */
@@ -721,45 +736,8 @@ screen and (min-height: 414px) {
     height: var(--tally-table-cell-size-on-tablet);
     width: var(--tally-table-cell-size-on-tablet);
   }
-
-  div.pigeons-container {
-    width: 100%;
-    bottom: 0;
-  }
-
-  div.pigeons-container img {
-    position: absolute;
-    /*height: 170px;*/
-    /*bottom: 15px;*/
-    height: 340px;
-    bottom: -65px;
-    z-index: -10;
-  }
-
-  div.pigeons-container img.pigeon-left {
-    left: var(--left-pigeon-distance-from-the-edges);
-  }
-
-  div.pigeons-container img.pigeon-left.picking-move-animation {
-    animation-name: pigeon-pick-move;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
-  }
-
-  div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
-    animation-name: revert-pigeon-pick-move;
-    animation-fill-mode: backwards;
-    animation-duration: 0.5s;
-    animation-delay: 0.4s;
-  }
-
-  div.pigeons-container img.pigeon-right {
-    right: var(--right-pigeon-distance-from-the-edges);
-    z-index: -19;
-  }
-
-
 }
+
 
 /* ---- Laptops ---- */
 @media only screen and (min-width: 1024px) {
@@ -772,10 +750,16 @@ screen and (min-height: 414px) {
 /* ---- Large Laptops ---- */
 @media only screen and (min-width: 1440px) {
   table.tally tr td {
-    height: var(--tally-table-cell-size-on-laptop);
-    width: var(--tally-table-cell-size-on-laptop);
+    height: var(--tally-table-cell-size-on-large-laptop);
+    width: var(--tally-table-cell-size-on-large-laptop);
   }
+}
 
+@media only screen and (min-width: 2000px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size-on-4k);
+    width: var(--tally-table-cell-size-on-4k);
+  }
 }
 
 /* ---- 4k ---- */
