@@ -4,34 +4,82 @@
   --right-pigeon-distance-from-the-edges: 12.27678571428571%;
   --tally-table-cell-size: 40px;
 
-  /* TODO: have separate variables for each resolution and change them using MEDIA QUERY CSS */
-  /*
-    --tally-table-cell-size-on-mobile: 40px;
-    --tally-table-cell-size-on-tablet: 80px;
-      .
-      .
-      .
-   */
+  /* Table Labels Sizes */
+  --table-label-size-default: 26px;
+  /* ~ mobiles */
+  --table-label-size-on-tablet: 26px;
+  /* 768px */
+  --table-label-size-on-laptop: 36px;
+  /* 1024px */
+  --table-label-size-on-large-laptop: 41px;
+  /* 1440px */
+  --table-label-size-on-4k: 46px;
+  /* 2560px */
+
+  /* Tally Table Cell Sizes */
+  --tally-table-cell-size: 40px;
+  /* ~ mobile */
+  --tally-table-cell-size-on-tablet: 40px;
+  /* 768px */
+  --tally-table-cell-size-on-laptop: 50px;
+  /* ~1000px */
+  --tally-table-cell-size-on-large-laptop: 60px;
+  /* 1440px */
+  --tally-table-cell-size-on-4k: 80px;
+  /* 2560px */
 }
 
 * {
   box-sizing: border-box;
 }
 
+div.container-fluid.big-container {
+  overflow: hidden;
+  height: 100vh;
+}
+
+div.container-fluid.move-picker-overlay {
+  overflow: visible;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  overflow: hidden;
-  background-size: auto;
+  /* overflow: hidden;
+  background-size: auto; */
   background-repeat: no-repeat;
+  background-color: #BABABB;
+}
+
+.bottom-background {
+  background-color: whitesmoke;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+}
+
+/*900px and up) */
+@media only screen and (min-width: 900px) {
+  .bottom-background {
+    opacity: 100;
+  }
+}
+
+@media only screen and (min-height: 415px) {
+  .bottom-background {
+    opacity: 100;
+  }
 }
 
 body.default-background {
   background-image: url("/assets/img/backgrounds/background-01.png");
+  background-size: 100vw;
 }
+
 body.playground-background {
   background-image: url("/assets/img/backgrounds/background-02.png");
 }
+
 body.night-night-background {
   background-image: url("/assets/img/backgrounds/background-03.png");
 }
@@ -129,8 +177,8 @@ div.timer-counter {
   background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.png");
   background-size: contain;
   background-repeat: no-repeat;
-  width: 65px;
-  height: 65px;
+  height: 5vw;
+  width: 5vw;
   top: 0;
   left: 24%;
   display: flex;
@@ -147,14 +195,15 @@ div.timer-counter div {
   background-repeat: no-repeat;
 }
 
-span.time-nums {
+/* is this meant to be removed? */
+/* span.time-nums {
   font-family: "Titan One", cursive;
   font-size: 35px;
   color: #407d96;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: white;
   margin-top: 10px;
-}
+} */
 
 span.portrait {
   font-family: "Titan One", cursive;
@@ -286,8 +335,10 @@ div.table-labels div.tabol-labol {
   width: 100%;
 }
 
-div.table-labels div.tabol-labol > img {
-  height: 26px;
+div.table-labels div.tabol-labol>img {
+  height: 2.5vw;
+  margin: 10px
+    /* height: 26px; */
 }
 
 /* Tally Table */
@@ -394,40 +445,42 @@ div.hotdog-container img.hotdog-pray {
 }
 
 /* Health Bars */
-div.health-bars {
+/* div.health-bars {
   position: absolute;
   bottom: 5%;
   left: 2.5%;
   width: 95%;
-}
+} */
 
 div.health-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url("/assets/img/GUI-controls/LifeGUI/LifeLineBG.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 50px;
-  width: 100%;
-  padding: 10px;
+  background-color: #CADDE8;
+  border-radius: 8px;
+  border-style: none none inset none;
+  border-color: #83939b;
+  border-width: 3px;
+  height: 5vw;
+  width: 62%;
+  padding: 1vh 1.5vh;
 }
 
-div > div.heart {
-  height: 72%;
-  width: 72%;
+div>div.heart {
+  height: 2.5vw;
+  width: 6vw;
   /* margin-right: 4px; */
   /* margin-left: 6px; */
 }
 
-div > div.heart-filled {
+div>div.heart-filled {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthplus.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-div > div.heart-empty {
+div>div.heart-empty {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthminus.png");
   background-size: contain;
   background-position: center;
@@ -437,7 +490,7 @@ div > div.heart-empty {
 /* Move Picker */
 div.round-title {
   position: absolute;
-  top: -12%;
+  top: -19%;
   right: -3%;
   /* height: 40px; */
   width: 65%;
@@ -446,13 +499,12 @@ div.round-title {
   background-position: center;
   background-repeat: no-repeat; */
   font-family: "Titan One", cursive;
-  font-size: 2.5em;
+  font-size: 4.5vw;
   text-align: right;
   white-space: nowrap;
   color: white;
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 0.2vw;
   -webkit-text-stroke-color: #407d96;
-  
 }
 
 div.done {
@@ -507,7 +559,7 @@ div.move-picker-overlay div.row {
 div.move-picker-overlay div.hints-box {
   font-family: "Comic Sans MS", sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 2.5vw;
   color: #44575d;
 }
 
@@ -536,8 +588,8 @@ div.moves-placeholder {
 }
 
 div.mv-placeholder {
-  height: 60px;
-  width: 60px;
+  height: 5.6vw;
+  width: 5.6vw;
   background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
@@ -576,7 +628,7 @@ div.mv-placeholder.filled-block {
   }
 
   to {
-    height: 750px;
+    height: 720px;
     left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
     bottom: -260px;
   }
@@ -584,7 +636,7 @@ div.mv-placeholder.filled-block {
 
 @keyframes revert-pigeon-pick-move {
   from {
-    height: 750px;
+    height: 720px;
     left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
     bottom: -260px;
   }
@@ -630,6 +682,7 @@ div.mv-placeholder.filled-block {
     opacity: 0;
     display: none;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -643,6 +696,7 @@ div.mv-placeholder.filled-block {
     opacity: 1;
     display: block;
   }
+
   to {
     transform: scale(1.2);
     opacity: 0;
@@ -654,6 +708,7 @@ div.mv-placeholder.filled-block {
   25% {
     transform: scale(0.9);
   }
+
   75% {
     transform: scale(1.1);
   }
@@ -678,5 +733,98 @@ div.mv-placeholder.filled-block {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+
+
+/* Background stretch if it wasn't the actual image resolution */
+/* Background Responsiveness */
+/* @media only screen and (min-width: 896px),
+screen and (min-height: 414px) {
+  body {
+    background-size: cover;
+  }
+} */
+
+
+/* Media Queries regular devices */
+
+@media only screen and (min-width: 600px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size);
+    width: var(--tally-table-cell-size);
+  }
+
+}
+
+/* ---- Tablets ---- */
+@media only screen and (min-width: 768px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size-on-tablet);
+    width: var(--tally-table-cell-size-on-tablet);
+  }
+
+  div.pigeons-container {
+    width: 100%;
+    bottom: 0;
+  }
+
+  div.pigeons-container img {
+    position: absolute;
+    /*height: 170px;*/
+    /*bottom: 15px;*/
+    height: 340px;
+    bottom: -65px;
+    z-index: -10;
+  }
+
+  div.pigeons-container img.pigeon-left {
+    left: var(--left-pigeon-distance-from-the-edges);
+  }
+
+  div.pigeons-container img.pigeon-left.picking-move-animation {
+    animation-name: pigeon-pick-move;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+  }
+
+  div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
+    animation-name: revert-pigeon-pick-move;
+    animation-fill-mode: backwards;
+    animation-duration: 0.5s;
+    animation-delay: 0.4s;
+  }
+
+  div.pigeons-container img.pigeon-right {
+    right: var(--right-pigeon-distance-from-the-edges);
+    z-index: -19;
+  }
+
+
+}
+
+/* ---- Laptops ---- */
+@media only screen and (min-width: 1024px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size-on-laptop);
+    width: var(--tally-table-cell-size-on-laptop);
+  }
+}
+
+/* ---- Large Laptops ---- */
+@media only screen and (min-width: 1440px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size-on-large-laptop);
+    width: var(--tally-table-cell-size-on-large-laptop);
+  }
+
+}
+
+/* ---- 4k ---- */
+@media only screen and (min-width: 2560px) {
+  table.tally tr td {
+    height: var(--tally-table-cell-size-on-4k);
+    width: var(--tally-table-cell-size-on-4k);
   }
 }
