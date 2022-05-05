@@ -40,6 +40,39 @@ div.asset-padding {
   padding: 1%;
 }
 
+/* Portrait Overlay */
+span.portrait {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: #407d96;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+  margin-top: 10px;
+}
+
+/* Countdown Overlay */
+span.countdown {
+  font-family: "Titan One", cursive;
+  font-size: 5em;
+  color: #407d96;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+}
+
+div.countdown-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  background-color: #ffdc4b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Replay */
 /* TODO: change this to bootstrap row and use justify-content:center to center it.
                        This way will spare us from using left. */
@@ -155,82 +188,6 @@ span.time-nums {
   -webkit-text-stroke-color: white;
   margin-top: 10px;
 }
-
-span.portrait {
-  font-family: "Titan One", cursive;
-  font-size: 35px;
-  color: #407d96;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: white;
-  margin-top: 10px;
-}
-
-/* div.timer-counter div.time-no-decimal {
-  left: 22%;
-}
-
-div.timer-counter div.time-left-decimal {
-  left: 5%;
-}
-
-div.timer-counter div.time-right-decimal {
-  left: 38%;
-}
-
-div.timer-counter div.number-0 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/0.png");
-  height: 38px;
-  width: 35px;
-  bottom: 1%;
-}
-
-div.timer-counter div.number-0.time-right-decimal {
-  left: 35%;
-}
-
-div.timer-counter div.number-0.time-left-decimal {
-  left: 1%;
-}
-
-div.timer-counter div.number-1 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/1.png");
-}
-
-div.timer-counter div.number-1.time-left-decimal {
-  left: 7%;
-}
-
-div.timer-counter div.number-2 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/2.png");
-}
-
-div.timer-counter div.number-3 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/3.png");
-}
-
-div.timer-counter div.number-4 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/4.png");
-}
-
-div.timer-counter div.number-5 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/5.png");
-}
-
-div.timer-counter div.number-6 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/6.png");
-}
-
-div.timer-counter div.number-7 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/7.png");
-}
-
-div.timer-counter div.number-8 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/8.png");
-}
-
-div.timer-counter div.number-9 {
-  background-image: url("/assets/img/GUI-controls/TimerRounds/9.png");
-} */
 
 /* Shield and Attack Counters */
 img.shield-icon {
@@ -457,10 +414,10 @@ div.round-title {
 
 div.done {
   opacity: 0;
-  bottom: 7.5%;
+  bottom: 12.5%;
   left: 50%;
   z-index: 50;
-  height: 20%;
+  height: 10%;
   width: 8%;
   background-image: url("/assets/img/GUI-controls/MainControls/Done1.png");
   background-size: contain;

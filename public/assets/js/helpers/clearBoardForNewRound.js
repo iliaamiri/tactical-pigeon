@@ -1,6 +1,7 @@
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
 import AmmoIcon from "../components/AmmoIcon.js";
+import Timer from '../components/Timer.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
@@ -60,6 +61,10 @@ function clearBoardForNewRound(roundCounter) {
       element.classList.add('show-animation');
       element.classList.remove('hide-animation');
   });
+
+
+  // Start timer
+  Timer.all["myTimer"].startCounter()
 
 // Enabling everything back for the next new round
   doneButton.enableClick(); // enabling done button
