@@ -1,6 +1,7 @@
 import Life from '../components/Life.js';
 import Rounds from '../components/Rounds.js';
 
+import calculateGameResults from "../helpers/calculateGameResults.js";
 import roundCountdown from "../helpers/roundCountdown.js";
 import clearBoardForNewRound from "../helpers/clearBoardForNewRound.js";
 import restingMode from "../helpers/restingMode.js";
@@ -95,7 +96,16 @@ class Timer {
                     restingMode();
                     this.resetCounter();
                     let resultOverlay = document.querySelector(".result-banner");
-                    resultOverlay.classList.add('victory');
+                    let gameResult = calculateGameResults();
+                    console.log('game result', gameResult);
+                    if (gameResult === 'win') {
+                        resultOverlay.classList.add('victory');
+                    } else if (gameResult === 'loss') {
+                        resultOverlay.classList.add('defeat');
+                    } else {
+                        resultOverlay.classList.add('draw');
+                    }
+                    // resultOverlay.classList.add('victory');
                     // resultOverlay.classList.add('draw');
                     // resultOverlay.classList.add('defeat');
                     // console.log(resultOverlay);
