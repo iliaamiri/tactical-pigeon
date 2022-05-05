@@ -45,20 +45,27 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 // let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
 // const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
 
-changeRoundTitle(Rounds.all['game1'].counter);
 
-document.querySelector("div.countdown-overlay").classList.remove("d-none");
-roundCountdown();
-
-// First round start timer
-setTimeout(() => {
+(async function () {
+    console.log('haiiii');
+    document.querySelector("div.countdown-overlay").classList.remove("d-none");
+    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+    let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+    await roundCountdown();
+    pickMoveOverlay.classList.add('show-animation');
+    pigeon.classList.add('picking-move-animation');
+    console.log('done timer!');
+    changeRoundTitle(Rounds.all['game1'].counter);
+    // First round start timer
     document.querySelector("div.countdown-overlay").classList.add("d-none");
     Timer.all['myTimer'].startCounter();
     document.querySelector(".play-again").classList.add("d-none")
     document.querySelector('.move-picker-overlay').classList.add('show-animation');
     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
     document.querySelector('.done').classList.add('pop-in-animation');
-}, 5000)
+})();
+
+
 
 
 
@@ -159,21 +166,26 @@ document.querySelector('body').addEventListener('click', async event => {
             });
         }
 
-        restingMode()
+        restingMode();
         
         console.log('life.all', Life.all);
         if (Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
-            setTimeout(() => {
+            
+            setTimeout(async () => {
                 document.querySelector("div.countdown-overlay").classList.remove("d-none");
-                roundCountdown();
+                await roundCountdown();
+                // Timer.all['myTimer'].startCounter();
+                document.querySelector("div.countdown-overlay").classList.add("d-none");
+                Rounds.all['game1'].increaseCounter();
+                // console.log(Rounds.all['game1'].counter)
                 setTimeout(() => {
-                    // Timer.all['myTimer'].startCounter();
-                    document.querySelector("div.countdown-overlay").classList.add("d-none");
-                    Rounds.all['game1'].increaseCounter();
-                    // console.log(Rounds.all['game1'].counter)
                     clearBoardForNewRound(Rounds.all['game1'].counter);
-                }, 4000);
-            }, 5000)
+                }, 700);
+                
+                /* setTimeout(() => {
+                    
+                }, 4000); */
+            }, 1600);
 
         } else {
             // results tied to clicking the done button, results show faster than animation though

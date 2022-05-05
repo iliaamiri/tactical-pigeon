@@ -43,7 +43,7 @@ async function roundCountdown() {
 
     for (let item of ['3', '2', '1', 'Go!']) {
         Countdown.innerHTML = item
-        await wait(1000)
+        await wait(500)
     }
 
 };

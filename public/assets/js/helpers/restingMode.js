@@ -12,7 +12,7 @@ function restingMode() {
         element.classList.remove('pop-in-animation');
     });
 
-    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
+    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     pigeon.classList.add('revert-pigeon-pick-move');
     pigeon.classList.remove('picking-move-animation');
 
