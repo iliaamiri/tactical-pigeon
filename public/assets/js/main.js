@@ -60,6 +60,8 @@ setTimeout(() => {
     document.querySelector('.done').classList.add('pop-in-animation');
 }, 5000)
 
+
+
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
     event.preventDefault();
@@ -158,41 +160,21 @@ document.querySelector('body').addEventListener('click', async event => {
         }
 
         restingMode()
-        // document.querySelectorAll('.show-animation').forEach(element => {
-        //     console.log('element', element);
-        //     element.classList.add('hide-animation');
-        //     element.classList.remove('show-animation');
-        // });
-
-        // document.querySelectorAll('.pop-in-animation').forEach(element => {
-        //     console.log('element', element);
-        //     element.classList.add('pop-out-animation');
-        //     element.classList.remove('pop-in-animation');
-        // });
-
-        // let pigeon = document.querySelector('div.pigeons-container img.pigeon-left.picking-move-animation');
-        // pigeon.classList.add('revert-pigeon-pick-move');
-        // pigeon.classList.remove('picking-move-animation');
-
-        // document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
-        // document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
-        //console.log('*** round finished ***');
-
         
         console.log('life.all', Life.all);
         if (Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
             setTimeout(() => {
                 document.querySelector("div.countdown-overlay").classList.remove("d-none");
                 roundCountdown();
+                setTimeout(() => {
+                    // Timer.all['myTimer'].startCounter();
+                    document.querySelector("div.countdown-overlay").classList.add("d-none");
+                    Rounds.all['game1'].increaseCounter();
+                    // console.log(Rounds.all['game1'].counter)
+                    clearBoardForNewRound(Rounds.all['game1'].counter);
+                }, 4000);
             }, 5000)
 
-            setTimeout(() => {
-                // Timer.all['myTimer'].startCounter();
-                document.querySelector("div.countdown-overlay").classList.add("d-none");
-                Rounds.all['game1'].increaseCounter();
-                // console.log(Rounds.all['game1'].counter)
-                clearBoardForNewRound(Rounds.all['game1'].counter);
-            }, 9000);
         } else {
             // results tied to clicking the done button, results show faster than animation though
             // connect result calculation here
