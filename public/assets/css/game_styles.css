@@ -111,8 +111,8 @@ span.portrait {
 }
 
 div.countdown-overlay {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   z-index: 60;
   top: 0;
@@ -682,13 +682,13 @@ div.mv-placeholder.filled-block {
   }
 }
 
-@media only screen and (min-width: 600px) and (orientation: landscape) {
+@media only screen and (min-width: 350px) and (orientation: portrait) {
   div.flip-overlay {
     display: none;
   }
 }
 
-@media only screen and (max-width: 600px) and (orientation: portrait) {
+@media only screen and (max-width: 600px){
   div.flip-overlay {
     width: 100%;
     height: 100%;
@@ -701,6 +701,12 @@ div.mv-placeholder.filled-block {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px){
+  div.flip-overlay {
+    display: none;
   }
 }
 
