@@ -180,7 +180,7 @@ document.querySelector('body').addEventListener('click', async event => {
                 // console.log(Rounds.all['game1'].counter)
                 setTimeout(() => {
                     clearBoardForNewRound(Rounds.all['game1'].counter);
-                }, 700);
+                }, 800);
                 
                 /* setTimeout(() => {
                     

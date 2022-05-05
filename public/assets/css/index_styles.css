@@ -181,3 +181,44 @@ input {
     margin-right: 12vw;
   }
 }
+
+
+
+/* Portrait Overlay */
+span.portrait {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: #407d96;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+  margin-top: 10px;
+}
+
+
+@media only screen and (min-width: 350px) and (orientation: portrait) {
+  div.flip-overlay {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  div.flip-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    left: 0;
+    background-color: #ffdc4b;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px){
+  div.flip-overlay {
+    display: none;
+  }
+}
