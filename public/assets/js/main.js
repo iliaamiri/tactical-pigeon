@@ -30,7 +30,7 @@ import donePressed from "./helpers/donePressed.js";
 Rounds.all.game1 =  new Rounds()
 
 // Initiating the players.
-Players.all.player1 = new Player("AklBm4", "Me");
+Players.all.player1 = new Player("AklBm4", "Me", { 'blocks': Inventory.all['block-left'], 'attacks': Inventory.all['attack-left']});
 Players.all.player2 = new BotPlayer();
 
 // Initiating the move placeholders.

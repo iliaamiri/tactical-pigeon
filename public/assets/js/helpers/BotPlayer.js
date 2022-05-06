@@ -5,7 +5,10 @@ import RoundMove from "./RoundMove.js";
 
 class BotPlayer extends Player {
     constructor(playerId = "__BOT__", playerName = "Bot") {
-        super(playerId, playerName);
+        super(playerId, playerName, {
+            'blocks': Inventory.all.opponentBlock,
+            'attacks': Inventory.all.opponentAttack
+        });
     }
 
     /**
