@@ -17,7 +17,7 @@ class Timer {
 
     // timePerRound;
 
-    counterRange = [0, 10];
+    counterRange = [0, 30];
 
     element;
 
