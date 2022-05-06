@@ -49,6 +49,8 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 // first round preparation
 (async function () {
     document.querySelector("div.countdown-overlay").classList.remove("d-none");
+    document.querySelector("div.countdown-overlay").classList.add("opaque");
+
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
     await roundCountdown();
@@ -58,6 +60,7 @@ const gameResultEnum = ['loss', 'win', 'draw'];
     changeRoundTitle(Rounds.all['game1'].counter);
     // First round start timer
     document.querySelector("div.countdown-overlay").classList.add("d-none");
+    document.querySelector("div.countdown-overlay").classList.remove("opaque");
     Timer.all['myTimer'].startCounter();
     document.querySelector(".play-again").classList.add("d-none")
     document.querySelector('.move-picker-overlay').classList.add('show-animation');
