@@ -32,7 +32,7 @@ function donePressed() {
     
     Timer.all['myTimer'].resetCounter();
     
-    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Rounds.all['game1'].counter})`);
+    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Rounds.all['game1'].counter + 1})`);
     console.log('my column', myTallyColumn);
     //myTallyColumn.forEach((td, index) => {
     //let moveComponent = Object.values(Move.myMoves)[index];

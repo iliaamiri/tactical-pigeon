@@ -319,18 +319,35 @@ div.counter-box.opponent-counter {
 }
 
 /* Table Labels */
-div.table-labels {
+div.table-labels.table-labels.table-labels {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 1%;
   height: 131px;
+  min-width: 13.499999995%;
 }
 
-div.table-labels div.tabol-labol {
+table td.tabol-labol.tabol-labol.tabol-labol {
+  /* background-color: rgba(255, 220, 75, 0.4); */
+  background-color: #407e966b;
+  font-family: "Titan One", cursive;
+  /* font-size: 2.5vw; */
+  /* color: #407d96; */
+  color: #ffffff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #407d96;
   text-align: right;
-  width: 100%;
+  padding: 0px 5px 0px 5px;
+  border-left: none;
+}
+
+table td.tabol-labol.tabol-labol.tabol-labol.head-label{
+  border-top: none;
+}
+table td.tabol-labol.tabol-labol.tabol-labol.legs-label{
+  border-bottom: none;
 }
 
 div.table-labels div.tabol-labol>img {
