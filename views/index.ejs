@@ -31,11 +31,25 @@
 
       <input type="text">
 
-      <form action="/play">
-        <button><img src="/assets/img/TPguielements-starting-10.png" alt=""></button>
-      </form>
+
+      <button onclick="redirectPlay()"><img src="/assets/img/TPguielements-starting-10.png" alt=""></button>
+
+
+
     </div>
 
+    <script>
+// console.log(document.location.href)
+      let redirectPlay = () => {
+        let audio = new Audio("/assets/music/SuccessAttack.mp3");
+          audio.play();
+        let tID = setTimeout(function () {
+          window.location.href = document.location.href + "play";
+          window.clearTimeout(tID);		// clear time out.
+        }, 1350);
+      }
+
+    </script>
 
   </div>
 

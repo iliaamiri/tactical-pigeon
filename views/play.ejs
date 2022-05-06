@@ -245,6 +245,65 @@
                 <img src="/assets/img/LYPSTYC-logo.png" alt="LIPSTYC Logo" class="companyLogo">
             </div>
         </div>
+
+        <script>
+            let audio = new Audio("/assets/music/Fluffing-a-Duck.mp3")
+            document.onclick = function () {
+                audio.play();
+            }
+
+            let fork = document.querySelector("#attack-image")
+            fork.onclick = function () {
+                let audio = new Audio("/assets/music/Attack-[AudioTrimmer.com]-[AudioTrimmer.com].mp3");
+                audio.play();
+            }
+
+            let shield = document.querySelector("#shield-image")
+            shield.onclick = function () {
+                let audio = new Audio("/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav");
+                audio.play();
+            }
+
+            let opponent_fork = document.querySelector("div.col-sm-2.asset-padding.opponent-counter-box > img")
+            opponent_fork.onclick = function () {
+                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
+                audio.play();
+            }
+
+            let movePlaceholderHead = document.querySelector(".mv-placeholder.head")
+            movePlaceholderHead.onclick = function () {
+                let audio = new Audio("/assets/music/putting-in-tally.wav")
+                audio.play();
+            }
+
+            let movePlaceholderBody = document.querySelector(".mv-placeholder.body")
+            movePlaceholderBody.onclick = function () {
+                let audio = new Audio("/assets/music/putting-in-tally.wav")
+                audio.play();
+            }
+
+            let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs")
+            movePlaceholderLegs.onclick = function () {
+                let audio = new Audio("/assets/music/putting-in-tally.wav")
+                audio.play();
+            }
+
+            let doneButton = document.querySelector(".done")
+            doneButton.onclick = function () {
+                let audio = new Audio("/assets/music/SuccessAttack.mp3")
+                audio.play();
+            }
+
+            
+
+        </script>
+
+
+        <!-- if using fluffy ducky background, put this in description: -->
+        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
+Music promoted by https://www.chosic.com/free-music/all/  -->
 </body>
 
 </html>
