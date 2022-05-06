@@ -1,12 +1,15 @@
 import Life from '../components/Life.js';
 import Rounds from '../components/Rounds.js';
+import Inventory from '../components/Inventory.js';
 
 import calculateGameResults from "../helpers/calculateGameResults.js";
 import roundCountdown from "../helpers/roundCountdown.js";
 import clearBoardForNewRound from "../helpers/clearBoardForNewRound.js";
 import restingMode from "../helpers/restingMode.js";
 import Players from "../helpers/Players.js";
+
 import donePressed from "../helpers/donePressed.js";
+
 
 // let myTimer = document.querySelector('div.timer-counter');
 let myTimerCounter = document.querySelector('span.time-nums');
@@ -46,6 +49,7 @@ class Timer {
             this.counter--;
             // this.element.innerHTML = this.counter;
             if (this.counter === 0) {
+
                 donePressed()
                 
                 // const opponentMove = Players.all.player2.generateRandomMoves();
@@ -121,6 +125,7 @@ class Timer {
                 //     document.querySelector('div.moves-placeholder').classList.add('d-none');
                 //     Rounds.all['game1'].resetCounter();
                 // }
+
             }
         }, 1000);
     }

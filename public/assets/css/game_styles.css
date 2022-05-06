@@ -124,7 +124,7 @@ span.portrait {
 
 div.countdown-overlay {
   width: 100vw;
-  height: 100vh;
+  height: 50%;
   position: fixed;
   z-index: 60;
   top: 0;
@@ -133,10 +133,6 @@ div.countdown-overlay {
   align-items: center;
   justify-content: center;
 } 
-
-div.countdown-overlay.transparent {
-  opacity: 0;
-}
 
 div.countdown-overlay.opaque {
   background-color: #ffdc4b;
