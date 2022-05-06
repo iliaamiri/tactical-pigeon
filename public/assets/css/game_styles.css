@@ -124,7 +124,7 @@ span.portrait {
 
 div.countdown-overlay {
   width: 100vw;
-  height: 50%;
+  height: 100vh;
   position: fixed;
   z-index: 60;
   top: 0;
