@@ -1,4 +1,4 @@
-const Countdown = document.querySelector('span.countdown');
+const Countdown = document.querySelector('div.countdown');
 
 // let timeleft = 3;
 
@@ -35,15 +35,42 @@ async function roundCountdown() {
     // }))
 
 
+    // async function wait(time) {
+    //     return new Promise((resolve, reject) => {
+    //         setTimeout(resolve, time)
+    //     })
+    // }
+
+    // for (let item of ['3', '2', '1', 'Go!']) {
+    //     Countdown.innerHTML = item
+    //     await wait(500)
+    // }
+
+
+    // async function wait(time) {
+    //     return new Promise((resolve, reject) => {
+    //         setTimeout(resolve, time)
+    //     })
+    // }
+
+    // for (let item of ['3', '2', '1', 'Go!']) {
+    //     Countdown.innerHTML = item
+    //     await wait(500)
+    // }
+
     async function wait(time) {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, time)
         })
     }
 
-    for (let item of ['3', '2', '1', 'Go!']) {
-        Countdown.innerHTML = item
+    for (let item of ['ready', 'set', 'go']) {
+        Countdown.classList.add(item)
         await wait(500)
+    }
+    
+    for (let item of ['ready', 'set', 'go']) {
+        Countdown.classList.remove(item)
     }
 
 };

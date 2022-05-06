@@ -52,10 +52,22 @@ body {
 }
 
 .bottom-background {
-  background-color: whitesmoke;
+  background-image: url("/assets/img/backgrounds/bottom-background-1.svg");
+  /* background-color: whitesmoke; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   width: 100vw;
   height: 100vh;
   opacity: 0;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.companyLogo {
+  width: 10%;
+  padding: 20% 0 0 0;
 }
 
 
@@ -74,16 +86,16 @@ body {
 }
 
 body.default-background {
-  background-image: url("/assets/img/backgrounds/background-01.png");
+  background-image: url("/assets/img/backgrounds/backgroundSVG-01.svg");
   background-size: 100vw;
 }
 
 body.playground-background {
-  background-image: url("/assets/img/backgrounds/background-02.png");
+  background-image: url("/assets/img/backgrounds/backgroundSVG-02.svg");
 }
 
 body.night-night-background {
-  background-image: url("/assets/img/backgrounds/background-03.png");
+  background-image: url("/assets/img/backgrounds/backgroundSVG-03.svg");
 }
 
 div.asset-padding {
@@ -102,13 +114,13 @@ span.portrait {
 
 /* Countdown Overlay */
 
- span.countdown {
+ /* span.countdown {
   font-family: "Titan One", cursive;
   font-size: 5em;
   color: #407d96;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: white;
-}
+} */
 
 div.countdown-overlay {
   width: 100vw;
@@ -117,12 +129,43 @@ div.countdown-overlay {
   z-index: 60;
   top: 0;
   left: 0;
-  background-color: #ffdc4b;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 } 
+
+div.countdown-overlay.transparent {
+  opacity: 0;
+}
+
+div.countdown-overlay.opaque {
+  background-color: #ffdc4b;
+}
+
+div.countdown {
+  width: 30%;
+  height: 30%;
+  position: fixed;
+  z-index: 60;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.countdown.ready {
+  background-image: url("/assets/img/Overlays/Ready.png");
+}
+
+div.countdown.set {
+  background-image: url("/assets/img/Overlays/Set.png");
+}
+
+div.countdown.go {
+  background-image: url("/assets/img/Overlays/Go.png");
+  animation: pop-in;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
 
 /* Replay */
 /* TODO: change this to bootstrap row and use justify-content:center to center it.
