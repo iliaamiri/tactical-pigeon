@@ -91,15 +91,14 @@ document.querySelector('body').addEventListener('click', async event => {
 
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
-        // console.log("DONE CLICKED");
+        console.log("DONE CLICKED");
         // disabling buttons for a moment
-        target.disableClick(); // disabling done button
-        Object.values(AmmoIcon.all)
-            .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
+        // target.disableClick(); // disabling done button
+        // Object.values(AmmoIcon.all)
+        //     .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
 
-        Object.values(MovePlaceholder.all)
-            .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
-
+        // Object.values(MovePlaceholder.all)
+        //     .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
         donePressed();
 
     }

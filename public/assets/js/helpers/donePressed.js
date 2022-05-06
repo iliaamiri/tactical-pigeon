@@ -1,3 +1,6 @@
+import init from "../init.js";
+init();
+
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
 import Life from '../components/Life.js';
@@ -18,13 +21,14 @@ import roundCountdown from "../helpers/roundCountdown.js";
 
 function donePressed() {
     console.log("DONE AUTO CLICKED");
-    // // disabling buttons for a moment
-    // doneBtn.disableClick(); // disabling done button
-    // Object.values(AmmoIcon.all)
-    //     .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
+    // disabling buttons for a moment
+    let doneBtn = document.querySelector(".done")
+    doneBtn.disableClick(); // disabling done button
+    Object.values(AmmoIcon.all)
+        .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
     
-    // Object.values(MovePlaceholder.all)
-    //     .map(movePlaceholderComponent => movePlaceholderComponent.doneBtn.disableClick()); // disabling the move placeholders
+    Object.values(MovePlaceholder.all)
+        .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
     
     Timer.all['myTimer'].resetCounter();
     
@@ -130,13 +134,19 @@ function donePressed() {
         // results tied to clicking the done button, results show faster than animation though
         // connect result calculation here
         let resultOverlay = document.querySelector(".result-banner");
-        resultOverlay.classList.add('victory');
+        // resultOverlay.classList.add('victory');
         let gameResult = calculateGameResults();
         console.log('game result', gameResult);
         if (gameResult === 'win') {
             resultOverlay.classList.add('victory');
+            document.querySelector(".sunglasses-left").classList.remove("d-none")
+            document.querySelector(".sunglasses-left").classList.add("animate__backInDown")
+            // you get sunglasses
         } else if (gameResult === 'loss') {
             resultOverlay.classList.add('defeat');
+            document.querySelector(".sunglasses-right").classList.remove("d-none")
+            document.querySelector(".sunglasses-right").classList.add("animate__backInDown")
+            // opponent gets sunglasses
         } else {
             resultOverlay.classList.add('draw');
         }

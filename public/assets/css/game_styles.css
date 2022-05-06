@@ -164,9 +164,6 @@ div.countdown.go {
 }
 
 /* Replay */
-/* TODO: change this to bootstrap row and use justify-content:center to center it.
-                       This way will spare us from using left. */
-
 div.play-again-container {
   width: 100vw;
   height: 100%;
@@ -390,6 +387,32 @@ table.tally tr td.round-defeat.hit {
   background-color: rgba(231, 135, 151, 1);
 }
 
+/* Sunglases Container */
+div.sunglasses-container {
+  width: 100%;
+  bottom: 0;
+}
+
+div.sunglasses-container img {
+  position: absolute;
+  /*height: 170px;*/
+  /*bottom: 15px;*/
+  /* height: 340px; */
+  /* width: 10px; */
+  height: 1.1vw;
+  z-index: -9;
+}
+
+div.sunglasses-container img.sunglasses-left {
+  left: 35%;
+  bottom: 19vw;
+}
+
+div.sunglasses-container img.sunglasses-right {
+  left: 61%;
+  bottom: 19.5vw;
+}
+
 /* Pigeons Container */
 div.pigeons-container {
   width: 100%;
@@ -579,6 +602,32 @@ div.move-picker-overlay div.hints-box {
   animation-duration: 0.2s;
 }
 
+.drop-in-left-animation {
+  animation-name: drop-in-left;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-delay: 0.2s;
+}
+
+.drop-out-left-animation {
+  animation-name: drop-out-left;
+  animation-fill-mode: backwards;
+  /* animation-duration: 0.2s; */
+}
+
+.drop-in-right-animation {
+  animation-name: drop-in-right;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  /* animation-delay: 0.2s; */
+}
+
+.drop-out-right-animation {
+  animation-name: drop-out-right;
+  animation-fill-mode: backwards;
+  /* animation-duration: 0.2s; */
+} 
+
 div.moves-placeholder {
   opacity: 0;
   display: flex;
@@ -706,7 +755,7 @@ div.mv-placeholder.filled-block {
 }
 
 @keyframes pop-out {
-  50% {
+  from {
     transform: scale(1);
     opacity: 1;
     display: block;
