@@ -23,7 +23,7 @@ import changeRoundTitle from "./helpers/changeRoundTitle.js";
 import resetGame from "./helpers/resetGame.js";
 import restingMode from "./helpers/restingMode.js";
 import roundCountdown from "./helpers/roundCountdown.js";
-import tallyMoves from "./helpers/tallyMoves.js";
+import donePressed from "./helpers/donePressed.js";
 
 
 //Initiating the game.
@@ -100,63 +100,8 @@ document.querySelector('body').addEventListener('click', async event => {
         Object.values(MovePlaceholder.all)
             .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
 
-        Timer.all['myTimer'].resetCounter();
+        donePressed();
 
-        tallyMoves();
-
-        restingMode();
-        
-        // console.log('life.all', Life.all);
-        let leftPlayerTotalInventory = 
-            Inventory.all['attack-left'].counter 
-            + Inventory.all['block-left'].counter;
-        let rightPlayerTotalInventory = 
-            Inventory.all.opponentAttack.counter 
-            + Inventory.all.opponentBlock.counter;
-        if (
-            Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] 
-            && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0
-            && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0
-        ) {
-            
-        setTimeout(async () => {
-            document.querySelector("div.countdown-overlay").classList.remove("d-none");
-            await roundCountdown();
-            // Timer.all['myTimer'].startCounter();
-            document.querySelector("div.countdown-overlay").classList.add("d-none");
-            Rounds.all['game1'].increaseCounter();
-            // console.log(Rounds.all['game1'].counter)
-            setTimeout(() => {
-                clearBoardForNewRound(Rounds.all['game1'].counter);
-            }, 800);
-        }, 1600);
-
-        } else {
-            // results tied to clicking the done button, results show faster than animation though
-            // connect result calculation here
-            let resultOverlay = document.querySelector(".result-banner");
-            resultOverlay.classList.add('victory');
-            let gameResult = calculateGameResults();
-            console.log('game result', gameResult);
-            if (gameResult === 'win') {
-                resultOverlay.classList.add('victory');
-            } else if (gameResult === 'loss') {
-                resultOverlay.classList.add('defeat');
-            } else {
-                resultOverlay.classList.add('draw');
-            }
-            // resultOverlay.classList.add('draw');
-            // resultOverlay.classList.add('defeat');
-            // console.log(resultOverlay);
-            let replayBtn = document.querySelector(".play-again");
-            replayBtn.classList.add('replay-in-animation');
-            replayBtn.classList.remove('replay-out-animation');
-            replayBtn.classList.remove('d-none');
-
-            document.querySelector('div.done').classList.add('d-none');
-            document.querySelector('div.moves-placeholder').classList.add('d-none');
-            Rounds.all['game1'].resetCounter();
-        }
     }
 
     /* ---- My Ammo ---- */

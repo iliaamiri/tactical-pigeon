@@ -4,6 +4,7 @@ import Life from '../components/Life.js';
 import Timer from '../components/Timer.js';
 import AmmoIcon from "../components/AmmoIcon.js";
 import Rounds from '../components/Rounds.js';
+import Inventory from '../components/Inventory.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
@@ -97,8 +98,20 @@ function donePressed() {
     restingMode();
     
     console.log('life.all', Life.all);
-    if (Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
-    
+    let leftPlayerTotalInventory = 
+            Inventory.all['attack-left'].counter 
+            + Inventory.all['block-left'].counter;
+        let rightPlayerTotalInventory = 
+            Inventory.all.opponentAttack.counter 
+            + Inventory.all.opponentBlock.counter;
+            
+    if (
+        Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] 
+        && Life.all.myLife.counter > 0 
+        && Life.all.opponentLife.counter > 0
+        && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0
+    ) {
+
         setTimeout(async () => {
             document.querySelector("div.countdown-overlay").classList.remove("d-none");
             // document.querySelector("div.countdown-overlay").classList.add("transparent");
@@ -111,10 +124,6 @@ function donePressed() {
             setTimeout(() => {
                 clearBoardForNewRound(Rounds.all['game1'].counter);
             }, 800);
-    
-            /* setTimeout(() => {
-                
-            }, 4000); */
         }, 1600);
     
     } else {
