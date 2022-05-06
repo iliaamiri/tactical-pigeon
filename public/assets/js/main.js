@@ -4,7 +4,7 @@ init();
 
 // Component classes
 import MovePlaceholder from './components/MovePlaceholder.js';
-// import Inventory from "./components/Inventory.js";
+import Inventory from "./components/Inventory.js";
 import Life from './components/Life.js';
 import Timer from './components/Timer.js';
 import AmmoIcon from "./components/AmmoIcon.js";
@@ -23,6 +23,7 @@ import changeRoundTitle from "./helpers/changeRoundTitle.js";
 import resetGame from "./helpers/resetGame.js";
 import restingMode from "./helpers/restingMode.js";
 import roundCountdown from "./helpers/roundCountdown.js";
+import tallyMoves from "./helpers/tallyMoves.js";
 
 
 //Initiating the game.
@@ -45,9 +46,8 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 // let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
 // const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
 
-
+// first round preparation
 (async function () {
-    console.log('haiiii');
     document.querySelector("div.countdown-overlay").classList.remove("d-none");
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
@@ -88,7 +88,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
-        console.log("DONE CLICKED");
+        // console.log("DONE CLICKED");
         // disabling buttons for a moment
         target.disableClick(); // disabling done button
         Object.values(AmmoIcon.all)
@@ -99,93 +99,34 @@ document.querySelector('body').addEventListener('click', async event => {
 
         Timer.all['myTimer'].resetCounter();
 
-        let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Rounds.all['game1'].counter})`);
-        console.log('my column', myTallyColumn);
-        //myTallyColumn.forEach((td, index) => {
-        //let moveComponent = Object.values(Move.myMoves)[index];
-
-        // Generating the Bot player's moves.
-        const opponentMove = Players.all.player2.generateRandomMoves();
-        console.log(opponentMove)
-
-        //let myTallyFirstColumn = document.querySelectorAll('table.tally.my-tally td:first-child');
-        myTallyColumn.forEach((td, index) => {
-            let moveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
-
-            if (moveComponent === 'attack') {
-                td.classList.add('cell-attacked');
-            } else if (moveComponent === 'block') {
-                td.classList.add('cell-blocked');
-            }
-
-        });
-
-        let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${Rounds.all['game1'].counter})`);
-        console.log('opponent', opponentTallyColumn);
-        opponentTallyColumn.forEach((td, index) => {
-            let moveComponent = Object.values(opponentMove)[index];
-            if (moveComponent === 'attack') {
-                td.classList.add('cell-attacked');
-            } else if (moveComponent === 'block') {
-                td.classList.add('cell-blocked');
-            }
-
-        });
-
-        let playerMoves = [];
-        for (let index = 0; index < 3; index++) {
-            let myMoveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
-            let opponentMoveComponent = Object.values(opponentMove)[index];
-            playerMoves.push(singleCompare(myMoveComponent, opponentMoveComponent));
-        }
-
-        // console.log('playermoves', playerMoves);
-        let roundResult = tripletCompare(playerMoves);
-        if (roundResult === 1) {
-            myTallyColumn.forEach(td => {
-                td.classList.add('round-won');
-            });
-            opponentTallyColumn.forEach(td => {
-                td.classList.add('round-defeat');
-            });
-            Life.all.opponentLife.decreaseCounter();
-        } else if (roundResult === 2) {
-            myTallyColumn.forEach(td => {
-                td.classList.add('round-defeat');
-            });
-            opponentTallyColumn.forEach(td => {
-                td.classList.add('round-won');
-            });
-            Life.all.myLife.decreaseCounter();
-        } else {
-            myTallyColumn.forEach(td => {
-                td.classList.add('round-draw');
-            });
-            opponentTallyColumn.forEach(td => {
-                td.classList.add('round-draw');
-            });
-        }
+        tallyMoves();
 
         restingMode();
         
-        console.log('life.all', Life.all);
-        if (Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0) {
+        // console.log('life.all', Life.all);
+        let leftPlayerTotalInventory = 
+            Inventory.all['attack-left'].counter 
+            + Inventory.all['block-left'].counter;
+        let rightPlayerTotalInventory = 
+            Inventory.all.opponentAttack.counter 
+            + Inventory.all.opponentBlock.counter;
+        if (
+            Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] 
+            && Life.all.myLife.counter > 0 && Life.all.opponentLife.counter > 0
+            && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0
+        ) {
             
-            setTimeout(async () => {
-                document.querySelector("div.countdown-overlay").classList.remove("d-none");
-                await roundCountdown();
-                // Timer.all['myTimer'].startCounter();
-                document.querySelector("div.countdown-overlay").classList.add("d-none");
-                Rounds.all['game1'].increaseCounter();
-                // console.log(Rounds.all['game1'].counter)
-                setTimeout(() => {
-                    clearBoardForNewRound(Rounds.all['game1'].counter);
-                }, 800);
-                
-                /* setTimeout(() => {
-                    
-                }, 4000); */
-            }, 1600);
+        setTimeout(async () => {
+            document.querySelector("div.countdown-overlay").classList.remove("d-none");
+            await roundCountdown();
+            // Timer.all['myTimer'].startCounter();
+            document.querySelector("div.countdown-overlay").classList.add("d-none");
+            Rounds.all['game1'].increaseCounter();
+            // console.log(Rounds.all['game1'].counter)
+            setTimeout(() => {
+                clearBoardForNewRound(Rounds.all['game1'].counter);
+            }, 800);
+        }, 1600);
 
         } else {
             // results tied to clicking the done button, results show faster than animation though

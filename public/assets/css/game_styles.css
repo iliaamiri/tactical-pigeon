@@ -112,12 +112,12 @@ span.portrait {
 
 div.countdown-overlay {
   width: 100vw;
-  height: 100vh;
+  height: 50%;
   position: fixed;
   z-index: 60;
   top: 0;
   left: 0;
-  background-color: #ffdc4b;
+  background-color: #ffeeab80;
   color: white;
   display: flex;
   align-items: center;
