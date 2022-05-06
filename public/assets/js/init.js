@@ -35,5 +35,10 @@ export default () => {
         this.classList.remove('currently-not-clickable');
     }
 
-
+    /**
+     * Allowing a NodeList (array-like DOM data structure) to use shift method of as if it was an array.
+     */
+    NodeList.prototype.shift = function () {
+        return Array.from(this).shift;
+    }
 }
