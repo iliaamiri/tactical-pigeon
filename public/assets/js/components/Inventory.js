@@ -47,6 +47,11 @@ class Inventory {
         this.counter = 4;
     }
 
+    static getTotalInventory(player) {
+        let playerAmmo = player.ammoInventory;
+        return playerAmmo.blocks.counter + playerAmmo.attacks.counter;
+    }
+
     static all = {
         'block-left': new Inventory('block', myBlockCounter),
         'attack-left': new Inventory('attack', myAttackCounter),

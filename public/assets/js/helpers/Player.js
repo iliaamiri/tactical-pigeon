@@ -10,9 +10,15 @@ class Player {
     // Set of moves of the player : RoundMove
     moves = new RoundMove();
 
-    constructor(playerId, playerName) {
+    ammoInventory = { 
+        'blocks': null, // : Inventory
+        'attacks': null // : Inventory
+    };
+
+    constructor(playerId, playerName, ammoInventory) {
         this.playerId = playerId;
         this.playerName = playerName;
+        this.ammoInventory = ammoInventory;
     }
 
     /**
