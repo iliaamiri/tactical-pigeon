@@ -77,6 +77,9 @@ function donePressed() {
     if (roundResult === 1) {
         myTallyColumn.forEach(td => {
             td.classList.add('round-won');
+            setTimeout(function(){
+                document.querySelector("#winRound").play()   
+              }, 750)
         });
         opponentTallyColumn.forEach(td => {
             td.classList.add('round-defeat');
@@ -85,6 +88,9 @@ function donePressed() {
     } else if (roundResult === 2) {
         myTallyColumn.forEach(td => {
             td.classList.add('round-defeat');
+            setTimeout(function(){
+                document.querySelector("#loseRound").play()   
+              }, 700)
         });
         opponentTallyColumn.forEach(td => {
             td.classList.add('round-won');
@@ -139,14 +145,23 @@ function donePressed() {
         console.log('game result', gameResult);
         if (gameResult === 'win') {
             resultOverlay.classList.add('victory');
+            // you get sunglasses
             document.querySelector(".sunglasses-left").classList.remove("d-none")
             document.querySelector(".sunglasses-left").classList.add("animate__backInDown")
-            // you get sunglasses
+            //game win sound effect
+            document.querySelector("#winGame").play()
+          
         } else if (gameResult === 'loss') {
             resultOverlay.classList.add('defeat');
             document.querySelector(".sunglasses-right").classList.remove("d-none")
             document.querySelector(".sunglasses-right").classList.add("animate__backInDown")
             // opponent gets sunglasses
+
+            //game lose sound effect
+            let bgMusic = document.querySelector("#bgMusic")
+            bgMusic.src = "";
+            document.querySelector("#loseGame").play()
+
         } else {
             resultOverlay.classList.add('draw');
         }
