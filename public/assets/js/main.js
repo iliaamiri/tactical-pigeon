@@ -50,7 +50,6 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 (async function () {
     document.querySelector("div.countdown-overlay").classList.remove("d-none");
     document.querySelector("div.countdown-overlay").classList.add("opaque");
-
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
     await roundCountdown();
