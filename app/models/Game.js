@@ -1,7 +1,8 @@
+const Round = require("./Round");
+
 const Game = {
     rowId, // int (db primary key auto incrmn)
     gameId, // string
-
     winnerPlayerId, // int (ref to Player)
 
     players: {
@@ -13,6 +14,19 @@ const Game = {
         // $ref: Round
     ],
 
+    nextRound: function() {
+        this.rounds.push(roundData);
+    },
+
+    toJSON: function() {
+        return {
+            rowId: this.rowId,
+            gameId: this.gameId,
+            winnerPlayerId: this.winnerPlayerId,
+            players: this.players,
+            rounds: this.rounds,
+        };
+    },
 };
 
 module.exports = Game;

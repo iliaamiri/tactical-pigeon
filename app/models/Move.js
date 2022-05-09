@@ -1,9 +1,19 @@
 const Move = {
+    roundId,
+
     moveEnums: ["attack", "block", "none"], // string[]
 
-    head, // string<moveEnums>
-    body, // string<moveEnums>
-    legs  // string<moveEnums>
+    head: 'none', // string<moveEnums>
+    body: 'none', // string<moveEnums>
+    legs: 'none',  // string<moveEnums>
+
+    toJSON: function() {
+        return {
+            head: this.head,
+            body: this.body,
+            legs: this.legs,
+        };
+    },
 };
 
 module.exports = Move;
