@@ -35,9 +35,9 @@ function makeApp(app) {
     const server = http.createServer(app);
 
     /*
-    * ///////////// Importing the Server class from socket.io module and initiating the socket.io using the above server /////////////
+    * ///////////// Initiating the socket.io module using the above server /////////////
     * */
-    const io = require('socket.io')(server);
+    const io = require('./routes/io')(server);
 
     /*
     * ///////////// Using the middlewares /////////////
