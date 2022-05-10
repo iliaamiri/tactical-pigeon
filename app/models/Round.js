@@ -1,8 +1,8 @@
 const Round = {
-    rowId, // int (db primary key auto increment)
-    roundId, // string
-    gameId, // string (ref to Game obj)
-    winnerPlayerId, // id (ref to Player obj)
+    rowId: null, // int (db primary key auto increment)
+    roundId: null, // string
+    gameId: null, // string (ref to Game obj)
+    winnerPlayerId: null, // id (ref to Player obj)
  
     maxTimer: 30, // int (in seconds)
     roundNumber: 1, // int e.g. 1, 2, .., 5

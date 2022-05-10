@@ -1,6 +1,6 @@
 const Life = {
-    gameId, // string (ref to Game)
-    playerId, // int (ref to Player)
+    gameId: null, // string (ref to Game)
+    playerId: null, // int (ref to Player)
 
     lives: 3, // int e.g. 3, 2, 1, 0
 
