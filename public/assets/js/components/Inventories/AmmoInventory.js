@@ -6,7 +6,7 @@ let opponentBlockCounter = document.querySelector('span.opponent-block-counter')
 
 let opponentAttackCounter = document.querySelector('span.opponent-attack-counter');
 
-class Inventory {
+class AmmoInventory {
     
     #counter = 4;
 
@@ -53,11 +53,11 @@ class Inventory {
     }
 
     static all = {
-        'block-left': new Inventory('block', myBlockCounter),
-        'attack-left': new Inventory('attack', myAttackCounter),
-        'opponentBlock': new Inventory('block', opponentBlockCounter),
-        'opponentAttack': new Inventory('attack', opponentAttackCounter)
+        'block-left': new AmmoInventory('block', myBlockCounter),
+        'attack-left': new AmmoInventory('attack', myAttackCounter),
+        'opponentBlock': new AmmoInventory('block', opponentBlockCounter),
+        'opponentAttack': new AmmoInventory('attack', opponentAttackCounter)
     }
 }
 
-export default Inventory;
+export default AmmoInventory;

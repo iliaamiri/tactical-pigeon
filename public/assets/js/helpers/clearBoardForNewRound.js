@@ -1,6 +1,6 @@
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
-import AmmoIcon from "../components/AmmoIcon.js";
+import AmmoIcon from "../components/Inventories/AmmoIcon.js";
 import Timer from '../components/Timer.js';
 
 // Helpers
@@ -75,6 +75,6 @@ function clearBoardForNewRound(roundCounter) {
   Object.values(MovePlaceholder.all)
       .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
 
-};
+}
 
 export default clearBoardForNewRound;
