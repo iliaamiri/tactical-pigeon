@@ -1,3 +1,7 @@
+require('./init');
+
+const configs = require("./config/app.config");
+
 const makeApp = require('./app');
 
 /*
@@ -15,7 +19,7 @@ const server = makeApp(app);
 /*
 * ///////////// Setting the port that the app is listening on /////////////
 * */
-const PORT = process.env.PORT || 8080;
+const PORT = configs.PORT;
 
 /*
 * ///////////// Start listening /////////////

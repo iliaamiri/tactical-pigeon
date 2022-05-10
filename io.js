@@ -1,4 +1,4 @@
-const gameHandler = require("./handlers/gameHandler");
+const gameHandler = require("./app/io/handlers/gameHandler");
 
 module.exports = (server) => {
     const io = require('socket.io')(server);
