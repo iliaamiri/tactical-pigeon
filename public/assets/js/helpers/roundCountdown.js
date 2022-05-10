@@ -73,6 +73,6 @@ async function roundCountdown() {
         Countdown.classList.remove(item)
     }
 
-};
+}
 
 export default roundCountdown;

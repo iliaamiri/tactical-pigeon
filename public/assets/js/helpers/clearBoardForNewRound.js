@@ -75,6 +75,6 @@ function clearBoardForNewRound(roundCounter) {
   Object.values(MovePlaceholder.all)
       .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
 
-};
+}
 
 export default clearBoardForNewRound;

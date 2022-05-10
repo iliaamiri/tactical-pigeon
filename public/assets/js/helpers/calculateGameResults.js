@@ -31,6 +31,6 @@ function calculateGameResults() {
 
     // if lives and inventories are exactly equal,
     return gameResultEnum[2]; // draw
-};
+}
 
 export default calculateGameResults;
