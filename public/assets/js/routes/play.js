@@ -1,6 +1,6 @@
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
-import Inventory from "../components/Inventory.js";
+import Inventory from "../components/Inventories/Inventory.js";
 import Timer from '../components/Timer.js';
 import Rounds from '../components/Rounds.js';
 

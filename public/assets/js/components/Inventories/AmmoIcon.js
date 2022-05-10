@@ -1,4 +1,4 @@
-import RoundMove from "../helpers/RoundMove.js";
+import RoundMove from "../../helpers/RoundMove.js";
 
 const player1_shield = document.querySelector('img.my-shield');
 const player1_attack = document.querySelector('img.my-attack');

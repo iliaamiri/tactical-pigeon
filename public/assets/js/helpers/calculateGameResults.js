@@ -1,5 +1,5 @@
-import Life from '../components/Life.js';
-import Inventory from "../components/Inventory.js";
+import Life from '../components/Inventories/Life.js';
+import Inventory from "../components/Inventories/Inventory.js";
 import Players from './Players.js';
 
 function calculateGameResults() {

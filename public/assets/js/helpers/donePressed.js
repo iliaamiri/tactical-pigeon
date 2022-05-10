@@ -3,11 +3,11 @@ init();
 
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
-import Life from '../components/Life.js';
+import Life from '../components/Inventories/Life.js';
 import Timer from '../components/Timer.js';
-import AmmoIcon from "../components/AmmoIcon.js";
+import AmmoIcon from "../components/Inventories/AmmoIcon.js";
 import Rounds from '../components/Rounds.js';
-import Inventory from '../components/Inventory.js';
+import Inventory from '../components/Inventories/Inventory.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
