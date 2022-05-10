@@ -63,7 +63,7 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
-    event.preventDefault();
+    // event.preventDefault();
     let target = event.target;
 
     // Checking if this element is not clickable
@@ -141,4 +141,21 @@ document.querySelector('body').addEventListener('click', async event => {
         //console.log('currentMovePlaceholder', currentMovePlaceholder);
         //console.log('my moves object', Players.all.player1.moves);
     }
+
+     /* ---- Tutorial Overlay ---- */
+     let tutorialOverlay = document.querySelector(".tutorial-overlay");
+     let helpBtn = document.querySelector(".help");
+     if (target.tagName === "DIV" && target.classList.contains('help')) {
+         tutorialOverlay.classList.remove("d-none");
+         // tutorialOverlay.classList.remove("animate__fadeOutLeft");
+         tutorialOverlay.classList.add("animate__fadeInLeft");
+         helpBtn.classList.remove("animate__infinite");
+         Timer.all['myTimer'].pauseCounter();
+     }
+     if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
+         tutorialOverlay.classList.add("d-none");
+         tutorialOverlay.classList.remove("animate__fadeInLeft");
+         // tutorialOverlay.classList.add("animate__fadeOutLeft");
+         Timer.all['myTimer'].startCounter();
+     }
 });

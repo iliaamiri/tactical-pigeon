@@ -7,6 +7,10 @@ document.querySelector('button.play-offline').addEventListener('click', event =>
         window.location.href = document.location.href + "play";
         window.clearTimeout(tID);		// clear time out.
     }, 1350);
+
+    document.querySelector(".startBtn").classList.remove("unpressed");
+    document.querySelector(".startBtn").classList.add("pressed");
+
 });
 
 document.querySelector('button.play-online').addEventListener('click', event => {

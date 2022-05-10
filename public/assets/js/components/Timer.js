@@ -135,6 +135,10 @@ class Timer {
         clearInterval(this.interval);
     }
 
+    pauseCounter() {
+        clearInterval(this.interval);
+    }
+
     static all = {
         'myTimer': new Timer(myTimerCounter)
     }

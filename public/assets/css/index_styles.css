@@ -4,12 +4,12 @@
 
 body {
   margin: 0;
-  background-color: #B1D2D1;
+  background-color: #b1d2d1;
   min-height: 100vh;
 }
 
 p {
-  font-family: 'Titan One', cursive;
+  font-family: "Titan One", cursive;
   color: #4f7c93;
   font-size: 1.5rem;
 }
@@ -21,10 +21,131 @@ div.container {
   min-height: 100vh;
 }
 
+/* Intro */
+div.intro-page {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  background-color: #ffdc4b;
+  display: none;  
+  align-items: center;
+  justify-content: center;
+}
+
+div.blueBanner {
+  position: absolute;
+  height: 4vw;
+  width: 32vw;
+  top: 10%;
+  left: -3%;
+  border-radius: 0.5em;
+  background-color: #407d96;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+span.character {
+  font-family: "Titan One", cursive;
+  font-size: 1.75vw;
+  color: white;
+  /* -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white; */
+  margin-right: 5%;
+}
+
+div.yourPigeon {
+  position: absolute;
+  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-8.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60vw;
+  width: 60vw;
+  bottom: -15vw;
+  left: -6%;
+}
+
+.bubble {
+  position: absolute;
+  width: 45vw;
+  background: #fff;
+  border-radius: 1em;
+  padding: 24px;
+  text-align: center;
+  color: #000;
+  bottom: 2.5vw;
+  left: 50%;
+}
+
+.bubble-bottom-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-top: 30px solid transparent;
+  border-bottom: 10px solid transparent; 
+  border-right: 100px solid white; 
+  left: -20%;
+  bottom: 50%;
+}
+
+span.backstory {
+  font-family: "Titan One", cursive;
+  font-size: 1.5vw;
+  color: #407D96;
+}
+
+div.objectives {
+  display: flex;
+  justify-content: center;
+}
+
+div.objectives-title {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Objectives.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 15vw;
+  height: 15vh;
+  position: absolute;
+  bottom: 55%;
+}
+
+div.objectives-banner {
+  width: 100%;
+  /* height: 30vh; */
+  background-color: #407D96;
+  border-radius: 0.75em;
+  padding: 4%;
+  margin-top: 6%;
+}
+
+ul.game-info {
+  font-family: "Titan One", cursive;
+  font-size: 1.5vw;
+  color: white;
+  padding-left: 8%;
+  text-align: left;
+}
+
+button.continueBtn {
+  background-color: #ffdc4b;
+  padding: 3%;
+  font-family: "Titan One", cursive;
+  font-size: 1.5vw;
+  color: #407D96;
+  border-radius: 0.5em;
+}
+
+/* Start Menu */
 div.start {
   display: flex;
   flex-direction: column;
-  background-image: url('/assets/img/TPguielements-starting-09.png');
+  background-image: url("/assets/img/GUI-controls/MenuStart/menubg.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -35,6 +156,25 @@ div.start {
   padding: 3%;
 }
 
+div.startBtn {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
+  /* background-position: contain; */
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20vw;
+  height: 14vh;
+  margin-top: 15px;
+}
+
+div.startBtn.unpressed {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
+}
+
+div.startBtn.pressed {
+  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+}
+
+/* Logo */
 div.logo {
   display: flex;
   flex-direction: column;
@@ -43,10 +183,10 @@ div.logo {
   margin: 2em;
 }
 
-div.start img {
+/* div.start div.startBtn {
   height: 14vh;
   margin-top: 15px;
-}
+} */
 
 div.logo img {
   height: 50vh;
@@ -84,7 +224,7 @@ input {
   margin-top: -5px;
   border-radius: 3px;
   display: inline-block;
-  font-family: 'Titan One', cursive;
+  font-family: "Titan One", cursive;
   color: #4f7c93;
   font-size: 1.5vw;
   text-align: center;
@@ -120,7 +260,6 @@ input {
     width: 52vw;
     height: auto;
   }
-
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -152,7 +291,6 @@ input {
   }
 }
 
-
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   input {
@@ -182,8 +320,6 @@ input {
   }
 }
 
-
-
 /* Portrait Overlay */
 span.portrait {
   font-family: "Titan One", cursive;
@@ -194,14 +330,13 @@ span.portrait {
   margin-top: 10px;
 }
 
-
 @media only screen and (min-width: 350px) and (orientation: portrait) {
   div.flip-overlay {
     display: none;
   }
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   div.flip-overlay {
     width: 100%;
     height: 100%;
@@ -210,14 +345,13 @@ span.portrait {
     top: 0;
     left: 0;
     background-color: #ffdc4b;
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px) {
   div.flip-overlay {
     display: none;
   }
