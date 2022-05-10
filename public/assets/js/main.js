@@ -1,14 +1,13 @@
-import router from "./core/router.js";
+import Router from "./core/router.js";
 
 // Importing the init.js and calling the function BEFORE EVERYTHING.
 import init from "./init.js";
 init();
 
-
 await import('./routes/_common.js');
 
-router.assign('/', 'home');
-router.assign('/play', 'play');
+Router.assign('/', 'home');
+Router.assign('/play', 'play');
 
 
-await import(`./routes/${router.chosenPath}.js`);
+await import(`./routes/${Router.chosenPath}.js`);

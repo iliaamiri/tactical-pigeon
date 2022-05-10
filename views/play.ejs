@@ -25,8 +25,13 @@
 
                 <!-- Portrait Mode Overlay -->
                 <div class="flip-overlay">
-                    <!-- Placeholder for incoming D3 asset -->
                     <span class="portrait">FLIP TO PLAY</span>
+                </div>
+
+                <!-- Tutorial Overlay -->
+                <div class="tutorial-overlay d-none animate__animated">
+                    <div class="tutorial"></div>
+                    <span class="exit-tutorial">x</span>
                 </div>
 
                 <!-- Round Countdown Overlay -->
@@ -58,6 +63,9 @@
         <div class="time-right-decimal number-0"></div> -->
                     <span class="time-nums">30</span>
                 </div>
+
+                <!-- Help Button -->
+                <div class="help animate__animated animate__pulse animate__infinite"></div>
 
                 <!-- Main Components -->
                 <div class="container-fluid">
@@ -203,7 +211,8 @@
 
                     <!-- Sunglasses Components -->
                     <div class="sunglasses-container position-absolute">
-                        <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-left.svg" alt="" class="sunglasses-left d-none animate__animated">
+                        <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-left.svg" alt=""
+                            class="sunglasses-left d-none animate__animated">
                         <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-right.svg" alt=""
                             class="sunglasses-right d-none animate__animated">
                     </div>
@@ -256,7 +265,7 @@
 
         <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
         <audio id="bgMusic" hidden="true" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
-       
+
 
 
 
@@ -274,7 +283,7 @@
 
         <!-- Sounds -->
         <script type="module">
-            // import {playSound, soundsPath} from "../public/assets/js/core/sounds";
+             import {playSound, soundsPath} from "/assets/js/core/sounds.js";
 
             let audio = document.querySelector("#bgMusic")
             document.onclick = function () {
@@ -334,7 +343,7 @@
         </script>
 
 
-   
+
 </body>
 
 </html>

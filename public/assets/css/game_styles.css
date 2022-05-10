@@ -112,6 +112,41 @@ span.portrait {
   margin-top: 10px;
 }
 
+/* Tutorial Overlay */
+div.tutorial-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  left: 0;
+  background-color: #ffdc4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.tutorial {
+  background-image: url("/assets/img/Overlays/TutorialOverlay.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 90vw;
+  height: 90vh;
+}
+
+span.exit-tutorial {
+  position: absolute;
+  font-family: "Titan One", cursive;
+  font-size: 4em;
+  color: #407d96;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+  /* margin-top: 10px; */
+  top: 0;
+  left: 3%;
+}
+
 /* Countdown Overlay */
 
  /* span.countdown {
@@ -246,10 +281,9 @@ div.result-banner.defeat {
 }
 
 /* Timer Counter */
-
 div.timer-counter {
   position: absolute;
-  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.png");
+  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.svg");
   background-size: contain;
   background-repeat: no-repeat;
   height: 5.5vw;
@@ -259,24 +293,38 @@ div.timer-counter {
   display: flex;
   align-items: center;
   justify-content: center;
+    z-index: 21;
 }
 
-div.timer-counter div {
+/* div.timer-counter div {
   position: absolute;
   bottom: 0;
   height: 40px;
   width: 40px;
   background-size: contain;
   background-repeat: no-repeat;
-}
+} */
 
 span.time-nums {
   font-family: "Titan One", cursive;
-  font-size: 2.5vw;
+  font-size: 3vw;
   color: #407d96;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: white;
   margin-top: 10px; 
+}
+
+/* Help Button */
+div.help {
+  position: absolute;
+  background-image: url("/assets/img/GUI-controls/MainControls/Help.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 5.5vw;
+  width: 5.5vw;
+  top: 0;
+  left: 32%;
+  z-index: 21;
 }
 
 /* Shield and Attack Counters */
@@ -802,7 +850,7 @@ div.mv-placeholder.filled-block {
   }
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   div.flip-overlay {
     width: 100%;
     height: 100%;
@@ -811,7 +859,6 @@ div.mv-placeholder.filled-block {
     top: 0;
     left: 0;
     background-color: #ffdc4b;
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
