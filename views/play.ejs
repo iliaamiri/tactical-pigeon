@@ -225,8 +225,8 @@
                         <div class="row">
                             <div class="col-sm-9 hints-box">
                                 <b>Pick</b>
-                                <b>your</b>
-                                <b>move!</b>
+                                <b>your </b>
+                                <b>weapon!</b>
                             </div>
                         </div>
                     </div>
@@ -248,6 +248,26 @@
         </div>
     </div>
 
+    <!-- more audio for rounds/game wins/loses -->
+        <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
+        <!-- <audio hidden="true" id="winGame" src="/assets/music/win-game-sound.wav"> -->
+        <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
+        <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
+
+        <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
+        <audio id="bgMusic" hidden="true" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
+       
+
+
+
+        <!-- AUDIO/MUSIC CHOICES -->
+
+        <!-- if using fluffy ducky background, put this in description: -->
+        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
+        Licensed under Creative Commons: By Attribution 3.0 License
+        http://creativecommons.org/licenses/by/3.0/
+        Music promoted by https://www.chosic.com/free-music/all/  -->
+  
     <!-- JavaScripts -->
         <!-- App -->
         <%- include('_partials/commonJsFooters.ejs') -%>
@@ -256,7 +276,7 @@
         <script type="module">
             // import {playSound, soundsPath} from "../public/assets/js/core/sounds";
 
-            let audio = new Audio("/assets/music/Fluffing-a-Duck.mp3")
+            let audio = document.querySelector("#bgMusic")
             document.onclick = function () {
              // playSound(soundsPath.theme);
                 audio.play();
@@ -274,8 +294,14 @@
                 audio.play();
             }
 
-            let opponent_fork = document.querySelector("div.col-sm-2.asset-padding.opponent-counter-box > img")
-            opponent_fork.onclick = function () {
+            let opponentShield = document.querySelector(".opponent-counter-box > img")
+            opponentShield.onclick = function () {
+                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
+                audio.play();
+            }
+
+            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
+            opponentFork.onclick = function () {
                 let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
                 audio.play();
             }
@@ -304,16 +330,11 @@
                 audio.play();
             }
 
-            
 
         </script>
 
 
-        <!-- if using fluffy ducky background, put this in description: -->
-        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
-Licensed under Creative Commons: By Attribution 3.0 License
-http://creativecommons.org/licenses/by/3.0/
-Music promoted by https://www.chosic.com/free-music/all/  -->
+   
 </body>
 
 </html>

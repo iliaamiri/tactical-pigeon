@@ -4,6 +4,7 @@ import router from "./core/router.js";
 import init from "./init.js";
 init();
 
+
 await import('./routes/_common.js');
 
 router.assign('/', 'home');
