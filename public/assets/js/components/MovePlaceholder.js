@@ -1,4 +1,4 @@
-import Inventory from './Inventories/Inventory.js';
+import AmmoInventory from './Inventories/AmmoInventory.js';
 import RoundMove from "../helpers/RoundMove.js";
 import Players from "../helpers/Players.js";
 
@@ -51,7 +51,7 @@ class MovePlaceholder {
         if (this.checked) {
             /* do stuff as if it's ON */
             //console.log('inventory all', Inventory.all);
-            if (Inventory.all[`${this.moveType}-left`].counter === 0) { // if we have no inventory left, don't do place a move
+            if (AmmoInventory.all[`${this.moveType}-left`].counter === 0) { // if we have no inventory left, don't do place a move
                 //console.log('inventory counter should be 0', Inventory.all[`${this.moveType}-left`].counter);
                 this.checked = !this.checked;
                 Players.all.player1.moves[this.bodyPartType] = 'none';
@@ -60,7 +60,7 @@ class MovePlaceholder {
                 this.target.classList.add(`filled-${this.moveType}`);
                 this.movePlaced = this.moveType;
                 this.changeMove(this.movePlaced);
-                Inventory.all[`${this.moveType}-left`].decreaseCounter();
+                AmmoInventory.all[`${this.moveType}-left`].decreaseCounter();
             }
             
         } else {
@@ -70,9 +70,9 @@ class MovePlaceholder {
             this.target.classList.remove(`filled-${RoundMove.moveTypeEnum[0]}`, `filled-${RoundMove.moveTypeEnum[1]}`);
             this.changeMove(null);
             if (this.movePlaced === 'attack') {
-                Inventory.all['attack-left'].increaseCounter();
+                AmmoInventory.all['attack-left'].increaseCounter();
             } else if (this.movePlaced === 'block') {
-                Inventory.all['block-left'].increaseCounter();
+                AmmoInventory.all['block-left'].increaseCounter();
             }
 
             this.movePlaced = null;

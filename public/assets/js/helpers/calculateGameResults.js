@@ -1,5 +1,5 @@
 import Life from '../components/Inventories/Life.js';
-import Inventory from "../components/Inventories/Inventory.js";
+import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import Players from './Players.js';
 
 function calculateGameResults() {
@@ -13,8 +13,8 @@ function calculateGameResults() {
     }
 
     // if there's a draw, one can win by inventory counts
-    let leftPlayerTotalInventory = Inventory.getTotalInventory(Players.all.player1);
-    let rightPlayerTotalInventory = Inventory.getTotalInventory(Players.all.player2);
+    let leftPlayerTotalInventory = AmmoInventory.getTotalInventory(Players.all.player1);
+    let rightPlayerTotalInventory = AmmoInventory.getTotalInventory(Players.all.player2);
     if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
         /* console.log('my lives', Life.all.myLife.counter);
         console.log('opponent lives', Life.all.opponentLife.counter);

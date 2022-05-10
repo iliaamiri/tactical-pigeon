@@ -7,7 +7,7 @@ import Life from '../components/Inventories/Life.js';
 import Timer from '../components/Timer.js';
 import AmmoIcon from "../components/Inventories/AmmoIcon.js";
 import Rounds from '../components/Rounds.js';
-import Inventory from '../components/Inventories/Inventory.js';
+import AmmoInventory from '../components/Inventories/AmmoInventory.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
@@ -103,11 +103,11 @@ function donePressed() {
     
     console.log('life.all', Life.all);
     let leftPlayerTotalInventory = 
-            Inventory.all['attack-left'].counter 
-            + Inventory.all['block-left'].counter;
+            AmmoInventory.all['attack-left'].counter
+            + AmmoInventory.all['block-left'].counter;
         let rightPlayerTotalInventory = 
-            Inventory.all.opponentAttack.counter 
-            + Inventory.all.opponentBlock.counter;
+            AmmoInventory.all.opponentAttack.counter
+            + AmmoInventory.all.opponentBlock.counter;
             
     if (
         Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1] 

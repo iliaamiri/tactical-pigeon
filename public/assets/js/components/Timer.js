@@ -1,6 +1,6 @@
 import Life from './Inventories/Life.js';
 import Rounds from '../components/Rounds.js';
-import Inventory from './Inventories/Inventory.js';
+import AmmoInventory from './Inventories/AmmoInventory.js';
 
 import calculateGameResults from "../helpers/calculateGameResults.js";
 import roundCountdown from "../helpers/roundCountdown.js";
