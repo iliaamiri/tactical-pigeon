@@ -15,17 +15,10 @@ function calculateGameResults() {
     // if there's a draw, one can win by inventory counts
     let leftPlayerTotalInventory = AmmoInventory.getTotalInventory(Players.all.player1);
     let rightPlayerTotalInventory = AmmoInventory.getTotalInventory(Players.all.player2);
+
     if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
-        /* console.log('my lives', Life.all.myLife.counter);
-        console.log('opponent lives', Life.all.opponentLife.counter);
-        console.log('my total inventory', leftPlayerTotalInventory);
-        console.log('opponent total inventory', rightPlayerTotalInventory); */
         return gameResultEnum[1]; // win
     } else if (leftPlayerTotalInventory < rightPlayerTotalInventory) {
-        /* console.log('my lives', Life.all.myLife.counter);
-        console.log('opponent lives', Life.all.opponentLife.counter);
-        console.log('my total inventory', leftPlayerTotalInventory);
-        console.log('opponent total inventory', rightPlayerTotalInventory); */
         return gameResultEnum[0]; // loss
     }
 

@@ -62,7 +62,6 @@ function donePressed() {
         } else if (moveComponent === 'block') {
             td.classList.add('cell-blocked');
         }
-    
     });
     
     let playerMoves = [];

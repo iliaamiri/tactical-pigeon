@@ -80,16 +80,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
-        console.log("DONE CLICKED");
-        // disabling buttons for a moment
-        // target.disableClick(); // disabling done button
-        // Object.values(AmmoIcon.all)
-        //     .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
-
-        // Object.values(MovePlaceholder.all)
-        //     .map(movePlaceholderComponent => movePlaceholderComponent.target.disableClick()); // disabling the move placeholders
         donePressed();
-
     }
 
     /* ---- My Ammo ---- */
@@ -103,9 +94,8 @@ document.querySelector('body').addEventListener('click', async event => {
 
         RoundMove.selectedMoveType = 'block';
         // const myBlockCounter = document.querySelector('span.my-block-counter');
-        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedShield.png")
-        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png")
-        // currentSelectedInventory = Inventory.all['block-left'];
+        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedShield.png");
+        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
     }
 
     if (target.tagName === "IMG" && target.classList.contains('my-attack')) {
@@ -118,9 +108,8 @@ document.querySelector('body').addEventListener('click', async event => {
 
         RoundMove.selectedMoveType = 'attack';
         // const myAttackCounter = document.querySelector('span.my-attack-counter');
-        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedFork.png")
-        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png")
-        // currentSelectedInventory = Inventory.all['attack-left'];
+        document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedFork.png");
+        document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
     }
 
     /* ---- Moves Placeholders ---- */
@@ -132,7 +121,7 @@ document.querySelector('body').addEventListener('click', async event => {
     ) {
         console.log('selectedMoveType', RoundMove.selectedMoveType);
         let bodyPartType;
-        //console.log('hello!');
+
         if (target.classList.contains('head')) {
             bodyPartType = 'head';
         } else if (target.classList.contains('body')) {
@@ -140,7 +129,7 @@ document.querySelector('body').addEventListener('click', async event => {
         } else if (target.classList.contains('legs')) {
             bodyPartType = 'legs';
         }
-        // console.log(`hitting ${bodyPartType}`);
+
         let currentMovePlaceholder = MovePlaceholder.all[bodyPartType];
         currentMovePlaceholder.bodyPartType = bodyPartType;
         currentMovePlaceholder.moveType = RoundMove.selectedMoveType;
