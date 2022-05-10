@@ -1,6 +1,6 @@
-import Life from '../components/Life.js';
+import Life from './Inventories/Life.js';
 import Rounds from '../components/Rounds.js';
-import Inventory from '../components/Inventory.js';
+import AmmoInventory from './Inventories/AmmoInventory.js';
 
 import calculateGameResults from "../helpers/calculateGameResults.js";
 import roundCountdown from "../helpers/roundCountdown.js";
@@ -132,6 +132,10 @@ class Timer {
 
     resetCounter() {
         this.counter = 30;
+        clearInterval(this.interval);
+    }
+
+    pauseCounter() {
         clearInterval(this.interval);
     }
 

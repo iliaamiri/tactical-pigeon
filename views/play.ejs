@@ -25,8 +25,13 @@
 
                 <!-- Portrait Mode Overlay -->
                 <div class="flip-overlay">
-                    <!-- Placeholder for incoming D3 asset -->
                     <span class="portrait">FLIP TO PLAY</span>
+                </div>
+
+                <!-- Tutorial Overlay -->
+                <div class="tutorial-overlay d-none animate__animated">
+                    <div class="tutorial"></div>
+                    <span class="exit-tutorial">x</span>
                 </div>
 
                 <!-- Round Countdown Overlay -->
@@ -58,6 +63,9 @@
         <div class="time-right-decimal number-0"></div> -->
                     <span class="time-nums">30</span>
                 </div>
+
+                <!-- Help Button -->
+                <div class="help animate__animated animate__pulse animate__infinite"></div>
 
                 <!-- Main Components -->
                 <div class="container-fluid">
@@ -203,7 +211,8 @@
 
                     <!-- Sunglasses Components -->
                     <div class="sunglasses-container position-absolute">
-                        <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-left.svg" alt="" class="sunglasses-left d-none animate__animated">
+                        <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-left.svg" alt=""
+                            class="sunglasses-left d-none animate__animated">
                         <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-right.svg" alt=""
                             class="sunglasses-right d-none animate__animated">
                     </div>
@@ -225,8 +234,8 @@
                         <div class="row">
                             <div class="col-sm-9 hints-box">
                                 <b>Pick</b>
-                                <b>your</b>
-                                <b>move!</b>
+                                <b>your </b>
+                                <b>weapon!</b>
                             </div>
                         </div>
                     </div>
@@ -238,7 +247,6 @@
                     </div>
 
                     <div class="done position-absolute pop-in-animation"></div>
-                    <%- include('_partials/commonJsFooters.ejs') -%>
                 </div>
             </div>
         </div>
@@ -247,10 +255,37 @@
                 <img src="/assets/img/LYPSTYC-logo.png" alt="LIPSTYC Logo" class="companyLogo">
             </div>
         </div>
+    </div>
 
-        <script>
-            let audio = new Audio("/assets/music/Fluffing-a-Duck.mp3")
+    <!-- more audio for rounds/game wins/loses -->
+        <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
+        <!-- <audio hidden="true" id="winGame" src="/assets/music/win-game-sound.wav"> -->
+        <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
+        <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
+        <audio hidden="true" id="drawGame" src="/assets/music/draw-game.wav"></audio>
+
+        <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
+        <audio id="bgMusic" hidden="true" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
+
+        <!-- AUDIO/MUSIC CHOICES -->
+
+        <!-- if using fluffy ducky background, put this in description: -->
+        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
+        Licensed under Creative Commons: By Attribution 3.0 License
+        http://creativecommons.org/licenses/by/3.0/
+        Music promoted by https://www.chosic.com/free-music/all/  -->
+  
+    <!-- JavaScripts -->
+        <!-- App -->
+        <%- include('_partials/commonJsFooters.ejs') -%>
+
+        <!-- Sounds -->
+        <script type="module">
+             import {playSound, soundsPath} from "/assets/js/core/sounds.js";
+
+            let audio = document.querySelector("#bgMusic")
             document.onclick = function () {
+             // playSound(soundsPath.theme);
                 audio.play();
             }
 
@@ -266,8 +301,14 @@
                 audio.play();
             }
 
-            let opponent_fork = document.querySelector("div.col-sm-2.asset-padding.opponent-counter-box > img")
-            opponent_fork.onclick = function () {
+            let opponentShield = document.querySelector(".opponent-counter-box > img")
+            opponentShield.onclick = function () {
+                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
+                audio.play();
+            }
+
+            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
+            opponentFork.onclick = function () {
                 let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
                 audio.play();
             }
@@ -296,16 +337,11 @@
                 audio.play();
             }
 
-            
 
         </script>
 
 
-        <!-- if using fluffy ducky background, put this in description: -->
-        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
-Licensed under Creative Commons: By Attribution 3.0 License
-http://creativecommons.org/licenses/by/3.0/
-Music promoted by https://www.chosic.com/free-music/all/  -->
+
 </body>
 
 </html>
