@@ -239,7 +239,6 @@
                     </div>
 
                     <div class="done position-absolute pop-in-animation"></div>
-                    <%- include('_partials/commonJsFooters.ejs') -%>
                 </div>
             </div>
         </div>
@@ -248,9 +247,9 @@
                 <img src="/assets/img/LYPSTYC-logo.png" alt="LIPSTYC Logo" class="companyLogo">
             </div>
         </div>
+    </div>
 
-
-        <!-- more audio for rounds/game wins/loses -->
+    <!-- more audio for rounds/game wins/loses -->
         <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
         <!-- <audio hidden="true" id="winGame" src="/assets/music/win-game-sound.wav"> -->
         <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
@@ -268,10 +267,18 @@
         Licensed under Creative Commons: By Attribution 3.0 License
         http://creativecommons.org/licenses/by/3.0/
         Music promoted by https://www.chosic.com/free-music/all/  -->
+  
+    <!-- JavaScripts -->
+        <!-- App -->
+        <%- include('_partials/commonJsFooters.ejs') -%>
 
-        <script>
+        <!-- Sounds -->
+        <script type="module">
+            // import {playSound, soundsPath} from "../public/assets/js/core/sounds";
+
             let audio = document.querySelector("#bgMusic")
             document.onclick = function () {
+             // playSound(soundsPath.theme);
                 audio.play();
             }
 

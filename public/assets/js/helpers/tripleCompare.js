@@ -9,6 +9,6 @@ function tripletCompare(moves) {
   } else {
       return 0;
   }
-};
+}
 
 export default tripletCompare;

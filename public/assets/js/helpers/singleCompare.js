@@ -6,6 +6,6 @@ function singleCompare(move1, move2) {
   } else {
       return 0;
   }
-};
+}
 
 export default singleCompare;

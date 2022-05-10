@@ -3,11 +3,11 @@ init();
 
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
-import Life from '../components/Life.js';
+import Life from '../components/Inventories/Life.js';
 import Timer from '../components/Timer.js';
-import AmmoIcon from "../components/AmmoIcon.js";
+import AmmoIcon from "../components/Inventories/AmmoIcon.js";
 import Rounds from '../components/Rounds.js';
-import Inventory from '../components/Inventory.js';
+import AmmoInventory from '../components/Inventories/AmmoInventory.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
@@ -62,7 +62,6 @@ function donePressed() {
         } else if (moveComponent === 'block') {
             td.classList.add('cell-blocked');
         }
-
     });
 
     let playerMoves = [];
@@ -194,13 +193,14 @@ function donePressed() {
     restingMode();
 
     console.log('life.all', Life.all);
-    let leftPlayerTotalInventory =
-        Inventory.all['attack-left'].counter
-        + Inventory.all['block-left'].counter;
-    let rightPlayerTotalInventory =
-        Inventory.all.opponentAttack.counter
-        + Inventory.all.opponentBlock.counter;
 
+    let leftPlayerTotalInventory = 
+            AmmoInventory.all['attack-left'].counter
+            + AmmoInventory.all['block-left'].counter;
+        let rightPlayerTotalInventory = 
+            AmmoInventory.all.opponentAttack.counter
+            + AmmoInventory.all.opponentBlock.counter;
+            
     if (
         Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1]
         && Life.all.myLife.counter > 0
