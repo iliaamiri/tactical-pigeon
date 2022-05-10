@@ -1,5 +1,4 @@
-
-const handHandler = require("./app/handlers/handHandler");
+const gameHandler = require("./handlers/gameHandler");
 
 module.exports = (server) => {
     const io = require('socket.io')(server);
@@ -21,8 +20,7 @@ module.exports = (server) => {
     
     io.on('connection', async (socket) => {
         try {
-            await handHandler(io, socket);
-            await tableHandler(io, socket);
+            await gameHandler(io, socket);
         } catch (err) {
             console.log(err);
         }

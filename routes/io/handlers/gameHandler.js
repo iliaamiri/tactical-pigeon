@@ -1,4 +1,4 @@
-module.exports = (io, socket) => {
-    soclet.on("game:searchForOpponent", searchForOpponent);
+module.exports = async (io, socket) => {
+    socket.on("game:searchForOpponent", searchForOpponent);
     socket.on("game:end", end);
 }

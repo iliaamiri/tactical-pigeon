@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const configs = require("../../config/app.config");
+
 const Tokens = require("../repos/Tokens");
 const Players = require("../repos/Players");
 
@@ -6,7 +9,7 @@ const Player = require("../models/Player");
 module.exports = (socket, next) => {
     const jwtToken = socket.handshake.auth.token;
 
-    if (!jwtToke) {
+    if (!jwtToken) {
         socket.close();
         return;
     }
@@ -22,7 +25,14 @@ module.exports = (socket, next) => {
 
     if (!foundPlayer) {
         foundPlayer = Object.create(Player);
-        
+        try {
+            let decodedData = jwt.verify(jwtToken, configs.JWT_RSA_PUBLIC_KEY, { algorithm: "RS256" });
+            foundPlayer.playerId = decodedData.playerId;
+            foundPlayer.username = decodedData.username;
+        } catch(err) {
+            socket.close();
+            return;
+        }
     }
 
     socket.user = foundPlayer;

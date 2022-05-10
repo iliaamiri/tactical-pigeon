@@ -37,7 +37,7 @@ function makeApp(app) {
     /*
     * ///////////// Initiating the socket.io module using the above server /////////////
     * */
-    const io = require('./routes/io')(server);
+    const io = require('./routes/io/index.io')(server);
 
     /*
     * ///////////// Using the middlewares /////////////
