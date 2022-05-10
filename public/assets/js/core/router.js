@@ -7,28 +7,6 @@ const currentPath = () => {
     return path;
 };
 
-function splitCamelCasedString(str) {
-    let letters = str.split("");
-    let result = letters.reduce((resultArr, letter, index) => {
-        if (letter === letter.toUpperCase()) {
-            resultArr.push(
-                letters
-                    .splice(0, index)
-                    .join("")
-            );
-            letters = letters.splice(index)
-        }
-
-        return resultArr;
-    }, []);
-
-    if (result.length < 1) {
-        return [str];
-    }
-
-    return result;
-}
-
 const router = {
     chosenPath: null,
 
@@ -37,7 +15,9 @@ const router = {
             .split("/");
         currPath.shift();
 
-        let filePathArr = splitCamelCasedString(filePath);
+        let targetPath = path
+            .split("/");
+        targetPath.shift();
 
         if (currPath.length < 1) {
             console.debug("No route matching: " + path, " ; filePath: " + filePath);
@@ -46,8 +26,8 @@ const router = {
 
         for (let index in currPath) {
             let pathSegment = currPath[index];
-            let filePathSegment = filePathArr[index];
-            if (pathSegment !== filePathSegment && !pathSegment.includes(":")) {
+            let targetPathSegment = targetPath[index];
+            if (pathSegment !== targetPathSegment && !pathSegment.includes(":")) {
                 return;
             }
         }
