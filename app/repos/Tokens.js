@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const config = require("../../config/app.config");
 
 const Token = require("../models/Token");
