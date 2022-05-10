@@ -1,14 +1,4 @@
 /*
-* ///////////// Importing the dotenv module to handle reading environment variables from .env file /////////////
-* */
-const dotenv = require('dotenv');
-
-/*
-* ///////////// Loading the environment variable configurations from .env file /////////////
-* */
-dotenv.config();
-
-/*
 * ///////////// Importing the basic configuration values /////////////
 * These configuration may include the options for session, cors, etc.
 * */
@@ -37,7 +27,7 @@ function makeApp(app) {
     /*
     * ///////////// Initiating the socket.io module using the above server /////////////
     * */
-    const io = require('./routes/io')(server);
+    const io = require('./io')(server);
 
     /*
     * ///////////// Using the middlewares /////////////
