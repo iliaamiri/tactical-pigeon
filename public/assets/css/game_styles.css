@@ -48,7 +48,7 @@ body {
   /* overflow: hidden;
   background-size: auto; */
   background-repeat: no-repeat;
-  background-color: #BABABB;
+  background-color: #bababb;
 }
 
 .bottom-background {
@@ -69,7 +69,6 @@ body {
   width: 10%;
   padding: 20% 0 0 0;
 }
-
 
 /* white space that appears when browser width gets too thin*/
 /*900px and up) */
@@ -112,6 +111,130 @@ span.portrait {
   margin-top: 10px;
 }
 
+/* Intro */
+div.intro-page {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 51;
+  top: 0;
+  left: 0;
+  background-color: #ffdc4b;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+div.blueBanner {
+  position: absolute;
+  height: 4vw;
+  width: 32vw;
+  top: 10%;
+  left: -3%;
+  border-radius: 0.5em;
+  background-color: #407d96;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+span.character {
+  font-family: "Titan One", cursive;
+  font-size: 1.75vw;
+  color: white;
+  margin-right: 5%;
+}
+
+div.yourPigeon {
+  position: absolute;
+  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-8.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  bottom: -15vw;
+  left: -25%;
+}
+
+.bubble {
+  width: 45vw;
+  height: 75vh;
+  background: #fff;
+  border-radius: 1em;
+  padding: 24px;
+  text-align: center;
+  color: #000;
+  overflow: auto;
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bubble-bottom-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-top: 3vw solid transparent;
+  border-bottom: 2vw solid transparent;
+  border-right: 10vw solid white;
+  left: 42%;
+  bottom: 70%;
+}
+
+span.backstory {
+  font-family: "Titan One", cursive;
+  font-size: 2vw;
+  color: #407d96;
+}
+
+div.objectives {
+  display: flex;
+  flex-direction: column;
+}
+
+div.objectives-title {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Objectives.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20vw;
+  height: 11vh;
+  position: relative;
+  left: 24%;
+  top: 5%;
+}
+
+div.objectives-banner {
+  width: 100%;
+  background-color: #407d96;
+  border-radius: 0.75em;
+  padding: 10% 6% 6% 6%;
+}
+
+ul.game-info {
+  font-family: "Titan One", cursive;
+  font-size: 1.75vw;
+  color: white;
+  padding-left: 8%;
+  text-align: left;
+}
+
+div.continueBtn {
+  padding: 1%;
+  font-family: "Titan One", cursive;
+  font-size: 1.75vw;
+  border-radius: 0.5em;
+  background-color: #ffdc4b;
+  color: #407d96;
+}
+
+div.continueBtn:focus {
+  background-color: #b59c36;
+  color: #2b5465;
+}
+
 /* Tutorial Overlay */
 div.tutorial-overlay {
   width: 100%;
@@ -142,20 +265,11 @@ span.exit-tutorial {
   color: #407d96;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: white;
-  /* margin-top: 10px; */
   top: 0;
   left: 3%;
 }
 
 /* Countdown Overlay */
-
- /* span.countdown {
-  font-family: "Titan One", cursive;
-  font-size: 5em;
-  color: #407d96;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: white;
-} */
 
 div.countdown-overlay {
   width: 100vw;
@@ -167,7 +281,7 @@ div.countdown-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-} 
+}
 
 div.countdown-overlay.opaque {
   background-color: #ffdc4b;
@@ -211,10 +325,6 @@ div.play-again {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  /* width: 25%;
-  height: 15%;
-  top: 70%;
-  left: 40%; */
   z-index: 30;
   transform: translate(50px, 50px);
 }
@@ -231,10 +341,6 @@ div.play-again.replay-out-animation {
   animation-name: pop-out;
   animation-fill-mode: backwards;
   animation-duration: 0.2s;
-}
-
-/* #pulse:hover {
-  animation: pulse 1s ease-in infinite;
 }
 
 /* Result Banner */
@@ -293,17 +399,8 @@ div.timer-counter {
   display: flex;
   align-items: center;
   justify-content: center;
-    z-index: 21;
+  z-index: 21;
 }
-
-/* div.timer-counter div {
-  position: absolute;
-  bottom: 0;
-  height: 40px;
-  width: 40px;
-  background-size: contain;
-  background-repeat: no-repeat;
-} */
 
 span.time-nums {
   font-family: "Titan One", cursive;
@@ -311,7 +408,7 @@ span.time-nums {
   color: #407d96;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: white;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 /* Help Button */
@@ -324,6 +421,19 @@ div.help {
   width: 5.5vw;
   top: 0;
   left: 32%;
+  z-index: 21;
+}
+
+/* Mute Button */
+div.mute {
+  position: absolute;
+  background-image: url("/assets/img/GUI-controls/MainControls/Mute.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 5.5vw;
+  width: 5.5vw;
+  top: 0;
+  left: 40%;
   z-index: 21;
 }
 
@@ -375,9 +485,9 @@ div.counter-box.opponent-counter {
   -webkit-text-stroke-width: 0.2vw;
   -webkit-text-stroke-color: white;
   /* margin-top: 10px;  */
-  position:absolute;
-  left:0;
-  top:0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 /* Table Labels */
@@ -392,8 +502,7 @@ div.table-labels.table-labels.table-labels {
 }
 
 table td.tabol-labol.tabol-labol.tabol-labol {
-  background-color: #CADDE8;
-  font-family: "Titan One", cursive;
+  /* font-family: "Titan One", cursive;
   font-weight: bold;
   border-width: 0.2vw;
   letter-spacing: -0.1vw;
@@ -401,22 +510,23 @@ table td.tabol-labol.tabol-labol.tabol-labol {
   color: #407D96;
   -webkit-text-stroke-width: 0.1vw;
   -webkit-text-stroke-color: white;
-  text-align: right;
-  padding:0.5vw;
+  text-align: right; */
+  background-color: #cadde8;
+  padding: 0.5vw;
   border-left: none;
 }
 
-table td.tabol-labol.tabol-labol.tabol-labol.head-label{
+table td.tabol-labol.tabol-labol.tabol-labol.head-label {
   border-top: none;
 }
-table td.tabol-labol.tabol-labol.tabol-labol.legs-label{
+table td.tabol-labol.tabol-labol.tabol-labol.legs-label {
   border-bottom: none;
 }
 
-div.table-labels div.tabol-labol>img {
+div.table-labels div.tabol-labol > img {
   height: 2.5vw;
-  margin: 10px
-    /* height: 26px; */
+  margin: 10px;
+  /* height: 26px; */
 }
 
 /* Tally Table */
@@ -562,7 +672,7 @@ div.health-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #CADDE8;
+  background-color: #cadde8;
   border-radius: 8px;
   border-style: none none inset none;
   border-color: #83939b;
@@ -572,21 +682,21 @@ div.health-container {
   padding: 1vh 1.5vh;
 }
 
-div>div.heart {
+div > div.heart {
   height: 2.5vw;
   width: 6vw;
   /* margin-right: 4px; */
   /* margin-left: 6px; */
 }
 
-div>div.heart-filled {
+div > div.heart-filled {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthplus.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-div>div.heart-empty {
+div > div.heart-empty {
   background-image: url("/assets/img/GUI-controls/LifeGUI/Healthminus.png");
   background-size: contain;
   background-position: center;
@@ -662,10 +772,15 @@ div.move-picker-overlay div.row {
   padding: 30px 35px 20px 80px;
 }
 
-div.move-picker-overlay div.hints-box {
+div.move-picker-overlay div.hints-box .row {
+  padding: 0 10% 0 0;
+}
+
+div.move-picker-overlay div.hints-box b {
   font-family: "Comic Sans MS", sans-serif;
-  font-weight: bold;
-  font-size: 2.5vw;
+  /* font-weight: bold; */
+  font-size: 0.5em;
+  line-height: 1.2em;
   color: #44575d;
 }
 
@@ -706,7 +821,7 @@ div.move-picker-overlay div.hints-box {
   animation-name: drop-out-right;
   animation-fill-mode: backwards;
   /* animation-duration: 0.2s; */
-} 
+}
 
 div.moves-placeholder {
   opacity: 0;
@@ -790,7 +905,7 @@ div.mv-placeholder.filled-block {
     /* left: var(--left-pigeon-distance-from-the-edges); */
     bottom: -5vw;
   }
-} 
+}
 
 @keyframes slide-in {
   from {
@@ -879,13 +994,11 @@ div.mv-placeholder.filled-block {
   }
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px) {
   div.flip-overlay {
     display: none;
   }
 }
-
-
 
 /* Background stretch if it wasn't the actual image resolution */
 /* Background Responsiveness */
@@ -896,7 +1009,6 @@ screen and (min-height: 414px) {
   }
 } */
 
-
 /* Media Queries regular devices */
 
 @media only screen and (min-width: 600px) {
@@ -904,9 +1016,8 @@ screen and (min-height: 414px) {
     height: var(--tally-table-cell-size);
     width: var(--tally-table-cell-size);
   }
-  
+
   div.moves-placeholder {
-   
     right: 25%;
   }
 
@@ -920,9 +1031,8 @@ screen and (min-height: 414px) {
   div.move-picker-overlay div.hints-box {
     font-size: 2.3vw;
     color: #44575d;
-    left:-2.4vw;
+    left: -2.4vw;
   }
-  
 }
 
 /* ---- Tablets ---- */
@@ -937,11 +1047,9 @@ screen and (min-height: 414px) {
 
   div.move-picker-overlay div.hints-box {
     font-size: 2.5vw;
-    left:-0.5vw;
+    left: -0.5vw;
   }
-
 }
-
 
 /* ---- Laptops ---- */
 @media only screen and (min-width: 1024px) {

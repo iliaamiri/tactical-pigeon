@@ -35,30 +35,55 @@ const gameResultEnum = ['loss', 'win', 'draw'];
 // let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
 // const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
 
-// first round preparation
-(async function () {
+// background intro screen
+document.querySelector(".continueBtn").addEventListener("click", async event => {
+    console.log(event.target)
+    event.target.classList.remove("unpressed")
+    document.querySelector(".continueBtn").classList.add("pressed")
+    document.querySelector(".intro-page").classList.add("d-none");
+    // first round preparation
+    document.querySelector(".play-again").classList.add("d-none")
     document.querySelector("div.countdown-overlay").classList.remove("d-none");
     document.querySelector("div.countdown-overlay").classList.add("opaque");
 
-    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-    let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
     await roundCountdown();
-    pickMoveOverlay.classList.add('show-animation');
-    pigeon.classList.add('picking-move-animation');
-    console.log('done timer!');
+
     changeRoundTitle(Rounds.all['game1'].counter);
+
     // First round start timer
+    Timer.all['myTimer'].startCounter();
+
     document.querySelector("div.countdown-overlay").classList.add("d-none");
     document.querySelector("div.countdown-overlay").classList.remove("opaque");
-    Timer.all['myTimer'].startCounter();
-    document.querySelector(".play-again").classList.add("d-none")
-    document.querySelector('.move-picker-overlay').classList.add('show-animation');
+    
+    let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+    let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+    pickMoveOverlay.classList.add('show-animation');
+    pigeon.classList.add('picking-move-animation');
     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
     document.querySelector('.done').classList.add('pop-in-animation');
-})();
+})
 
-
-
+    // (async function () {
+    //     document.querySelector("div.countdown-overlay").classList.remove("d-none");
+    //     document.querySelector("div.countdown-overlay").classList.add("opaque");
+    
+    //     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+    //     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+    //     await roundCountdown();
+    //     pickMoveOverlay.classList.add('show-animation');
+    //     pigeon.classList.add('picking-move-animation');
+    //     console.log('done timer!');
+    //     changeRoundTitle(Rounds.all['game1'].counter);
+    //     // First round start timer
+    //     document.querySelector("div.countdown-overlay").classList.add("d-none");
+    //     document.querySelector("div.countdown-overlay").classList.remove("opaque");
+    //     Timer.all['myTimer'].startCounter();
+    //     document.querySelector(".play-again").classList.add("d-none")
+    //     document.querySelector('.move-picker-overlay').classList.add('show-animation');
+    //     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+    //     document.querySelector('.done').classList.add('pop-in-animation');
+    // })();
 
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
