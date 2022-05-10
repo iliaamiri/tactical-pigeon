@@ -238,7 +238,6 @@
                     </div>
 
                     <div class="done position-absolute pop-in-animation"></div>
-                    <%- include('_partials/commonJsFooters.ejs') -%>
                 </div>
             </div>
         </div>
@@ -247,10 +246,19 @@
                 <img src="/assets/img/LYPSTYC-logo.png" alt="LIPSTYC Logo" class="companyLogo">
             </div>
         </div>
+    </div>
 
-        <script>
+    <!-- JavaScripts -->
+        <!-- App -->
+        <%- include('_partials/commonJsFooters.ejs') -%>
+
+        <!-- Sounds -->
+        <script type="module">
+            // import {playSound, soundsPath} from "../public/assets/js/core/sounds";
+
             let audio = new Audio("/assets/music/Fluffing-a-Duck.mp3")
             document.onclick = function () {
+             // playSound(soundsPath.theme);
                 audio.play();
             }
 
