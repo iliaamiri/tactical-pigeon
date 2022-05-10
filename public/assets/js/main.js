@@ -6,6 +6,7 @@ init();
 
 await import('./routes/_common.js');
 
+router.assign('/', 'home');
 router.assign('/play', 'play');
 
 
