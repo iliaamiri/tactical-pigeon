@@ -318,6 +318,20 @@ div.counter-box.opponent-counter {
   right: 18%;
 }
 
+/* experimental round result visual */
+.roundResult {
+  font-family: "Titan One", cursive;
+  font-size: 1.9vw;
+
+  color: #407d96;
+  -webkit-text-stroke-width: 0.2vw;
+  -webkit-text-stroke-color: white;
+  /* margin-top: 10px;  */
+  position:absolute;
+  left:0;
+  top:0;
+}
+
 /* Table Labels */
 div.table-labels.table-labels.table-labels {
   display: flex;
