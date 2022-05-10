@@ -45,7 +45,7 @@ div.logo {
 
 div.start img {
   height: 14vh;
-  margin-top: 15px;
+  /*margin-top: 10px;*/
 }
 
 div.logo img {
@@ -105,7 +105,7 @@ input {
   }
 
   div.start img {
-    width: 25vw;
+    width: 20vw;
     height: auto;
     margin-bottom: 10px;
   }
@@ -138,7 +138,7 @@ input {
   }
 
   div.start img {
-    width: 22vw;
+    width: 15vw;
     height: auto;
   }
 
@@ -166,9 +166,8 @@ input {
   }
 
   div.start img {
-    width: 16vw;
+    width: 12vw;
     height: auto;
-    margin-bottom: 10px;
   }
 
   div.logo img {
