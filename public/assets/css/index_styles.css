@@ -21,6 +21,25 @@ div.container {
   min-height: 100vh;
 }
 
+/* Play Mode Toggle */
+div.play-mode-toggle-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -60px;
+}
+
+div.play-mode-toggle-container span {
+  font-family: "Titan One", cursive;
+  font-size: 1.7vw;
+  color: #407D96;
+  -webkit-text-stroke-width: 0.05vw;
+  -webkit-text-stroke-color: white;
+  margin-top: -4px;
+  margin-right: 5px;
+}
+
 /* Start Menu */
 div.start {
   display: flex;
