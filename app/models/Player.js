@@ -1,9 +1,25 @@
-const Player = {
-    playerId, // int (db primary key auto increment)
-    username, // string 
-    ammoInventory, //$ref: AmmoInventory
+const { makeId } = require("../../core/utils");
+const AmmoInventory = require("./AmmoInventory");
+const Life = require("./Life");
 
-    life, // $ref: Life
+const Player = {
+    playerId: null, // int (db primary key auto increment)
+    username: null, // string 
+    ammoInventory: null, //$ref: AmmoInventory
+
+    life: null, // $ref: Life
+
+    initNewPlayer(username) {
+        let newPlayerId = makeId();
+        this.initOnlinePlayer(newPlayerId, username);
+    },
+
+    initOnlinePlayer(playerId, username) {
+        this.playerId = playerId;
+        this.username = username;
+        this.ammoInventory = Object.create(AmmoInventory);
+        this.life = Object.create(Life);
+    },
 
     toJSON: function() {
         return {

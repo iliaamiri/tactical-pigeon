@@ -138,3 +138,5 @@ package-lock.json
 
 jwtRS256.key
 jwtRS256.key.pub
+
+secrets.zip

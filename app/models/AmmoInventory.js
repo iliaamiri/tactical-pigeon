@@ -1,6 +1,6 @@
 const AmmoInventory = {
-    gameId, // string (ref to Game)
-    playerId, // int (ref to Player)
+    gameId: null, // string (ref to Game)
+    playerId: null, // int (ref to Player)
 
     blockCount: 4,
     attackCount: 4,

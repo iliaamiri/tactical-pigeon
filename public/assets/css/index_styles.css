@@ -141,6 +141,26 @@ button.continueBtn {
   border-radius: 0.5em;
 }
 
+/* Play Mode Toggle */
+div.play-mode-toggle-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -60px;
+}
+
+div.play-mode-toggle-container span {
+  font-family: "Titan One", cursive;
+  font-size: 1.7vw;
+  color: #407D96;
+  -webkit-text-stroke-width: 0.05vw;
+  -webkit-text-stroke-color: white;
+  margin-top: -4px;
+  margin-right: 5px;
+}
+
+
 /* Start Menu */
 div.start {
   display: flex;
@@ -154,6 +174,16 @@ div.start {
   align-items: center;
   justify-content: center;
   padding: 3%;
+}
+
+div.start p.title-enter-name {
+  transition: 1s;
+}
+
+div.start p.title-enter-name.error-alert {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #e8ba1d;
+  color: #fff9e5;
 }
 
 div.startBtn {
@@ -172,6 +202,18 @@ div.startBtn.unpressed {
 
 div.startBtn.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+}
+
+div.playOnlineBtn.playOnlineBtn {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Static.png");
+}
+
+div.playOnlineBtn.playOnlineBtn.hover {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.png");
+}
+
+div.playOnlineBtn.playOnlineBtn.pressed {
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Pressed.png");
 }
 
 /* Logo */
@@ -219,7 +261,7 @@ button {
   border: none;
 }
 
-input {
+input.usernameInput {
   padding: 6px;
   margin-top: -5px;
   border-radius: 3px;
@@ -233,7 +275,7 @@ input {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  input {
+  input.usernameInput {
     width: 20vw;
     height: auto;
     margin: 0;
@@ -264,7 +306,15 @@ input {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  input {
+  div.play-mode-toggle-container span {
+    font-size: 2.6vw;
+  }
+
+  div.play-mode-toggle-container {
+    margin-top: 0;
+  }
+
+  input.usernameInput {
     width: 25vw;
     margin: 0;
     font-size: 1.7vw;
@@ -293,7 +343,10 @@ input {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  input {
+  div.play-mode-toggle-container span {
+    font-size: 1.8vw;
+  }
+  input.usernameInput {
     width: 20vw;
     margin: 0;
     font-size: 1.7vw;
@@ -317,6 +370,20 @@ input {
   div.container {
     margin-left: 12vw;
     margin-right: 12vw;
+  }
+}
+
+/* Large Desktop */
+@media only screen and (min-width: 1200px) {
+  div.play-mode-toggle-container {
+    margin-top: -50px;
+  }
+}
+
+/* 4K */
+@media only screen and (min-width: 1400px) {
+  div.play-mode-toggle-container {
+    margin-top: -120px;
   }
 }
 
