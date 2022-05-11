@@ -277,11 +277,12 @@
                         <div class="row">
                             <div class="col-sm-9 hints-box">
                                 <div class="row ">
-                                <b>Pick a fork or shield and click a part of your opponent to attack. Confirm your attack by pressing done.</b>
-                                <!-- <b>Pick</b>
+                                    <b>Pick a fork or shield and click a part of your opponent to attack. Confirm your
+                                        attack by pressing done.</b>
+                                    <!-- <b>Pick</b>
                                 <b>your </b>
                                 <b>weapon!</b> -->
-                            </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -329,7 +330,7 @@
         <!-- Sounds -->
         <script type="module">
             import { playSound, soundsPath } from "/assets/js/core/sounds.js";
-            
+
             //for playing theme music without user interaction + repeating
             let theme = document.querySelector("#bgMusic")
             window.onload = (event) => {
@@ -337,12 +338,15 @@
 
                 //to remove the gray bar at the bottom of iphone XR countdown overlay
                 let bottomRow = document.querySelector(".bottom-row")
-                if(window.innerHeight <= "450"){
-                    bottomRow.style.backgroundColor = "#ffdc4b"
+                let continueButton = document.querySelector(".continueBtn")
+                continueButton.onclick = () => {
+                    if (window.innerHeight <= "450") {
+                        bottomRow.style.backgroundColor = "#ffdc4b"
+                    }
+                    setTimeout(() => {
+                        bottomRow.style.backgroundColor = ""
+                    }, 1500);
                 }
-                setTimeout(() => {
-                    bottomRow.style.backgroundColor = ""
-                }, 1500);
             }
             theme.addEventListener('ended', function () {
                 this.currentTime = 0;
