@@ -14,13 +14,17 @@ import changeRoundTitle from "../helpers/changeRoundTitle.js";
 import resetGame from "../helpers/resetGame.js";
 import roundCountdown from "../helpers/roundCountdown.js";
 import donePressed from "../helpers/donePressed.js";
+import {sounds} from "../core/sounds.js";
 
 
 //Initiating the game.
-Rounds.all.game1 =  new Rounds()
+Rounds.all.game1 = new Rounds()
 
 // Initiating the players.
-Players.all.player1 = new Player("AklBm4", "Me", { 'blocks': AmmoInventory.all['block-left'], 'attacks': AmmoInventory.all['attack-left']});
+Players.all.player1 = new Player("AklBm4", "Me", {
+    'blocks': AmmoInventory.all['block-left'],
+    'attacks': AmmoInventory.all['attack-left']
+});
 Players.all.player2 = new BotPlayer();
 
 // Initiating the move placeholders.
@@ -56,7 +60,7 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
 
     document.querySelector("div.countdown-overlay").classList.add("d-none");
     document.querySelector("div.countdown-overlay").classList.remove("opaque");
-    
+
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
     pickMoveOverlay.classList.add('show-animation');
@@ -65,26 +69,26 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
     document.querySelector('.done').classList.add('pop-in-animation');
 });
 
-    // (async function () {
-    //     document.querySelector("div.countdown-overlay").classList.remove("d-none");
-    //     document.querySelector("div.countdown-overlay").classList.add("opaque");
-    
-    //     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-    //     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
-    //     await roundCountdown();
-    //     pickMoveOverlay.classList.add('show-animation');
-    //     pigeon.classList.add('picking-move-animation');
-    //     console.log('done timer!');
-    //     changeRoundTitle(Rounds.all['game1'].counter);
-    //     // First round start timer
-    //     document.querySelector("div.countdown-overlay").classList.add("d-none");
-    //     document.querySelector("div.countdown-overlay").classList.remove("opaque");
-    //     Timer.all['myTimer'].startCounter();
-    //     document.querySelector(".play-again").classList.add("d-none")
-    //     document.querySelector('.move-picker-overlay').classList.add('show-animation');
-    //     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
-    //     document.querySelector('.done').classList.add('pop-in-animation');
-    // })();
+// (async function () {
+//     document.querySelector("div.countdown-overlay").classList.remove("d-none");
+//     document.querySelector("div.countdown-overlay").classList.add("opaque");
+
+//     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+//     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+//     await roundCountdown();
+//     pickMoveOverlay.classList.add('show-animation');
+//     pigeon.classList.add('picking-move-animation');
+//     console.log('done timer!');
+//     changeRoundTitle(Rounds.all['game1'].counter);
+//     // First round start timer
+//     document.querySelector("div.countdown-overlay").classList.add("d-none");
+//     document.querySelector("div.countdown-overlay").classList.remove("opaque");
+//     Timer.all['myTimer'].startCounter();
+//     document.querySelector(".play-again").classList.add("d-none")
+//     document.querySelector('.move-picker-overlay').classList.add('show-animation');
+//     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+//     document.querySelector('.done').classList.add('pop-in-animation');
+// })();
 
 
 // Wrapping every click handler in one listener to be able handle the spam clicks easier.
@@ -168,20 +172,39 @@ document.querySelector('body').addEventListener('click', async event => {
         //console.log('my moves object', Players.all.player1.moves);
     }
 
-     /* ---- Tutorial Overlay ---- */
-     let tutorialOverlay = document.querySelector(".tutorial-overlay");
-     let helpBtn = document.querySelector(".help");
-     if (target.tagName === "DIV" && target.classList.contains('help')) {
-         tutorialOverlay.classList.remove("d-none");
-         // tutorialOverlay.classList.remove("animate__fadeOutLeft");
-         tutorialOverlay.classList.add("animate__fadeInLeft");
-         helpBtn.classList.remove("animate__infinite");
-         Timer.all['myTimer'].pauseCounter();
-     }
-     if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
-         tutorialOverlay.classList.add("d-none");
-         tutorialOverlay.classList.remove("animate__fadeInLeft");
-         // tutorialOverlay.classList.add("animate__fadeOutLeft");
-         Timer.all['myTimer'].startCounter();
-     }
+    /* ---- Tutorial Overlay ---- */
+    let tutorialOverlay = document.querySelector(".tutorial-overlay");
+    let helpBtn = document.querySelector(".help");
+    if (target.tagName === "DIV" && target.classList.contains('help')) {
+        tutorialOverlay.classList.remove("d-none");
+        // tutorialOverlay.classList.remove("animate__fadeOutLeft");
+        tutorialOverlay.classList.add("animate__fadeInLeft");
+        helpBtn.classList.remove("animate__infinite");
+        Timer.all['myTimer'].pauseCounter();
+    }
+    if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
+        tutorialOverlay.classList.add("d-none");
+        tutorialOverlay.classList.remove("animate__fadeInLeft");
+        // tutorialOverlay.classList.add("animate__fadeOutLeft");
+        Timer.all['myTimer'].startCounter();
+    }
+
+    /* ---- Mute Button ---- */
+    if (target.tagName === "DIV" && target.classList.contains('mute')) {
+        console.log("muting");
+        document.dispatchEvent(
+            new CustomEvent('soundMuteToggle', {
+                detail: {
+                    soundsToMute: [
+                        sounds.theme,
+                        sounds.loseGame,
+                        sounds.drawGame,
+                        sounds.winGame,
+                        sounds.winRound,
+                        sounds.doneChecked
+                    ]
+                }
+            })
+        );
+    }
 });
