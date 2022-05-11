@@ -14,13 +14,7 @@
 }
 
 .toggleWrapper {
-    margin: auto;
-    padding: 20px;
-    width: 55px;
-    border: 1px solid lightgray;
-    margin-top: 20px;
-    border-radius: 5px;
-    background: white;
+    display: inline-block;
 }
 
 .toggleWrapper input.mobileToggle {
@@ -42,7 +36,7 @@
     border-radius: 60px;
 }
 
-.toggleWrapper.toggleWrapper input.mobileToggle+label:before {
+.toggleWrapper.toggleWrapper input.mobileToggle.mobileToggle+label:before {
     content: "";
     position: absolute;
     display: block;
@@ -54,7 +48,7 @@
     border-radius: 30px;
 }
 
-.toggleWrapper.toggleWrapper input.mobileToggle+label:after {
+.toggleWrapper.toggleWrapper input.mobileToggle.mobileToggle+label:after {
     content: "";
     position: absolute;
     display: block;
@@ -68,11 +62,11 @@
     border-radius: 60px;
 }
 
-.toggleWrapper input.mobileToggle:checked+label:before {
+.toggleWrapper input.mobileToggle.mobileToggle:checked+label:before {
     background: #2ecc71;
     transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
 }
 
-.toggleWrapper input.mobileToggle:checked+label:after {
+.toggleWrapper input.mobileToggle.mobileToggle:checked+label:after {
     left: 24px;
 }
