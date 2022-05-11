@@ -270,10 +270,14 @@ input.usernameInput {
 span.portrait {
   font-family: "Titan One", cursive;
   font-size: 35px;
-  color: #407d96;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: white;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
   margin-top: 10px;
+}
+
+div.flip-overlay img {
+  width: 30%;
 }
 
 @media only screen and (min-width: 350px) and (orientation: portrait) {
@@ -292,6 +296,7 @@ span.portrait {
     left: 0;
     background-color: #ffdc4b;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
   }

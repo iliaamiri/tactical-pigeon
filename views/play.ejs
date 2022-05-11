@@ -25,6 +25,7 @@
 
                 <!-- Portrait Mode Overlay -->
                 <div class="flip-overlay">
+                    <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
                     <span class="portrait">FLIP TO PLAY</span>
                 </div>
 
@@ -262,8 +263,8 @@
 
                     <!-- Characters' Pigeon Components -->
                     <div class="pigeons-container position-absolute">
-                        <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.png" alt="" class="pigeon-left ">
-                        <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.png" alt="" class="pigeon-right">
+                        <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.svg" alt="" class="pigeon-left ">
+                        <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.svg" alt="" class="pigeon-right">
                     </div>
 
                     <!-- Hot-dog Pray Component -->
@@ -276,9 +277,8 @@
                         <div class="round-title"></div>
                         <div class="row">
                             <div class="col-sm-9 hints-box">
-                                <div class="row ">
-                                    <b>Pick a fork or shield and click a part of your opponent to attack. Confirm your
-                                        attack by pressing done.</b>
+                                <div class="row">
+                                    <b>Pick a fork or shield and click a part of your opponent to attack.</b>
                                     <!-- <b>Pick</b>
                                 <b>your </b>
                                 <b>weapon!</b> -->
@@ -287,14 +287,19 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
-                        <div class="mv-placeholder head animate__animated"></div>
-                        <div class="mv-placeholder body animate__animated"></div>
-                        <div class="mv-placeholder legs animate__animated"></div>
-
+                    <div class="col-sm-3 moves-placeholder position-absolute">
+                        <div class="outline-all">
+                            <div class="mv-placeholder head animate__animated"></div>
+                        </div>
+                        <div class="outline-threesides">
+                            <div class="mv-placeholder body animate__animated"></div>
+                        </div>
+                        <div class="outline-threesides">
+                            <div class="mv-placeholder legs animate__animated"></div>
+                        </div>
                     </div>
 
-                    <div class="done position-absolute "></div>
+                    <div class="done position-absolute"></div>
                 </div>
             </div>
         </div>
@@ -420,8 +425,5 @@
 
         </script>
 
-
-
 </body>
-
 </html>
