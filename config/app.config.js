@@ -1,12 +1,11 @@
-const fs = require('fs');
 
 appConfigs = {
     APP_NAME: process.env.APP_NAME ?? "Tactical People",
     APP_DEBUG: process.env.APP_DEBUG ?? false,
     APP_URL: process.env.APP_URL ?? "http://localhost",
     APP_VERSION: process.env.APP_VERSION ?? 1.0,
-    JWT_RSA_PRIVATE_KEY: fs.readFileSync('../jwtRS256.key').toString() || null,
-    JWT_RSA_PUBLIC_KEY: fs.readFileSync('../jwtRS256.key.pub').toString() || null,
+    JWT_RSA_PRIVATE_KEY: JWT_PRIVATE_KEY || null,
+    JWT_RSA_PUBLIC_KEY: JWT_PUBLIC_KEY || null,
     SESSION_SECRET: process.env.SESSION_SECRET ?? "",
     PORT: process.env.PORT ?? 8080,
 

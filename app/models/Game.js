@@ -1,13 +1,13 @@
 const Round = require("./Round");
 
 const Game = {
-    rowId, // int (db primary key auto incrmn)
-    gameId, // string
-    winnerPlayerId, // int (ref to Player)
+    rowId: null, // int (db primary key auto incrmn)
+    gameId: null, // string
+    winnerPlayerId: null, // int (ref to Player)
 
     players: {
-        player1Id, // Int, ref to Players
-        player2Id // Int, ref to Players
+        player1Id: null, // Int, ref to Players
+        player2Id: null // Int, ref to Players
     },
 
     rounds: [

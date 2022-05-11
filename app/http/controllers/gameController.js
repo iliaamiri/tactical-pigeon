@@ -1,4 +1,4 @@
-const singleCompare = require("../../test/compare-moves");
+const singleCompare = include("./test/compare-moves");
 
 const GameController = {
     async submitGameMove(req, res) {
