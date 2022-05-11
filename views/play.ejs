@@ -47,7 +47,7 @@
                                 <ul class="game-info">
                                     <li>Use your fork to attack unprotected spots to decrease your opponents lives</li>
                                     <br>
-                                    <li>Use your sheild block to protect yourself against opponent attacks</li>
+                                    <li>Use your shield block to protect yourself against opponent attacks</li>
                                     <br>
                                     <li>Winner is determined by the number of lives left or the amount of ammo left</li>
                                 </ul>
@@ -329,7 +329,10 @@
 
         <!-- Sounds -->
         <script type="module">
-            import { playSound, soundsPath } from "/assets/js/core/sounds.js";
+
+
+
+            import { playSound, sounds } from "/assets/js/core/sounds.js";
 
             //for playing theme music without user interaction + repeating
             let theme = document.querySelector("#bgMusic")
@@ -356,7 +359,7 @@
 
             let fork = document.querySelector("#attack-image")
             fork.onclick = function () {
-                playSound(soundsPath.forkChecked)
+                playSound(sounds.forkChecked)
 
                 fork.classList.add("animate__pulse", "animate__faster")
                 fork.addEventListener('animationend', () => {
@@ -372,7 +375,7 @@
             let shield = document.querySelector("#shield-image")
             shield.onclick = function () {
 
-                playSound(soundsPath.shieldClicked)
+                playSound(sounds.shieldClicked)
                 shield.classList.add("animate__pulse", "animate__faster")
 
                 let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
@@ -387,32 +390,32 @@
 
             let opponentShield = document.querySelector(".opponent-counter-box > img")
             opponentShield.onclick = function () {
-                playSound(soundsPath.denyTheClick)
+                playSound(sounds.denyTheClick)
             }
 
             let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
             opponentFork.onclick = function () {
-                playSound(soundsPath.denyTheClick)
+                playSound(sounds.denyTheClick)
             }
 
             let movePlaceholderHead = document.querySelector(".mv-placeholder.head")
             movePlaceholderHead.onclick = function () {
-                playSound(soundsPath.putInTheTally)
+                playSound(sounds.putInTheTally)
             }
 
             let movePlaceholderBody = document.querySelector(".mv-placeholder.body")
             movePlaceholderBody.onclick = function () {
-                playSound(soundsPath.putInTheTally)
+                playSound(sounds.putInTheTally)
             }
 
             let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs")
             movePlaceholderLegs.onclick = function () {
-                playSound(soundsPath.putInTheTally)
+                playSound(sounds.putInTheTally)
             }
 
             let doneButton = document.querySelector(".done")
             doneButton.onclick = function () {
-                playSound(soundsPath.doneChecked)
+                playSound(sounds.doneChecked)
             }
 
         </script>
