@@ -28,6 +28,35 @@
                     <span class="portrait">FLIP TO PLAY</span>
                 </div>
 
+                <!-- Intro Overlay -->
+                <div class="intro-page">
+
+                    <div class="blueBanner">
+                        <span class="character">you are: PUSINESS MAN </span>
+                    </div>
+                    <div class="yourPigeon"></div>
+                    <div class="bubble bubble-bottom-left">
+                        <span class="backstory">I’m a bird in the big apple. Lifes good! Amazing food, great night life,
+                            what more can a
+                            pigeon ask for? Well ...I wish sweater pigeon would stop stealing my food....I’ll have to
+                            take thing into my
+                            own hands. Nothing personal, it’s just business.</span>
+                        <div class="objectives">
+                            <div class="objectives-title"></div>
+                            <div class="objectives-banner">
+                                <ul class="game-info">
+                                    <li>Use your fork to attack unprotected spots to decrease your opponents lives</li>
+                                    <br>
+                                    <li>Use your sheild block to protect yourself against opponent attacks</li>
+                                    <br>
+                                    <li>Winner is determined by the number of lives left or the amount of ammo left</li>
+                                </ul>
+                                <div class="continueBtn unpressed">Got it!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tutorial Overlay -->
                 <div class="tutorial-overlay d-none animate__animated">
                     <div class="tutorial"></div>
@@ -67,6 +96,9 @@
                 <!-- Help Button -->
                 <div class="help animate__animated animate__pulse animate__infinite"></div>
 
+                <!-- Mute Button -->
+                <div class="mute"></div>
+
                 <!-- Main Components -->
                 <div class="container-fluid">
 
@@ -77,7 +109,7 @@
                         <div class="col-sm-2 asset-padding">
                             <div class="d-flex justify-content-end">
                                 <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png"
-                                    alt="" class="shield-icon my-shield">
+                                    alt="" class="shield-icon my-shield animate__animated">
                             </div>
                             <div class="counter-box my-counter">
                                 <span class="my-block-counter">X4</span>
@@ -101,7 +133,7 @@
                         <div class="col-sm-2 justify-content-end asset-padding">
                             <div class="d-flex justify-content-end">
                                 <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png"
-                                    alt="" class="shield-icon my-attack">
+                                    alt="" class="shield-icon my-attack animate__animated">
                             </div>
                             <div class="counter-box my-counter">
                                 <span class="my-attack-counter">X4</span>
@@ -133,7 +165,10 @@
                                 <div class="col-sm-10 asset-padding">
                                     <table class="tally my-tally">
                                         <tr>
-                                            <td class="tabol-labol head-label">Head</td>
+                                            <td class="tabol-labol head-label">
+                                                <img src="/assets/img/GUI-controls/MainControls/BodyParts-Head.svg"
+                                                    alt="Head">
+                                            </td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -141,7 +176,11 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="tabol-labol body-label">Body</td>
+                                            <td class="tabol-labol body-label">
+                                                <img src="/assets/img/GUI-controls/MainControls/BodyParts-Body.svg"
+                                                    alt="Body">
+                                            </td>
+                                            </td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -149,7 +188,11 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="tabol-labol legs-label">Legs</td>
+                                            <td class="tabol-labol legs-label">
+                                                <img src="/assets/img/GUI-controls/MainControls/BodyParts-Legs.svg"
+                                                    alt="Legs">
+                                            </td>
+                                            </td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -233,20 +276,24 @@
                         <div class="round-title"></div>
                         <div class="row">
                             <div class="col-sm-9 hints-box">
-                                <b>Pick</b>
+                                <div class="row ">
+                                <b>Pick a fork or shield and click a part of your opponent to attack. Confirm your attack by pressing done.</b>
+                                <!-- <b>Pick</b>
                                 <b>your </b>
-                                <b>weapon!</b>
+                                <b>weapon!</b> -->
+                            </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
-                        <div class="mv-placeholder head"></div>
-                        <div class="mv-placeholder body"></div>
-                        <div class="mv-placeholder legs"></div>
+                        <div class="mv-placeholder head animate__animated"></div>
+                        <div class="mv-placeholder body animate__animated"></div>
+                        <div class="mv-placeholder legs animate__animated"></div>
+
                     </div>
 
-                    <div class="done position-absolute pop-in-animation"></div>
+                    <div class="done position-absolute "></div>
                 </div>
             </div>
         </div>
@@ -258,85 +305,111 @@
     </div>
 
     <!-- more audio for rounds/game wins/loses -->
-        <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
-        <!-- <audio hidden="true" id="winGame" src="/assets/music/win-game-sound.wav"> -->
-        <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
-        <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
-        <audio hidden="true" id="drawGame" src="/assets/music/draw-game.wav"></audio>
+    <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
+    <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
+    <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
+    <audio hidden="true" id="drawGame" src="/assets/music/draw-game.wav"></audio>
 
-        <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
-        <audio id="bgMusic" hidden="true" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
+    <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
+    <audio hidden="true" id="bgMusic" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
 
-        <!-- AUDIO/MUSIC CHOICES -->
 
-        <!-- if using fluffy ducky background, put this in description: -->
-        <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
+    <!-- AUDIO/MUSIC CHOICES -->
+
+    <!-- if using fluffy ducky background, put this in description: -->
+    <!-- Fluffing a Duck Kevin MacLeod (incompetech.com)
         Licensed under Creative Commons: By Attribution 3.0 License
         http://creativecommons.org/licenses/by/3.0/
         Music promoted by https://www.chosic.com/free-music/all/  -->
-  
+
     <!-- JavaScripts -->
-        <!-- App -->
-        <%- include('_partials/commonJsFooters.ejs') -%>
+    <!-- App -->
+    <%- include('_partials/commonJsFooters.ejs') -%>
 
         <!-- Sounds -->
         <script type="module">
-             import {playSound, soundsPath} from "/assets/js/core/sounds.js";
+            import { playSound, soundsPath } from "/assets/js/core/sounds.js";
+            
+            //for playing theme music without user interaction + repeating
+            let theme = document.querySelector("#bgMusic")
+            window.onload = (event) => {
+                theme.play()
 
-            let audio = document.querySelector("#bgMusic")
-            document.onclick = function () {
-             // playSound(soundsPath.theme);
-                audio.play();
+                //to remove the gray bar at the bottom of iphone XR countdown overlay
+                let bottomRow = document.querySelector(".bottom-row")
+                if(window.innerHeight <= "450"){
+                    bottomRow.style.backgroundColor = "#ffdc4b"
+                }
+                setTimeout(() => {
+                    bottomRow.style.backgroundColor = ""
+                }, 1500);
             }
+            theme.addEventListener('ended', function () {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+
 
             let fork = document.querySelector("#attack-image")
             fork.onclick = function () {
-                let audio = new Audio("/assets/music/Attack-[AudioTrimmer.com]-[AudioTrimmer.com].mp3");
-                audio.play();
+                playSound(soundsPath.forkChecked)
+
+                fork.classList.add("animate__pulse", "animate__faster")
+                fork.addEventListener('animationend', () => {
+                    fork.classList.remove("animate__pulse")
+                })
+
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                mv_placeholders.forEach((item) => {
+                    item.classList.add("animate__tada", "animate__slow")
+                })
             }
 
             let shield = document.querySelector("#shield-image")
             shield.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav");
-                audio.play();
+
+                playSound(soundsPath.shieldClicked)
+                shield.classList.add("animate__pulse", "animate__faster")
+
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                mv_placeholders.forEach((item) => {
+                    item.classList.add("animate__tada", "animate__slow")
+                })
+
+                shield.addEventListener('animationend', () => {
+                    shield.classList.remove("animate__pulse")
+                });
             }
 
             let opponentShield = document.querySelector(".opponent-counter-box > img")
             opponentShield.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
-                audio.play();
+                playSound(soundsPath.denyTheClick)
             }
 
             let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
             opponentFork.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
-                audio.play();
+                playSound(soundsPath.denyTheClick)
             }
 
             let movePlaceholderHead = document.querySelector(".mv-placeholder.head")
             movePlaceholderHead.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let movePlaceholderBody = document.querySelector(".mv-placeholder.body")
             movePlaceholderBody.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs")
             movePlaceholderLegs.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let doneButton = document.querySelector(".done")
             doneButton.onclick = function () {
-                let audio = new Audio("/assets/music/SuccessAttack.mp3")
-                audio.play();
+                playSound(soundsPath.doneChecked)
             }
-
 
         </script>
 
