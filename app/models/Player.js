@@ -1,9 +1,9 @@
 const Player = {
-    playerId, // int (db primary key auto increment)
-    username, // string 
-    ammoInventory, //$ref: AmmoInventory
+    playerId: null, // int (db primary key auto increment)
+    username: null, // string 
+    ammoInventory: null, //$ref: AmmoInventory
 
-    life, // $ref: Life
+    life: null, // $ref: Life
 
     toJSON: function() {
         return {

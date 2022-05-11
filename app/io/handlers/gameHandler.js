@@ -2,12 +2,11 @@ const Game = require("../../models/Game");
 const Games = require("../../repos/Games");
 
 const Players = require("../../repos/Players").Players;
-const Game = require("../../repos/Games").Games;
 
 module.exports = (io, socket) => {
     // socket.user : ref to Player : authenticated player.
 
-    const searchForOpponent = () => {
+    const searchForOpponent = (player) => {
         Players.addToMatchQueue(player);
     };
 
@@ -48,30 +47,72 @@ module.exports = (io, socket) => {
         socket.emit("game:fetch:result", payload);
     }
 
-    const roundSubmitMove = (payload) => { // moves: ref to Move
-        const gameId = payload.gameId;
-        const move = payload.move;
+    const roundSubmitMove = (payload) => { 
+        /* 
+            payload: {
+                gameId: <string>
+                playerId: <string>
+                move: {
+                    head: 'none' / 'attack' / 'block',
+                    body: 'none' / 'attack' / 'block',
+                    legs: 'none' / 'attack' / 'block',
+                }
+            }
+        */
 
-        Games.updateRoundMoves(gameId, move);
+        Games.updateRoundMoves(payload, Players);
     };
 
     Players.playerEmitter.on('gameReady', function(game) {
-        const otherUser = Object.values(game.players)
-            .filter(player => player.playerId !== socket.user.userId);
+        Games.add(game);
+        // console.log('Games.all', Games.showAll());
+        const players = [];
+        game.players.forEach(playerId => {
+            players.push(Players.all[playerId].username);
+        });
         const payload = {
             gameId: game.gameId,
-            player2_username: otherUser,
+            players: players,
         };
-        // eventually will emmit an socket event to frontend which includes a payload:
+        // console.log('players on match found', payload)
         socket.emit("game:matchFound", payload);
     });
 
     Games.gameEmitter.on('roundMovesComplete', function(moves, gameComplete) {
-        const opponentMoves = Object.values(moves)
-            .filter(move => move.playerId !== socket.user.userId);
-        gameComplete = 
+        // console.log('moves received', moves);
+        // console.log('socket.user.userId =', socket.user.userId);
+        let movesWithoutUserId = {};
+        let gameId;
+        Object.values(moves).forEach(userMoveSet => {
+            // console.log('userMoveSet', userMoveSet);
+            let userId = userMoveSet.userId;
+            gameId = userMoveSet.gameId;
+            //let playerIds = Games.find(gameId).players;
+            let userName = Players.find(userId).username;
+            // console.log('userName', userName);
+            movesWithoutUserId[userName] = userMoveSet.move;
+            delete userMoveSet.userId;
+            delete userMoveSet.gameId;
+        });
+        // console.log('movesWithoutUserId:', movesWithoutUserId);
+
+        /* 
+            movesWithoutUserId {
+                username1 {
+                    head,
+                    body,
+                    legs,
+                },
+                username2 {
+                    head,
+                    body,
+                    legs,
+                }
+            }
+        */
         socket.emit("game:round:opponentMove", {
-            opponentMove: opponentMoves,
+            gameId: gameId,
+            moves: movesWithoutUserId,
             gameComplete: gameComplete,
         });
     });

@@ -2,10 +2,11 @@ const EventEmitter = require('events');
 const playerEmitter = new EventEmitter();
 
 const makeId = require('../../core/utils').makeId;
-
-const Games = require("./Games");
+//const Games = require("./Games");
 const Game = require("../models/Game");
-const Inventory = require("../models/AmmoInventory");
+const AmmoInventory = require("../models/AmmoInventory");
+//const Round = require('../models/Round');
+const Life = require('../models/Life');
 
 /* playerEmitter.on('addPlayer', function(player) {
   //console.log('adding player', player);
@@ -13,16 +14,17 @@ const Inventory = require("../models/AmmoInventory");
 }); */
 
 playerEmitter.on('matchReady', function(playersArr) {
-  //console.log('two players are ready to be matched:', playersArr);
-
+  // console.log('two players are ready to be matched:', playersArr);
   const game = Object.create(Game);
   game.gameId = makeId();
-  Games.all[gameId] = game;
+  // console.log('game newly created', JSON.parse(JSON.stringify(game)));
+  //Games.add(game);
+  //console.log('Games.all', Games.showAll());
+  game.nextRound(game.currentRound);
   playersArr.forEach(player => {
-    game.players[player.playerId] = player;
-    game.inventories[player.playerId] = Object.create(Inventory);
-    game.inventories[player.playerId].gameId = gameId;
-    game.inventories[player.playerId].playerId = player.playerId;
+    player.ammoInventory = Object.create(AmmoInventory);
+    player.life = Object.create(Life);
+    game.players.push([player.playerId]);
   });
 
   // at the end, empty the match queue
@@ -44,12 +46,9 @@ const Players = {
       this.matchQueue.push(player);
       //console.log('match queue length', this.matchQueue.length);
       if (this.matchQueue.length === 2) {
+        // console.log('match queue', this.matchQueue);
         playerEmitter.emit('matchReady', this.matchQueue);
       }
-    },
-
-    matchPlayers: function() {
-
     },
 
     // all the CRUD methods (delete, save, findById)

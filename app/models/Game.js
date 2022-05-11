@@ -5,9 +5,9 @@ const Game = {
     gameId: null, // string
     winnerPlayerId: null, // int (ref to Player)
     gameComplete: false,
-    players: {
+    players: [
         // Int, ref to Players
-    },
+    ],
     currentRound: 1,
     rounds: [
         // $ref: Round
@@ -15,9 +15,11 @@ const Game = {
     inventories: {
         // ref to AmmoInventory
     },
-    /* nextRound: function(roundData) {
-        this.rounds.push(roundData);
-    }, */
+    nextRound: function(currentRoundNumber) {
+        const newRound = Object.create(Round);
+        newRound.roundNumber = currentRoundNumber;
+        this.rounds.push(newRound);
+    },
 
     toJSON: function() {
         return {
