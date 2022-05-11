@@ -109,7 +109,7 @@
                         <div class="col-sm-2 asset-padding">
                             <div class="d-flex justify-content-end">
                                 <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png"
-                                    alt="" class="shield-icon my-shield">
+                                    alt="" class="shield-icon my-shield animate__animated">
                             </div>
                             <div class="counter-box my-counter">
                                 <span class="my-block-counter">X4</span>
@@ -133,7 +133,7 @@
                         <div class="col-sm-2 justify-content-end asset-padding">
                             <div class="d-flex justify-content-end">
                                 <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png"
-                                    alt="" class="shield-icon my-attack">
+                                    alt="" class="shield-icon my-attack animate__animated">
                             </div>
                             <div class="counter-box my-counter">
                                 <span class="my-attack-counter">X4</span>
@@ -286,10 +286,11 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3 moves-placeholder position-absolute">
-                        <div class="mv-placeholder head"></div>
-                        <div class="mv-placeholder body"></div>
-                        <div class="mv-placeholder legs"></div>
+                    <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
+                        <div class="mv-placeholder head animate__animated"></div>
+                        <div class="mv-placeholder body animate__animated"></div>
+                        <div class="mv-placeholder legs animate__animated"></div>
+
                     </div>
 
                     <div class="done position-absolute "></div>
@@ -305,13 +306,13 @@
 
     <!-- more audio for rounds/game wins/loses -->
     <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
-    <!-- <audio hidden="true" id="winGame" src="/assets/music/win-game-sound.wav"> -->
     <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
     <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
     <audio hidden="true" id="drawGame" src="/assets/music/draw-game.wav"></audio>
 
     <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
-    <audio id="bgMusic" hidden="true" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
+    <audio hidden="true" id="bgMusic" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
+
 
     <!-- AUDIO/MUSIC CHOICES -->
 
@@ -328,61 +329,87 @@
         <!-- Sounds -->
         <script type="module">
             import { playSound, soundsPath } from "/assets/js/core/sounds.js";
+            
+            //for playing theme music without user interaction + repeating
+            let theme = document.querySelector("#bgMusic")
+            window.onload = (event) => {
+                theme.play()
 
-            let audio = document.querySelector("#bgMusic")
-            document.onclick = function () {
-                // playSound(soundsPath.theme);
-                audio.play();
+                //to remove the gray bar at the bottom of iphone XR countdown overlay
+                let bottomRow = document.querySelector(".bottom-row")
+                if(window.innerHeight <= "450"){
+                    bottomRow.style.backgroundColor = "#ffdc4b"
+                }
+                setTimeout(() => {
+                    bottomRow.style.backgroundColor = ""
+                }, 1500);
             }
+            theme.addEventListener('ended', function () {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+
 
             let fork = document.querySelector("#attack-image")
             fork.onclick = function () {
-                let audio = new Audio("/assets/music/Attack-[AudioTrimmer.com]-[AudioTrimmer.com].mp3");
-                audio.play();
+                playSound(soundsPath.forkChecked)
+
+                fork.classList.add("animate__pulse", "animate__faster")
+                fork.addEventListener('animationend', () => {
+                    fork.classList.remove("animate__pulse")
+                })
+
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                mv_placeholders.forEach((item) => {
+                    item.classList.add("animate__tada", "animate__repeat-2")
+                })
             }
 
             let shield = document.querySelector("#shield-image")
             shield.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav");
-                audio.play();
+
+                playSound(soundsPath.shieldClicked)
+                shield.classList.add("animate__pulse", "animate__faster")
+
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                mv_placeholders.forEach((item) => {
+                    item.classList.add("animate__tada", "animate__repeat-2")
+                })
+
+                shield.addEventListener('animationend', () => {
+                    shield.classList.remove("animate__pulse")
+                });
             }
 
             let opponentShield = document.querySelector(".opponent-counter-box > img")
             opponentShield.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
-                audio.play();
+                playSound(soundsPath.denyTheClick)
             }
 
             let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
             opponentFork.onclick = function () {
-                let audio = new Audio("/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav");
-                audio.play();
+                playSound(soundsPath.denyTheClick)
             }
 
             let movePlaceholderHead = document.querySelector(".mv-placeholder.head")
             movePlaceholderHead.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let movePlaceholderBody = document.querySelector(".mv-placeholder.body")
             movePlaceholderBody.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs")
             movePlaceholderLegs.onclick = function () {
-                let audio = new Audio("/assets/music/putting-in-tally.wav")
-                audio.play();
+                playSound(soundsPath.putInTheTally)
             }
 
             let doneButton = document.querySelector(".done")
             doneButton.onclick = function () {
-                let audio = new Audio("/assets/music/SuccessAttack.mp3")
-                audio.play();
+                playSound(soundsPath.doneChecked)
             }
-
 
         </script>
 

@@ -355,11 +355,12 @@ div.result-banner {
   opacity: 0;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 25%;
-  width: 35%;
-  /* top: 5%;
-  left: 36%; */
-  z-index: 20;
+  height: 22vw;
+  width: 32vw;
+  top: 2.7vw;
+  /* left: 36%; */
+  z-index: 30;
+  /* changed z-index from 20 to 30 so result is over the help button */
 }
 
 div.result-banner.victory {
@@ -867,6 +868,14 @@ div.mv-placeholder.filled-block {
 }
 
 /* Animations */
+@keyframes shake {
+  55% { transform: translate(-50%, -150%) rotate(15deg); }
+  60% { transform: translate(-50%, -150%) rotate(-15deg); }
+  65% { transform: translate(-50%, -150%) rotate(15deg); }
+  70% { transform: translate(-50%, -150%) rotate(-15deg); }
+}
+
+
 @keyframes pigeon-pick-move {
   from {
     height: 35vw;
