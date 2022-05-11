@@ -40,6 +40,18 @@ class AmmoIcon {
         'player1_shield': new AmmoIcon("block", player1_shield),
         'player1_attack': new AmmoIcon("attack", player1_attack)
     };
+
+    static {
+        setInterval(() => {
+            let myShield = this.all.player1_shield.iconElement;
+            myShield.pushAnimationLibrary("animate__pulse", "animate__faster");
+
+            setTimeout(() => {
+                let myAttack = this.all.player1_attack.iconElement;
+                myAttack.pushAnimationLibrary("animate__pulse", "animate__faster");
+            }, 500);
+        }, 2500);
+    }
 }
 
 export default AmmoIcon;

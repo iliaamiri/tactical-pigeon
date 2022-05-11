@@ -1,6 +1,7 @@
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
 import AmmoInventory from "../components/Inventories/AmmoInventory.js";
+import AmmoIcon from '../components/Inventories/AmmoIcon.js';
 import Timer from '../components/Timer.js';
 import Rounds from '../components/Rounds.js';
 
@@ -62,7 +63,7 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
     pigeon.classList.add('picking-move-animation');
     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
     document.querySelector('.done').classList.add('pop-in-animation');
-})
+});
 
     // (async function () {
     //     document.querySelector("div.countdown-overlay").classList.remove("d-none");
