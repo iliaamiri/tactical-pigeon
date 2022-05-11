@@ -22,6 +22,13 @@ export default () => {
     //     }, timeoutDuration);
     // }
 
+    HTMLElement.prototype.pushAnimationLibrary = function (...animations) {
+        this.classList.add(...animations);
+        this.addEventListener('animationend', () => {
+            this.classList.remove(...animations);
+        });
+    }
+
     /**
      * Disables/Enabling clicking on an element.
      * Why did I made a new file and did this?
