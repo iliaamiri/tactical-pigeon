@@ -205,6 +205,7 @@ div.objectives-title {
   position: relative;
   left: 24%;
   top: 5%;
+  z-index: 2;
 }
 
 div.objectives-banner {
@@ -212,6 +213,7 @@ div.objectives-banner {
   background-color: #407d96;
   border-radius: 0.75em;
   padding: 10% 6% 6% 6%;
+  z-index: 1;
 }
 
 ul.game-info {
