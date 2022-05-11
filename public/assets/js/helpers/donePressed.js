@@ -106,15 +106,15 @@ function donePressed() {
             }
     
             if(tdCounter === 2) {
-                span.style.left = "+16vw"
+                span.style.left = "+15.5vw"
                 span.style.top = "-1vw"
             }
             if(tdCounter === 3) {
-                span.style.left = "+20.5vw"
+                span.style.left = "+19.5vw"
                 span.style.top = "-1vw"
             }
             if(tdCounter === 4) {
-                span.style.left = "+27.5vw"
+                span.style.left = "+24.5vw"
                 span.style.top = "-1vw"
             }
     
@@ -157,15 +157,15 @@ function donePressed() {
             }
 
             if(tdCounter === 2) {
-                span.style.left = "+16vw"
+                span.style.left = "+15.5vw"
                 span.style.top = "-1vw"
             }
             if(tdCounter === 3) {
-                span.style.left = "+20.5vw"
+                span.style.left = "+19.5vw"
                 span.style.top = "-1vw"
             }
             if(tdCounter === 4) {
-                span.style.left = "+27.5vw"
+                span.style.left = "+24.5vw"
                 span.style.top = "-1vw"
             }
 
@@ -246,6 +246,22 @@ function donePressed() {
             //game lose sound effect
             let bgMusic = document.querySelector("#bgMusic")
             bgMusic.src = "";
+
+            let fork = document.querySelector("#attack-image")
+            fork.onclick = function () {
+            }
+
+            let shield = document.querySelector("#shield-image")
+            shield.onclick = function () {
+            }
+            let opponentShield = document.querySelector(".opponent-counter-box > img")
+            opponentShield.onclick = function () {   
+            }
+
+            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
+            opponentFork.onclick = function () {   
+            }
+
             document.querySelector("#loseGame").play()
 
         } else {
