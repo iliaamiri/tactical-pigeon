@@ -1,22 +1,23 @@
 const Round = require("./Round");
 
 const Game = {
-    rowId, // int (db primary key auto incrmn)
-    gameId, // string
-    winnerPlayerId, // int (ref to Player)
-
+    rowId: null, // int (db primary key auto incrmn)
+    gameId: null, // string
+    winnerPlayerId: null, // int (ref to Player)
+    gameComplete: false,
     players: {
-        player1Id, // Int, ref to Players
-        player2Id // Int, ref to Players
+        // Int, ref to Players
     },
-
+    currentRound: 1,
     rounds: [
         // $ref: Round
     ],
-
-    nextRound: function() {
-        this.rounds.push(roundData);
+    inventories: {
+        // ref to AmmoInventory
     },
+    /* nextRound: function(roundData) {
+        this.rounds.push(roundData);
+    }, */
 
     toJSON: function() {
         return {
