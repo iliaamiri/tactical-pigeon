@@ -3,7 +3,7 @@ import MovePlaceholder from '../components/MovePlaceholder.js';
 import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import AmmoIcon from '../components/Inventories/AmmoIcon.js';
 import Timer from '../components/Timer.js';
-import Rounds from '../components/Rounds.js';
+import Round from '../components/Round.js';
 
 // Helpers
 import Players from "../helpers/Players.js";
@@ -18,7 +18,7 @@ import {sounds} from "../core/sounds.js";
 
 
 //Initiating the game.
-Rounds.all.game1 = new Rounds()
+Round.all.game1 = new Round()
 
 // Initiating the players.
 Players.all.player1 = new Player("AklBm4", "Me", {
@@ -53,7 +53,7 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
 
     await roundCountdown();
 
-    changeRoundTitle(Rounds.all['game1'].counter);
+    changeRoundTitle(Round.all['game1'].counter);
 
     // First round start timer
     Timer.all['myTimer'].startCounter();
@@ -110,7 +110,7 @@ document.querySelector('body').addEventListener('click', async event => {
 
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
-        donePressed();
+        await donePressed();
     }
 
     /* ---- My Ammo ---- */

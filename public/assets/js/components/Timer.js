@@ -1,12 +1,12 @@
-import Life from './Inventories/Life.js';
-import Rounds from '../components/Rounds.js';
-import AmmoInventory from './Inventories/AmmoInventory.js';
-
-import calculateGameResults from "../helpers/calculateGameResults.js";
-import roundCountdown from "../helpers/roundCountdown.js";
-import clearBoardForNewRound from "../helpers/clearBoardForNewRound.js";
-import restingMode from "../helpers/restingMode.js";
-import Players from "../helpers/Players.js";
+// import Life from './Inventories/Life.js';
+// import Rounds from '../components/Rounds.js';
+// import AmmoInventory from './Inventories/AmmoInventory.js';
+//
+// import calculateGameResults from "../helpers/calculateGameResults.js";
+// import roundCountdown from "../helpers/roundCountdown.js";
+// import clearBoardForNewRound from "../helpers/clearBoardForNewRound.js";
+// import restingMode from "../helpers/restingMode.js";
+// import Players from "../helpers/Players.js";
 
 import donePressed from "../helpers/donePressed.js";
 
@@ -44,13 +44,13 @@ class Timer {
     }
 
     startCounter() {
-        this.interval = setInterval(() => {
+        this.interval = setInterval(async () => {
             // myTimerCounter.innerHTML = this.counter;
             this.counter--;
             // this.element.innerHTML = this.counter;
             if (this.counter === 0) {
 
-                donePressed()
+                await donePressed()
                 
                 // const opponentMove = Players.all.player2.generateRandomMoves();
                 // console.log(opponentMove)

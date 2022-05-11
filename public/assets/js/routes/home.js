@@ -1,4 +1,3 @@
-
 // Components
 const usernameInput = document.querySelector('input.usernameInput');
 const playButton = document.querySelector('button.play');
@@ -40,6 +39,9 @@ playButton.addEventListener('click', event => {
             titleEnterName.classList.add("error-alert")
             return;
         }
+
+
+
     }
     else
     { // Play Offline

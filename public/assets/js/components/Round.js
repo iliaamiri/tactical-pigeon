@@ -1,8 +1,11 @@
+import changeRoundTitle from "../helpers/changeRoundTitle";
 
-class Rounds {
+const roundTitle = document.querySelector('div.round-title');
+
+class Round {
     #counter = 1;
 
-    counterRange = [1, 5]
+    counterRange = [1, 5];
 
     get counter() { return this.#counter; }
     set counter(intendedResult) {
@@ -13,6 +16,14 @@ class Rounds {
         } else {
             this.#counter = intendedResult;
         }
+    }
+
+    nextRound() {
+
+    }
+
+    updateRoundTitle() {
+        roundTitle.innerHTML = `<span>Round ${this.counter}</span>`;
     }
 
     increaseCounter() {
@@ -32,4 +43,4 @@ class Rounds {
     }
 }
 
-export default Rounds;
+export default Round;

@@ -6,20 +6,20 @@ import MovePlaceholder from '../components/MovePlaceholder.js';
 import Life from '../components/Inventories/Life.js';
 import Timer from '../components/Timer.js';
 import AmmoIcon from "../components/Inventories/AmmoIcon.js";
-import Rounds from '../components/Rounds.js';
+import Round from '../components/Round.js';
 import AmmoInventory from '../components/Inventories/AmmoInventory.js';
 
 // Helpers
-import Players from "../helpers/Players.js";
-import singleCompare from "../helpers/singleCompare.js";
-import tripletCompare from "../helpers/tripleCompare.js";
-import clearBoardForNewRound from "../helpers/clearBoardForNewRound.js";
-import calculateGameResults from "../helpers/calculateGameResults.js";
-import restingMode from "../helpers/restingMode.js";
-import roundCountdown from "../helpers/roundCountdown.js";
+import Players from "./Players.js";
+import singleCompare from "./singleCompare.js";
+import tripletCompare from "./tripleCompare.js";
+import clearBoardForNewRound from "./clearBoardForNewRound.js";
+import restingMode from "./restingMode.js";
+import roundCountdown from "./roundCountdown.js";
+import Game from "./Game.js";
 
 let tdCounter = 0;
-function donePressed() {
+async function donePressed() {
     console.log("DONE AUTO CLICKED");
     // disabling buttons for a moment
     let doneBtn = document.querySelector(".done")
@@ -32,7 +32,7 @@ function donePressed() {
 
     Timer.all['myTimer'].resetCounter();
 
-    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Rounds.all['game1'].counter + 1})`);
+    let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${Round.all['game1'].counter + 1})`);
     console.log('my column', myTallyColumn);
     //myTallyColumn.forEach((td, index) => {
     //let moveComponent = Object.values(Move.myMoves)[index];
@@ -53,7 +53,7 @@ function donePressed() {
 
     });
 
-    let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${Rounds.all['game1'].counter})`);
+    let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${Round.all['game1'].counter})`);
     console.log('opponent', opponentTallyColumn);
     opponentTallyColumn.forEach((td, index) => {
         let moveComponent = Object.values(opponentMove)[index];
@@ -202,10 +202,10 @@ function donePressed() {
             + AmmoInventory.all.opponentBlock.counter;
             
     if (
-        Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1]
-        && Life.all.myLife.counter > 0
-        && Life.all.opponentLife.counter > 0
-        && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0
+        Round.all['game1'].counter < Round.all['game1'].counterRange[1] // If this wasn't the last round
+        && Life.all.myLife.counter > 0 // If player1 still has lives
+        && Life.all.opponentLife.counter > 0 // If player2 still has lives
+        && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0 // If both sides have ammo inventories
     ) {
 
         setTimeout(async () => {
@@ -215,59 +215,19 @@ function donePressed() {
             // Timer.all['myTimer'].startCounter();
             document.querySelector("div.countdown-overlay").classList.add("d-none");
             // document.querySelector("div.countdown-overlay").classList.remove("transparent");
-            Rounds.all['game1'].increaseCounter();
+            Round.all['game1'].increaseCounter();
             // console.log(Rounds.all['game1'].counter)
             setTimeout(() => {
-                clearBoardForNewRound(Rounds.all['game1'].counter);
+                clearBoardForNewRound(Round.all['game1'].counter);
             }, 800);
         }, 1600);
 
     } else {
-        // results tied to clicking the done button, results show faster than animation though
-        // connect result calculation here
-        let resultOverlay = document.querySelector(".result-banner");
-        // resultOverlay.classList.add('victory');
-        let gameResult = calculateGameResults();
-        console.log('game result', gameResult);
-        if (gameResult === 'win') {
-            resultOverlay.classList.add('victory');
-            // you get sunglasses
-            document.querySelector(".sunglasses-left").classList.remove("d-none")
-            document.querySelector(".sunglasses-left").classList.add("animate__backInDown")
-            //game win sound effect
-            document.querySelector("#winGame").play()
 
-        } else if (gameResult === 'loss') {
-            resultOverlay.classList.add('defeat');
-            document.querySelector(".sunglasses-right").classList.remove("d-none")
-            document.querySelector(".sunglasses-right").classList.add("animate__backInDown")
-            // opponent gets sunglasses
+        // Evaluate the game
+        await Game.currentGame.gameOver();
 
-            //game lose sound effect
-            let bgMusic = document.querySelector("#bgMusic")
-            bgMusic.src = "";
 
-            let fork = document.querySelector("#attack-image")
-            fork.onclick = function () {
-            }
-
-            let shield = document.querySelector("#shield-image")
-            shield.onclick = function () {
-            }
-            let opponentShield = document.querySelector(".opponent-counter-box > img")
-            opponentShield.onclick = function () {   
-            }
-
-            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
-            opponentFork.onclick = function () {   
-            }
-
-            document.querySelector("#loseGame").play()
-
-        } else {
-            resultOverlay.classList.add('draw');
-            document.querySelector("#drawGame").play()
-        }
         // resultOverlay.classList.add('draw');
         // resultOverlay.classList.add('defeat');
         // console.log(resultOverlay);
@@ -278,7 +238,7 @@ function donePressed() {
 
         document.querySelector('div.done').classList.add('d-none');
         document.querySelector('div.moves-placeholder').classList.add('d-none');
-        Rounds.all['game1'].resetCounter();
+        Round.all['game1'].resetCounter();
     }
 }
 
