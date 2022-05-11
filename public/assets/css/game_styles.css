@@ -169,6 +169,7 @@ div.yourPigeon {
   margin: 5%;
   display: flex;
   flex-direction: column;
+  z-index: 5000;
 }
 
 .bubble-bottom-left:before {
