@@ -1,7 +1,7 @@
 :root {
   /* derived from [(the pixels amount) x 100] / 896 */
   --left-pigeon-distance-from-the-edges: 20.08928571428571%;
-  --right-pigeon-distance-from-the-edges: 12.27678571428571%;
+  --right-pigeon-distance-from-the-edges: 11%;
   --tally-table-cell-size: 40px;
 
   /* Table Labels Sizes */
@@ -105,10 +105,14 @@ div.asset-padding {
 span.portrait {
   font-family: "Titan One", cursive;
   font-size: 35px;
-  color: #407d96;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: white;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
   margin-top: 10px;
+}
+
+div.flip-overlay img {
+  width: 30%;
 }
 
 /* Intro */
@@ -147,13 +151,13 @@ span.character {
 
 div.yourPigeon {
   position: absolute;
-  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-8.png");
+  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-8.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   height: 100%;
   width: 100%;
-  bottom: -15vw;
+  bottom: -9vw;
   left: -25%;
 }
 
@@ -169,7 +173,7 @@ div.yourPigeon {
   margin: 5%;
   display: flex;
   flex-direction: column;
-  z-index: 5000;
+  /* z-index: 5000; */
 }
 
 .bubble-bottom-left:before {
@@ -181,7 +185,8 @@ div.yourPigeon {
   border-bottom: 2vw solid transparent;
   border-right: 10vw solid white;
   left: 42%;
-  bottom: 70%;
+  bottom: 67%;
+  /* z-index: 2999; */
 }
 
 span.backstory {
@@ -193,6 +198,7 @@ span.backstory {
 div.objectives {
   display: flex;
   flex-direction: column;
+margin-top:0;
 }
 
 div.objectives-title {
@@ -253,7 +259,7 @@ div.tutorial-overlay {
 }
 
 div.tutorial {
-  background-image: url("/assets/img/Overlays/TutorialOverlay.svg");
+  background-image: url("/assets/img/Overlays/TutorialOverlay-2.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -619,13 +625,12 @@ div.pigeons-container img {
   /*bottom: 15px;*/
   /* height: 340px; */
   height: 35vw;
-  bottom: -5vw;
   z-index: -10;
 }
 
 div.pigeons-container img.pigeon-left {
-  left: 15%;
-  /* margin-right: 5vw; */
+  left: 14%;
+  bottom: -5.15vw;
 }
 
 div.pigeons-container img.pigeon-left.picking-move-animation {
@@ -644,6 +649,7 @@ div.pigeons-container img.pigeon-left.revert-pigeon-pick-move {
 div.pigeons-container img.pigeon-right {
   right: var(--right-pigeon-distance-from-the-edges);
   z-index: -19;
+  bottom: -5vw;
 }
 
 /* The Hotdog */
@@ -846,27 +852,35 @@ div.mv-placeholder {
   background-repeat: no-repeat;
 }
 
+div.outline-all {
+  border: 3px solid #407D96;
+}
+
+div.outline-threesides {
+  border-left: 3px solid #407D96;
+  border-right: 3px solid #407D96;
+  border-bottom: 3px solid #407D96;
+}
+
 div.mv-placeholder.head {
-  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-head.png");
+  background-image: url("/assets/img/GUI-controls/MainControls/moves-placeholder-Head.svg");
 }
 
 div.mv-placeholder.body {
-  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-body.png");
+  background-image: url("/assets/img/GUI-controls/MainControls/moves-placeholder-Body.svg");
 }
 
 div.mv-placeholder.legs {
-  background-image: url("/assets/img/GUI-controls/MainControls/DefenseMenu-legs.png");
+  background-image: url("/assets/img/GUI-controls/MainControls/moves-placeholder-Legs.svg");
 }
 
 div.mv-placeholder.filled-attack {
-  border-radius: 10px;
-  background-color: #ffdc4b;
+  background-color: #CADDE8;
   background-image: url("/assets/img/GUI-controls/MainControls/attackfork-1.png");
 }
 
 div.mv-placeholder.filled-block {
-  border-radius: 10px;
-  background-color: #ffdc4b;
+  background-color: #CADDE8;
   background-image: url("/assets/img/GUI-controls/MainControls/vikingshield-1.png");
 }
 
@@ -882,9 +896,9 @@ div.mv-placeholder.filled-block {
 @keyframes pigeon-pick-move {
   from {
     height: 35vw;
-    left: 15%;
+    left: 14%;
     /* left: var(--left-pigeon-distance-from-the-edges); */
-    bottom: -5vw;
+    bottom: -5.15vw;
   }
 
   to {
@@ -913,9 +927,9 @@ div.mv-placeholder.filled-block {
     bottom: -65px; */
 
     height: 35vw;
-    left: 15%;
+    left: 14%;
     /* left: var(--left-pigeon-distance-from-the-edges); */
-    bottom: -5vw;
+    bottom: -5.15vw;
   }
 }
 
@@ -1001,6 +1015,7 @@ div.mv-placeholder.filled-block {
     left: 0;
     background-color: #ffdc4b;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
   }
@@ -1041,9 +1056,17 @@ screen and (min-height: 414px) {
   }
 
   div.move-picker-overlay div.hints-box {
-    font-size: 2.3vw;
+    font-size: 2.2vw;
     color: #44575d;
-    left: -2.4vw;
+    left: -2vw;
+  }
+
+  .bubble {
+    height: 50vh;
+  }
+
+  div.yourPigeon {
+    left: -40%;
   }
 }
 
@@ -1053,13 +1076,22 @@ screen and (min-height: 414px) {
     height: var(--tally-table-cell-size-on-tablet);
     width: var(--tally-table-cell-size-on-tablet);
   }
+
   div.moves-placeholder {
     right: 23%;
   }
 
   div.move-picker-overlay div.hints-box {
     font-size: 2.5vw;
-    left: -0.5vw;
+    left: 0.25vw;
+  }
+
+  .bubble {
+    height: 75vh;
+  }
+
+  div.yourPigeon {
+    left: -30%;
   }
 }
 
@@ -1069,6 +1101,10 @@ screen and (min-height: 414px) {
     height: var(--tally-table-cell-size-on-laptop);
     width: var(--tally-table-cell-size-on-laptop);
   }
+
+  div.move-picker-overlay div.hints-box {
+    left: 2vw;
+  }
 }
 
 /* ---- Large Laptops ---- */
@@ -1076,6 +1112,13 @@ screen and (min-height: 414px) {
   table.tally tr td {
     height: var(--tally-table-cell-size-on-large-laptop);
     width: var(--tally-table-cell-size-on-large-laptop);
+  }
+
+  div.move-picker-overlay div.hints-box {
+    left: 2vw;
+  }
+  div.yourPigeon {
+    left: -25%;
   }
 }
 
