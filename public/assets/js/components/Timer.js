@@ -8,7 +8,7 @@
 // import restingMode from "../helpers/restingMode.js";
 // import Players from "../helpers/Players.js";
 
-import donePressed from "../helpers/donePressed.js";
+import Game from "../helpers/Game.js";
 
 
 // let myTimer = document.querySelector('div.timer-counter');
@@ -50,7 +50,8 @@ class Timer {
             // this.element.innerHTML = this.counter;
             if (this.counter === 0) {
 
-                await donePressed()
+                await Game.currentGame.currentRound.donePressed();
+                // await donePressed()
                 
                 // const opponentMove = Players.all.player2.generateRandomMoves();
                 // console.log(opponentMove)

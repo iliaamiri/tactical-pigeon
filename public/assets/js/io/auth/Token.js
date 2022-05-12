@@ -1,4 +1,4 @@
-import Cookie from '../helpers/Cookie.js'
+import Cookie from '../../helpers/Cookie.js';
 
 const Token  = {
     cookieKey: "JWT",
@@ -6,6 +6,7 @@ const Token  = {
     tokenVal: null,
 
     save(tokenValue) {
+        Cookie.set(this.cookieKey, tokenValue);
         this.tokenVal = tokenValue;
     },
 
@@ -26,4 +27,4 @@ const Token  = {
     }
 };
 
-module.exports = Token;
+export default Token;
