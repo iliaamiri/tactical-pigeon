@@ -13,7 +13,9 @@ class Life {
     this.counter = this.counterRange[1];
   }
 
-  get counter() { return this.#counter; }
+  get counter() {
+    return this.#counter;
+  }
 
   set counter(intendedResult) {
     if (intendedResult > this.counterRange[1]) {
@@ -27,10 +29,18 @@ class Life {
 
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> team-multiplayer
   }
 
   increaseCounter() {
     this.counter++;
+<<<<<<< HEAD
+
+=======
+>>>>>>> team-multiplayer
   }
 
   decreaseCounter() {

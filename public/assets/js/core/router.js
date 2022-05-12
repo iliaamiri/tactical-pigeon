@@ -1,39 +1,43 @@
 const currentPath = () => {
-    let path = window.location.pathname;
-    path = path.replaceAll("?", "");
-    if (path.length > 1 && path[path.length - 1] === "/") {
-        path = path.substring(0, path.length - 1);
-    }
-    return path;
+  let path = window.location.pathname;
+  path = path.replaceAll("?", "");
+  if (path.length > 1 && path[path.length - 1] === "/") {
+    path = path.substring(0, path.length - 1);
+  }
+  return path;
 };
 
 const router = {
-    chosenPath: null,
+  chosenPath: null,
 
-    assign(path, filePath) {
-        let currPath = currentPath()
-            .split("/");
-        currPath.shift();
+  assign(path, filePath) {
+    if (this.chosenPath !== null) {
+      return;
+    }
 
-        let targetPath = path
-            .split("/");
-        targetPath.shift();
+    let currPath = currentPath()
+      .split("/");
+    currPath.shift();
 
-        if (currPath.length < 1) {
-            console.debug("No route matching: " + path, " ; filePath: " + filePath);
-            return;
-        }
+    let targetPath = path
+      .split("/");
+    targetPath.shift();
 
-        for (let index in currPath) {
-            let pathSegment = currPath[index];
-            let targetPathSegment = targetPath[index];
-            if (pathSegment !== targetPathSegment && !pathSegment.includes(":")) {
-                return;
-            }
-        }
+    if (currPath.length < 1) {
+      console.debug("No route matching: " + path, " ; filePath: " + filePath);
+      return;
+    }
 
-        this.chosenPath = filePath;
-    },
+    for (let index in currPath) {
+      let pathSegment = currPath[index];
+      let targetPathSegment = targetPath[index];
+      if (pathSegment !== targetPathSegment && !pathSegment.includes(":")) {
+        return;
+      }
+    }
+
+    this.chosenPath = filePath;
+  },
 };
 
 export default router;

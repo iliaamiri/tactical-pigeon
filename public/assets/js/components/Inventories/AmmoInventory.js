@@ -22,7 +22,14 @@ class AmmoInventory {
     this.element.innerHTML = `X${this.counter}`;
   }
 
+<<<<<<< HEAD
+  get counter() {
+    return this.#counter;
+  }
+
+=======
   get counter() { return this.#counter; }
+>>>>>>> team-multiplayer
   set counter(intendedResult) {
     if (intendedResult > this.counterRange[1]) {
       this.#counter = this.counterRange[1];

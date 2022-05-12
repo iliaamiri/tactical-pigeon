@@ -7,37 +7,49 @@ const Players = include("app/repos/Players");
 const Player = include("app/models/Player");
 
 module.exports = (socket, next) => {
-    const jwtToken = socket.handshake.auth.token;
+  console.log("HOOSH")
+  console.log("asdfd")
 
-    if (!jwtToken) {
-        socket.close();
-        return;
+  const jwtToken = socket.handshake.auth.token;
+
+  const err = new Error("AUTHENTICATION_FAILED");
+  err.data = {type: 'AUTH_FAILURE'};
+
+  console.log("aoo")
+
+  if (!jwtToken) {
+    next(err);
+    return;
+  }
+
+  console.log("aoo")
+
+  const foundTokenObj = Tokens.all.get(jwtToken);
+
+  if (!foundTokenObj) {
+    next(err);
+    return;
+  }
+
+  let foundPlayer = Players.find(foundTokenObj.playerId);
+
+  console.log("aoo")
+
+  if (!foundPlayer) {
+    foundPlayer = Object.create(Player);
+    try {
+      let decodedData = jwt.verify(jwtToken, configs.JWT_RSA_PUBLIC_KEY, {algorithm: "RS256"});
+      foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
+      Players.add(foundPlayer);
+    } catch (err) {
+      next(err);
+      return;
     }
-    
-    const foundTokenObj = Tokens.all.get(jwtToken);
+  }
 
-    if (!foundTokenObj) {
-        socket.close();
-        return;
-    }
+  socket.user = foundPlayer;
 
-    let foundPlayer = Players.find(foundTokenObj.playerId);
+  console.log("Token: ", jwtToken);
 
-    if (!foundPlayer) {
-        foundPlayer = Object.create(Player);
-        try {
-            let decodedData = jwt.verify(jwtToken, configs.JWT_RSA_PUBLIC_KEY, { algorithm: "RS256" });
-            foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
-            Players.add(foundPlayer);
-        } catch(err) {
-            socket.close();
-            return;
-        }
-    }
-
-    socket.user = foundPlayer;
-
-    console.log("Token: ", jwtToken);
-
-    next();
+  next();
 };

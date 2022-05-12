@@ -23,13 +23,19 @@ class MovePlaceholder {
     this.bodyPartType = bodyPartType;
   }
 
-  get bodyPartType() { return this.#bodyPartType; }
+  get bodyPartType() {
+    return this.#bodyPartType;
+  }
+
   set bodyPartType(newBodyPartType) {
     this.#bodyPartType = newBodyPartType;
     this.changeMove(this.movePlaced);
   }
 
-  get moveType() { return this.#moveType; }
+  get moveType() {
+    return this.#moveType;
+  }
+
   set moveType(newMoveType) {
     if (RoundMove.moveTypeEnum.includes(newMoveType)) {
       this.#moveType = newMoveType;
@@ -84,7 +90,6 @@ class MovePlaceholder {
   }
 
   static all = {
-
   };
 }
 

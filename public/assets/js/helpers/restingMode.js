@@ -1,4 +1,3 @@
-
 function restingMode() {
   document.querySelectorAll('.show-animation').forEach(element => {
     console.log('element', element);

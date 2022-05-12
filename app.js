@@ -46,7 +46,7 @@ function makeApp(app) {
   * */
   app.use('/', require('./routes/index'));
 
-  return app;
+  return server;
 }
 
 module.exports = makeApp;

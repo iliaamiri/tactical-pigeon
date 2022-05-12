@@ -3,7 +3,10 @@ class Rounds {
 
   counterRange = [1, 5]
 
-  get counter() { return this.#counter; }
+  get counter() {
+    return this.#counter;
+  }
+
   set counter(intendedResult) {
     if (intendedResult > this.counterRange[1]) {
       this.#counter = this.counterRange[1];
@@ -26,9 +29,7 @@ class Rounds {
     this.counter = 1;
   }
 
-  static all = {
-
-  }
+  static all = {}
 }
 
 export default Rounds;
