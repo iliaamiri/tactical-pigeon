@@ -24,7 +24,7 @@ export const sounds = {
     audioElement: document.querySelector("audio#loseRound")
   },
   forkChecked: {
-    path: "/assets/music/Attack-[AudioTrimmer.com]-[AudioTrimmer.com].mp3"
+    path: "/assets/music/fork-click.mp3"
   },
   shieldClicked: {
     path: "/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav"

@@ -45,6 +45,7 @@ class Round {
 
   updateRoundTitle() {
     roundTitle.innerHTML = `<span>Round ${this.currentRoundNumber}</span>`;
+    roundTitle.classList.add("animate__bounceInDown")
   }
 
   increaseCounter() {
@@ -76,8 +77,6 @@ class Round {
 
     let myTally = Tally.all.player1;
     let opponentTally = Tally.all.player2;
-    // let myTallyColumn = document.querySelectorAll(`table.tally.my-tally td:nth-child(${this.currentRoundNumber + 1})`);
-    // let opponentTallyColumn = document.querySelectorAll(`table.tally.opponent-tally td:nth-child(${this.currentRoundNumber})`);
 
     // Generating the Bot player's moves.
     const opponentMove = Players.all.player2.generateRandomMoves();
@@ -85,25 +84,9 @@ class Round {
 
     // Fill my tally columns with my moves
     myTally.fillMoves();
-    // myTallyColumn.forEach((td, index) => {
-    //     let moveComponent = Object.values(Players.all.player1.moves.toJSON())[index];
-    //     if (moveComponent === 'attack') {
-    //         td.classList.add('cell-attacked');
-    //     } else if (moveComponent === 'block') {
-    //         td.classList.add('cell-blocked');
-    //     }
-    // });
 
     // Fill opponent's tally columns with their moves
     opponentTally.fillMoves();
-    // opponentTallyColumn.forEach((td, index) => {
-    //     let moveComponent = Object.values(opponentMove)[index];
-    //     if (moveComponent === 'attack') {
-    //         td.classList.add('cell-attacked');
-    //     } else if (moveComponent === 'block') {
-    //         td.classList.add('cell-blocked');
-    //     }
-    // });
 
     // Calculate players moves at each column AND gather them inside an array.
     let playerMoves = [];
@@ -119,115 +102,82 @@ class Round {
     // Aftermath
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
       myTally.fillColumnVictory();
-      // myTallyColumn.forEach(td => {
-      //     td.classList.add('round-won');
-      //     setTimeout(function () {
-      //         document.querySelector("#winRound").play()
-      //     }, 750)
-      // });
 
       setTimeout(function () {
-        document.querySelector("#winRound").play()
+        document.querySelector("#winRound").play();
       }, 750)
 
       opponentTally.fillColumnDefeat();
-      // opponentTallyColumn.forEach(td => {
-      //     td.classList.add('round-defeat');
-      // });
 
       Life.all.opponentLife.decreaseCounter();
 
       //winning round popup
 
       setTimeout(function () {
-        let span = document.createElement("span"); // <p></p>
+        let span = document.createElement("span");
         span.innerHTML = "+1";
         span.classList.add("roundResult");
-        let myTable = document.querySelector("table.my-tally");
-        myTable.appendChild(span);
+        let roundPoints;
 
         if (Round.tdCounter === 0) {
-          span.style.left = "+7vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)");
         }
-
         if (Round.tdCounter === 1) {
-          span.style.left = "+11.6vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)");
         }
-
         if (Round.tdCounter === 2) {
-          span.style.left = "+15.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)");
         }
         if (Round.tdCounter === 3) {
-          span.style.left = "+19.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)");
         }
         if (Round.tdCounter === 4) {
-          span.style.left = "+24.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)");
         }
-
+        roundPoints.appendChild(span);
         Round.tdCounter++;
       }, 350)
 
       setTimeout(function () {
-        document.querySelector("span.roundResult").remove()
+        document.querySelector("span.roundResult").remove();
       }, 1400)
 
 
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
       myTally.fillColumnDefeat();
       setTimeout(function () {
-        document.querySelector("#loseRound").play()
+        document.querySelector("#loseRound").play();
       }, 700);
-      // myTallyColumn.forEach(td => {
-      //     td.classList.add('round-defeat');
-      //     setTimeout(function () {
-      //         document.querySelector("#loseRound").play()
-      //     }, 700)
-      // });
 
       opponentTally.fillColumnVictory();
-      // opponentTallyColumn.forEach(td => {
-      //     td.classList.add('round-won');
-      // });
 
       // Decrease my life
       Life.all.myLife.decreaseCounter();
 
       //losing round popup
       setTimeout(function () {
-        let span = document.createElement("span"); // <p></p>
-        span.innerHTML = "-1"
-        span.classList.add("roundResult")
-        let myTable = document.querySelector("table.my-tally")
-        myTable.appendChild(span)
+        let span = document.createElement("span");
+        span.innerHTML = "-1";
+        span.classList.add("roundResult");
+        let roundPoints;
+
         if (Round.tdCounter === 0) {
-          span.style.left = "+7vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
         }
-
         if (Round.tdCounter === 1) {
-          span.style.left = "+11.6vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
         }
-
         if (Round.tdCounter === 2) {
-          span.style.left = "+15.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
         }
         if (Round.tdCounter === 3) {
-          span.style.left = "+19.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
         }
         if (Round.tdCounter === 4) {
-          span.style.left = "+24.5vw"
-          span.style.top = "-1vw"
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
         }
 
-        console.log(Round.tdCounter)
+        roundPoints.appendChild(span);
         Round.tdCounter++
 
       }, 350)
@@ -239,18 +189,13 @@ class Round {
 
     } else { // Draw
       myTally.fillColumnDraw();
-      // myTallyColumn.forEach(td => {
-      //     td.classList.add('round-draw');
-      // });
 
       opponentTally.fillColumnDraw();
-      // opponentTallyColumn.forEach(td => {
-      //     td.classList.add('round-draw');
-      // });
 
       Round.tdCounter++;
     }
 
+    roundTitle.classList.remove("animate__bounceInDown")
     restingMode();
 
     console.log('life.all', Life.all);
@@ -271,21 +216,14 @@ class Round {
 
       setTimeout(async () => {
         document.querySelector("div.countdown-overlay").classList.remove("d-none");
-        // document.querySelector("div.countdown-overlay").classList.add("transparent");
 
         await this.roundCountdown();
-        // await roundCountdown();
 
-        // Timer.all['myTimer'].startCounter();
         document.querySelector("div.countdown-overlay").classList.add("d-none");
-        // document.querySelector("div.countdown-overlay").classList.remove("transparent");
 
         this.increaseCounter();
-        //Round.all['game1'].increaseCounter();
 
-        // console.log(Rounds.all['game1'].counter)
         setTimeout(() => {
-          // clearBoardForNewRound(Round.all['game1'].counter);
           this.clearBoardForNewRound();
         }, 800);
       }, 1600);
@@ -294,9 +232,6 @@ class Round {
       // Evaluate the game
       await Game.currentGame.gameOver();
 
-      // resultOverlay.classList.add('draw');
-      // resultOverlay.classList.add('defeat');
-      // console.log(resultOverlay);
       let replayBtn = document.querySelector(".play-again");
       replayBtn.classList.add('replay-in-animation');
       replayBtn.classList.remove('replay-out-animation');
@@ -311,31 +246,15 @@ class Round {
   // simple timeout between rounds, no extra animations
   clearBoardForNewRound() {
 
-    //MovePlaceholder.checked = false;
-
-    // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
-    // MovePlaceholder.all = {
-    //     'head': new MovePlaceholder('head'),
-    //     'body': new MovePlaceholder('body'),
-    //     'legs': new MovePlaceholder('legs')
-    // };
-
     // Resetting/Re-initializing the MovePlaceholders
     MovePlaceholder.resetAll();
 
-    //Move.myMoves = {
-    //head: null,
-    //body: null,
-    //legs: null
-    //};
-    //Move.selectedMoveType = null;
     Players.all.player1.resetMoves();
     RoundMove.selectedMoveType = 'none';
 
-    //console.log('MovePlaceholder', MovePlaceholder.all);
 
-    document.querySelector('div.done').classList.remove('d-none')
-    document.querySelector('div.moves-placeholder').classList.remove('d-none')
+    document.querySelector('div.done').classList.remove('d-none');
+    document.querySelector('div.moves-placeholder').classList.remove('d-none');
 
     document.querySelectorAll('div.mv-placeholder').forEach((element) => {
       element.classList.remove('filled-block');
@@ -348,7 +267,6 @@ class Round {
     });
 
     const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-    //console.log('left pigeon', leftPigeon);
     leftPigeon.classList.add('picking-move-animation');
     leftPigeon.classList.remove('revert-pigeon-pick-move');
 
@@ -359,11 +277,10 @@ class Round {
       element.classList.remove('hide-animation');
     });
 
-
     // Start timer
     Timer.all["myTimer"].startCounter()
 
-// Enabling everything back for the next new round
+    // Enabling everything back for the next new round
     doneButton.enableClick(); // enabling done button
 
     Object.values(AmmoIcon.all)
@@ -375,61 +292,6 @@ class Round {
   }
 
   async roundCountdown() {
-    // let index = 4;
-    // let countdownArr = [null, 'Go!', '1', '2', '3'];
-
-    // (function runCount() {
-    //     if (index === 0) {
-    //         return;
-    //     } else {
-    //         Countdown.innerHTML = countdownArr[index];
-    //         setTimeout(() => {
-    //             index--;
-    //             runCount();
-    //         }, 500);
-    //     }
-    // })();
-
-    // function runCount(time, _countdownArr, cb) {
-    //     const countdownArr = [..._countdownArr]
-    //     const item = countdownArr.shift();
-    //     if (countdownArr.length === 0) {
-    //         return;
-    //     }
-    //     cb(item)
-    //     requestAnimationFrame()
-    //     setTimeout(() => {
-    //         window.requestAnimationFrame(() => runCount(countdownArr))
-    //     }, time);
-    // }
-    // runCount(500, ['Go!', '1', '2', '3'], (item => {
-    //     Countdown.innerHTML = item
-    // }))
-
-
-    // async function wait(time) {
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout(resolve, time)
-    //     })
-    // }
-
-    // for (let item of ['3', '2', '1', 'Go!']) {
-    //     Countdown.innerHTML = item
-    //     await wait(500)
-    // }
-
-
-    // async function wait(time) {
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout(resolve, time)
-    //     })
-    // }
-
-    // for (let item of ['3', '2', '1', 'Go!']) {
-    //     Countdown.innerHTML = item
-    //     await wait(500)
-    // }
-
     for (let item of ['ready', 'set', 'go']) {
       Countdown.classList.add(item)
       await wait(500)
@@ -438,7 +300,6 @@ class Round {
     for (let item of ['ready', 'set', 'go']) {
       Countdown.classList.remove(item)
     }
-
   }
 
   singleCompare(move1, move2) {
