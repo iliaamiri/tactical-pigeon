@@ -8,6 +8,8 @@ export default function clientSocketConnect() {
     socket = io("/", { auth: Token.tokenVal });
 
 
+
+
     socket.on("connect", () => {
         console.log("Connected.");
     })
