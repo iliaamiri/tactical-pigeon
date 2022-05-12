@@ -29,12 +29,18 @@ class Life {
 
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> team-multiplayer
   }
 
   increaseCounter() {
     this.counter++;
+<<<<<<< HEAD
 
+=======
+>>>>>>> team-multiplayer
   }
 
   decreaseCounter() {

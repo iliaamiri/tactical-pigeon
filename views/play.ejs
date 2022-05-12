@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play!</title>
-    <!-- TODO: Add a fav icon here -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play!</title>
+  <!-- TODO: Add a fav icon here -->
 
-    <%- include('_partials/commonCssHeaders.ejs') -%>
+  <%- include('_partials/commonCssHeaders.ejs') -%>
 
     <!-- Page Custom CSS - game_styles -->
     <link rel="stylesheet" href="/assets/css/game_styles.css">
@@ -323,7 +323,250 @@
 
                 <div class="done position-absolute"></div>
             </div>
+          </div>
         </div>
+
+        <!-- Tutorial Overlay -->
+        <div class="tutorial-overlay d-none animate__animated">
+          <div class="tutorial"></div>
+          <span class="exit-tutorial">x</span>
+        </div>
+
+        <!-- Round Countdown Overlay -->
+        <div class="countdown-overlay d-none">
+          <div class="countdown ready "></div>
+          <div class="countdown-filler"></div>
+          <!-- <span class="count">3</span> -->
+        </div>
+
+        <!-- Play Again Button -->
+        <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
+          <div id="pulse" class="play-again mb-5"></div>
+        </div>
+
+        <!-- Game Result Banner -->
+        <div class="result-container position-absolute d-flex justify-content-center">
+          <div class="result-banner position-absolute mt-4"></div>
+        </div>
+
+        <!-- Timer Counter -->
+        <div class="timer-counter">
+          <span class="time-nums">30</span>
+        </div>
+
+        <!-- Help Button -->
+        <div class="help animate__animated animate__pulse animate__infinite"></div>
+
+        <!-- Mute Button -->
+        <div class="mute"></div>
+
+        <!-- Main Components -->
+        <div class="container-fluid">
+
+          <!-- Shields View/Buttons Components -->
+          <div class="row d-flex justify-content-between blocks-row">
+
+            <!-- My Shield View Components -->
+            <div class="col-sm-2 asset-padding">
+              <div class="d-flex justify-content-end">
+                <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
+                  class="shield-icon my-shield animate__animated">
+              </div>
+              <div class="counter-box my-counter">
+                <span class="my-block-counter">X4</span>
+              </div>
+            </div>
+
+            <!-- Opponent's Shield View Components -->
+            <div class="col-sm-2 asset-padding opponent-counter-box">
+              <img src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt="" class="shield-icon">
+              <div class="counter-box opponent-counter">
+                <span class="opponent-block-counter">X4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attack View/Buttons Components -->
+          <div class="row d-flex justify-content-between">
+
+            <!-- My Attack View Components -->
+            <div class="col-sm-2 justify-content-end asset-padding">
+              <div class="d-flex justify-content-end">
+                <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
+                  class="shield-icon my-attack animate__animated">
+              </div>
+              <div class="counter-box my-counter">
+                <span class="my-attack-counter">X4</span>
+              </div>
+            </div>
+
+            <!-- Opponent's Attack View Components -->
+            <div class="col-sm-2 asset-padding opponent-counter-box">
+              <img src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt="" class="shield-icon">
+              <div class="counter-box opponent-counter">
+                <span class="opponent-attack-counter">X4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table Labels AND Tally Boards Components -->
+          <div class="row d-flex board">
+
+            <!-- Table Labels AND My Tally Board Components -->
+            <div class="col-sm-6">
+              <div class="row">
+
+                <!-- Table Labels -->
+                <div class="col-sm-1 asset-padding table-labels">
+                </div>
+
+                <!-- My Tally Board Components -->
+                <div class="col-sm-10 asset-padding">
+                  <table class="tally my-tally">
+                    <tr>
+                      <td class="tabol-labol head-label">
+                        <img src="/assets/img/GUI-controls/MainControls/BodyParts-Head.svg" alt="Head">
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td class="tabol-labol body-label">
+                        <img src="/assets/img/GUI-controls/MainControls/BodyParts-Body.svg" alt="Body">
+                      </td>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td class="tabol-labol legs-label">
+                        <img src="/assets/img/GUI-controls/MainControls/BodyParts-Legs.svg" alt="Legs">
+                      </td>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <!-- table row for round +1/-1 animations -->
+                    <tr>
+                      <td class="roundPoints"></td>
+                      <td class="roundPoints"></td>
+                      <td class="roundPoints"></td>
+                      <td class="roundPoints"></td>
+                      <td class="roundPoints"></td>
+                      <td class="roundPoints"></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Opponent's Tally Board Components -->
+            <div class="col-sm-6 d-flex justify-content-end asset-padding">
+              <table class="tally opponent-tally">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-between health">
+            <!-- My Health Bar Components -->
+            <div class="col-sm-3 asset-padding">
+              <div class="health-container myHealthBar">
+                <div class="heart heart-filled"></div>
+                <div class="heart heart-filled"></div>
+                <div class="heart heart-filled"></div>
+              </div>
+            </div>
+
+            <!-- Opponent's Health Bar Components -->
+            <div class="col-sm-3 d-flex justify-content-end asset-padding">
+              <div class="health-container opponentHealthBar">
+                <div class="heart heart-filled"></div>
+                <div class="heart heart-filled"></div>
+                <div class="heart heart-filled"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sunglasses Components -->
+          <div class="sunglasses-container position-absolute">
+            <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-left.svg" alt=""
+              class="sunglasses-left d-none animate__animated">
+            <img src="/assets/img/pigeons/pigeon-Items/Sunglasses-right.svg" alt=""
+              class="sunglasses-right d-none animate__animated">
+          </div>
+
+          <!-- Characters' Pigeon Components -->
+          <div class="pigeons-container position-absolute">
+            <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.svg" alt="" class="pigeon-left ">
+            <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.svg" alt="" class="pigeon-right">
+          </div>
+
+          <!-- Hot-dog Pray Component -->
+          <div class="hotdog-container position-absolute">
+            <img src="/assets/img/Food/Hotdog/Hotdog@4x.png" alt="" class="hotdog-pray">
+          </div>
+
+          <!-- Move Picker Overlay Component -->
+          <div class="container-fluid move-picker-overlay position-absolute">
+            <div class="round-title animate__animated animate__slow">
+            </div>
+            <div class="row">
+              <div class="col-sm-9 hints-box">
+                <div class="row">
+                  <b>Pick a fork </b>
+                  <b>or shield and</b>
+                  <b>select a <span class="box"> box </span></b>
+                  <b> to equip that </b>
+                  <b> pigeon part!</b>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3 moves-placeholder position-absolute">
+            <div class="outline-all">
+              <div class="mv-placeholder head animate__animated animate__repeat-1"></div>
+            </div>
+            <div class="outline-threesides">
+              <div class="mv-placeholder body animate__animated animate__repeat-1"></div>
+            </div>
+            <div class="outline-threesides">
+              <div class="mv-placeholder legs animate__animated animate__repeat-1"></div>
+            </div>
+          </div>
+
+          <div class="done position-absolute"></div>
+        </div>
+      </div>
     </div>
     <div class="row bottom-row">
         <div class=" bottom-background">
