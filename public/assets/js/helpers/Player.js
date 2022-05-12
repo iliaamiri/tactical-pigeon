@@ -1,8 +1,11 @@
 import RoundMove from "./RoundMove.js";
 
 class Player {
-    // username of the player : String
-    username;
+    // ID of the player : String
+    playerId;
+
+    // Name of the player which will be displayed : String
+    playerName;
 
     // Set of moves of the player : RoundMove
     moves = new RoundMove();
@@ -12,8 +15,9 @@ class Player {
         'attacks': null // : Inventory
     };
 
-    constructor(username, ammoInventory) {
-        this.username = username;
+    constructor(playerId, playerName, ammoInventory) {
+        this.playerId = playerId;
+        this.playerName = playerName;
         this.ammoInventory = ammoInventory;
     }
 

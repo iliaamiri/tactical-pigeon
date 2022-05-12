@@ -1,6 +1,5 @@
 const Move = {
     roundId: null,
-    playerId: null,
 
     moveEnums: ["attack", "block", "none"], // string[]
 

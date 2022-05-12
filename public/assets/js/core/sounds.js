@@ -64,9 +64,12 @@ document.addEventListener('soundMuteToggle', event => {
         else
             sound.mute = true;
 
+
         if (sound.audioElement) {
             sound.audioElement.muted = !sound.audioElement.muted;
         }
+
+        console.log(sound, sound.audio);
 
         if (sound.audio) {
             sound.audio.mute = !sound.audio.mute;
