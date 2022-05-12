@@ -74,5 +74,6 @@ class RoundMove {
       legs: this.legs,
     };
   }
-}
+};
+
 export default RoundMove;

@@ -60,6 +60,6 @@ class Timer {
   static all = {
     'myTimer': new Timer(myTimerCounter)
   }
-}
+};
 
 export default Timer;

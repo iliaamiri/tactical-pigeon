@@ -15,6 +15,6 @@ class LocalStorageCache {
       return null;
     return JSON.parse(value);
   }
-}
+};
 
 export default LocalStorageCache;

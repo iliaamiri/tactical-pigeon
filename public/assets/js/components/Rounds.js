@@ -1,7 +1,7 @@
 class Rounds {
   #counter = 1;
 
-  counterRange = [1, 5]
+  counterRange = [1, 5];
 
   get counter() {
     return this.#counter;

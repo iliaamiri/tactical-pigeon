@@ -15,8 +15,10 @@ function restingMode() {
   pigeon.classList.add('revert-pigeon-pick-move');
   pigeon.classList.remove('picking-move-animation');
 
-  document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
-  document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
+  document.getElementById("attack-image")
+    .setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
+  document.getElementById("shield-image")
+    .setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
 
 }
 

@@ -61,6 +61,6 @@ class AmmoInventory {
     'opponentBlock': new AmmoInventory('block', opponentBlockCounter),
     'opponentAttack': new AmmoInventory('attack', opponentAttackCounter)
   }
-}
+};
 
 export default AmmoInventory;

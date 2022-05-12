@@ -4,4 +4,4 @@ export default (io, socket) => {
   };
 
   socket.on('game:round:opponentMove', receiveOpponentMove);
-}
+};

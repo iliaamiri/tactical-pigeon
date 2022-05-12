@@ -51,6 +51,6 @@ class Tally {
   }
 
   static all = {};
-}
+};
 
 export default Tally;

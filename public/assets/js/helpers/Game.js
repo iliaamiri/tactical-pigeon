@@ -124,23 +124,24 @@ class Game {
 
 
       //game lose sound effect
-      let bgMusic = document.querySelector("#bgMusic")
+      let bgMusic = document.querySelector("#bgMusic");
       bgMusic.src = "";
 
-      let fork = document.querySelector("#attack-image")
+      let fork = document.querySelector("#attack-image");
       fork.onclick = function () {
-      }
+      };
 
-      let shield = document.querySelector("#shield-image")
+      let shield = document.querySelector("#shield-image");
       shield.onclick = function () {
-      }
-      let opponentShield = document.querySelector(".opponent-counter-box > img")
+      };
+
+      let opponentShield = document.querySelector(".opponent-counter-box > img");
       opponentShield.onclick = function () {
-      }
+      };
 
       let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
       opponentFork.onclick = function () {
-      }
+      };
 
       await playSound(sounds.loseGame);
       // document.querySelector("#loseGame").play()
@@ -225,6 +226,6 @@ class Game {
   }
 
   static currentGame;
-}
+};
 
 export default Game;

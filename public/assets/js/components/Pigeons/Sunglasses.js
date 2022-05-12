@@ -17,6 +17,6 @@ class Sunglasses {
     Sunglasses.left = new Sunglasses(document.querySelector(".sunglasses-left"));
     Sunglasses.right = new Sunglasses(document.querySelector(".sunglasses-right"));
   }
-}
+};
 
 export default Sunglasses;

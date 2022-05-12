@@ -81,7 +81,7 @@ class Round {
 
     // Generating the Bot player's moves.
     const opponentMove = Players.all.player2.generateRandomMoves();
-    console.log(opponentMove)
+    console.log(opponentMove);
 
     // Fill my tally columns with my moves
     myTally.fillMoves();
@@ -147,34 +147,34 @@ class Round {
         myTable.appendChild(span);
 
         if (Round.tdCounter === 0) {
-          span.style.left = "+7vw"
-          span.style.top = "-1vw"
+          span.style.left = "+7vw";
+          span.style.top = "-1vw";
         }
 
         if (Round.tdCounter === 1) {
-          span.style.left = "+11.6vw"
-          span.style.top = "-1vw"
+          span.style.left = "+11.6vw";
+          span.style.top = "-1vw";
         }
 
         if (Round.tdCounter === 2) {
-          span.style.left = "+15.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+15.5vw";
+          span.style.top = "-1vw";
         }
         if (Round.tdCounter === 3) {
-          span.style.left = "+19.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+19.5vw";
+          span.style.top = "-1vw";
         }
         if (Round.tdCounter === 4) {
-          span.style.left = "+24.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+24.5vw";
+          span.style.top = "-1vw";
         }
 
         Round.tdCounter++;
-      }, 350)
+      }, 350);
 
       setTimeout(function () {
         document.querySelector("span.roundResult").remove()
-      }, 1400)
+      }, 1400);
 
 
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
@@ -200,41 +200,41 @@ class Round {
       //losing round popup
       setTimeout(function () {
         let span = document.createElement("span"); // <p></p>
-        span.innerHTML = "-1"
-        span.classList.add("roundResult")
-        let myTable = document.querySelector("table.my-tally")
-        myTable.appendChild(span)
+        span.innerHTML = "-1";
+        span.classList.add("roundResult");
+        let myTable = document.querySelector("table.my-tally");
+        myTable.appendChild(span);
         if (Round.tdCounter === 0) {
-          span.style.left = "+7vw"
-          span.style.top = "-1vw"
+          span.style.left = "+7vw";
+          span.style.top = "-1vw";
         }
 
         if (Round.tdCounter === 1) {
-          span.style.left = "+11.6vw"
-          span.style.top = "-1vw"
+          span.style.left = "+11.6vw";
+          span.style.top = "-1vw";
         }
 
         if (Round.tdCounter === 2) {
-          span.style.left = "+15.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+15.5vw";
+          span.style.top = "-1vw";
         }
         if (Round.tdCounter === 3) {
-          span.style.left = "+19.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+19.5vw";
+          span.style.top = "-1vw";
         }
         if (Round.tdCounter === 4) {
-          span.style.left = "+24.5vw"
-          span.style.top = "-1vw"
+          span.style.left = "+24.5vw";
+          span.style.top = "-1vw";
         }
 
-        console.log(Round.tdCounter)
-        Round.tdCounter++
+        console.log(Round.tdCounter);
+        Round.tdCounter++;
 
-      }, 350)
+      }, 350);
 
       setTimeout(function () {
-        document.querySelector("span.roundResult").remove()
-      }, 1500)
+        document.querySelector("span.roundResult").remove();
+      }, 1500);
 
 
     } else { // Draw
@@ -334,8 +334,8 @@ class Round {
 
     //console.log('MovePlaceholder', MovePlaceholder.all);
 
-    document.querySelector('div.done').classList.remove('d-none')
-    document.querySelector('div.moves-placeholder').classList.remove('d-none')
+    document.querySelector('div.done').classList.remove('d-none');
+    document.querySelector('div.moves-placeholder').classList.remove('d-none');
 
     document.querySelectorAll('div.mv-placeholder').forEach((element) => {
       element.classList.remove('filled-block');
@@ -361,7 +361,7 @@ class Round {
 
 
     // Start timer
-    Timer.all["myTimer"].startCounter()
+    Timer.all["myTimer"].startCounter();
 
 // Enabling everything back for the next new round
     doneButton.enableClick(); // enabling done button
@@ -431,12 +431,12 @@ class Round {
     // }
 
     for (let item of ['ready', 'set', 'go']) {
-      Countdown.classList.add(item)
-      await wait(500)
+      Countdown.classList.add(item);
+      await wait(500);
     }
 
     for (let item of ['ready', 'set', 'go']) {
-      Countdown.classList.remove(item)
+      Countdown.classList.remove(item);
     }
 
   }

@@ -9,4 +9,4 @@ module.exports.makeId = (length = 6) => {
       charactersLength));
   }
   return result;
-}
+};
