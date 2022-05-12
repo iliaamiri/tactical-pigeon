@@ -6,18 +6,21 @@ const Players = include("app/repos/Players");
 
 const Player = include("app/models/Player");
 
-module.exports = (socket, next) => {
+module.exports = async (socket, next) => {
     const jwtToken = socket.handshake.auth.token;
 
+    const err = new Error("AUTHENTICATION_FAILED");
+    err.data = { type : 'AUTH_FAILURE' };
+
     if (!jwtToken) {
-        socket.close();
+        next(err);
         return;
     }
     
     const foundTokenObj = Tokens.all.get(jwtToken);
 
     if (!foundTokenObj) {
-        socket.close();
+        next(err);
         return;
     }
 
@@ -30,7 +33,7 @@ module.exports = (socket, next) => {
             foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
             Players.add(foundPlayer);
         } catch(err) {
-            socket.close();
+            next(err);
             return;
         }
     }

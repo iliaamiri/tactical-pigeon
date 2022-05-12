@@ -11,4 +11,4 @@ function tripletCompare(moves) {
   }
 };
 
-export default tripletCompare;
+module.exports = tripletCompare;

@@ -11,6 +11,10 @@ const router = {
     chosenPath: null,
 
     assign(path, filePath) {
+        if (this.chosenPath !== null) {
+            return;
+        }
+
         let currPath = currentPath()
             .split("/");
         currPath.shift();

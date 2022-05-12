@@ -15,5 +15,9 @@ module.exports = (server) => {
         }
     });
 
+    io.on('error', async (err) => {
+        console.log("hey");
+    });
+
     return io;
 }
