@@ -76,8 +76,6 @@
                     <!-- <span class="count">3</span> -->
                 </div>
 
-                <!-- Background Image as CSS class -->
-
                 <!-- Play Again Button -->
                 <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
                     <div id="pulse" class="play-again mb-5"></div>
@@ -88,14 +86,8 @@
                     <div class="result-banner position-absolute mt-4"></div>
                 </div>
 
-
                 <!-- Timer Counter -->
                 <div class="timer-counter">
-                    <!-- Transitioning between two decimals to one vice versa using d-none (display none class utility in Bootstrap),
-     being controlled in JavaScript frontend. -->
-                    <!-- <div class="time-no-decimal number-6 d-none"></div>
-        <div class="time-left-decimal number-1"></div>
-        <div class="time-right-decimal number-0"></div> -->
                     <span class="time-nums">30</span>
                 </div>
 
@@ -353,17 +345,17 @@
             import { playSound, sounds } from "/assets/js/core/sounds.js";
 
             //for playing theme music without user interaction + repeatings
-            let theme = document.querySelector("#bgMusic")
-            let continueButton = document.querySelector(".continueBtn")
+            let theme = document.querySelector("#bgMusic");
+            let continueButton = document.querySelector(".continueBtn");
 
             window.onload = (event) => {
-                theme.play()
+                theme.play();
 
                 //to remove the gray bar at the bottom of iphone XR countdown overlay
-                let bottomRow = document.querySelector(".bottom-row")
+                let bottomRow = document.querySelector(".bottom-row");
                 continueButton.addEventListener("click", function () {
                     if (window.innerHeight <= "450") {
-                        bottomRow.style.backgroundColor = "#ffdc4b"
+                        bottomRow.style.backgroundColor = "#ffdc4b";
                     }
 
                     setTimeout(() => {
@@ -378,76 +370,75 @@
             }, false);
 
 
-            let fork = document.querySelector("#attack-image")
+            let fork = document.querySelector("#attack-image");
             fork.onclick = function () {
-                playSound(sounds.forkChecked)
+                playSound(sounds.forkChecked);
 
-                fork.classList.add("animate__pulse", "animate__faster")
+                fork.classList.add("animate__pulse", "animate__faster");
                 fork.addEventListener('animationend', () => {
-                    fork.classList.remove("animate__pulse")
+                    fork.classList.remove("animate__pulse");
                 })
 
-                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder");
                 mv_placeholders.forEach((item) => {
-                    item.classList.add("animate__tada", "animate__slow")
+                    item.classList.add("animate__tada", "animate__slow");
                 })
             }
 
-            let shield = document.querySelector("#shield-image")
+            let shield = document.querySelector("#shield-image");
             shield.onclick = function () {
 
-                playSound(sounds.shieldClicked)
-                shield.classList.add("animate__pulse", "animate__faster")
+                playSound(sounds.shieldClicked);
+                shield.classList.add("animate__pulse", "animate__faster");
 
-                let mv_placeholders = document.querySelectorAll("div.mv-placeholder")
+                let mv_placeholders = document.querySelectorAll("div.mv-placeholder");
                 mv_placeholders.forEach((item) => {
-                    item.classList.add("animate__tada", "animate__slow")
+                    item.classList.add("animate__tada", "animate__slow");
                 })
 
                 shield.addEventListener('animationend', () => {
-                    shield.classList.remove("animate__pulse")
+                    shield.classList.remove("animate__pulse");
                 });
             }
 
-            let opponentShield = document.querySelector(".opponent-counter-box > img")
+            let opponentShield = document.querySelector(".opponent-counter-box > img");
             opponentShield.onclick = function () {
-                playSound(sounds.denyTheClick)
+                playSound(sounds.denyTheClick);
             }
 
-            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
+            let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box");
             opponentFork.onclick = function () {
-                playSound(sounds.denyTheClick)
+                playSound(sounds.denyTheClick);
             }
 
-            let movePlaceholderHead = document.querySelector(".mv-placeholder.head")
+            let movePlaceholderHead = document.querySelector(".mv-placeholder.head");
             movePlaceholderHead.onclick = function () {
-                playSound(sounds.putInTheTally)
+                playSound(sounds.putInTheTally);
             }
 
-            let movePlaceholderBody = document.querySelector(".mv-placeholder.body")
+            let movePlaceholderBody = document.querySelector(".mv-placeholder.body");
             movePlaceholderBody.onclick = function () {
-                playSound(sounds.putInTheTally)
+                playSound(sounds.putInTheTally);
             }
 
-            let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs")
+            let movePlaceholderLegs = document.querySelector(".mv-placeholder.legs");
             movePlaceholderLegs.onclick = function () {
-                playSound(sounds.putInTheTally)
+                playSound(sounds.putInTheTally);
             }
 
-            let doneButton = document.querySelector(".done")
+            let doneButton = document.querySelector(".done");
             doneButton.onclick = function () {
-                playSound(sounds.doneChecked)
+                playSound(sounds.doneChecked);
 
             }
-
 
             // changing mute to unmuted svg and viceversa
-            let muteBtn = document.querySelector(".mute")
+            let muteBtn = document.querySelector(".mute");
             muteBtn.onclick = () => {
                 if (muteBtn.style.backgroundImage === 'url("/assets/img/GUI-controls/MainControls/Mute.svg")') {
-                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Unmute.svg")'
+                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Unmute.svg")';
                 } else {
-                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Mute.svg")'
+                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Mute.svg")';
                 }
             }
 
