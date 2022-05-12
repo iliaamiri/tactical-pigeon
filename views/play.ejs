@@ -32,10 +32,11 @@
     <div class="row content-row">
         <div class="col-md-12">
 
-            <!-- Portrait Mode Overlay -->
-            <div class="flip-overlay">
-                <span class="portrait">FLIP TO PLAY</span>
-            </div>
+                <!-- Portrait Mode Overlay -->
+                <div class="flip-overlay">
+                    <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
+                    <span class="portrait">FLIP TO PLAY</span>
+                </div>
 
             <!-- Intro Overlay -->
             <div class="intro-page">
@@ -50,17 +51,18 @@
                             pigeon ask for? Well ...I wish sweater pigeon would stop stealing my food....I’ll have to
                             take thing into my
                             own hands. Nothing personal, it’s just business.</span>
-                    <div class="objectives">
-                        <div class="objectives-title"></div>
-                        <div class="objectives-banner">
-                            <ul class="game-info">
-                                <li>Use your fork to attack unprotected spots to decrease your opponents lives</li>
-                                <br>
-                                <li>Use your sheild block to protect yourself against opponent attacks</li>
-                                <br>
-                                <li>Winner is determined by the number of lives left or the amount of ammo left</li>
-                            </ul>
-                            <div class="continueBtn unpressed">Got it!</div>
+                        <div class="objectives">
+                            <div class="objectives-title"></div>
+                            <div class="objectives-banner">
+                                <ul class="game-info">
+                                    <li>Use your fork to attack unprotected spots to decrease your opponents lives</li>
+                                    <br>
+                                    <li>Use your shield block to protect yourself against opponent attacks</li>
+                                    <br>
+                                    <li>Winner is determined by the number of lives left or the amount of ammo left</li>
+                                </ul>
+                                <div class="continueBtn unpressed">Got it!</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -239,16 +241,10 @@
                             </tr>
                         </table>
                     </div>
-                </div>
-                <!--potential problem?: health bar was removed -->
-                <div class="row d-flex justify-content-between health">
-                    <!-- My Health Bar Components -->
-                    <div class="col-sm-3 asset-padding">
-                        <div class="health-container myHealthBar">
-                            <div class="heart heart-filled"></div>
-                            <div class="heart heart-filled"></div>
-                            <div class="heart heart-filled"></div>
-                        </div>
+                    <!-- Characters' Pigeon Components -->
+                    <div class="pigeons-container position-absolute">
+                        <img src="/assets/img/pigeons/pigeonV1/PigeonV1-9.svg" alt="" class="pigeon-left ">
+                        <img src="/assets/img/pigeons/pigeonV3/PigeonV3-1.svg" alt="" class="pigeon-right">
                     </div>
 
                     <!-- Opponent's Health Bar Components -->
@@ -280,27 +276,35 @@
                     <img src="/assets/img/Food/Hotdog/Hotdog@4x.png" alt="" class="hotdog-pray">
                 </div>
 
-                <!-- Move Picker Overlay Component -->
-                <div class="container-fluid move-picker-overlay position-absolute">
-                    <div class="round-title"></div>
-                    <div class="row">
-                        <div class="col-sm-9 hints-box">
-                            <div class="row ">
-                                <b>Pick a fork or shield and click a part of your opponent to attack. Confirm your
-                                    attack by pressing done.</b>
-                                <!-- <b>Pick</b>
+                    <!-- Move Picker Overlay Component -->
+                    <div class="container-fluid move-picker-overlay position-absolute">
+                        <div class="round-title"></div>
+                        <div class="row">
+                            <div class="col-sm-9 hints-box">
+                                <div class="row">
+                                    <b>Pick a fork or shield and click a part of your opponent to attack.</b>
+                                    <!-- <b>Pick</b>
                                 <b>your </b>
                                 <b>weapon!</b> -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-3 moves-placeholder position-absolute pop-in-animation">
-                    <div class="mv-placeholder head animate__animated"></div>
-                    <div class="mv-placeholder body animate__animated"></div>
-                    <div class="mv-placeholder legs animate__animated"></div>
+                    <div class="col-sm-3 moves-placeholder position-absolute">
+                        <div class="outline-all">
+                            <div class="mv-placeholder head animate__animated"></div>
+                        </div>
+                        <div class="outline-threesides">
+                            <div class="mv-placeholder body animate__animated"></div>
+                        </div>
+                        <div class="outline-threesides">
+                            <div class="mv-placeholder legs animate__animated"></div>
+                        </div>
+                    </div>
 
+                    <div class="done position-absolute"></div>
                 </div>
 
                 <div class="done position-absolute "></div>
@@ -435,7 +439,5 @@
 
 </script>
 
-
 </body>
-
 </html>
