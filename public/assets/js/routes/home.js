@@ -32,8 +32,7 @@ playButton.addEventListener('click', event => {
     let audio = new Audio("/assets/music/SuccessAttack.mp3");
     audio.play();
 
-    if (target.classList.contains("playOnlineBtn"))
-    { // Play Online
+    if (target.classList.contains("playOnlineBtn")) { // Play Online
         const playerUsername = usernameInput.value;
         if (playerUsername.length < 1) {
             usernameInput.focus();
@@ -41,8 +40,7 @@ playButton.addEventListener('click', event => {
             return;
         }
     }
-    else
-    { // Play Offline
+    else { // Play Offline
         let tID = setTimeout(function () {
             window.location.href = document.location.href + "play";
             window.clearTimeout(tID);		// clear time out.
