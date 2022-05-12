@@ -5,8 +5,16 @@ export let socket;
 
 export default function clientSocketConnect() {
   Token.fetchCachedToken();
-  socket = io("/", {auth: Token.tokenVal});
+  if (!Token.tokenVal) {
+    console.log("Auth Failed");
+    return;
+  }
 
+  socket = io("/", {
+    auth: { token: Token.tokenVal}
+  });
+
+  console.log(socket)
 
   socket.on("connect", () => {
     console.log("Connected.");
@@ -18,6 +26,10 @@ export default function clientSocketConnect() {
 
   socket.io.on("reconnect", () => {
     console.log("reconnect");
+  });
+
+  socket.io.on("error", (err) => {
+    console.log("-----------------", err);
   });
 
   socket.on("connect_failed", msg => {

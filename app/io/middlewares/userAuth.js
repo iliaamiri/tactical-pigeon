@@ -2,27 +2,20 @@ const jwt = require("jsonwebtoken");
 const configs = include("config/app.config");
 
 const Tokens = include("app/repos/Tokens");
-const Players = include("app/repos/Players");
+const Players = include("app/repos/Players").Players;
 
 const Player = include("app/models/Player");
 
 module.exports = (socket, next) => {
-  console.log("HOOSH");
-  console.log("asdfd");
-
   const jwtToken = socket.handshake.auth.token;
 
   const err = new Error("AUTHENTICATION_FAILED");
   err.data = {type: 'AUTH_FAILURE'};
 
-  console.log("aoo");
-
   if (!jwtToken) {
     next(err);
     return;
   }
-
-  console.log("aoo");
 
   const foundTokenObj = Tokens.all.get(jwtToken);
 
@@ -32,8 +25,6 @@ module.exports = (socket, next) => {
   }
 
   let foundPlayer = Players.find(foundTokenObj.playerId);
-
-  console.log("aoo");
 
   if (!foundPlayer) {
     foundPlayer = Object.create(Player);

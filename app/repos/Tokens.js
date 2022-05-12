@@ -3,17 +3,17 @@ const config = require("../../config/app.config");
 
 const Token = require("../models/Token");
 
-const { DateTime } = require("luxon");
+const {DateTime} = require("luxon");
 
 const Tokens = {
   all: new Map(), //: Map<jwtToken, Token>
 
-  create(playerId, username, expiresIn = DateTime.now().plus({ day: 1 })) {
+  create(playerId, username, expiresIn = DateTime.now().plus({day: 1})) {
     const newJwtToken = jwt.sign({
-      playerId,
-      username,
-      createdAt: Date.now()
-    },
+        playerId,
+        username,
+        createdAt: Date.now()
+      },
       config.JWT_RSA_PRIVATE_KEY,
       {
         algorithm: 'RS256',
