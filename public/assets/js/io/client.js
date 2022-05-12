@@ -3,7 +3,7 @@ import Token from './auth/Token.js';
 
 export let socket;
 
-export default function clientSocket() {
+export default function clientSocketConnect() {
     Token.fetchCachedToken();
     socket = io("/", { auth: Token.tokenVal });
 
@@ -21,21 +21,16 @@ export default function clientSocket() {
     });
 
     socket.on("connect_failed", msg => {
-        console.log(msg);
+        console.log('connect_failed: ', msg);
     });
 
     socket.on("disconnect", (test) => {
-        console.log("disconnect", test);
+        console.log("disconnect: ", test);
         console.log(socket.id); // undefined
     });
 
     socket.on("connect_error", err => {
-        let message = err.message;
-        if (message === "AUTHENTICATION_FAILED") {
-            location.href = "/";
-            return;
-        }
-
+        console.log('connect_error: ', err);
     });
 
 

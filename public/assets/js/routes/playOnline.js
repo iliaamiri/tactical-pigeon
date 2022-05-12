@@ -1,9 +1,9 @@
 // Helpers
 import Game from "../helpers/Game.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
-import clientSocket from "../io/client.js";
+import clientSocketConnect from "../io/client.js";
 
-const socket = clientSocket();
+const socket = clientSocketConnect();
 
 // Load the game
 

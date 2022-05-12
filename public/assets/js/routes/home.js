@@ -4,7 +4,7 @@ const playButton = document.querySelector('button.play');
 const titleEnterName = document.querySelector("div.start p.title-enter-name");
 
 import Token from "../io/auth/Token.js";
-import clientSocket from '../io/client.js';
+import clientSocketConnect from '../io/client.js';
 
 // General Click Event Listener
 document.querySelector("body").addEventListener('click', event => {
@@ -58,7 +58,15 @@ playButton.addEventListener('click', async event => {
 
             Token.save(tokenValue);
 
-            const socket = clientSocket();
+            const socket = clientSocketConnect();
+
+            socket.on('connect_error', err => {
+                let message = err.message;
+                if (message === "AUTHENTICATION_FAILED") {
+                    location.href = "/";
+                    return;
+                }
+            });
         } catch (error) {
             console.log(error);
         }
