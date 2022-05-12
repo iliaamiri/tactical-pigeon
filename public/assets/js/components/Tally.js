@@ -35,9 +35,6 @@ class Tally {
     let tallyColumn = this.tallyElement.querySelectorAll(`td:nth-child(${this.currentTallyColumnNumber})`);
     tallyColumn.forEach(td => {
       td.classList.add('round-won');
-      setTimeout(function () {
-        document.querySelector("#winRound").play()
-      }, 750)
     });
     this.currentTallyColumnNumber++;
   }
