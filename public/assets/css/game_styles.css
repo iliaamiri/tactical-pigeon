@@ -1,22 +1,11 @@
 :root {
   /* derived from [(the pixels amount) x 100] / 896 */
+
   --left-pigeon-distance-from-the-edges: 20.08928571428571%;
   --right-pigeon-distance-from-the-edges: 11%;
-  --tally-table-cell-size: 40px;
-
-  /* Table Labels Sizes */
-  --table-label-size-default: 26px;
-  /* ~ mobiles */
-  --table-label-size-on-tablet: 26px;
-  /* 768px */
-  --table-label-size-on-laptop: 36px;
-  /* 1024px */
-  --table-label-size-on-large-laptop: 41px;
-  /* 1440px */
-  --table-label-size-on-4k: 46px;
-  /* 2560px */
 
   /* Tally Table Cell Sizes */
+
   --tally-table-cell-size: 40px;
   /* ~ mobile */
   --tally-table-cell-size-on-tablet: 40px;
@@ -45,15 +34,12 @@ div.container-fluid.move-picker-overlay {
 body {
   margin: 0;
   min-height: 100vh;
-  /* overflow: hidden;
-  background-size: auto; */
   background-repeat: no-repeat;
   background-color: #bababb;
 }
 
 .bottom-background {
   background-image: url("/assets/img/backgrounds/bottom-background-1.svg");
-  /* background-color: whitesmoke; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -70,8 +56,9 @@ body {
   padding: 20% 0 0 0;
 }
 
-/* white space that appears when browser width gets too thin*/
+/* fills space that appears when browser width gets too thin*/
 /*900px and up) */
+
 @media only screen and (min-width: 900px) {
   .bottom-background {
     opacity: 100;
@@ -102,6 +89,7 @@ div.asset-padding {
 }
 
 /* Portrait Overlay */
+
 span.portrait {
   font-family: "Titan One", cursive;
   font-size: 35px;
@@ -116,6 +104,7 @@ div.flip-overlay img {
 }
 
 /* Intro */
+
 div.intro-page {
   width: 100%;
   height: 100%;
@@ -193,7 +182,6 @@ div.yourPigeon {
   margin: 5%;
   display: flex;
   flex-direction: column;
-  /* z-index: 5000; */
 }
 
 .bubble-bottom-left:before {
@@ -206,7 +194,6 @@ div.yourPigeon {
   border-right: 10vw solid white;
   left: 42%;
   bottom: 67%;
-  /* z-index: 2999; */
 }
 
 span.backstory {
@@ -270,6 +257,7 @@ div.continueBtn:focus {
 }
 
 /* Tutorial Overlay */
+
 div.tutorial-overlay {
   width: 100%;
   height: 100%;
@@ -347,6 +335,7 @@ div.countdown.go {
 }
 
 /* Replay */
+
 div.play-again-container {
   width: 100vw;
   height: 100%;
@@ -378,23 +367,20 @@ div.play-again.replay-out-animation {
 }
 
 /* Result Banner */
+
 div.result-container {
   width: 100vw;
   height: 100vh;
 }
 
 div.result-banner {
-  /* TODO: change this to bootstrap row and use justify-content:center to center it.
-                       This way will spare us from using left. */
   opacity: 0;
   background-size: contain;
   background-repeat: no-repeat;
   height: 22vw;
   width: 32vw;
   top: 2.7vw;
-  /* left: 36%; */
   z-index: 30;
-  /* changed z-index from 20 to 30 so result is over the help button */
 }
 
 div.result-banner.victory {
@@ -422,6 +408,7 @@ div.result-banner.defeat {
 }
 
 /* Timer Counter */
+
 div.timer-counter {
   position: absolute;
   background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.svg");
@@ -447,6 +434,7 @@ span.time-nums {
 }
 
 /* Help Button */
+
 div.help {
   position: absolute;
   background-image: url("/assets/img/GUI-controls/MainControls/Help.svg");
@@ -460,6 +448,7 @@ div.help {
 }
 
 /* Mute Button */
+
 div.mute {
   position: absolute;
   background-image: url("/assets/img/GUI-controls/MainControls/Unmute.svg");
@@ -473,15 +462,14 @@ div.mute {
 }
 
 /* Shield and Attack Counters */
+
 img.shield-icon {
-  /*height: 75px;*/
   width: 58%;
   z-index: 3;
   cursor: pointer;
 }
 
 img.attack-icon {
-  /*height: 75px;*/
   width: 58%;
   z-index: 2;
   cursor: pointer;
@@ -514,6 +502,7 @@ div.counter-box.opponent-counter {
 }
 
 /* experimental round result visual */
+
 .roundResult {
   font-family: "Titan One", cursive;
   font-size: 1.9vw;
@@ -521,7 +510,6 @@ div.counter-box.opponent-counter {
   color: #407d96;
   -webkit-text-stroke-width: 0.2vw;
   -webkit-text-stroke-color: white;
-  /* margin-top: 10px;  */
   position: absolute;
   top: -1vw;
 }
@@ -530,11 +518,10 @@ table.tally tr td.roundPoints {
   border: none;
   background-color: rgba(0, 0, 0, 0);
   height: 0;
-
 }
 
-
 /* Table Labels */
+
 div.table-labels.table-labels.table-labels {
   display: flex;
   flex-direction: column;
@@ -546,15 +533,6 @@ div.table-labels.table-labels.table-labels {
 }
 
 table td.tabol-labol.tabol-labol.tabol-labol {
-  /* font-family: "Titan One", cursive;
-  font-weight: bold;
-  border-width: 0.2vw;
-  letter-spacing: -0.1vw;
-  font-size: 1.3vw;
-  color: #407D96;
-  -webkit-text-stroke-width: 0.1vw;
-  -webkit-text-stroke-color: white;
-  text-align: right; */
   background-color: #cadde8;
   padding: 0.5vw;
   border-left: none;
@@ -571,10 +549,10 @@ table td.tabol-labol.tabol-labol.tabol-labol.legs-label {
 div.table-labels div.tabol-labol>img {
   height: 2.5vw;
   margin: 10px;
-  /* height: 26px; */
 }
 
 /* Tally Table */
+
 div.row.board {
   height: 45%;
 }
@@ -588,7 +566,6 @@ table.tally tr td {
   background-color: rgba(255, 255, 255, 0.5);
   width: var(--tally-table-cell-size);
   height: var(--tally-table-cell-size);
-  /* TODO: Responsive Table Cells -> Use Media Queries CSS (and of course use bigger/smaller pixels) */
   text-align: center;
 }
 
@@ -617,12 +594,8 @@ table.tally tr td.round-defeat {
   background-color: rgba(231, 135, 151, 0.4);
 }
 
-/* WHAT IS THIS FOR??? */
-table.tally tr td.round-defeat.hit {
-  background-color: rgba(231, 135, 151, 1);
-}
-
 /* Sunglases Container */
+
 div.sunglasses-container {
   width: 100%;
   bottom: 0;
@@ -630,10 +603,6 @@ div.sunglasses-container {
 
 div.sunglasses-container img {
   position: absolute;
-  /*height: 170px;*/
-  /*bottom: 15px;*/
-  /* height: 340px; */
-  /* width: 10px; */
   height: 1.1vw;
   z-index: -9;
 }
@@ -649,6 +618,7 @@ div.sunglasses-container img.sunglasses-right {
 }
 
 /* Pigeons Container */
+
 div.pigeons-container {
   width: 100%;
   bottom: 0;
@@ -656,9 +626,6 @@ div.pigeons-container {
 
 div.pigeons-container img {
   position: absolute;
-  /*height: 170px;*/
-  /*bottom: 15px;*/
-  /* height: 340px; */
   height: 35vw;
   z-index: -10;
 }
@@ -688,6 +655,7 @@ div.pigeons-container img.pigeon-right {
 }
 
 /* The Hotdog */
+
 div.hotdog-container {
   width: 100%;
   bottom: 0;
@@ -702,16 +670,9 @@ div.hotdog-container img {
 div.hotdog-container img.hotdog-pray {
   height: 8vw;
   left: 42.96875%;
-  /* derived from [(the pixels amount) x 100] / 896 */
 }
 
 /* Health Bars */
-/* div.health-bars {
-  position: absolute;
-  bottom: 5%;
-  left: 2.5%;
-  width: 95%;
-} */
 
 div.health-container {
   display: flex;
@@ -730,8 +691,6 @@ div.health-container {
 div>div.heart {
   height: 2.5vw;
   width: 6vw;
-  /* margin-right: 4px; */
-  /* margin-left: 6px; */
 }
 
 div>div.heart-filled {
@@ -749,16 +708,12 @@ div>div.heart-empty {
 }
 
 /* Move Picker */
+
 div.round-title {
   position: absolute;
   top: -19%;
   right: -3%;
-  /* height: 40px; */
   width: 65%;
-  /* background-image: url("/assets/img/GUI-controls/Round/Round 1.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat; */
   font-family: "Titan One", cursive;
   font-size: 4.3vw;
   text-align: right;
@@ -781,13 +736,6 @@ div.done {
   background-repeat: no-repeat;
   cursor: pointer;
 }
-
-/* .show-animation {
-  animation-name: show-move-picker-overlay;
-  animation-fill-mode: forwards;
-  animation-duration: 0.8s;
-  animation-delay: 0.25s;
-} */
 
 div.move-picker-overlay {
   opacity: 0;
@@ -824,7 +772,6 @@ div.move-picker-overlay div.hints-box .row {
 
 div.move-picker-overlay div.hints-box b {
   font-family: "Comic Sans MS", sans-serif;
-  /* font-weight: bold; */
   font-size: 0.5em;
   line-height: 1.2em;
   color: #44575d;
@@ -861,20 +808,17 @@ span.box {
 .drop-out-left-animation {
   animation-name: drop-out-left;
   animation-fill-mode: backwards;
-  /* animation-duration: 0.2s; */
 }
 
 .drop-in-right-animation {
   animation-name: drop-in-right;
   animation-fill-mode: forwards;
   animation-duration: 0.8s;
-  /* animation-delay: 0.2s; */
 }
 
 .drop-out-right-animation {
   animation-name: drop-out-right;
   animation-fill-mode: backwards;
-  /* animation-duration: 0.2s; */
 }
 
 div.moves-placeholder {
@@ -882,7 +826,6 @@ div.moves-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* right: 7%; */
   z-index: 40;
   right: 23%;
   top: 43%;
@@ -897,16 +840,6 @@ div.mv-placeholder {
   border: 3.5px solid #407D96;
   cursor: pointer;
 }
-
-/* div.outline-all {
-  border: 3px solid #407D96;
-}
-
-div.outline-threesides {
-  border-left: 3px solid #407D96;
-  border-right: 3px solid #407D96; 
-   border-bottom: 3px solid #407D96;
-} */
 
 div.mv-placeholder.head {
   background-image: url("/assets/img/GUI-controls/MainControls/moves-placeholder-Head.svg");
@@ -931,6 +864,7 @@ div.mv-placeholder.filled-block {
 }
 
 /* Animations */
+
 @keyframes shake {
   55% {
     transform: translate(-50%, -150%) rotate(15deg);
@@ -949,18 +883,15 @@ div.mv-placeholder.filled-block {
   }
 }
 
-
 @keyframes pigeon-pick-move {
   from {
     height: 35vw;
     left: 14%;
-    /* left: var(--left-pigeon-distance-from-the-edges); */
     bottom: -5.15vw;
   }
 
   to {
     height: 64vw;
-    /* left: calc(var(--left-pigeon-distance-from-the-edges) - 290px); */
     left: -4%;
     bottom: -20vw;
   }
@@ -968,24 +899,14 @@ div.mv-placeholder.filled-block {
 
 @keyframes revert-pigeon-pick-move {
   from {
-    /* height: 720px;
-    left: calc(var(--left-pigeon-distance-from-the-edges) - 290px);
-    bottom: -260px; */
-
     height: 64vw;
-    /* left: calc(var(--left-pigeon-distance-from-the-edges) - 290px); */
     left: -4%;
     bottom: -20vw;
   }
 
   to {
-    /* height: 340px;
-    left: var(--left-pigeon-distance-from-the-edges);
-    bottom: -65px; */
-
     height: 35vw;
     left: 14%;
-    /* left: var(--left-pigeon-distance-from-the-edges); */
     bottom: -5.15vw;
   }
 }
@@ -1084,15 +1005,6 @@ div.mv-placeholder.filled-block {
   }
 }
 
-/* Background stretch if it wasn't the actual image resolution */
-/* Background Responsiveness */
-/* @media only screen and (min-width: 896px),
-screen and (min-height: 414px) {
-  body {
-    background-size: cover;
-  }
-} */
-
 /* Media Queries regular devices */
 
 @media only screen and (min-width: 600px) {
@@ -1132,6 +1044,7 @@ screen and (min-height: 414px) {
 }
 
 /* ---- Tablets ---- */
+
 @media only screen and (min-width: 768px) {
   table.tally tr td {
     height: var(--tally-table-cell-size-on-tablet);
@@ -1155,13 +1068,13 @@ screen and (min-height: 414px) {
     top: 6%;
   }
 
-
   div.yourPigeon {
     left: -30%;
   }
 }
 
 /* ---- Laptops ---- */
+
 @media only screen and (min-width: 1024px) {
   table.tally tr td {
     height: var(--tally-table-cell-size-on-laptop);
