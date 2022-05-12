@@ -91,6 +91,6 @@ class MovePlaceholder {
 
   static all = {
   };
-}
+};
 
 export default MovePlaceholder;

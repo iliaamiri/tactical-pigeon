@@ -60,6 +60,6 @@ class Life {
     'opponentLife': new Life(opponentLifeNodes)
   }
 
-}
+};
 
 export default Life;

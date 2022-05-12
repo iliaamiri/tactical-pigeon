@@ -12,4 +12,4 @@ const sequelizeReadOnlyUser = new Sequelize(sqlDbConfig_readOnlyUser);
 module.exports = {
   sequelizeDev,
   sequelizeReadOnlyUser
-}
+};

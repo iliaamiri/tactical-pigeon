@@ -80,7 +80,7 @@ class Round {
 
     // Generating the Bot player's moves.
     const opponentMove = Players.all.player2.generateRandomMoves();
-    console.log(opponentMove)
+    console.log(opponentMove);
 
     // Fill my tally columns with my moves
     myTally.fillMoves();
@@ -134,14 +134,14 @@ class Round {
         if (Round.tdCounter === 4) {
           roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)");
         }
+        
         roundPoints.appendChild(span);
         Round.tdCounter++;
-      }, 350)
+      }, 350);
 
       setTimeout(function () {
         document.querySelector("span.roundResult").remove();
       }, 1400)
-
 
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
       myTally.fillColumnDefeat();
@@ -156,6 +156,7 @@ class Round {
 
       //losing round popup
       setTimeout(function () {
+
         let span = document.createElement("span");
         span.innerHTML = "-1";
         span.classList.add("roundResult");
@@ -179,12 +180,11 @@ class Round {
 
         roundPoints.appendChild(span);
         Round.tdCounter++
-
-      }, 350)
+      }, 350);
 
       setTimeout(function () {
-        document.querySelector("span.roundResult").remove()
-      }, 1500)
+        document.querySelector("span.roundResult").remove();
+      }, 1500);
 
 
     } else { // Draw
@@ -278,7 +278,7 @@ class Round {
     });
 
     // Start timer
-    Timer.all["myTimer"].startCounter()
+    Timer.all["myTimer"].startCounter();
 
     // Enabling everything back for the next new round
     doneButton.enableClick(); // enabling done button
@@ -293,12 +293,12 @@ class Round {
 
   async roundCountdown() {
     for (let item of ['ready', 'set', 'go']) {
-      Countdown.classList.add(item)
-      await wait(500)
+      Countdown.classList.add(item);
+      await wait(500);
     }
 
     for (let item of ['ready', 'set', 'go']) {
-      Countdown.classList.remove(item)
+      Countdown.classList.remove(item);
     }
   }
 

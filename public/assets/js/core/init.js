@@ -48,4 +48,4 @@ export default () => {
   NodeList.prototype.shift = function () {
     return Array.from(this).shift;
   }
-}
+};
