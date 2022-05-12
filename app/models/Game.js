@@ -4,18 +4,30 @@ const Game = {
     rowId: null, // int (db primary key auto incrmn)
     gameId: null, // string
     winnerPlayerId: null, // int (ref to Player)
-
-    players: {
-        player1Id: null, // Int, ref to Players
-        player2Id: null // Int, ref to Players
-    },
-
+// <<<<<<< HEAD
+    gameComplete: false,
+    players: [
+        // Int, ref to Players
+    ],
+    currentRound: 1,
+// =======
+//
+//     players: {
+//         player1Id: null, // Int, ref to Players
+//         player2Id: null // Int, ref to Players
+//     },
+//
+// >>>>>>> ilia-socket-client
     rounds: [
         // $ref: Round
     ],
-
-    nextRound: function() {
-        this.rounds.push(roundData);
+    inventories: {
+        // ref to AmmoInventory
+    },
+    nextRound: function(currentRoundNumber) {
+        const newRound = Object.create(Round);
+        newRound.roundNumber = currentRoundNumber;
+        this.rounds.push(newRound);
     },
 
     toJSON: function() {
