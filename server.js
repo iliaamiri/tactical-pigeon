@@ -25,5 +25,5 @@ const PORT = configs.PORT;
 * ///////////// Start listening /////////////
 * */
 server.listen(PORT, () => {
-    console.log(`Running on: http://localhost:${PORT}`);
+  console.log(`Running on: http://localhost:${PORT}`);
 });
