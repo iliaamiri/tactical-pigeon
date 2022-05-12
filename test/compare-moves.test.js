@@ -3,7 +3,7 @@ const singleCompare = require('./compare-moves');
 describe('given two players', () => {
 
   describe('Given a single pair of moves', () => {
-  
+
     test('when the first player attacks and the second player does nothing, singleCompare should return a win for the first player', () => {
       let result = singleCompare('a', '');
       expect(result).toBe('player 1 wins');
@@ -48,7 +48,7 @@ describe('given two players', () => {
       let result = singleCompare('b', 'b');
       expect(result).toBe('nothing happened');
     });
-  
+
   });
 
 });
