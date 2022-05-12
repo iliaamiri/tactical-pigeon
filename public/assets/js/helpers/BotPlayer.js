@@ -1,13 +1,13 @@
-import Inventory from "../components/Inventory.js";
+import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import Player from "./Player.js";
 import RoundMove from "./RoundMove.js";
 
 
 class BotPlayer extends Player {
-    constructor(playerId = "__BOT__", playerName = "Bot") {
-        super(playerId, playerName, {
-            'blocks': Inventory.all.opponentBlock,
-            'attacks': Inventory.all.opponentAttack
+    constructor(playerId = "__BOT__") {
+        super(playerId, {
+            'blocks': AmmoInventory.all.opponentBlock,
+            'attacks': AmmoInventory.all.opponentAttack
         });
     }
 
@@ -17,8 +17,8 @@ class BotPlayer extends Player {
      */
     getRandomMove() {
         // Getting the block and attack ammo for the bot.
-        const blockAmmo = Inventory.all.opponentBlock;
-        const attackAmmo = Inventory.all.opponentAttack;
+        const blockAmmo = AmmoInventory.all.opponentBlock;
+        const attackAmmo = AmmoInventory.all.opponentAttack;
 
         // Getting the number of ammo left for the opponent (bot).
         const blockAmmoCount = blockAmmo.counter;

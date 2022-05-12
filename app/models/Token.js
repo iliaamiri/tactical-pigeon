@@ -1,9 +1,15 @@
 const Token = {
-    playerId, // int (ref to Player)
+    playerId: null, // int | string (ref to Player)
 
-    jwtToken, // string
+    jwtToken: null, // string
 
-    expiryDate, // string (timestamp)
+    expiryDate: null, // string (timestamp)
+
+    initCreate(playerId, jwtToken, expiresDate) {
+        this.playerId = playerId;
+        this.jwtToken = jwtToken;
+        this.expiryDate = expiresDate;
+    }
 };
 
 module.exports = Token;
