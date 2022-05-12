@@ -1,10 +1,8 @@
+
 // Components
 const usernameInput = document.querySelector('input.usernameInput');
 const playButton = document.querySelector('button.play');
 const titleEnterName = document.querySelector("div.start p.title-enter-name");
-
-import Token from "../io/auth/Token.js";
-import clientSocketConnect from '../io/client.js';
 
 // General Click Event Listener
 document.querySelector("body").addEventListener('click', event => {
@@ -28,11 +26,11 @@ document.querySelector("body").addEventListener('click', event => {
 });
 
 // Play Button Click Listener
-playButton.addEventListener('click', async event => {
+playButton.addEventListener('click', event => {
     let target = event.target;
 
     let audio = new Audio("/assets/music/SuccessAttack.mp3");
-    await audio.play();
+    audio.play();
 
     if (target.classList.contains("playOnlineBtn"))
     { // Play Online
@@ -41,34 +39,6 @@ playButton.addEventListener('click', async event => {
             usernameInput.focus();
             titleEnterName.classList.add("error-alert")
             return;
-        }
-
-        try {
-            const authResponse = await axios.post("/api/auth/letMeIn", {
-                givenUsername: playerUsername
-            });
-
-            const authResult = authResponse.data;
-            if (!authResult.status) {
-                console.log(authResult);
-                throw new Error(authResult.error);
-            }
-
-            const tokenValue = authResult.tokenValue;
-
-            Token.save(tokenValue);
-
-            const socket = clientSocketConnect();
-
-            socket.on('connect_error', err => {
-                let message = err.message;
-                if (message === "AUTHENTICATION_FAILED") {
-                    location.href = "/";
-                    return;
-                }
-            });
-        } catch (error) {
-            console.log(error);
         }
     }
     else

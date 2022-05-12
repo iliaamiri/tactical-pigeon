@@ -1,27 +1,27 @@
 // Component classes
 import MovePlaceholder from '../components/MovePlaceholder.js';
 import AmmoInventory from "../components/Inventories/AmmoInventory.js";
+import AmmoIcon from '../components/Inventories/AmmoIcon.js';
 import Timer from '../components/Timer.js';
-import Tally from "../components/Tally.js";
+import Rounds from '../components/Rounds.js';
 
 // Helpers
-import Game from "../helpers/Game.js";
-import Player from "../helpers/Player.js";
 import Players from "../helpers/Players.js";
+import Player from "../helpers/Player.js";
 import BotPlayer from "../helpers/BotPlayer.js";
 import RoundMove from "../helpers/RoundMove.js";
 import changeRoundTitle from "../helpers/changeRoundTitle.js";
+import resetGame from "../helpers/resetGame.js";
 import roundCountdown from "../helpers/roundCountdown.js";
-
+import donePressed from "../helpers/donePressed.js";
 import {sounds} from "../core/sounds.js";
 
 
 //Initiating the game.
-Game.currentGame = new Game("offline_game");
-// Round.all.game1 = new Round();
+Rounds.all.game1 = new Rounds()
 
 // Initiating the players.
-Players.all.player1 = new Player("AklBm4", {
+Players.all.player1 = new Player("AklBm4", "Me", {
     'blocks': AmmoInventory.all['block-left'],
     'attacks': AmmoInventory.all['attack-left']
 });
@@ -34,31 +34,26 @@ MovePlaceholder.all = {
     'legs': new MovePlaceholder('legs')
 };
 
-// Initiating the tallies.
-Tally.all = {
-    'player1': new Tally(document.querySelector('table.tally.my-tally'), Players.all.player1),
-    'player2': new Tally(document.querySelector('table.tally.opponent-tally'), Players.all.player2)
-};
-Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
+// let currentSelectedInventory;
+const gameResultEnum = ['loss', 'win', 'draw'];
 
 // let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
 // const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
 
 // background intro screen
 document.querySelector(".continueBtn").addEventListener("click", async event => {
-    console.log(event.target);
-    event.target.classList.remove("unpressed");
-    document.querySelector(".continueBtn").classList.add("pressed");
+    console.log(event.target)
+    event.target.classList.remove("unpressed")
+    document.querySelector(".continueBtn").classList.add("pressed")
     document.querySelector(".intro-page").classList.add("d-none");
     // first round preparation
-    document.querySelector(".play-again").classList.add("d-none");
+    document.querySelector(".play-again").classList.add("d-none")
     document.querySelector("div.countdown-overlay").classList.remove("d-none");
     document.querySelector("div.countdown-overlay").classList.add("opaque");
 
     await roundCountdown();
 
-    changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
-    // changeRoundTitle(Round.all['game1'].counter);
+    changeRoundTitle(Rounds.all['game1'].counter);
 
     // First round start timer
     Timer.all['myTimer'].startCounter();
@@ -68,10 +63,8 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
 
     let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
     let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
-
     pickMoveOverlay.classList.add('show-animation');
     pigeon.classList.add('picking-move-animation');
-
     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
     document.querySelector('.done').classList.add('pop-in-animation');
 });
@@ -98,7 +91,7 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
 // })();
 
 
-// Wrapping every click handler in one listener to be able to handle the spam clicks easier.
+// Wrapping every click handler in one listener to be able handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
     // event.preventDefault();
     let target = event.target;
@@ -111,14 +104,13 @@ document.querySelector('body').addEventListener('click', async event => {
     }
 
     if (target.tagName === "DIV" && target.classList.contains("play-again")) {
-        console.log("user wants to play again!");
-        Game.currentGame.resetGame();
+        console.log("user wants to play again!")
+        resetGame()
     }
 
     /* ---- Done ---- */
     if (target.tagName === "DIV" && target.classList.contains('done')) {
-        await Game.currentGame.currentRound.donePressed();
-        //await donePressed();
+        donePressed();
     }
 
     /* ---- My Ammo ---- */
@@ -208,13 +200,8 @@ document.querySelector('body').addEventListener('click', async event => {
                         sounds.loseGame,
                         sounds.drawGame,
                         sounds.winGame,
-                        sounds.loseRound,
                         sounds.winRound,
-                        sounds.doneChecked,
-                        sounds.denyTheClick,
-                        sounds.forkChecked,
-                        sounds.shieldClicked,
-                        sounds.putInTheTally
+                        sounds.doneChecked
                     ]
                 }
             })
