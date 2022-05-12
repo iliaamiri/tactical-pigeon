@@ -64,6 +64,10 @@ const Players = {
     find: function(id) {
       return this.all[id] || null;
     },
+
+    findByUsername(username) {
+        return this.all.find(player => player.username === username) || null;
+    }
 };
 
 module.exports = { Players, playerEmitter };
