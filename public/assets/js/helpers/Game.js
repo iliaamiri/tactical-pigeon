@@ -145,7 +145,7 @@ class Game {
       await playSound(sounds.loseGame);
       // document.querySelector("#loseGame").play()
     } else {
-      ResultOverlay.element.activate('draw');
+      ResultOverlay.updateTitle('draw');
 
       await playSound(sounds.drawGame);
       // document.querySelector("#drawGame").play()

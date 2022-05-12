@@ -28,19 +28,10 @@ class Life {
       this.#counter = intendedResult;
 
     }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> team-multiplayer
   }
 
   increaseCounter() {
     this.counter++;
-<<<<<<< HEAD
-
-=======
->>>>>>> team-multiplayer
   }
 
   decreaseCounter() {
