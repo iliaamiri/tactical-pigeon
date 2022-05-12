@@ -1,6 +1,6 @@
 // A Class of all players as static
 class Players {
-    static all = {};
+  static all = {};
 }
 
 export default Players;

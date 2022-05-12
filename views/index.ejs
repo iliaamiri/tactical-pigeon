@@ -2,57 +2,57 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Start Game</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <link rel="stylesheet" href="/assets/css/index_styles.css">
-  <link rel="stylesheet" href="/assets/css/ios_toggle.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/assets/css/index_styles.css">
+    <link rel="stylesheet" href="/assets/css/ios_toggle.css">
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
 
     <!-- Portrait Mode Overlay -->
     <div class="flip-overlay">
-      <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
-      <span class="portrait">FLIP TO PLAY</span>
+        <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
+        <span class="portrait">FLIP TO PLAY</span>
     </div>
 
     <div class="logo floating">
-      <img src="/assets/img/GUI-controls/MenuStart/Game Title.png" alt="">
+        <img src="/assets/img/GUI-controls/MenuStart/Game Title.png" alt="">
     </div>
 
     <div class="start">
-      <div class="play-mode-toggle-container">
-        <span>Play Online:</span>
-        <div class="toggleWrapper">
-          <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
-          <label for="toggle1" class="toggleLabel"></label>
+        <div class="play-mode-toggle-container">
+            <span>Play Online:</span>
+            <div class="toggleWrapper">
+                <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+                <label for="toggle1" class="toggleLabel"></label>
+            </div>
         </div>
-      </div>
 
-      <p class="title-enter-name">Enter your name: </p>
+        <p class="title-enter-name">Enter your name: </p>
 
-      <input type="text" class="usernameInput">
+        <input type="text" class="usernameInput">
 
-      <button class="play">
-        <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
-      </button>
+        <button class="play">
+            <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
+        </button>
 
     </div>
-  </div>
-  
-  <!-- <audio controls autoplay>
-    <source src="\assets\music\Itty-Bitty-8-Bit-Music.mp3" type="audio/mp3">
-  </audio> -->
-  <!-- JavaScript -->
-  <!-- App -->
-  <%- include('_partials/commonJsFooters.ejs') -%>
+</div>
+
+<!-- <audio controls autoplay>
+  <source src="\assets\music\Itty-Bitty-8-Bit-Music.mp3" type="audio/mp3">
+</audio> -->
+<!-- JavaScript -->
+<!-- App -->
+<%- include('_partials/commonJsFooters.ejs') -%>
 </body>
 
 </html>

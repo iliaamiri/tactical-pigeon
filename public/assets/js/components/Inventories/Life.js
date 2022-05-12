@@ -13,37 +13,39 @@ class Life {
     this.counter = this.counterRange[1];
   }
 
-  get counter() { return this.#counter; }
+  get counter() {
+    return this.#counter;
+  }
 
   set counter(intendedResult) {
     if (intendedResult > this.counterRange[1]) {
-        this.#counter = this.counterRange[1];
+      this.#counter = this.counterRange[1];
 
     } else if (intendedResult < this.counterRange[0]) {
-        this.#counter = this.counterRange[0];
+      this.#counter = this.counterRange[0];
 
     } else {
-        this.#counter = intendedResult;
+      this.#counter = intendedResult;
 
     }
 
-    
+
   }
 
   increaseCounter() {
-      this.counter++;
-      
+    this.counter++;
+
   }
 
   decreaseCounter() {
-      this.counter--;
-      for (let index = this.lifeNodeList.length - 1; index >= 0; index--) {
-        if (this.lifeNodeList[index].classList.contains('heart-filled')) {
-          this.lifeNodeList[index].classList.remove('heart-filled');
-          this.lifeNodeList[index].classList.add('heart-empty');
-          break;
-        }
+    this.counter--;
+    for (let index = this.lifeNodeList.length - 1; index >= 0; index--) {
+      if (this.lifeNodeList[index].classList.contains('heart-filled')) {
+        this.lifeNodeList[index].classList.remove('heart-filled');
+        this.lifeNodeList[index].classList.add('heart-empty');
+        break;
       }
+    }
   }
 
   resetCounter() {
@@ -57,8 +59,8 @@ class Life {
   }
 
   static all = {
-      'myLife': new Life(myLifeNodes),
-      'opponentLife': new Life(opponentLifeNodes)
+    'myLife': new Life(myLifeNodes),
+    'opponentLife': new Life(opponentLifeNodes)
   }
 
 }

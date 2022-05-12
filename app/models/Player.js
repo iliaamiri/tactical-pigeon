@@ -1,34 +1,34 @@
-const { makeId } = require("../../core/utils");
+const {makeId} = require("../../core/utils");
 const AmmoInventory = require("./AmmoInventory");
 const Life = require("./Life");
 
 const Player = {
-    playerId: null, // int (db primary key auto increment)
-    username: null, // string 
-    ammoInventory: null, //$ref: AmmoInventory
+  playerId: null, // int (db primary key auto increment)
+  username: null, // string
+  ammoInventory: null, //$ref: AmmoInventory
 
-    life: null, // $ref: Life
+  life: null, // $ref: Life
 
-    initNewPlayer(username) {
-        let newPlayerId = makeId();
-        this.initOnlinePlayer(newPlayerId, username);
-    },
+  initNewPlayer(username) {
+    let newPlayerId = makeId();
+    this.initOnlinePlayer(newPlayerId, username);
+  },
 
-    initOnlinePlayer(playerId, username) {
-        this.playerId = playerId;
-        this.username = username;
-        this.ammoInventory = Object.create(AmmoInventory);
-        this.life = Object.create(Life);
-    },
+  initOnlinePlayer(playerId, username) {
+    this.playerId = playerId;
+    this.username = username;
+    this.ammoInventory = Object.create(AmmoInventory);
+    this.life = Object.create(Life);
+  },
 
-    toJSON: function() {
-        return {
-            playerId: this.playerId,
-            username: this.username,
-            ammoInventory: this.ammoInventory,
-            life: this.life,
-        };
-    },
+  toJSON: function () {
+    return {
+      playerId: this.playerId,
+      username: this.username,
+      ammoInventory: this.ammoInventory,
+      life: this.life,
+    };
+  },
 };
 
 module.exports = Player;
