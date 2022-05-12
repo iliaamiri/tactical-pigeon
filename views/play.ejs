@@ -31,7 +31,9 @@
 
                 <!-- Intro Overlay -->
                 <div class="intro-page">
-
+                    <div class="scrollMessage animate__bounceInDown animate__animated animate__delay-1s animate__slow">
+                        <span>Scroll down to keep reading!</span>
+                    </div>
                     <div class="blueBanner">
                         <span class="character">you are: PUSINESS MAN </span>
                     </div>
@@ -52,7 +54,10 @@
                                     <br>
                                     <li>Winner is determined by the number of lives left or the amount of ammo left</li>
                                 </ul>
-                                <div class="continueBtn unpressed">Got it!</div>
+                                <div class="continueBtn animate__animated animate__pulse animate__infinite">
+                                    Got
+                                    it!
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -200,6 +205,15 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
+                                        <!-- table row for round +1/-1 animations -->
+                                        <tr>
+                                            <td class="roundPoints"></td>
+                                            <td class="roundPoints"></td>
+                                            <td class="roundPoints"></td>
+                                            <td class="roundPoints"></td>
+                                            <td class="roundPoints"></td>
+                                            <td class="roundPoints"></td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -232,7 +246,6 @@
                             </table>
                         </div>
                     </div>
-                    <!--potential problem?: health bar was removed -->
                     <div class="row d-flex justify-content-between health">
                         <!-- My Health Bar Components -->
                         <div class="col-sm-3 asset-padding">
@@ -274,14 +287,16 @@
 
                     <!-- Move Picker Overlay Component -->
                     <div class="container-fluid move-picker-overlay position-absolute">
-                        <div class="round-title"></div>
+                        <div class="round-title animate__animated animate__slow">
+                        </div>
                         <div class="row">
                             <div class="col-sm-9 hints-box">
                                 <div class="row">
-                                    <b>Pick a fork or shield and click a part of your opponent to attack.</b>
-                                    <!-- <b>Pick</b>
-                                <b>your </b>
-                                <b>weapon!</b> -->
+                                    <b>Pick a fork </b>
+                                    <b>or shield and</b>
+                                    <b>select a <span class="box"> box </span></b>
+                                    <b> to equip that </b>
+                                    <b> pigeon part!</b>
                                 </div>
                             </div>
                         </div>
@@ -289,13 +304,13 @@
 
                     <div class="col-sm-3 moves-placeholder position-absolute">
                         <div class="outline-all">
-                            <div class="mv-placeholder head animate__animated"></div>
+                            <div class="mv-placeholder head animate__animated animate__repeat-1"></div>
                         </div>
                         <div class="outline-threesides">
-                            <div class="mv-placeholder body animate__animated"></div>
+                            <div class="mv-placeholder body animate__animated animate__repeat-1"></div>
                         </div>
                         <div class="outline-threesides">
-                            <div class="mv-placeholder legs animate__animated"></div>
+                            <div class="mv-placeholder legs animate__animated animate__repeat-1"></div>
                         </div>
                     </div>
 
@@ -335,26 +350,27 @@
         <!-- Sounds -->
         <script type="module">
 
-
-
             import { playSound, sounds } from "/assets/js/core/sounds.js";
 
-            //for playing theme music without user interaction + repeating
+            //for playing theme music without user interaction + repeatings
             let theme = document.querySelector("#bgMusic")
+            let continueButton = document.querySelector(".continueBtn")
+
             window.onload = (event) => {
                 theme.play()
 
                 //to remove the gray bar at the bottom of iphone XR countdown overlay
                 let bottomRow = document.querySelector(".bottom-row")
-                let continueButton = document.querySelector(".continueBtn")
-                continueButton.onclick = () => {
+                continueButton.addEventListener("click", function () {
                     if (window.innerHeight <= "450") {
                         bottomRow.style.backgroundColor = "#ffdc4b"
                     }
+
                     setTimeout(() => {
                         bottomRow.style.backgroundColor = ""
                     }, 1500);
-                }
+
+                })
             }
             theme.addEventListener('ended', function () {
                 this.currentTime = 0;
@@ -421,9 +437,22 @@
             let doneButton = document.querySelector(".done")
             doneButton.onclick = function () {
                 playSound(sounds.doneChecked)
+
+            }
+
+
+            // changing mute to unmuted svg and viceversa
+            let muteBtn = document.querySelector(".mute")
+            muteBtn.onclick = () => {
+                if (muteBtn.style.backgroundImage === 'url("/assets/img/GUI-controls/MainControls/Mute.svg")') {
+                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Unmute.svg")'
+                } else {
+                    muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Mute.svg")'
+                }
             }
 
         </script>
 
 </body>
+
 </html>

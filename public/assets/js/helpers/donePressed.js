@@ -75,13 +75,16 @@ function donePressed() {
     let roundResult = tripletCompare(playerMoves);
     if (roundResult === 1) {
         myTallyColumn.forEach(td => {
-            td.classList.add('round-won');
+            if (!td.classList.contains("roundPoints")) {
+                td.classList.add('round-won');
+            }
             setTimeout(function () {
                 document.querySelector("#winRound").play()
             }, 750)
         });
         opponentTallyColumn.forEach(td => {
             td.classList.add('round-defeat');
+
         });
 
         Life.all.opponentLife.decreaseCounter();
@@ -89,35 +92,26 @@ function donePressed() {
         //winning round popup
 
         setTimeout(function () {
-            let span = document.createElement("span"); // <p></p>
+            let span = document.createElement("span");
             span.innerHTML = "+1"
             span.classList.add("roundResult")
-            let myTable = document.querySelector("table.my-tally")
-            myTable.appendChild(span)
-
-            if(tdCounter === 0) {
-                span.style.left = "+7vw"
-                span.style.top = "-1vw"
+            let roundPoints;
+            if (tdCounter === 0) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
             }
-    
-            if(tdCounter === 1) {
-                span.style.left = "+11.6vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 1) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
             }
-    
-            if(tdCounter === 2) {
-                span.style.left = "+15.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 2) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
             }
-            if(tdCounter === 3) {
-                span.style.left = "+19.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 3) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
             }
-            if(tdCounter === 4) {
-                span.style.left = "+24.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 4) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
             }
-    
+            roundPoints.appendChild(span)
             tdCounter++;
         }, 350)
 
@@ -128,7 +122,9 @@ function donePressed() {
 
     } else if (roundResult === 2) {
         myTallyColumn.forEach(td => {
-            td.classList.add('round-defeat');
+            if (!td.classList.contains("roundPoints")) {
+                td.classList.add('round-defeat');
+            }
             setTimeout(function () {
                 document.querySelector("#loseRound").play()
             }, 700)
@@ -139,49 +135,40 @@ function donePressed() {
         Life.all.myLife.decreaseCounter();
 
         //losing round popup
-        
+
         setTimeout(function () {
-            let span = document.createElement("span"); // <p></p>
+            let span = document.createElement("span");
             span.innerHTML = "-1"
             span.classList.add("roundResult")
-            let myTable = document.querySelector("table.my-tally")
-            myTable.appendChild(span)
-            if(tdCounter === 0) {
-                span.style.left = "+7vw"
-                span.style.top = "-1vw"
+            let roundPoints;
+            if (tdCounter === 0) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
             }
-
-            if(tdCounter === 1) {
-                span.style.left = "+11.6vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 1) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
             }
-
-            if(tdCounter === 2) {
-                span.style.left = "+15.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 2) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
             }
-            if(tdCounter === 3) {
-                span.style.left = "+19.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 3) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
             }
-            if(tdCounter === 4) {
-                span.style.left = "+24.5vw"
-                span.style.top = "-1vw"
+            if (tdCounter === 4) {
+                roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
             }
-
-            console.log(tdCounter)
+            roundPoints.appendChild(span)
             tdCounter++
-
         }, 350)
 
         setTimeout(function () {
             document.querySelector("span.roundResult").remove()
         }, 1500)
 
-
     } else {
         myTallyColumn.forEach(td => {
-            td.classList.add('round-draw');
+            if (!td.classList.contains("roundPoints")) {
+                td.classList.add('round-draw');
+            }
         });
         opponentTallyColumn.forEach(td => {
             td.classList.add('round-draw');
@@ -190,17 +177,21 @@ function donePressed() {
         tdCounter++
     }
 
+    //round title animation removed every round
+    let roundTitle = document.querySelector(".round-title")
+    roundTitle.classList.remove("animate__bounceInDown")
+
     restingMode();
 
     console.log('life.all', Life.all);
 
-    let leftPlayerTotalInventory = 
-            AmmoInventory.all['attack-left'].counter
-            + AmmoInventory.all['block-left'].counter;
-        let rightPlayerTotalInventory = 
-            AmmoInventory.all.opponentAttack.counter
-            + AmmoInventory.all.opponentBlock.counter;
-            
+    let leftPlayerTotalInventory =
+        AmmoInventory.all['attack-left'].counter
+        + AmmoInventory.all['block-left'].counter;
+    let rightPlayerTotalInventory =
+        AmmoInventory.all.opponentAttack.counter
+        + AmmoInventory.all.opponentBlock.counter;
+
     if (
         Rounds.all['game1'].counter < Rounds.all['game1'].counterRange[1]
         && Life.all.myLife.counter > 0
@@ -255,11 +246,11 @@ function donePressed() {
             shield.onclick = function () {
             }
             let opponentShield = document.querySelector(".opponent-counter-box > img")
-            opponentShield.onclick = function () {   
+            opponentShield.onclick = function () {
             }
 
             let opponentFork = document.querySelector("div:nth-child(2) > div.col-sm-2.asset-padding.opponent-counter-box")
-            opponentFork.onclick = function () {   
+            opponentFork.onclick = function () {
             }
 
             document.querySelector("#loseGame").play()
