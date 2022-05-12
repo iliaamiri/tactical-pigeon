@@ -8,7 +8,7 @@ const Player = include("app/models/Player");
 
 module.exports = async (socket, next) => {
     const jwtToken = socket.handshake.auth.token;
-
+    // changing
     const err = new Error("AUTHENTICATION_FAILED");
     err.data = { type : 'AUTH_FAILURE' };
 
