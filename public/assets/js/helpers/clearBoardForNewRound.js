@@ -18,9 +18,9 @@ function clearBoardForNewRound(roundCounter) {
 
   // -- To avoid repeating ourselves a little bit here, we can put this logic inside of a static method in MovePlaceholder class
   // MovePlaceholder.all = {
-  //     'head': new MovePlaceholder('head'),
-  //     'body': new MovePlaceholder('body'),
-  //     'legs': new MovePlaceholder('legs')
+  //   'head': new MovePlaceholder('head'),
+  //   'body': new MovePlaceholder('body'),
+  //   'legs': new MovePlaceholder('legs')
   // };
 
   // Resetting/Re-initializing the MovePlaceholders
@@ -41,13 +41,13 @@ function clearBoardForNewRound(roundCounter) {
   document.querySelector('div.moves-placeholder').classList.remove('d-none')
 
   document.querySelectorAll('div.mv-placeholder').forEach((element) => {
-      element.classList.remove('filled-block');
-      element.classList.remove('filled-attack');
+    element.classList.remove('filled-block');
+    element.classList.remove('filled-attack');
   });
 
   document.querySelectorAll('.pop-out-animation').forEach((element) => {
-      element.classList.add('pop-in-animation');
-      element.classList.remove('pop-out-animation');
+    element.classList.add('pop-in-animation');
+    element.classList.remove('pop-out-animation');
   });
 
   const leftPigeon = document.querySelector('div.pigeons-container img.pigeon-left');
@@ -58,22 +58,22 @@ function clearBoardForNewRound(roundCounter) {
   changeRoundTitle(roundCounter);
 
   document.querySelectorAll('.hide-animation').forEach(element => {
-      element.classList.add('show-animation');
-      element.classList.remove('hide-animation');
+    element.classList.add('show-animation');
+    element.classList.remove('hide-animation');
   });
 
 
   // Start timer
   Timer.all["myTimer"].startCounter()
 
-// Enabling everything back for the next new round
+  // Enabling everything back for the next new round
   doneButton.enableClick(); // enabling done button
 
   Object.values(AmmoIcon.all)
-      .map(ammoIconComponent => ammoIconComponent.iconElement.enableClick()); // enabling inventory ammo images/buttons.
+    .map(ammoIconComponent => ammoIconComponent.iconElement.enableClick()); // enabling inventory ammo images/buttons.
 
   Object.values(MovePlaceholder.all)
-      .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
+    .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
 
 }
 
