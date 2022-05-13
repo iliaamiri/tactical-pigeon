@@ -35,6 +35,8 @@ const AuthController = {
       Players.add(user);
     }
 
+    console.log(user.playerId, givenUsername)
+
     // Make a JWT token and login the user.
     const generatedTokenValue = Tokens.create(user.playerId, givenUsername);
 
