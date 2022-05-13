@@ -13,8 +13,14 @@ import RoundMove from "../helpers/RoundMove.js";
 import changeRoundTitle from "../helpers/changeRoundTitle.js";
 import roundCountdown from "../helpers/roundCountdown.js";
 
+// Core and Utils
 import { sounds } from "../core/sounds.js";
 
+// Auth
+import Token from "../io/auth/Token.js";
+
+// Fetch username from cookie
+export let username = Token.fetchCachedUsernameOnly();
 
 //Initiating the game.
 Game.currentGame = new Game("offline_game");

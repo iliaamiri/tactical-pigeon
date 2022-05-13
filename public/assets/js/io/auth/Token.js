@@ -8,11 +8,23 @@ const Token = {
 
   username: "Player 1",
 
-  save(tokenValue, username) {
+  save(tokenValue) {
     Cookie.set(this.jwtCookieKey, tokenValue);
+    this.tokenVal = tokenValue;
+  },
+
+  saveUsername(username) {
     Cookie.set(this.usernameCookieKey, username);
     this.username = username;
-    this.tokenVal = tokenValue;
+  },
+
+  fetchCachedUsernameOnly() {
+    let foundUsername = Cookie.get(this.usernameCookieKey);
+    if (foundUsername) {
+      this.username = foundUsername;
+      return foundUsername;
+    }
+    return null;
   },
 
   fetchCachedToken() {
@@ -22,10 +34,7 @@ const Token = {
       return null;
     }
 
-    let foundUsername = Cookie.get(this.usernameCookieKey);
-    if (foundUsername) {
-      this.username = foundUsername;
-    }
+    this.fetchCachedUsernameOnly();
 
     this.tokenVal = foundJWTCookie;
     return foundJWTCookie;

@@ -12,12 +12,6 @@ export let searchingForOpponentAnimation;
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
 
-if (Token.isAuthenticated()) {
-  titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
-  usernameInput.value = Token.username;
-  usernameInput.disabled = true;
-}
-
 // General Click Event Listener
 document.querySelector("body").addEventListener('click', event => {
   let target = event.target;
@@ -44,6 +38,12 @@ startBtn.addEventListener('click', async event => {
   await audio.play();
 
   if (target.classList.contains("playOnlineBtn")) { // Play Online
+    if (Token.isAuthenticated()) {
+      titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
+      usernameInput.value = Token.username;
+      usernameInput.disabled = true;
+    }
+
     target.classList.add("pressed");
 
     const playerUsername = usernameInput.value;
@@ -103,6 +103,12 @@ startBtn.addEventListener('click', async event => {
       target.classList.remove("pressed");
     }
   } else { // Play Offline
+    if (Token.fetchCachedUsernameOnly()) {
+      titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
+      usernameInput.value = Token.username;
+      usernameInput.disabled = true;
+    }
+
     let tID = setTimeout(function () {
       window.location.href = document.location.href + "play";
       window.clearTimeout(tID);		// clear time out.
