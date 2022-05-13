@@ -81,6 +81,7 @@ div.startBtn {
   width: 20vw;
   height: 14vh;
   margin-top: 15px;
+  cursor: pointer;
 }
 
 div.startBtn.unpressed {
@@ -89,6 +90,7 @@ div.startBtn.unpressed {
 
 div.startBtn.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+  cursor: not-allowed;
 }
 
 div.playOnlineBtn.playOnlineBtn {
