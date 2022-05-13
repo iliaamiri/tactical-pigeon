@@ -134,7 +134,7 @@ class Round {
         if (Round.tdCounter === 4) {
           roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)");
         }
-        
+
         roundPoints.appendChild(span);
         Round.tdCounter++;
       }, 350);
@@ -189,10 +189,43 @@ class Round {
 
     } else { // Draw
       myTally.fillColumnDraw();
-
+      setTimeout(function () {
+        document.querySelector("#drawRound").play();
+      }, 750)
       opponentTally.fillColumnDraw();
 
-      Round.tdCounter++;
+      setTimeout(function () {
+        let span = document.createElement("span");
+        span.innerHTML = "draw!";
+        span.style.fontSize = "1.4vw";
+        span.style.webkitTextStrokeWidth = "0.1vw";
+        span.classList.add("roundResult");
+        let roundPoints;
+
+        if (Round.tdCounter === 0) {
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
+        }
+        if (Round.tdCounter === 1) {
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
+        }
+        if (Round.tdCounter === 2) {
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
+        }
+        if (Round.tdCounter === 3) {
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
+        }
+        if (Round.tdCounter === 4) {
+          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
+        }
+
+        roundPoints.appendChild(span);
+        Round.tdCounter++
+      }, 350);
+
+      setTimeout(function () {
+        document.querySelector("span.roundResult").remove();
+      }, 1500);
+
     }
 
     roundTitle.classList.remove("animate__bounceInDown")
