@@ -22,7 +22,15 @@ export default async (io, socket) => {
     setTimeout(() => {
       location.href = "/play/" + gameId;
     }, 3000);
-  }
+  };
+
+  const fetchCurrentStateOfGame = (payload) => {
+    console.log(payload);
+    const { playerMe, playerOpponent, gameStatus } = payload;
+
+
+  };
 
   socket.on('game:matchFound', matchFound);
+  socket.on('game:fetch:result', fetchCurrentStateOfGame);
 };
