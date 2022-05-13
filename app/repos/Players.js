@@ -7,6 +7,7 @@ const Game = require("../models/Game");
 const AmmoInventory = require("../models/AmmoInventory");
 //const Round = require('../models/Round');
 const Life = require('../models/Life');
+const {Mutex} = require("async-mutex");
 
 /* playerEmitter.on('addPlayer', function(player) {
   //console.log('adding player', player);
@@ -69,12 +70,23 @@ const Players = {
     console.log('adding player to match queue', player);
     this.matchQueue.push(player.playerId);
     //console.log('match queue length', this.matchQueue.length);
-    if (this.matchQueue.length === 2) {
-      // console.log('match queue', this.matchQueue);
-      //playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
-      playerEmitter.emit('matchReady', this.matchQueue);
-      this.matchQueue = [];
-    }
+    const mutex = new Mutex();
+    mutex
+      .runExclusive(() => {
+        if (this.matchQueue.length >= 2) {
+          console.log('match queue', this.matchQueue);
+          playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+        }
+      })
+      .then(function() {
+        console.log("Mutex Unlocked.. Username: ", player.username);
+      });
+    // if (this.matchQueue.length === 2) {
+    //   // console.log('match queue', this.matchQueue);
+    //   //playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+    //   playerEmitter.emit('matchReady', this.matchQueue);
+    //   this.matchQueue = [];
+    // }
   },
 
   /**

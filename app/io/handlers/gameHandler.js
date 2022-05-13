@@ -23,54 +23,27 @@ module.exports = async (io, socket) => {
       throw GameExceptions.currentlyInGame.errMessage;
     }
 
-    const mutex = new Mutex();
-    mutex
-      .runExclusive(function() {
-        // Add the player to the match queue.
-        Players.addToMatchQueue(socket.user);
-      })
-      .then(function() {
-        Players.playerEmitter.on('gameReady', function (game) {
-          Games.add(game);
-          //console.log('Games.all', Games.showAll());
-          const playersUsernames = [];
-          // console.log('game players', game.players);
-          game.players.forEach(playerId => {
-            playersUsernames.push(Players.all[playerId].username);
-          });
-          const payload = {
-            gameId: game.gameId,
-            players: playersUsernames,
-          };
-          //console.log('players on match found', payload);
-          //console.log('socket.user.userId =', socket.user);
+    // Add the player to the match queue.
+    Players.addToMatchQueue(socket.user);
 
-          // try to emit the event only to the players who are searching for an opponent
-          socket.emit("game:matchFound", payload);
-        });
+    Players.playerEmitter.on('gameReady', function (game) {
+      Games.add(game);
+      //console.log('Games.all', Games.showAll());
+      const playersUsernames = [];
+      // console.log('game players', game.players);
+      game.players.forEach(playerId => {
+        playersUsernames.push(Players.all[playerId].username);
       });
+      const payload = {
+        gameId: game.gameId,
+        players: playersUsernames,
+      };
+      //console.log('players on match found', payload);
+      //console.log('socket.user.userId =', socket.user);
 
-    // // Add the player to the match queue.
-    // Players.addToMatchQueue(socket.user);
-
-    // Players.playerEmitter.on('gameReady', function (game) {
-    //   Games.add(game);
-    //   //console.log('Games.all', Games.showAll());
-    //   const playersUsernames = [];
-    //   // console.log('game players', game.players);
-    //   game.players.forEach(playerId => {
-    //     playersUsernames.push(Players.all[playerId].username);
-    //   });
-    //   const payload = {
-    //     gameId: game.gameId,
-    //     players: playersUsernames,
-    //   };
-    //   //console.log('players on match found', payload);
-    //   //console.log('socket.user.userId =', socket.user);
-    //
-    //   // try to emit the event only to the players who are searching for an opponent
-    //   socket.emit("game:matchFound", payload);
-    // });
+      // try to emit the event only to the players who are searching for an opponent
+      socket.emit("game:matchFound", payload);
+    });
   };
 
   const fetchCurrentStateOfGame = (gameId) => {
