@@ -48,6 +48,15 @@ playerEmitter.on('matchReady', function (playersIdsArr) {
   playerEmitter.emit('gameReady', game);
 });
 
+// setInterval(() => {
+//   while (Players.matchQueue.length >= 2) {
+//     // console.log('match queue', this.matchQueue);
+//     playerEmitter.emit('matchReady', Players.pickTwoRandomPlayersFromQueue());
+//     // playerEmitter.emit('matchReady', this.matchQueue);
+//     // this.matchQueue = [];
+//   }
+// }, 1000);
+
 const Players = {
   playerEmitter: playerEmitter, // playerEmitter Event
   all: {
@@ -60,11 +69,11 @@ const Players = {
     console.log('adding player to match queue', player);
     this.matchQueue.push(player.playerId);
     //console.log('match queue length', this.matchQueue.length);
-    if (this.matchQueue.length >= 2) {
+    if (this.matchQueue.length === 2) {
       // console.log('match queue', this.matchQueue);
-      playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
-      // playerEmitter.emit('matchReady', this.matchQueue);
-      // this.matchQueue = [];
+      //playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+      playerEmitter.emit('matchReady', this.matchQueue);
+      this.matchQueue = [];
     }
   },
 
@@ -122,7 +131,7 @@ const Players = {
 
     this.matchQueue.splice(player2_index, 1);
 
-    return [ player1, player2 ];
+    return [player1, player2];
   }
 };
 
