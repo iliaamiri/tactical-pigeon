@@ -14,6 +14,13 @@ p {
   font-size: 1.5rem;
 }
 
+span.online-text-searching {
+  display: none;
+  font-family: "Titan One", cursive;
+  color: #4f7c93;
+  font-size: 1.6rem;
+}
+
 div.container {
   display: flex;
   align-items: center;
