@@ -43,7 +43,14 @@ class Timer {
       if (this.counter === 0) {
 
         await Game.currentGame.currentRound.donePressed();
+        // change back timer background to blue on new round
+        document.querySelector(".timer-counter").classList.remove("red");
+        document.querySelector(".timer-counter").classList.add("blue");
 
+      } else if (this.counter === 10) {
+        // change timer background to red at 10 seconds
+        document.querySelector(".timer-counter").classList.remove("blue");
+        document.querySelector(".timer-counter").classList.add("red");
       }
     }, 1000);
   }

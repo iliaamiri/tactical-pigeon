@@ -411,7 +411,7 @@ div.result-banner.defeat {
 
 div.timer-counter {
   position: absolute;
-  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.svg");
+  /* background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.svg"); */
   background-size: contain;
   background-repeat: no-repeat;
   height: 5.5vw;
@@ -422,6 +422,14 @@ div.timer-counter {
   align-items: center;
   justify-content: center;
   z-index: 21;
+}
+
+div.timer-counter.blue {
+  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG.svg");
+}
+
+div.timer-counter.red {
+  background-image: url("/assets/img/GUI-controls/TimerRounds/TimerBG-red.svg");
 }
 
 span.time-nums {
@@ -443,7 +451,7 @@ div.help {
   height: 5.5vw;
   width: 5.5vw;
   top: 0;
-  left: 32%;
+  left: 66%;
   z-index: 21;
 }
 
@@ -457,7 +465,7 @@ div.mute {
   height: 5.5vw;
   width: 5.5vw;
   top: 0;
-  left: 40%;
+  left: 74%;
   z-index: 21;
 }
 
