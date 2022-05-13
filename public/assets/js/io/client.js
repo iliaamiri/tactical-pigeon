@@ -1,9 +1,11 @@
 import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import Token from './auth/Token.js';
 
+import handlersIndex from "./handlersIndex.js";
+
 export let socket;
 
-export default function clientSocketConnect() {
+export default async function clientSocketConnect() {
   Token.fetchCachedToken();
   if (!Token.tokenVal) {
     console.log("Auth Failed");
@@ -14,11 +16,17 @@ export default function clientSocketConnect() {
     auth: { token: Token.tokenVal}
   });
 
-  console.log(socket)
+  console.log(socket);
+
+  try {
+    await handlersIndex(io, socket);
+  } catch (err) {
+    console.log(err);
+  }
 
   socket.on("connect", () => {
     console.log("Connected.");
-  })
+  });
 
   socket.io.on("reconnection_attempt", () => {
     console.log("reconnection attempt");
@@ -36,13 +44,12 @@ export default function clientSocketConnect() {
     console.log('connect_failed: ', msg);
   });
 
-  socket.on("disconnect", (test) => {
-    console.log("disconnect: ", test);
-    console.log(socket.id); // undefined
+  socket.on("disconnect", () => {
+    console.log("disconnect: socket.id should be undefined: ", socket.id);
   });
 
   socket.on("connect_error", err => {
-    console.log('connect_error: ', err);
+    console.log('connect_error: ', err, err.message);
   });
 
 
