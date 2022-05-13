@@ -14,6 +14,13 @@ p {
   font-size: 1.5rem;
 }
 
+span.online-text-searching {
+  display: none;
+  font-family: "Titan One", cursive;
+  color: #4f7c93;
+  font-size: 1.6rem;
+}
+
 div.container {
   display: flex;
   align-items: center;
@@ -74,6 +81,7 @@ div.startBtn {
   width: 20vw;
   height: 14vh;
   margin-top: 15px;
+  cursor: pointer;
 }
 
 div.startBtn.unpressed {
@@ -82,6 +90,7 @@ div.startBtn.unpressed {
 
 div.startBtn.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+  cursor: not-allowed;
 }
 
 div.playOnlineBtn.playOnlineBtn {

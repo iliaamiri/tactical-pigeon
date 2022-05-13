@@ -77,7 +77,7 @@ const Games = {
   },
 
   find: function (id) {
-    return this.all[id];
+    return this.all[id] || null;
   },
 
   showAll: function () {

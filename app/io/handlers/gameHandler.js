@@ -1,49 +1,81 @@
-const Game = require("../../models/Game");
-const Games = require("../../repos/Games");
+// Exceptions
+const GameExceptions = require("../../../core/Exceptions/GameExceptions");
 
+// Repos
+const Games = require("../../repos/Games");
 const Players = require("../../repos/Players").Players;
 
-module.exports = (io, socket) => {
+module.exports = async (io, socket) => {
   // socket.user : ref to Player : authenticated player.
 
-  const searchForOpponent = (player) => {
-    Players.addToMatchQueue(player);
+  /**
+   * Callback function for `game:searchForOpponent` event. This will add the player who wants to play, to the matching queue.
+   * If there were more than or equal to 2 players in the queue, an event will be emitted and matches two players.
+   */
+  const searchForOpponent = () => {
+    // Do not allow a connected user to add themselves to the matching queue again. (security)
+    if (socket.user.currentGameIdPlaying) {
+      throw GameExceptions.currentlyInGame.errMessage;
+    }
+
+    // Add the player to the match queue.
+    Players.addToMatchQueue(socket.user);
   };
 
   const fetchCurrentStateOfGame = (gameId) => {
-    const players = Games.find(gameId).players;
-
-    const thisPlayer = Object.values(players)
-      .filter(player => player.playerId === socket.user.userId);
+    // Check if any game with this `gameId` exists or not.
     const game = Games.find(gameId);
+    if (!game) {
+      throw GameExceptions.gameNotFound.errMessage;
+    }
+
+    // Get players of the found game.
+    const players = game.players;
+
+    // Find this player who requested a game fetch and verify if they are in this game or not.
+    const thisPlayer = Object.values(players)
+      .filter(player => player.playerId === socket.user.playerId);
+    if (!thisPlayer) {
+      // For security, don't tell the noisy people if the game even exists or not.
+      throw GameExceptions.gameNotFound.errMessage;
+    }
+
+    // Get my move history of the game.
     let thisPlayerMoveHistory = [];
     game.rounds.forEach(round => {
-      thisPlayerMoveHistory.push(round.moves[thisPlayer.userId]);
+      thisPlayerMoveHistory.push(round.moves[thisPlayer.playerId]);
     });
 
+    // Construct my information (my ammo, my lives, my move history).
     const playerMe = {
       ammoInventories: thisPlayer.ammoInventory,
       lives: thisPlayer.life,
       moveHistory: thisPlayerMoveHistory,
     };
 
+    // Get my opponent's move history of the game.
+    let otherPlayerMoveHistory = [];
     const otherPlayer = Object.values(players)
-      .filter(player => player.playerId !== socket.user.userId);
+      .filter(player => player.playerId !== socket.user.playerId);
     game.rounds.forEach(round => {
-      thisPlayerMoveHistory.push(round.moves[otherPlayer.userId]);
+      otherPlayerMoveHistory.push(round.moves[otherPlayer.playerId]);
     });
 
+    // Construct my opponent's information (their ammo, their lives, their move history)
     const playerOpponent = {
       ammoInventories: otherPlayer.ammoInventory,
       lives: otherPlayer.life,
       moveHistory: otherPlayerMoveHistory,
     };
 
+    // Prepare the payload for me.
     const payload = {
       playerMe,
       playerOpponent,
       gameStatus: game.gameStatus,
     };
+
+    // Send me my payload.
     socket.emit("game:fetch:result", payload);
   }
 
@@ -65,16 +97,16 @@ module.exports = (io, socket) => {
 
   Players.playerEmitter.on('gameReady', function (game) {
     Games.add(game);
-    // console.log('Games.all', Games.showAll());
-    const players = [];
+    console.log('Games.all', Games.showAll());
+    const playersUsernames = [];
     game.players.forEach(playerId => {
-      players.push(Players.all[playerId].username);
+      playersUsernames.push(Players.all[playerId].username);
     });
     const payload = {
       gameId: game.gameId,
-      players: players,
+      players: playersUsernames,
     };
-    // console.log('players on match found', payload)
+    console.log('players on match found', payload)
     socket.emit("game:matchFound", payload);
   });
 

@@ -5,10 +5,7 @@ const Game = {
   gameId: null, // string
   winnerPlayerId: null, // int (ref to Player)
 
-  players: {
-    player1Id: null, // Int, ref to Players
-    player2Id: null // Int, ref to Players
-  },
+  players: [], // items: players' IDs
 
   rounds: [
     // $ref: Round
@@ -16,8 +13,16 @@ const Game = {
 
   nextRound: function () {
     const newRound = Object.create(Round);
-    newRound.roundNumber = this.rounds.length;
+    newRound.roundNumber = this.getCurrentRound() + 1;
     this.rounds.push(newRound);
+  },
+
+  /**
+   * Calculates the current round number based on the number of rounds there are in the round array property.
+   * @returns {number}
+   */
+  getCurrentRound() {
+    return this.rounds.length;
   },
 
   toJSON: function () {
