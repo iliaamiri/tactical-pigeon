@@ -22,7 +22,20 @@ import Token from "../io/auth/Token.js";
 // Fetch username from cookie
 export let username = Token.fetchCachedUsernameOnly();
 
-//Initiating the game.
+// Inserting the username into the blue banner on the intro overlay
+let blueBannerUsernameSpan = document.querySelector('div.blueBanner p.character');
+if (username !== null) {
+  blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
+}
+
+// inserting the username and 'computer' under the health bars
+let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
+myUsernameSpan.innerHTML = username;
+let opponentUsernameSpan = document.querySelector('div.opponent-username-div span.opponent-username-span');
+opponentUsernameSpan.innerHTML = 'computer';
+
+
+// Initiating the game.
 Game.currentGame = new Game("offline_game");
 // Round.all.game1 = new Round();
 
@@ -47,11 +60,8 @@ Tally.all = {
 };
 Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
 
-/* ---- Scroll Effect ---- */
-let speechbubble = document.querySelector(".bubble");
-speechbubble.addEventListener("scroll", async event => {
-  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-});
+// let roundCounter = Rounds.all['game1'].counter; // easier to start at 1 to use in nth-child()
+// const roundCounterMax = Rounds.all['game1'].counterRange[1]; // 5 rounds per game
 
 // background intro screen
 document.querySelector(".continueBtn").addEventListener("click", async event => {
@@ -67,6 +77,7 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
   await roundCountdown();
 
   changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
+  // changeRoundTitle(Round.all['game1'].counter);
 
   // First round start timer
   Timer.all['myTimer'].startCounter();
@@ -83,6 +94,28 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
   document.querySelector('.done').classList.add('pop-in-animation');
 });
+
+// (async function () {
+//   document.querySelector("div.countdown-overlay").classList.remove("d-none");
+//   document.querySelector("div.countdown-overlay").classList.add("opaque");
+
+//   let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+//   let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+//   await roundCountdown();
+//   pickMoveOverlay.classList.add('show-animation');
+//   pigeon.classList.add('picking-move-animation');
+//   console.log('done timer!');
+//   changeRoundTitle(Rounds.all['game1'].counter);
+//   // First round start timer
+//   document.querySelector("div.countdown-overlay").classList.add("d-none");
+//   document.querySelector("div.countdown-overlay").classList.remove("opaque");
+//   Timer.all['myTimer'].startCounter();
+//   document.querySelector(".play-again").classList.add("d-none")
+//   document.querySelector('.move-picker-overlay').classList.add('show-animation');
+//   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+//   document.querySelector('.done').classList.add('pop-in-animation');
+// })();
+
 
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
@@ -104,6 +137,7 @@ document.querySelector('body').addEventListener('click', async event => {
   /* ---- Done ---- */
   if (target.tagName === "DIV" && target.classList.contains('done')) {
     await Game.currentGame.currentRound.donePressed();
+    //await donePressed();
   }
 
   /* ---- My Ammo ---- */
@@ -116,7 +150,7 @@ document.querySelector('body').addEventListener('click', async event => {
     // AmmoIcon.all.player1_attack.unclick();
 
     RoundMove.selectedMoveType = 'block';
-
+    // const myBlockCounter = document.querySelector('span.my-block-counter');
     document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedShield.png");
     document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
   }
@@ -130,7 +164,7 @@ document.querySelector('body').addEventListener('click', async event => {
     // AmmoIcon.all.player1_shield.unclick();
 
     RoundMove.selectedMoveType = 'attack';
-
+    // const myAttackCounter = document.querySelector('span.my-attack-counter');
     document.getElementById("attack-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/PressedFork.png");
     document.getElementById("shield-image").setAttribute("src", "/assets/img/GUI-controls/MainControls/vikingshield-1.png");
   }
@@ -157,7 +191,12 @@ document.querySelector('body').addEventListener('click', async event => {
     currentMovePlaceholder.bodyPartType = bodyPartType;
     currentMovePlaceholder.moveType = RoundMove.selectedMoveType;
 
+    // -- We don't need this anymore, because we are already giving this to the instance when we initialize it (See MovePlaceholder.js constructor function).
+    //currentMovePlaceholder.target = target;
     currentMovePlaceholder.check();
+
+    //console.log('currentMovePlaceholder', currentMovePlaceholder);
+    //console.log('my moves object', Players.all.player1.moves);
   }
 
   /* ---- Tutorial Overlay ---- */
@@ -165,6 +204,7 @@ document.querySelector('body').addEventListener('click', async event => {
   let helpBtn = document.querySelector(".help");
   if (target.tagName === "DIV" && target.classList.contains('help')) {
     tutorialOverlay.classList.remove("d-none");
+    // tutorialOverlay.classList.remove("animate__fadeOutLeft");
     tutorialOverlay.classList.add("animate__fadeInLeft");
     helpBtn.classList.remove("animate__infinite");
     Timer.all['myTimer'].pauseCounter();
@@ -172,6 +212,7 @@ document.querySelector('body').addEventListener('click', async event => {
   if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
     tutorialOverlay.classList.add("d-none");
     tutorialOverlay.classList.remove("animate__fadeInLeft");
+    // tutorialOverlay.classList.add("animate__fadeOutLeft");
     Timer.all['myTimer'].startCounter();
   }
 

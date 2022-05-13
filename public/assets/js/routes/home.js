@@ -36,14 +36,9 @@ document.querySelector("body").addEventListener('click', event => {
 
 });
 
-// Start Button Hover
-startBtn.addEventListener('mouseover', event => event.target.classList.add("hover"));
-startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
-
 // Start Button Click Listener
 startBtn.addEventListener('click', async event => {
   let target = event.target;
-  target.classList.add("pressed")
 
   let audio = new Audio("/assets/music/SuccessAttack.mp3");
   await audio.play();
