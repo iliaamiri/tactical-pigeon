@@ -28,7 +28,9 @@ module.exports = async (io, socket) => {
 
     Players.playerEmitter.on('gameReady', function (game) {
       Games.add(game);
-      //console.log('Games.all', Games.showAll());
+
+      console.log('Games.all', Games.showAll());
+
       const playersUsernames = [];
       // console.log('game players', game.players);
       game.players.forEach(playerId => {

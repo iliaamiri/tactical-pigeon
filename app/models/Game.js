@@ -14,6 +14,7 @@ const Game = {
 
   initNewGame(playersArr) {
     this.gameId = makeId();
+    this.rounds = [];
     this.nextRound();
     this.players = [];
 
