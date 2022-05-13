@@ -9,6 +9,8 @@ const Player = {
 
   socketId: null, // socket.io Id. Changes for each socket connection.
 
+  currentGameIdPlaying: null, // current gameId where user is playing in.
+
   life: null, // $ref: Life
 
   initNewPlayer(username) {
