@@ -97,8 +97,9 @@ module.exports = async (io, socket) => {
 
   Players.playerEmitter.on('gameReady', function (game) {
     Games.add(game);
-    console.log('Games.all', Games.showAll());
+    //console.log('Games.all', Games.showAll());
     const playersUsernames = [];
+    // console.log('game players', game.players);
     game.players.forEach(playerId => {
       playersUsernames.push(Players.all[playerId].username);
     });
@@ -106,8 +107,14 @@ module.exports = async (io, socket) => {
       gameId: game.gameId,
       players: playersUsernames,
     };
-    console.log('players on match found', payload)
-    socket.emit("game:matchFound", payload);
+    //console.log('players on match found', payload);
+    //console.log('socket.user.userId =', socket.user);
+    
+    // try to emit the event only to the players who are in the game
+    if (game.players.includes(socket.user.playerId)) {
+      socket.emit("game:matchFound", payload);
+    }
+    
   });
 
   Games.gameEmitter.on('roundMovesComplete', function (moves, gameComplete) {
