@@ -26,6 +26,10 @@ class Tally {
   fillColumnDefeat() {
     let tallyColumn = this.tallyElement.querySelectorAll(`td:nth-child(${this.currentTallyColumnNumber})`);
     tallyColumn.forEach(td => {
+      // don't fill the roundPoints row; filling it looks ugly
+      if (td.classList.contains('roundPoints')) {
+        return;
+      }
       td.classList.add('round-defeat');
     });
     this.currentTallyColumnNumber++;
@@ -34,6 +38,10 @@ class Tally {
   fillColumnVictory() {
     let tallyColumn = this.tallyElement.querySelectorAll(`td:nth-child(${this.currentTallyColumnNumber})`);
     tallyColumn.forEach(td => {
+      // don't fill the roundPoints row; filling it looks ugly
+      if (td.classList.contains('roundPoints')) {
+        return;
+      }
       td.classList.add('round-won');
     });
     this.currentTallyColumnNumber++;
@@ -42,6 +50,10 @@ class Tally {
   fillColumnDraw() {
     let tallyColumn = this.tallyElement.querySelectorAll(`td:nth-child(${this.currentTallyColumnNumber})`);
     tallyColumn.forEach(td => {
+      // don't fill the roundPoints row; filling it looks ugly
+      if (td.classList.contains('roundPoints')) {
+        return;
+      }
       td.classList.add('round-draw');
     });
     this.currentTallyColumnNumber++;
