@@ -45,7 +45,7 @@
             <img src="/assets/img/Overlays/ArrowDown.svg" alt="arrow down">
           </div>
           <div class="blueBanner">
-            <span class="character">you are: PUSINESS MAN </span>
+            <p class="character">you are: PUSINESS MAN </p>
           </div>
           <div class="yourPigeon"></div>
           <div class="bubble bubble-bottom-left">
@@ -245,20 +245,26 @@
           </div>
           <div class="row d-flex justify-content-between health">
             <!-- My Health Bar Components -->
-            <div class="col-sm-3 asset-padding">
+            <div class="col-sm-3 flex-column align-items-start asset-padding">
               <div class="health-container myHealthBar">
                 <div class="heart heart-filled"></div>
                 <div class="heart heart-filled"></div>
                 <div class="heart heart-filled"></div>
               </div>
+              <div class="username-div my-username-div">
+                <span class="username-span my-username-span"></span>
+              </div>
             </div>
 
             <!-- Opponent's Health Bar Components -->
-            <div class="col-sm-3 d-flex justify-content-end asset-padding">
+            <div class="col-sm-3 d-flex flex-column align-items-end asset-padding">
               <div class="health-container opponentHealthBar">
                 <div class="heart heart-filled"></div>
                 <div class="heart heart-filled"></div>
                 <div class="heart heart-filled"></div>
+              </div>
+              <div class="username-div opponent-username-div">
+                <span class="username-span opponent-username-span"></span>
               </div>
             </div>
           </div>
