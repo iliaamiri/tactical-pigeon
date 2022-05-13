@@ -1,12 +1,9 @@
 import Game from "../helpers/Game.js";
 
-// let myTimer = document.querySelector('div.timer-counter');
 let myTimerCounter = document.querySelector('span.time-nums');
 
 class Timer {
   #counter = 30;
-
-  // timePerRound;
 
   counterRange = [0, 30];
 
@@ -37,15 +34,10 @@ class Timer {
 
   startCounter() {
     this.interval = setInterval(async () => {
-      // myTimerCounter.innerHTML = this.counter;
       this.counter--;
-      // this.element.innerHTML = this.counter;
       if (this.counter === 0) {
 
         await Game.currentGame.currentRound.donePressed();
-        // change back timer background to blue on new round
-        document.querySelector(".timer-counter").classList.remove("red");
-        document.querySelector(".timer-counter").classList.add("blue");
 
       } else if (this.counter === 10) {
         // change timer background to red at 10 seconds

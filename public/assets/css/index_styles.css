@@ -81,28 +81,33 @@ div.startBtn {
   width: 20vw;
   height: 14vh;
   margin-top: 15px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 div.startBtn.unpressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
 }
 
+div.startBtn.hover {
+  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+  /* cursor: not-allowed; */
+}
+
 div.startBtn.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
 }
 
 div.playOnlineBtn.playOnlineBtn {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Static.png");
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Static.svg");
 }
 
 div.playOnlineBtn.playOnlineBtn.hover {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.png");
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.svg");
 }
 
 div.playOnlineBtn.playOnlineBtn.pressed {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Pressed.png");
+  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.svg");
 }
 
 /* Logo */

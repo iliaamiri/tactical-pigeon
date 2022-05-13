@@ -240,6 +240,10 @@ class Round {
       AmmoInventory.all.opponentAttack.counter
       + AmmoInventory.all.opponentBlock.counter;
 
+    // change back timer background to blue on new round
+    document.querySelector(".timer-counter").classList.remove("red");
+    document.querySelector(".timer-counter").classList.add("blue");
+
     if (
       this.currentRoundNumber < this.counterRange[1] // If this wasn't the last round
       && Life.all.myLife.counter > 0 // If player1 still has lives
