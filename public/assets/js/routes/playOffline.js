@@ -22,6 +22,18 @@ import Token from "../io/auth/Token.js";
 // Fetch username from cookie
 export let username = Token.fetchCachedUsernameOnly();
 
+// Inserting the username into the blue banner on the intro overlay
+let blueBannerUsernameSpan = document.querySelector('div.blueBanner p.character');
+if (username !== null) {
+  blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
+}
+
+// inserting the username and 'computer' under the health bars
+let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
+myUsernameSpan.innerHTML = username;
+let opponentUsernameSpan = document.querySelector('div.opponent-username-div span.opponent-username-span');
+opponentUsernameSpan.innerHTML = 'computer';  
+
 //Initiating the game.
 Game.currentGame = new Game("offline_game");
 // Round.all.game1 = new Round();
@@ -86,7 +98,6 @@ document.querySelector(".continueBtn").addEventListener("click", async event => 
 
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
-  // event.preventDefault();
   let target = event.target;
 
   // Checking if this element is not clickable

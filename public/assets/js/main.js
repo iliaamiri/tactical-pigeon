@@ -8,7 +8,7 @@ await import('./routes/_common.js');
 
 Router.assign('/', 'home');
 
-Router.assign('/play', 'play');
+Router.assign('/play', 'playOffline');
 Router.assign('/play/:gameId', 'playOnline');
 
 
