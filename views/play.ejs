@@ -50,7 +50,7 @@
           <div class="bubble bubble-bottom-left">
             <span class="backstory">I’m a bird in the big apple. Lifes good! Amazing food, great night life,
               what more can a
-              pigeon ask for? Well ...I wish sweater pigeon would stop stealing my food....I’ll have to
+              pigeon ask for? Well ...I wish &nbsp; <span class="pigeon-type"> hoodie pigeon</span> &nbsp;would stop stealing my food....I’ll have to
               take thing into my
               own hands. Nothing personal, it’s just business.</span>
             <div class="objectives">
@@ -115,7 +115,7 @@
             <!-- My Shield View Components -->
             <div class="col-sm-2 asset-padding">
               <div class="d-flex justify-content-end">
-                <img id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
+                <img draggable = "true" id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
                   class="shield-icon my-shield animate__animated">
               </div>
               <div class="counter-box my-counter">
@@ -138,7 +138,7 @@
             <!-- My Attack View Components -->
             <div class="col-sm-2 justify-content-end asset-padding">
               <div class="d-flex justify-content-end">
-                <img id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
+                <img draggable = "true" id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
                   class="shield-icon my-attack animate__animated">
               </div>
               <div class="counter-box my-counter">
@@ -321,12 +321,12 @@
     </div>
   </div>
 
-  <!-- more audio for rounds/game wins/loses -->
+  <!-- more audio for rounds/game wins/loses (removed drawRound sound for now)-->
+
   <audio hidden="true" id="winRound" src="/assets/music/win-round-sound.wav"></audio>
   <audio hidden="true" id="winGame" src="/assets/music/winning-game.wav"></audio>
   <audio hidden="true" id="loseGame" src="/assets/music/lose-game-moan.wav"></audio>
   <audio hidden="true" id="drawGame" src="/assets/music/draw-game.wav"></audio>
-
   <audio hidden="true" id="loseRound" src="/assets/music/click-error.wav"></audio>
   <audio hidden="true" id="bgMusic" src="/assets/music/Fluffing-a-Duck.mp3"></audio>
 
@@ -445,6 +445,8 @@
           muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Mute.svg")';
         }
       }
+
+      // drag + drop event handlers
 
     </script>
 
