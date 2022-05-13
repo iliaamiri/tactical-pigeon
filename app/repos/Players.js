@@ -60,9 +60,11 @@ const Players = {
     console.log('adding player to match queue', player);
     this.matchQueue.push(player.playerId);
     //console.log('match queue length', this.matchQueue.length);
-    if (this.matchQueue.length >= 2) {
+    if (this.matchQueue.length === 2) {
       // console.log('match queue', this.matchQueue);
-      playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+      // playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+      playerEmitter.emit('matchReady', this.matchQueue);
+      this.matchQueue = [];
     }
   },
 
