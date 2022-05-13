@@ -5,6 +5,11 @@ const GameExceptions = require("../../../core/Exceptions/GameExceptions");
 const Games = require("../../repos/Games");
 const Players = require("../../repos/Players").Players;
 
+// Mutex
+const Mutex = require('async-mutex').Mutex;
+const Semaphore = require('async-mutex').Semaphore;
+const withTimeout = require('async-mutex').withTimeout;
+
 module.exports = async (io, socket) => {
   // socket.user : ref to Player : authenticated player.
 
@@ -18,27 +23,54 @@ module.exports = async (io, socket) => {
       throw GameExceptions.currentlyInGame.errMessage;
     }
 
-    // Add the player to the match queue.
-    Players.addToMatchQueue(socket.user);
+    const mutex = new Mutex();
+    mutex
+      .runExclusive(function() {
+        // Add the player to the match queue.
+        Players.addToMatchQueue(socket.user);
+      })
+      .then(function() {
+        Players.playerEmitter.on('gameReady', function (game) {
+          Games.add(game);
+          //console.log('Games.all', Games.showAll());
+          const playersUsernames = [];
+          // console.log('game players', game.players);
+          game.players.forEach(playerId => {
+            playersUsernames.push(Players.all[playerId].username);
+          });
+          const payload = {
+            gameId: game.gameId,
+            players: playersUsernames,
+          };
+          //console.log('players on match found', payload);
+          //console.log('socket.user.userId =', socket.user);
 
-    Players.playerEmitter.on('gameReady', function (game) {
-      Games.add(game);
-      //console.log('Games.all', Games.showAll());
-      const playersUsernames = [];
-      // console.log('game players', game.players);
-      game.players.forEach(playerId => {
-        playersUsernames.push(Players.all[playerId].username);
+          // try to emit the event only to the players who are searching for an opponent
+          socket.emit("game:matchFound", payload);
+        });
       });
-      const payload = {
-        gameId: game.gameId,
-        players: playersUsernames,
-      };
-      //console.log('players on match found', payload);
-      //console.log('socket.user.userId =', socket.user);
 
-      // try to emit the event only to the players who are searching for an opponent
-      socket.emit("game:matchFound", payload);
-    });
+    // // Add the player to the match queue.
+    // Players.addToMatchQueue(socket.user);
+
+    // Players.playerEmitter.on('gameReady', function (game) {
+    //   Games.add(game);
+    //   //console.log('Games.all', Games.showAll());
+    //   const playersUsernames = [];
+    //   // console.log('game players', game.players);
+    //   game.players.forEach(playerId => {
+    //     playersUsernames.push(Players.all[playerId].username);
+    //   });
+    //   const payload = {
+    //     gameId: game.gameId,
+    //     players: playersUsernames,
+    //   };
+    //   //console.log('players on match found', payload);
+    //   //console.log('socket.user.userId =', socket.user);
+    //
+    //   // try to emit the event only to the players who are searching for an opponent
+    //   socket.emit("game:matchFound", payload);
+    // });
   };
 
   const fetchCurrentStateOfGame = (gameId) => {
