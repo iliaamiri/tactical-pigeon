@@ -21,6 +21,13 @@ const Player = {
   initOnlinePlayer(playerId, username) {
     this.playerId = playerId;
     this.username = username;
+  },
+
+  initForNewGame(game) {
+    // Allocate both players their ongoing game id to make sure they won't play another game simultaneously.
+    this.currentGameIdPlaying = game.gameId;
+
+    // Initiate the players' initial ammo and lives.
     this.ammoInventory = Object.create(AmmoInventory);
     this.life = Object.create(Life);
   },

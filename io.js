@@ -8,7 +8,7 @@ module.exports = (server) => {
   io.use(userAuthMiddleware);
 
   io.on('connection', async (socket) => {
-    console.log("Connected. User: ", socket.user)
+    console.log("Connected. User: ", socket.user.username);
     try {
       await gameHandler(io, socket);
     } catch (err) {
