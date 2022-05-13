@@ -134,7 +134,7 @@ class Round {
         if (Round.tdCounter === 4) {
           roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)");
         }
-        
+
         roundPoints.appendChild(span);
         Round.tdCounter++;
       }, 350);
@@ -206,6 +206,10 @@ class Round {
     let rightPlayerTotalInventory =
       AmmoInventory.all.opponentAttack.counter
       + AmmoInventory.all.opponentBlock.counter;
+
+    // change back timer background to blue on new round
+    document.querySelector(".timer-counter").classList.remove("red");
+    document.querySelector(".timer-counter").classList.add("blue");
 
     if (
       this.currentRoundNumber < this.counterRange[1] // If this wasn't the last round
