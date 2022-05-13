@@ -12,6 +12,12 @@ export let searchingForOpponentAnimation;
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
 
+if (Token.fetchCachedUsernameOnly()) {
+  titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
+  usernameInput.value = Token.username;
+  usernameInput.disabled = true;
+}
+
 // General Click Event Listener
 document.querySelector("body").addEventListener('click', event => {
   let target = event.target;
@@ -37,21 +43,15 @@ startBtn.addEventListener('click', async event => {
   let audio = new Audio("/assets/music/SuccessAttack.mp3");
   await audio.play();
 
+  const playerUsername = usernameInput.value;
+  if (playerUsername.length < 1) {
+    usernameInput.focus();
+    titleEnterName.classList.add("error-alert");
+    return;
+  }
+
   if (target.classList.contains("playOnlineBtn")) { // Play Online
-    if (Token.isAuthenticated()) {
-      titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
-      usernameInput.value = Token.username;
-      usernameInput.disabled = true;
-    }
-
     target.classList.add("pressed");
-
-    const playerUsername = usernameInput.value;
-    if (playerUsername.length < 1) {
-      usernameInput.focus();
-      titleEnterName.classList.add("error-alert");
-      return;
-    }
 
     usernameInput.disabled = true;
 
@@ -103,11 +103,7 @@ startBtn.addEventListener('click', async event => {
       target.classList.remove("pressed");
     }
   } else { // Play Offline
-    if (Token.fetchCachedUsernameOnly()) {
-      titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
-      usernameInput.value = Token.username;
-      usernameInput.disabled = true;
-    }
+    Token.saveUsername(playerUsername);
 
     let tID = setTimeout(function () {
       window.location.href = document.location.href + "play";
