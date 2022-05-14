@@ -24,10 +24,14 @@ class Game {
 
   currentRound = new Round();
 
+  gameModes = ["online", "offline"];
+  gameMode = "offline";
+
   endResult = null;
 
-  constructor(gameId) {
+  constructor(gameId, gameMode = "offline") {
     this.gameId = gameId;
+    this.gameMode = gameMode;
     Game.currentGame = this;
   }
 
@@ -39,16 +43,35 @@ class Game {
       return null;
     }
 
-    this.initiateCache(gameId, foundGame, players, movesHistory);
+    this.initiateOnlineFromCache(gameId, foundGame, players, movesHistory);
   }
 
-  static initiate(gameId, myUsername, opponentUsername) {
+  initiateOnlineFetchedFromServer(playerMe, playerOpponent, gameStatus) {
+    // Player 1 (Me)
+    let myAmmoInventories = playerMe.ammoInventories;
+    let myLives = playerMe.lives.lives;
+    let myMoveHistory = playerMe.moveHistory;
+
+    // Player 2 (Opponent)
+    let opponentAmmoInventories = playerOpponent.ammoInventories;
+    let opponentLives = playerOpponent.lives.lives;
+    let opponentMoveHistory = playerOpponent.moveHistory;
+
+    let movesHistories = [];
+
+    for (let i = 0; i < myMoveHistory.length; i++) {
+      movesHistories.push({
+        player1: myMoveHistory[i],
+        player2: opponentMoveHistory[i]
+      });
+    }
+
     // Initiating the players.
-    Players.all.player1 = new Player(myUsername, {
+    Players.all.player1 = new Player("myUsername", {
       'blocks': AmmoInventory.all['block-left'],
       'attacks': AmmoInventory.all['attack-left']
     });
-    Players.all.player1 = new Player(opponentUsername, {
+    Players.all.player1 = new Player("opponentUsername", {
       'blocks': AmmoInventory.all['block-left'],
       'attacks': AmmoInventory.all['attack-left']
     });
@@ -58,11 +81,25 @@ class Game {
       'player1': new Tally(document.querySelector('table.tally.my-tally'), Players.all.player1),
       'player2': new Tally(document.querySelector('table.tally.opponent-tally'), Players.all.player2)
     };
-    Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
+    Tally.all.player1.currentTallyColumnNumber = 2;
+    Tally.all.player1.currentTallyColumnNumber = 1;
+
+    this.currentRound.fillTheTalliesWithMoveHistory(movesHistories);
+
+    // Set the current round number
+    this.currentRound.currentRoundNumber = myMoveHistory.length + 1;
+
+    Life.all.myLife.counter = myLives;
+    Life.all.opponentLife.counter = opponentLives;
+
+    Players.all.player1.ammoInventory.blocks = myAmmoInventories.blockCount;
+    Players.all.player1.ammoInventory.attacks = myAmmoInventories.attackCount;
+    Players.all.player2.ammoInventory.blocks = opponentAmmoInventories.blockCount;
+    Players.all.player2.ammoInventory.attacks = opponentAmmoInventories.attackCount;
   }
 
-  static initiateCache(gameId, foundGame, players, movesHistory) {
-    let gameInstance = new Game(gameId);
+  static initiateOnlineFromCache(gameId, foundGame, players, movesHistory) {
+    let gameInstance = this.currentGame;
 
     Players.all.player1 = new Player(players.player1.username, {
       'blocks': AmmoInventory.all['block-left'],
@@ -107,8 +144,6 @@ class Game {
 
       // you get sunglasses
       Sunglasses.left.activate();
-      // document.querySelector(".sunglasses-left").classList.remove("d-none")
-      // document.querySelector(".sunglasses-left").classList.add("animate__backInDown")
 
       // game win sound effect
       await playSound(sounds.winGame);
@@ -119,9 +154,6 @@ class Game {
 
       // opponent gets sunglasses
       Sunglasses.right.activate();
-      // document.querySelector(".sunglasses-right").classList.remove("d-none")
-      // document.querySelector(".sunglasses-right").classList.add("animate__backInDown")
-
 
       //game lose sound effect
       let bgMusic = document.querySelector("#bgMusic");
@@ -177,55 +209,9 @@ class Game {
 
   resetGame() {
     return location.reload();
-
-    // Do not delete this yet
-    // let replayBtn = document.querySelector(".play-again")
-    // replayBtn.classList.add('replay-out-animation');
-    // replayBtn.classList.remove('replay-in-animation');
-
-    // let resultOverlay = document.querySelector(".result-banner")
-    // resultOverlay.classList.remove('victory');
-
-    // // reset move picker
-    // clearBoardForNewRound()
-
-    // // reset tally board
-    // let myTally = document.querySelectorAll(`table.tally.my-tally td`);
-    // console.log('my empty tally', myTally);
-    // myTally.forEach((td) => {
-    //     td.classList.remove('cell-attacked');
-    //     td.classList.remove('cell-blocked');
-    //     td.classList.remove('round-won');
-    //     td.classList.remove('round-draw');
-    //     td.classList.remove('round-defeat');
-    // });
-
-    // let opponentTally = document.querySelectorAll(`table.tally.opponent-tally td`);
-    // console.log('opponent empty tally', opponentTally);
-    // opponentTally.forEach((td) => {
-    //     td.classList.remove('cell-attacked');
-    //     td.classList.remove('cell-blocked');
-    //     td.classList.remove('round-won');
-    //     td.classList.remove('round-draw');
-    //     td.classList.remove('round-defeat');
-    // });
-
-    // // reset ammo
-    // Inventory.all["block-left"].resetCounter();
-    // Inventory.all["attack-left"].resetCounter();
-    // Inventory.all["opponentBlock"].resetCounter();
-    // Inventory.all["opponentAttack"].resetCounter();
-
-    // // reset lives
-    // Life.all['myLife'].resetCounter();
-    // Life.all['opponentLife'].resetCounter();
-
-    // // reset timer
-    // windows reload
-    // or reset everything
   }
 
   static currentGame;
-};
+}
 
 export default Game;
