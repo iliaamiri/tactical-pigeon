@@ -8,7 +8,8 @@ const AmmoInventory = require("../models/AmmoInventory");
 //const Round = require('../models/Round');
 const Life = require('../models/Life');
 
-const {Mutex} = require("async-mutex");
+// Mutex
+const { Mutex } = require("async-mutex");
 
 /* playerEmitter.on('addPlayer', function(player) {
   //console.log('adding player', player);

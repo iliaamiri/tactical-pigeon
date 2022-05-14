@@ -5,11 +5,6 @@ const GameExceptions = require("../../../core/Exceptions/GameExceptions");
 const Games = require("../../repos/Games");
 const Players = require("../../repos/Players").Players;
 
-// Mutex
-const Mutex = require('async-mutex').Mutex;
-const Semaphore = require('async-mutex').Semaphore;
-const withTimeout = require('async-mutex').withTimeout;
-
 module.exports = async (io, socket) => {
   // socket.user : ref to Player : authenticated player.
 
