@@ -14,8 +14,6 @@ const Life = {
 
   toJSON: function () {
     return {
-      gameId: this.gameId,
-      playerId: this.playerId,
       lives: this.lives,
     };
   },
