@@ -58,8 +58,8 @@ class Life {
   static all = {
     'myLife': new Life(myLifeNodes),
     'opponentLife': new Life(opponentLifeNodes)
-  }
+  };
 
-};
+}
 
 export default Life;
