@@ -11,43 +11,6 @@ import RoundMove from "../helpers/RoundMove.js";
 // Core and Utils
 import {sounds} from "../core/sounds.js";
 
-/* ---- Scroll Effect ---- */
-let speechbubble = document.querySelector(".bubble");
-speechbubble.addEventListener("scroll", async event => {
-  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-});
-
-// background intro screen
-document.querySelector(".continueBtn").addEventListener("click", async event => {
-  console.log(event.target);
-  event.target.classList.remove("unpressed");
-  document.querySelector(".continueBtn").classList.add("pressed");
-  document.querySelector(".intro-page").classList.add("d-none");
-  // first round preparation
-  document.querySelector(".play-again").classList.add("d-none");
-  document.querySelector("div.countdown-overlay").classList.remove("d-none");
-  document.querySelector("div.countdown-overlay").classList.add("opaque");
-
-  await roundCountdown();
-
-  changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
-
-  // First round start timer
-  Timer.all['myTimer'].startCounter();
-
-  document.querySelector("div.countdown-overlay").classList.add("d-none");
-  document.querySelector("div.countdown-overlay").classList.remove("opaque");
-
-  let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-  let pickMoveOverlay = document.querySelector('div.move-picker-overlay');
-
-  pickMoveOverlay.classList.add('show-animation');
-  pigeon.classList.add('picking-move-animation');
-
-  document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
-  document.querySelector('.done').classList.add('pop-in-animation');
-});
-
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
   let target = event.target;
