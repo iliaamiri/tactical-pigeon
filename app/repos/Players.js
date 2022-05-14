@@ -1,12 +1,8 @@
 const EventEmitter = require('events');
 const playerEmitter = new EventEmitter();
 
-const makeId = require('../../core/utils').makeId;
 const Games = require("./Games");
 const Game = require("../models/Game");
-const AmmoInventory = require("../models/AmmoInventory");
-//const Round = require('../models/Round');
-const Life = require('../models/Life');
 
 // Mutex
 const { Mutex } = require("async-mutex");
