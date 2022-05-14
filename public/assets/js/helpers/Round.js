@@ -339,6 +339,40 @@ class Round {
     }
   }
 
+  fillTheTalliesWithMoveHistory(moveHistory) {
+    let player1Tally = Tally.all.player1;
+    let player2Tally = Tally.all.player2;
+
+    for (let i = 0; i < moveHistory.length; i++) {
+      let roundMoves = moveHistory[i];
+      let player1Moves = roundMoves.player1;
+      let player2Moves = roundMoves.player2;
+
+      // Calculate players moves at each column AND gather them inside an array.
+      let playerMoves = [];
+      for (let index = 0; index < 3; index++) {
+        let player1MoveComponent = player1Moves[index];
+        let player2MoveComponent = player2Moves[index];
+        playerMoves.push(this.singleCompare(player1MoveComponent, player2MoveComponent));
+      }
+
+      // Calculate the result of this round
+      let roundResult = this.tripletCompare(playerMoves);
+
+      // Aftermath
+      if (roundResult === 1) { // Player 1 won ; Player 2 lost
+        player1Tally.fillColumnVictory();
+        player2Tally.fillColumnDefeat();
+      } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
+        player1Tally.fillColumnDefeat();
+        player2Tally.fillColumnVictory();
+      } else { // Draw
+        player1Tally.fillColumnDraw();
+        player2Tally.fillColumnDraw();
+      }
+    }
+  }
+
   singleCompare(move1, move2) {
     if (move1 === 'attack' && move2 === 'none') {
       return 1;
