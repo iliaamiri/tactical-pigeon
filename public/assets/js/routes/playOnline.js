@@ -23,3 +23,5 @@ MovePlaceholder.all = {
   'body': new MovePlaceholder('body'),
   'legs': new MovePlaceholder('legs')
 };
+
+await import('./_common_play.js');
