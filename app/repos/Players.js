@@ -2,7 +2,7 @@ const EventEmitter = require('events');
 const playerEmitter = new EventEmitter();
 
 const makeId = require('../../core/utils').makeId;
-//const Games = require("./Games");
+const Games = require("./Games");
 const Game = require("../models/Game");
 const AmmoInventory = require("../models/AmmoInventory");
 //const Round = require('../models/Round');
@@ -38,6 +38,11 @@ playerEmitter.on('matchReady', function (playersIdsArr) {
     // Initiate the players for a new game (prepare them for a new game).
     player.initForNewGame(game);
   });
+
+  // Add the game instance to the Games collection.
+  Games.add(game);
+
+  console.log('Games.all', Games.showAll()); // debug
 
   // Signal `gameReady` Event and pass the game instance to the socket handler.
   playerEmitter.emit('gameReady', game);

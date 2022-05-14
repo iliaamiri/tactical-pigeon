@@ -27,9 +27,10 @@ module.exports = async (io, socket) => {
     Players.addToMatchQueue(socket.user);
 
     Players.playerEmitter.on('gameReady', function (game) {
-      Games.add(game);
-
-      console.log('Games.all', Games.showAll());
+      // If the player is not a player in this game, don't send them anything.
+      if (!game.players.includes(socket.user.playerId)) {
+        return;
+      }
 
       const playersUsernames = [];
       // console.log('game players', game.players);
@@ -43,7 +44,7 @@ module.exports = async (io, socket) => {
       //console.log('players on match found', payload);
       //console.log('socket.user.userId =', socket.user);
 
-      // try to emit the event only to the players who are searching for an opponent
+      // try to emit the event only to the players who are searching for an opponent AND are in the game
       socket.emit("game:matchFound", payload);
     });
   };
