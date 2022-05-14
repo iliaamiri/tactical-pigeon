@@ -40,6 +40,26 @@ const GameController = {
 
   async showGamePage(req, res) {
     res.render('play');
+  },
+
+  async showOnlinePlay(req, res) {
+    // req.body.gameId
+
+    // we need to make sure that the gameId exists in the Games.all
+    // Games.find(gameId);
+
+    // the user should be authenticated at this point.
+
+    // we need to check if the authenticated user is one the players of the game.
+
+    // check if the game is still ongoing and not finished.
+
+    res.render('play', {
+      playMode: "online",
+      gameId: "<gameId>",
+      myUsername: "<myUsername>",
+      opponentUsername: "<opponentUsername>"
+    });
   }
 };
 

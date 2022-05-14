@@ -1,20 +1,35 @@
+// Components
+import changeRoundTitle from "../helpers/changeRoundTitle";
+
+const loadingCloudsOverlay = document.querySelector('div.loading-clouds-overlay');
+const playAgainButton = document.querySelector(".play-again");
+const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
+const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
+const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+
 // Helpers
 import Game from "../helpers/Game.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
 import clientSocketConnect from "../io/client.js";
+import roundCountdown from "../helpers/roundCountdown";
+import Timer from "../components/Timer";
 
-const socket = clientSocketConnect();
+let socket;
+try {
+  socket = await clientSocketConnect();
 
-// Load the game
+  socket.on('connect_error', err => {
+    let message = err.message;
+    console.log(message);
+    if (message === "AUTHENTICATION_FAILED") {
+      alert("Authentication Failed. Please try again.");
 
-// Check if there are caches to load from
-let cacheFound = Game.findByGameId(gameId);
-if (!cacheFound) { // If not, fetch information from the server.
-  // Initiate the game.
-  new Game(gameId);
-
-  // initiate everything from the beginning
-  Game.initiate(gameId, myUsername, opponentUsername);
+      location.href = "/";
+      return;
+    }
+  });
+} catch (err) {
+  console.log(err);
 }
 
 // Initiating the move placeholders.
@@ -23,5 +38,47 @@ MovePlaceholder.all = {
   'body': new MovePlaceholder('body'),
   'legs': new MovePlaceholder('legs')
 };
+
+// Instantiate the Game. gameId comes from play.ejs
+let game = new Game(gameId, "online");
+
+// Loading the game (Exhibition)
+document.querySelector(".intro-page").classList.add("d-none"); // Hide the intro-page
+playAgainButton.classList.add("d-none"); // Hide the play again button
+loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds overlay
+
+await new Promise((resolve, reject) => {
+  // Check if there are caches to load from
+  let cachedGameFound = Game.findByGameId(gameId);
+  if (!cachedGameFound) { // If not, fetch information from the server.
+    // web socket emit "game:fetch" with payload: gameId
+    socket.emit("game:fetch");
+
+    document.addEventListener('gameFetchedReady', event => {
+      resolve(event);
+    });
+  } else {
+    game = cachedGameFound;
+  }
+});
+
+countdownOverlayComponent.classList.remove("d-none");
+countdownOverlayComponent.classList.add("opaque");
+
+await roundCountdown();
+
+changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
+
+// First round start timer
+Timer.all['myTimer'].startCounter();
+
+countdownOverlayComponent.classList.add("d-none");
+countdownOverlayComponent.classList.remove("opaque");
+
+pickMoveOverlay.classList.add('show-animation');
+pigeon.classList.add('picking-move-animation');
+
+document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+document.querySelector('.done').classList.add('pop-in-animation');
 
 await import('./_common_play.js');

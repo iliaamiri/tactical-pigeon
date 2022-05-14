@@ -70,8 +70,8 @@ module.exports = async (io, socket) => {
 
     // Construct my information (my ammo, my lives, my move history).
     const playerMe = {
-      ammoInventories: thisPlayer.ammoInventory,
-      lives: thisPlayer.life,
+      ammoInventories: thisPlayer.ammoInventory.toJSON(),
+      lives: thisPlayer.life.toJSON(),
       moveHistory: thisPlayerMoveHistory,
     };
 
@@ -85,8 +85,8 @@ module.exports = async (io, socket) => {
 
     // Construct my opponent's information (their ammo, their lives, their move history)
     const playerOpponent = {
-      ammoInventories: otherPlayer.ammoInventory,
-      lives: otherPlayer.life,
+      ammoInventories: otherPlayer.ammoInventory.toJSON(),
+      lives: otherPlayer.life.toJSON(),
       moveHistory: otherPlayerMoveHistory,
     };
 
