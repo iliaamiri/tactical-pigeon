@@ -17,14 +17,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-  <!-- For Online Game -->
-  <% if (typeof playMode !== "undefined" && playMode === "online") { %>
-    <script>
-      const gameId = "<%= gameId %>";
-      const myUsername = "<%= myUsername %>";
-      const opponentUsername = "<%= opponentUsername %>";
-    </script>
-  <% } %>
+    <!-- For Online Game -->
+    <% if (typeof playMode !=="undefined" && playMode==="online" ) { %>
+      <script>
+        const gameId = "<%= gameId %>";
+        const myUsername = "<%= myUsername %>";
+        const opponentUsername = "<%= opponentUsername %>";
+      </script>
+      <% } %>
 </head>
 
 <body class="default-background">
@@ -51,7 +51,8 @@
           <div class="bubble bubble-bottom-left">
             <span class="backstory">I’m a bird in the big apple. Lifes good! Amazing food, great night life,
               what more can a
-              pigeon ask for? Well ...I wish &nbsp; <span class="pigeon-type"> hoodie pigeon</span> &nbsp;would stop stealing my food....I’ll have to
+              pigeon ask for? Well ...I wish &nbsp; <span class="pigeon-type"> hoodie pigeon</span> &nbsp;would stop
+              stealing my food....I’ll have to
               take thing into my
               own hands. Nothing personal, it’s just business.</span>
             <div class="objectives">
@@ -121,8 +122,8 @@
             <!-- My Shield View Components -->
             <div class="col-sm-2 asset-padding">
               <div class="d-flex justify-content-end">
-                <img draggable = "true" id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png" alt=""
-                  class="shield-icon my-shield animate__animated">
+                <img draggable="true" id="shield-image" src="/assets/img/GUI-controls/MainControls/vikingshield-1.png"
+                  alt="" class="shield-icon my-shield animate__animated">
               </div>
               <div class="counter-box my-counter">
                 <span class="my-block-counter">X4</span>
@@ -144,8 +145,8 @@
             <!-- My Attack View Components -->
             <div class="col-sm-2 justify-content-end asset-padding">
               <div class="d-flex justify-content-end">
-                <img draggable = "true" id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png" alt=""
-                  class="shield-icon my-attack animate__animated">
+                <img draggable="true" id="attack-image" src="/assets/img/GUI-controls/MainControls/attackfork-1.png"
+                  alt="" class="shield-icon my-attack animate__animated">
               </div>
               <div class="counter-box my-counter">
                 <span class="my-attack-counter">X4</span>
@@ -322,7 +323,9 @@
             </div>
           </div>
 
-          <div class="done position-absolute"></div>
+          <div class="done position-absolute">
+            <div class="doneStyled">fight!</div>
+          </div>
         </div>
       </div>
     </div>
