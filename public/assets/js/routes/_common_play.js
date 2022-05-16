@@ -26,7 +26,7 @@ document.querySelector('body').addEventListener('click', async event => {
   }
 
   /* ---- Done ---- */
-  if (target.tagName === "DIV" && target.classList.contains('done')) {
+  if (target.tagName === "DIV" && target.classList.contains('doneStyled')) {
     await Game.currentGame.currentRound.donePressed();
   }
 
