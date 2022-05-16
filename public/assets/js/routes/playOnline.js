@@ -1,6 +1,6 @@
 // Components
-import changeRoundTitle from "../helpers/changeRoundTitle";
-
+import Timer from "../components/Timer";
+import MovePlaceholder from "../components/MovePlaceholder.js";
 const loadingCloudsOverlay = document.querySelector('div.loading-clouds-overlay');
 const playAgainButton = document.querySelector(".play-again");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
@@ -8,11 +8,13 @@ const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
 
 // Helpers
+import changeRoundTitle from "../helpers/changeRoundTitle.js";
 import Game from "../helpers/Game.js";
-import MovePlaceholder from "../components/MovePlaceholder.js";
+import roundCountdown from "../helpers/roundCountdown.js";
+
+// Core and utils
 import clientSocketConnect from "../io/client.js";
-import roundCountdown from "../helpers/roundCountdown";
-import Timer from "../components/Timer";
+import LocalStorageCache from "../core/LocalStorageCache";
 
 let socket;
 try {
@@ -49,23 +51,24 @@ loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds over
 
 await new Promise((resolve, reject) => {
   // Check if there are caches to load from
-  let cachedGameFound = Game.findByGameId(gameId);
+  let cachedGameFound = Game.findByGameFromCache();
   if (!cachedGameFound) { // If not, fetch information from the server.
     // web socket emit "game:fetch" with payload: gameId
     socket.emit("game:fetch");
 
     document.addEventListener('gameFetchedReady', event => {
-      const { playerMe, playerOpponent, gameStatus } = event.detail;
+      // const { playerMe, playerOpponent, gameStatus } = event.detail;
 
-      let game = Game.currentGame;
+      // Save the game to the localStorage
+      LocalStorageCache.saveGame(...event.detail);
 
       // initiate everything from the beginning
-      game.initiateOnlineFetchedFromServer(playerMe, playerOpponent, gameStatus);
+      game.initiateOnline(...event.detail);
 
       resolve(event);
     });
   } else {
-    game = cachedGameFound;
+    game.initiateOnline(...cachedGameFound);
   }
 });
 

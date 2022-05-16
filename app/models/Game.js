@@ -1,5 +1,8 @@
 const Round = require("./Round");
 const {makeId} = require("../../core/utils");
+const singleCompare = require("../io/helpers/singleCompare");
+const tripleCompare = require("../io/helpers/tripleCompare");
+const {Players} = require("../repos/Players");
 
 const Game = {
   rowId: null, // int (db primary key auto incrmn)
@@ -27,9 +30,20 @@ const Game = {
     });
   },
 
-  nextRound: function () {
+  updateRoundMoves(moves, player) {
+    // Get the current round.
+    const currentRound = this.getCurrentRound();
+
+    // Update the moves of the player.
+    currentRound.addPlayerMove(player.playerId, moves);
+  },
+
+  /**
+   * Makes a new round as the next ongoing round and pushes it to the rounds array.
+   */
+  nextRound() {
     const newRound = Object.create(Round);
-    newRound.roundNumber = this.getCurrentRound() + 1;
+    newRound.initNew(this.getCurrentRoundNumber() + 1, this.gameId);
     this.rounds.push(newRound);
   },
 
@@ -37,8 +51,21 @@ const Game = {
    * Calculates the current round number based on the number of rounds there are in the round array property.
    * @returns {number}
    */
-  getCurrentRound() {
+  getCurrentRoundNumber() {
     return this.rounds.length;
+  },
+
+  /**
+   * Gets the current round is going. if there are no rounds, it will return null. Otherwise, it will return an instance
+   * of the Round model.
+   * @returns {null|*}
+   */
+  getCurrentRound() {
+    if (this.getCurrentRoundNumber() < 1) {
+      return null;
+    }
+
+    return this.rounds[this.getCurrentRoundNumber() - 1];
   },
 
   toJSON: function () {

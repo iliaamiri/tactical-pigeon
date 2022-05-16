@@ -10,10 +10,6 @@ export default async (io, socket) => {
 
     const { gameId, players } = payload;
 
-    // TODO: Initiate a new game and save gameId and players to localStorage. (CACHE)
-    // let game = new Game()
-    // game.save()
-
     // UI exhibits
     playSound(sounds.winRound);
     clearInterval(searchingForOpponentAnimation);
@@ -36,6 +32,11 @@ export default async (io, socket) => {
     );
   };
 
+  const receiveOpponentMoves = (moves, gameComplete) => {
+
+  };
+
   socket.on('game:matchFound', matchFound);
   socket.on('game:fetch:result', fetchCurrentStateOfGame);
+  socket.on('game:round:opponentMove', receiveOpponentMoves)
 };
