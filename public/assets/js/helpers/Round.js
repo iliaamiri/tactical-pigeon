@@ -116,7 +116,7 @@ class Round {
       setTimeout(function () {
         let span = document.createElement("span");
         span.innerHTML = "+1";
-        span.classList.add("roundResult");
+        span.classList.add("roundResult", "roundWin");
         let roundPoints;
 
         if (Round.tdCounter === 0) {
@@ -159,7 +159,7 @@ class Round {
 
         let span = document.createElement("span");
         span.innerHTML = "-1";
-        span.classList.add("roundResult");
+        span.classList.add("roundResult", "roundLose");
         let roundPoints;
 
         if (Round.tdCounter === 0) {
@@ -199,7 +199,7 @@ class Round {
         span.innerHTML = "draw!";
         span.style.fontSize = "1.4vw";
         span.style.webkitTextStrokeWidth = "0.1vw";
-        span.classList.add("roundResult");
+        span.classList.add("roundResult", "roundDraw");
         let roundPoints;
 
         if (Round.tdCounter === 0) {
