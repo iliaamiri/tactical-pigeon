@@ -1,13 +1,12 @@
 // Components
+import SearchingText from "../components/Home/SearchingText.js";
+import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
+
 const usernameInput = document.querySelector('input.usernameInput');
 const playButton = document.querySelector('button.play');
 const startBtn = document.querySelector('div.startBtn');
 const titleEnterName = document.querySelector("div.start p.title-enter-name");
-export const searchingText = document.querySelector('span.online-text-searching');
 const iosToggleInput = document.querySelector("div.toggleWrapper input.mobileToggle.mobileToggle");
-
-// Intervals
-export let searchingForOpponentAnimation;
 
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
@@ -77,13 +76,8 @@ startBtn.addEventListener('click', async event => {
 
       const socket = await clientSocketConnect();
 
-      searchingText.style.display = "block";
-      let searchingTextDots = 0;
-      let dots = "...";
-      searchingForOpponentAnimation = setInterval(() => {
-        searchingText.innerHTML = `Finding an opponent${dots.substring(0, searchingTextDots % 4)}`;
-        searchingTextDots++;
-      }, 700);
+      SearchingText.DOMElement.style.display = "block";
+      SearchingForOpponent.animate();
 
       socket.on('connect_error', err => {
         let message = err.message;
@@ -93,8 +87,8 @@ startBtn.addEventListener('click', async event => {
           return;
         }
 
-        clearInterval(searchingForOpponentAnimation);
-        searchingText.innerHTML = err.userErrorMssage ?? "Something wrong happened!";
+        SearchingForOpponent.clearAnimation();
+        SearchingText.DOMElement.innerHTML = err.userErrorMssage ?? "Something wrong happened!";
 
       });
 
@@ -103,7 +97,7 @@ startBtn.addEventListener('click', async event => {
       console.log(error);
 
       // Revert everything back if the user couldn't be authenticated by axios request.
-      searchingText.style.display = "none";
+      SearchingText.DOMElement.style.display = "none";
       usernameInput.disabled = false;
       target.classList.remove("pressed");
     }

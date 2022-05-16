@@ -1,5 +1,5 @@
 // Components
-import Timer from "../components/Timer";
+import Timer from "../components/Timer.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
 const loadingCloudsOverlay = document.querySelector('div.loading-clouds-overlay');
 const playAgainButton = document.querySelector(".play-again");
@@ -14,7 +14,7 @@ import roundCountdown from "../helpers/roundCountdown.js";
 
 // Core and utils
 import clientSocketConnect from "../io/client.js";
-import LocalStorageCache from "../core/LocalStorageCache";
+import LocalStorageCache from "../core/LocalStorageCache.js";
 
 let socket;
 try {
@@ -33,13 +33,6 @@ try {
 } catch (err) {
   console.log(err);
 }
-
-// Initiating the move placeholders.
-MovePlaceholder.all = {
-  'head': new MovePlaceholder('head'),
-  'body': new MovePlaceholder('body'),
-  'legs': new MovePlaceholder('legs')
-};
 
 // Instantiate the Game. gameId comes from play.ejs
 let game = new Game(gameId, "online");
@@ -71,6 +64,13 @@ await new Promise((resolve, reject) => {
     game.initiateOnline(...cachedGameFound);
   }
 });
+
+// Initiating the move placeholders.
+MovePlaceholder.all = {
+  'head': new MovePlaceholder('head'),
+  'body': new MovePlaceholder('body'),
+  'legs': new MovePlaceholder('legs')
+};
 
 countdownOverlayComponent.classList.remove("d-none");
 countdownOverlayComponent.classList.add("opaque");

@@ -1,5 +1,6 @@
 // Components
-import {searchingText, searchingForOpponentAnimation} from "../../routes/home.js";
+import SearchingText from "../../components/Home/SearchingText.js";
+import SearchingForOpponent from "../../components/Home/SearchingForOpponent.js";
 
 // Core
 import {playSound, sounds} from "../../core/sounds.js";
@@ -12,8 +13,8 @@ export default async (io, socket) => {
 
     // UI exhibits
     playSound(sounds.winRound);
-    clearInterval(searchingForOpponentAnimation);
-    searchingText.innerHTML = "Match found!";
+    SearchingForOpponent.clearAnimation();
+    SearchingText.DOMElement.innerHTML = "Match found!";
 
     setTimeout(() => {
       location.href = "/play/" + gameId;

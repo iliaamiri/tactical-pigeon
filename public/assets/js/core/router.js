@@ -31,8 +31,14 @@ const router = {
     for (let index in currPath) {
       let pathSegment = currPath[index];
       let targetPathSegment = targetPath[index];
-      if (pathSegment !== targetPathSegment && !pathSegment.includes(":")) {
-        return;
+
+      if (pathSegment !== targetPathSegment) {
+        if (!targetPathSegment) {
+          return;
+        }
+        if (targetPathSegment.includes(":")) {
+          break;
+        }
       }
     }
 

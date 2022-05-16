@@ -2,8 +2,7 @@ const singleCompare = include("./test/compare-moves");
 const Games = include('./app/repos/Games');
 const Tokens = include('./app/repos/Tokens');
 const Players = include("app/repos/Players").Players;
-
-const Player = include("app/models/Player");
+const AuthExceptions = include('core/Exceptions/AuthExceptions');
 
 const GameController = {
   async submitGameMove(req, res) {
@@ -59,14 +58,18 @@ const GameController = {
     const jwtToken = req.cookies.JWT;
 
     if (!jwtToken) {
-      next(authExceptions.authFailed.errMessage);
+      res.render('layouts/404', {
+        error: AuthExceptions.authFailed.errMessage
+      });
       return;
     }
   
     const foundTokenObj = Tokens.all.get(jwtToken);
   
     if (!foundTokenObj) {
-      next(authExceptions.authFailed.errMessage);
+      res.render('layouts/404', {
+        error: AuthExceptions.authFailed.errMessage
+      });
       return;
     }
   
@@ -106,7 +109,7 @@ const GameController = {
     console.log('opponentId:', opponentUsername);
 
     // check if the game is still ongoing and not finished
-    let gameComplete = (game.gameComplete === true) ? true : false;
+    let gameComplete = (game.gameComplete === true);
 
     res.render('play', {
       playMode: "online",
