@@ -3,8 +3,6 @@ import Timer from "../components/Timer.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
 
 // Helpers
-import roundCountdown from "../helpers/roundCountdown.js";
-import changeRoundTitle from "../helpers/changeRoundTitle.js";
 import Game from "../helpers/Game.js";
 import RoundMove from "../helpers/RoundMove.js";
 

@@ -55,6 +55,13 @@ await new Promise((resolve, reject) => {
     socket.emit("game:fetch");
 
     document.addEventListener('gameFetchedReady', event => {
+      const { playerMe, playerOpponent, gameStatus } = event.detail;
+
+      let game = Game.currentGame;
+
+      // initiate everything from the beginning
+      game.initiateOnlineFetchedFromServer(playerMe, playerOpponent, gameStatus);
+
       resolve(event);
     });
   } else {

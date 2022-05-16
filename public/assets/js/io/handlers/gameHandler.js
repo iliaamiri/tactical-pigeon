@@ -1,9 +1,6 @@
 // Components
 import {searchingText, searchingForOpponentAnimation} from "../../routes/home.js";
 
-// Helpers
-import Game from "../../helpers/Game.js";
-
 // Core
 import {playSound, sounds} from "../../core/sounds.js";
 
@@ -29,17 +26,11 @@ export default async (io, socket) => {
 
   const fetchCurrentStateOfGame = (payload) => {
     console.log(payload);
-    const { playerMe, playerOpponent, gameStatus } = payload;
-
-    let game = Game.currentGame;
-
-    // initiate everything from the beginning
-    game.initiateOnlineFetchedFromServer(playerMe, playerOpponent, gameStatus);
 
     document.dispatchEvent(
       new CustomEvent('gameFetchedReady', {
         detail: {
-
+          ...payload
         }
       })
     );
