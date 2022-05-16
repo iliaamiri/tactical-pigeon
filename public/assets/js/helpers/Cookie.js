@@ -1,9 +1,11 @@
+import config from "../config.js";
+
 const Cookie = {
   set(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + config.APP_DOMAIN;
   },
 
   get(cname) {

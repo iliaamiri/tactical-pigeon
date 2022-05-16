@@ -35,18 +35,18 @@ class Game {
     Game.currentGame = this;
   }
 
-  static findByGameId(gameId) {
-    const {foundGame, players, movesHistory} = LocalStorageCache.fetch();
+  static findByGameFromCache() {
+    const {playerMe, playerOpponent, gameStatus} = LocalStorageCache.fetch();
 
     // Check if cache data is corrupted
-    if (!foundGame || !players || movesHistory) {
+    if (!playerMe || !playerOpponent || gameStatus) {
       return null;
     }
 
-    this.initiateOnlineFromCache(gameId, foundGame, players, movesHistory);
+    return {playerMe, playerOpponent, gameStatus};
   }
 
-  initiateOnlineFetchedFromServer(playerMe, playerOpponent, gameStatus) {
+  initiateOnline(playerMe, playerOpponent, gameStatus) {
     // Player 1 (Me)
     let myAmmoInventories = playerMe.ammoInventories;
     let myLives = playerMe.lives.lives;
@@ -96,41 +96,6 @@ class Game {
     Players.all.player1.ammoInventory.attacks = myAmmoInventories.attackCount;
     Players.all.player2.ammoInventory.blocks = opponentAmmoInventories.blockCount;
     Players.all.player2.ammoInventory.attacks = opponentAmmoInventories.attackCount;
-  }
-
-  static initiateOnlineFromCache(gameId, foundGame, players, movesHistory) {
-    let gameInstance = this.currentGame;
-
-    Players.all.player1 = new Player(players.player1.username, {
-      'blocks': AmmoInventory.all['block-left'],
-      'attacks': AmmoInventory.all['attack-left']
-    });
-
-    Players.all.player2 = new Player(players.player2.username, {
-      'blocks': AmmoInventory.all['block-left'],
-      'attacks': AmmoInventory.all['attack-left']
-    });
-
-    Players.all.player1.ammoInventory.blocks.counter = players.player1.ammoInventory.blocks.count;
-    Players.all.player1.ammoInventory.attacks.counter = players.player1.ammoInventory.attacks.count;
-
-    Players.all.player2.ammoInventory.blocks.counter = players.player2.ammoInventory.blocks.count;
-    Players.all.player2.ammoInventory.attacks.counter = players.player2.ammoInventory.attacks.count;
-
-    // Initiating the tallies.
-    Tally.all = {
-      'player1': new Tally(document.querySelector('table.tally.my-tally'), Players.all.player1),
-      'player2': new Tally(document.querySelector('table.tally.opponent-tally'), Players.all.player2)
-    };
-    Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
-
-    for (let i = 0; i < movesHistory.length; i++) {
-      // calculate the rounds
-
-      // re-fill the tallies
-    }
-
-    gameInstance.currentRound.currentRoundNumber = foundGame.currentRoundNumber;
   }
 
   async gameOver() {
