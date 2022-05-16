@@ -1,14 +1,7 @@
 /*
-* ///////////// Importing the basic configuration values /////////////
-* These configuration may include the options for session, cors, etc.
+* ///////////// Importing the cookie-parser to handle (server-side) cookies /////////////
+* https://www.npmjs.com/package/cookie-parser
 * */
-// const sessionOptions = require('./config/session.js');
-
-/*
-* ///////////// Importing the express-session to handle (server-side) sessions /////////////
-* https://www.npmjs.com/package/express-session
-* */
-//const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 /*
@@ -39,7 +32,6 @@ function makeApp(app) {
   app.set('view engine', 'ejs');
   app.use(express.urlencoded());
   app.use(express.static('public'));
-  //app.use(session(sessionOptions));
   app.use(cookieParser());
 
 
