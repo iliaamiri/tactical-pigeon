@@ -47,14 +47,12 @@ const GameController = {
   },
 
   async showOnlinePlay(req, res) {
-    console.log('showOnlinePlay req.params:', req.params);
     const gameId = req.params.gameId;
 
     // we need to make sure that the gameId exists in the Games.all
     const game = Games.find(gameId);
 
     // the user should be authenticated at this point
-    console.log('showOnlinePlay req.session.JWT:', req.cookies.JWT);
     const jwtToken = req.cookies.JWT;
 
     if (!jwtToken) {
@@ -74,19 +72,7 @@ const GameController = {
     }
   
     let foundPlayer = Players.find(foundTokenObj.playerId);
-    console.log('foundPlyaerId:', foundPlayer.playerId);
-  
-    /* if (!foundPlayer) {
-      foundPlayer = Object.create(Player);
-      try {
-        let decodedData = Tokens.verifyIntegrity(jwtToken);
-        foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
-        Players.add(foundPlayer);
-      } catch (err) {
-        next(err);
-        return;
-      }
-    } */
+    // console.log('foundPlyaerId:', foundPlayer.playerId);
 
     let myUsername;
     let opponentUsername;
@@ -103,10 +89,8 @@ const GameController = {
     if (index > -1) {
       newArr.splice(index, 1); // 2nd parameter means remove one item only
     }
-    myUsername = foundPlayer.playerId;
-    opponentUsername = newArr[0];
-    console.log('myId:', myUsername);
-    console.log('opponentId:', opponentUsername);
+    myUsername = Players.find(foundPlayer.playerId).username;
+    opponentUsername = Players.find(newArr[0]).username;
 
     // check if the game is still ongoing and not finished
     let gameComplete = (game.gameComplete === true);
