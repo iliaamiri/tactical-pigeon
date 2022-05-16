@@ -2,13 +2,14 @@
 * ///////////// Importing the basic configuration values /////////////
 * These configuration may include the options for session, cors, etc.
 * */
-const sessionOptions = require('./config/session.js');
+// const sessionOptions = require('./config/session.js');
 
 /*
 * ///////////// Importing the express-session to handle (server-side) sessions /////////////
 * https://www.npmjs.com/package/express-session
 * */
-const session = require('express-session');
+//const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 /*
 * ///////////// Importing the http module to use it for integrating socket.io with express.js /////////////
@@ -38,7 +39,8 @@ function makeApp(app) {
   app.set('view engine', 'ejs');
   app.use(express.urlencoded());
   app.use(express.static('public'));
-  app.use(session(sessionOptions));
+  //app.use(session(sessionOptions));
+  app.use(cookieParser());
 
 
   /*
