@@ -45,7 +45,11 @@
             <img src="/assets/img/Overlays/ArrowDown.svg" alt="arrow down">
           </div>
           <div class="blueBanner">
-            <p class="character">you are: PUSINESS MAN </p>
+            <% if (playMode === 'online') { %>
+              <p class="character"> <%= myUsername %>, you are: PUSINESS MAN </p>
+            <% } else { %>
+              <p class="character">you are: PUSINESS MAN </p>
+            <% } %>
           </div>
           <div class="yourPigeon"></div>
           <div class="bubble bubble-bottom-left">
@@ -258,7 +262,11 @@
                 <div class="heart heart-filled"></div>
               </div>
               <div class="username-div my-username-div">
-                <span class="username-span my-username-span"></span>
+                <span class="username-span my-username-span">
+                  <% if (playMode === 'online') { %>
+                    <%= myUsername %>
+                  <% }%>
+                </span>
               </div>
             </div>
 
@@ -270,7 +278,11 @@
                 <div class="heart heart-filled"></div>
               </div>
               <div class="username-div opponent-username-div">
-                <span class="username-span opponent-username-span"></span>
+                <span class="username-span opponent-username-span">
+                  <% if (playMode === 'online') { %>
+                    <%= opponentUsername %>
+                  <% }%>
+                </span>
               </div>
             </div>
           </div>
