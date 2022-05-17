@@ -147,7 +147,8 @@ class Round {
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
       myTally.fillColumnVictory();
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-05.svg"
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-05.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-8.svg";
       }, 600)
 
       setTimeout(function () {
@@ -155,7 +156,8 @@ class Round {
       }, 750)
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg"
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
       }, 1400);
 
       opponentTally.fillColumnDefeat();
@@ -197,7 +199,8 @@ class Round {
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-03.svg"
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-03.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-9.svg";
       }, 600);
 
       myTally.fillColumnDefeat();
@@ -207,7 +210,8 @@ class Round {
       }, 700);
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg"
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
       }, 1400);
 
       opponentTally.fillColumnVictory();
