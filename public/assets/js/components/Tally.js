@@ -11,10 +11,10 @@ class Tally {
     this.player = player;
   }
 
-  fillMoves() {
+  fillMoves(playerMove = this.player.moves.toJSON()) {
     let tallyColumn = this.tallyElement.querySelectorAll(`td:nth-child(${this.currentTallyColumnNumber})`);
     tallyColumn.forEach((td, index) => {
-      let moveComponent = Object.values(this.player.moves.toJSON())[index];
+      let moveComponent = Object.values(playerMove)[index];
       if (moveComponent === 'attack') {
         td.classList.add('cell-attacked');
       } else if (moveComponent === 'block') {
