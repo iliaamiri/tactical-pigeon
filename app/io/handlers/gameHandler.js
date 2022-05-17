@@ -17,7 +17,8 @@ module.exports = async (io, socket) => {
   const searchForOpponent = () => {
     // Do not allow a connected user to add themselves to the matching queue again. (security)
     if (socket.user.currentGameIdPlaying) {
-      throw GameExceptions.currentlyInGame.errMessage;
+      socket.emit(':error', GameExceptions.currentlyInGame.userErrorMessage);
+      return;
     }
 
     // Add the player to the match queue.
@@ -47,10 +48,12 @@ module.exports = async (io, socket) => {
   };
 
   const fetchCurrentStateOfGame = (gameId) => {
+    console.log("fetch current state of game"); // debug
     // Check if any game with this `gameId` exists or not.
     const game = Games.find(gameId);
     if (!game) {
-      throw GameExceptions.gameNotFound.errMessage;
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
     }
 
     // Get players of the found game.
@@ -61,7 +64,8 @@ module.exports = async (io, socket) => {
       .filter(player => player.playerId === socket.user.playerId);
     if (!thisPlayer) {
       // For security, don't tell the noisy people if the game even exists or not.
-      throw GameExceptions.gameNotFound.errMessage;
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
     }
 
     // Get my move history of the game.
@@ -118,7 +122,8 @@ module.exports = async (io, socket) => {
 
     const foundGame = Games.find(gameId);
     if (!foundGame) {
-      throw GameExceptions.gameNotFound.errMessage;
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
     }
 
     foundGame.updateRoundMoves(move, socket.user);
