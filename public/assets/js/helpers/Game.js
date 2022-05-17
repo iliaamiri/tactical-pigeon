@@ -74,8 +74,8 @@ class Game {
       'attacks': AmmoInventory.all['attack-left']
     });
     Players.all.player2 = new Player(opponentUsername, {
-      'blocks': AmmoInventory.all['block-left'],
-      'attacks': AmmoInventory.all['attack-left']
+      'blocks': AmmoInventory.all['opponentBlock'],
+      'attacks': AmmoInventory.all['opponentAttack']
     });
 
     // Initiating the tallies.
@@ -84,7 +84,7 @@ class Game {
       'player2': new Tally(document.querySelector('table.tally.opponent-tally'), Players.all.player2)
     };
     Tally.all.player1.currentTallyColumnNumber = 2;
-    Tally.all.player1.currentTallyColumnNumber = 1;
+    Tally.all.player2.currentTallyColumnNumber = 1;
 
     if (movesHistories.length > 0) {
       this.currentRound.fillTheTalliesWithMoveHistory(movesHistories);
@@ -95,11 +95,6 @@ class Game {
 
     Life.all.myLife.counter = myLives;
     Life.all.opponentLife.counter = opponentLives;
-
-    Players.all.player1.ammoInventory.blocks = myAmmoInventories.blockCount;
-    Players.all.player1.ammoInventory.attacks = myAmmoInventories.attackCount;
-    Players.all.player2.ammoInventory.blocks = opponentAmmoInventories.blockCount;
-    Players.all.player2.ammoInventory.attacks = opponentAmmoInventories.attackCount;
   }
 
   async gameOver() {
