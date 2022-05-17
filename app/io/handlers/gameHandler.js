@@ -60,9 +60,9 @@ module.exports = async (io, socket) => {
     const players = game.players;
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
-    const thisPlayer = Object.values(players)
-      .filter(player => player.playerId === socket.user.playerId);
-    if (!thisPlayer) {
+    const thisPlayerId = Object.values(players)
+      .filter(_playerId => _playerId === socket.user.playerId);
+    if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
       return;
@@ -71,20 +71,25 @@ module.exports = async (io, socket) => {
     // Get my move history of the game.
     let thisPlayerMoveHistory = [];
     game.rounds.forEach(round => {
-      thisPlayerMoveHistory.push(round.moves[thisPlayer.playerId]);
+      thisPlayerMoveHistory.push(round.moves[socket.user.playerId]);
     });
 
     // Construct my information (my ammo, my lives, my move history).
     const playerMe = {
-      ammoInventories: thisPlayer.ammoInventory.toJSON(),
-      lives: thisPlayer.life.toJSON(),
+      ammoInventories: socket.user.ammoInventory.toJSON(),
+      lives: socket.user.life.toJSON(),
       moveHistory: thisPlayerMoveHistory,
     };
 
+    // Get opponent's playerId
+    const otherPlayerId = Object.values(players)
+      .filter(_playerId => _playerId !== socket.user.playerId);
+
+    // Find opponent's player object.
+    let otherPlayer = Players.find(otherPlayerId);
+
     // Get my opponent's move history of the game.
     let otherPlayerMoveHistory = [];
-    const otherPlayer = Object.values(players)
-      .filter(player => player.playerId !== socket.user.playerId);
     game.rounds.forEach(round => {
       otherPlayerMoveHistory.push(round.moves[otherPlayer.playerId]);
     });
@@ -100,8 +105,10 @@ module.exports = async (io, socket) => {
     const payload = {
       playerMe,
       playerOpponent,
-      gameStatus: game.gameStatus,
+      gameComplete: game.gameComplete,
     };
+
+    console.log("fetch payload: ", payload);
 
     // Send me my payload.
     socket.emit("game:fetch:result", payload);
