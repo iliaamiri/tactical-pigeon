@@ -34,6 +34,8 @@ if (username !== null) {
   blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
 }
 
+document.querySelector(".intro-page").classList.remove("d-none");
+
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
 myUsernameSpan.innerHTML = username;
