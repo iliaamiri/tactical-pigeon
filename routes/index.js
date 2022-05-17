@@ -9,7 +9,7 @@ const webRoutes = require('./web/index.web');
 const apiRoutes = require('./api/index.api');
 
 // injecting the web routes.
-router.use('/', webRoutes);
 router.use('/api', apiRoutes);
+router.use('/', webRoutes);
 
 module.exports = router;
