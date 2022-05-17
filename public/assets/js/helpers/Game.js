@@ -46,7 +46,7 @@ class Game {
     return {playerMe, playerOpponent, gameStatus};
   }
 
-  initiateOnline(playerMe, playerOpponent, gameStatus) {
+  initiateOnline(playerMe, playerOpponent, gameComplete) {
     // Player 1 (Me)
     let myAmmoInventories = playerMe.ammoInventories;
     let myLives = playerMe.lives.lives;

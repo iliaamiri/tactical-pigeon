@@ -52,6 +52,10 @@ export default async function clientSocketConnect() {
     console.log('connect_error: ', err, err.message);
   });
 
+  // Custom error
+  socket.on(":error", err => {
+    console.log("App Error: ", err);
+  });
 
   return socket;
 }

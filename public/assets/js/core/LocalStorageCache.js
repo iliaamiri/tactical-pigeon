@@ -2,17 +2,17 @@ class LocalStorageCache {
   static fetch() {
     let playerMe = this.getStorageJSON('playerMe');
     let playerOpponent = this.getStorageJSON('playerOpponent');
-    let gameStatus = this.getStorageJSON('gameStatus');
+    let gameComplete = this.getStorageJSON('gameComplete');
 
     return {
-      playerMe, playerOpponent, gameStatus
+      playerMe, playerOpponent, gameComplete
     };
   }
 
-  static saveGame(playerMe, playerOpponent, gameStatus) {
+  static saveGame(playerMe, playerOpponent, gameComplete) {
     this.setStorageJSON('playerMe', playerMe);
     this.setStorageJSON('playerOpponent', playerOpponent);
-    this.setStorageJSON('gameStatus', gameStatus);
+    this.setStorageJSON('gameComplete', gameComplete);
   }
 
   static getStorageJSON(key) {

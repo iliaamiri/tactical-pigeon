@@ -14,6 +14,11 @@ module.exports = (server) => {
     } catch (err) {
       console.log(err);
     }
+
+    socket.on("disconnect", (err) => {
+      socket.user.socketId = null;
+      socket.user.reSyncInRepo();
+    });
   });
 
   io.on('error', async (err) => {

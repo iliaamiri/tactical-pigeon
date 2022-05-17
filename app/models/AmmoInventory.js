@@ -1,37 +1,42 @@
 const AmmoInventory = {
-    gameId: null, // string (ref to Game)
-    playerId: null, // int (ref to Player)
+  gameId: null, // string (ref to Game)
+  playerId: null, // int (ref to Player)
 
-    blockCount: 4,
-    attackCount: 4,
+  blockCount: 4,
+  attackCount: 4,
 
-    blockIncrease() {
-        this.blockCount++;
-    },
+  init(gameId, playerId) {
+    this.gameId = gameId;
+    this.playerId = playerId;
+  },
 
-    blockDecrease() {
-        this.blockCount--;
-    },
+  blockIncrease() {
+    this.blockCount++;
+  },
 
-    attackIncrease() {
-        this.attackCount++;
-    },
+  blockDecrease() {
+    this.blockCount--;
+  },
 
-    attackDecrease() {
-        this.attackCount--;
-    },
+  attackIncrease() {
+    this.attackCount++;
+  },
 
-    getTotalInventory() {
-        const totalInventory = this.blockCount + this.attackCount;
-        return totalInventory;
-    },
+  attackDecrease() {
+    this.attackCount--;
+  },
 
-    toJSON: function() {
-        return {
-            blockCount: this.blockCount,
-            attackCount: this.attackCount
-        };
-    },
+  getTotalInventory() {
+    const totalInventory = this.blockCount + this.attackCount;
+    return totalInventory;
+  },
+
+  toJSON() {
+    return {
+      blockCount: this.blockCount,
+      attackCount: this.attackCount
+    };
+  },
 
 };
 

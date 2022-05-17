@@ -16,6 +16,8 @@ import roundCountdown from "../helpers/roundCountdown.js";
 import clientSocketConnect from "../io/client.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
 
+console.log("Hit playOnline.js");
+
 let socket;
 try {
   socket = await clientSocketConnect();
@@ -43,20 +45,24 @@ playAgainButton.classList.add("d-none"); // Hide the play again button
 loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds overlay
 
 await new Promise((resolve, reject) => {
+  console.log("hitting HERE")
   // Check if there are caches to load from
   let cachedGameFound = Game.findByGameFromCache();
   if (!cachedGameFound) { // If not, fetch information from the server.
     // web socket emit "game:fetch" with payload: gameId
-    socket.emit("game:fetch");
+    socket.emit("game:fetch", gameId);
 
     document.addEventListener('gameFetchedReady', event => {
-      // const { playerMe, playerOpponent, gameStatus } = event.detail;
+      // Destructure all the fetched data.
+      const { playerMe, playerOpponent, gameComplete } = event.detail;
+
+      console.log(event); // debug
 
       // Save the game to the localStorage
-      LocalStorageCache.saveGame(...event.detail);
+      LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
 
       // initiate everything from the beginning
-      game.initiateOnline(...event.detail);
+      game.initiateOnline(playerMe, playerOpponent, gameComplete);
 
       resolve(event);
     });

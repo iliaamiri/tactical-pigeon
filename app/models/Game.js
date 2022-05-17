@@ -1,8 +1,5 @@
 const Round = require("./Round");
 const {makeId} = require("../../core/utils");
-const singleCompare = require("../io/helpers/singleCompare");
-const tripleCompare = require("../io/helpers/tripleCompare");
-// const {Players} = require("../repos/Players");
 
 const Game = {
   rowId: null, // int (db primary key auto incrmn)
@@ -10,6 +7,8 @@ const Game = {
   winnerPlayerId: null, // int (ref to Player)
 
   players: [], // items: players' IDs
+
+  gameComplete: false,
 
   rounds: [
     // $ref: Round

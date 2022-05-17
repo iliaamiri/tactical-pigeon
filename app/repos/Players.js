@@ -88,6 +88,10 @@ const Players = {
     // playerEmitter.emit('addPlayer', player);
   },
 
+  update(playerId, player) {
+    this.all[playerId] = player;
+  },
+
   /**
    * Delete a player by their playerId
    * @param id

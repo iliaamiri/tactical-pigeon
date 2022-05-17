@@ -4,6 +4,11 @@ const Life = {
 
   lives: 3, // int e.g. 3, 2, 1, 0
 
+  init(gameId, playerId) {
+    this.gameId = gameId;
+    this.playerId = playerId;
+  },
+
   loseLife: function () {
     this.lives--;
   },
