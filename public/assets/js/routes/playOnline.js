@@ -59,7 +59,7 @@ await new Promise((resolve, reject) => {
       console.log(event); // debug
 
       // Save the game to the localStorage
-      LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
+      // LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
 
       // initiate everything from the beginning
       game.initiateOnline(playerMe, playerOpponent, gameComplete);
@@ -67,7 +67,8 @@ await new Promise((resolve, reject) => {
       resolve(event);
     });
   } else {
-    game.initiateOnline(...cachedGameFound);
+    const { playerMe, playerOpponent, gameComplete } = cachedGameFound;
+    game.initiateOnline(playerMe, playerOpponent, gameComplete);
   }
 });
 
@@ -77,6 +78,8 @@ MovePlaceholder.all = {
   'body': new MovePlaceholder('body'),
   'legs': new MovePlaceholder('legs')
 };
+
+loadingCloudsOverlay.classList.add("d-none"); // hide the loading clouds overlay
 
 countdownOverlayComponent.classList.remove("d-none");
 countdownOverlayComponent.classList.add("opaque");
