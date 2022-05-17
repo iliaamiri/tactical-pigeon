@@ -7,11 +7,6 @@ const Game = require("../models/Game");
 // Mutex
 const { Mutex } = require("async-mutex");
 
-/* playerEmitter.on('addPlayer', function(player) {
-  //console.log('adding player', player);
-  Players.addToMatchQueue(player);
-}); */
-
 /**
  * Event listener <matchReady>: Receiving an array of two playerId's, this event will initiate a new game, and passes the
  * new game instance as a payload to the Event<gameReady>.
