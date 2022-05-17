@@ -2,6 +2,7 @@ const Life = {
   gameId: null, // string (ref to Game)
   playerId: null, // int (ref to Player)
 
+  lifeRange: [0, 3],
   lives: 3, // int e.g. 3, 2, 1, 0
 
   init(gameId, playerId) {
@@ -10,10 +11,16 @@ const Life = {
   },
 
   loseLife: function () {
+    if (this.lives - 1 < this.lifeRange[0]) {
+      return;
+    }
     this.lives--;
   },
 
   gainLife: function () {
+    if (this.lives + 1 > this.lifeRange[1]) {
+      return;
+    }
     this.lives++;
   },
 
