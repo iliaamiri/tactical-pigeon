@@ -7,6 +7,7 @@ const playButton = document.querySelector('button.play');
 const startBtn = document.querySelector('div.startBtn');
 const titleEnterName = document.querySelector("div.start p.title-enter-name");
 const iosToggleInput = document.querySelector("div.toggleWrapper input.mobileToggle.mobileToggle");
+const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
@@ -78,6 +79,10 @@ startBtn.addEventListener('click', async event => {
 
       SearchingText.DOMElement.style.display = "block";
       SearchingForOpponent.animate();
+
+      // Show blue clouds
+      blueClouds.classList.remove("d-none");
+      blueClouds.classList.add("animate__fadeIn");
 
       socket.on('connect_error', err => {
         let message = err.message;
