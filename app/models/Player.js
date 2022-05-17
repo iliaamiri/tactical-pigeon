@@ -1,6 +1,7 @@
 const {makeId} = require("../../core/utils");
 const AmmoInventory = require("./AmmoInventory");
 const Life = require("./Life");
+const {Players} = require("../repos/Players");
 
 const Player = {
   playerId: null, // int (db primary key auto increment)
@@ -30,6 +31,10 @@ const Player = {
     // Initiate the players' initial ammo and lives.
     this.ammoInventory = Object.create(AmmoInventory);
     this.life = Object.create(Life);
+  },
+
+  reSyncInRepo() {
+    Players.update(this.playerId, this);
   },
 
   toJSON: function () {
