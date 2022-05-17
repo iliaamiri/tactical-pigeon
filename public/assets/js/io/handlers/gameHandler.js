@@ -43,7 +43,8 @@ export default async (io, socket) => {
         detail: {
           opponentMoves, gameComplete
         }
-    )
+      })
+    );
   };
 
   socket.on('game:matchFound', matchFound);
