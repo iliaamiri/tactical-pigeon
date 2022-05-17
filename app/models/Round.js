@@ -22,11 +22,12 @@ const Round = {
   },
 
   addPlayerMove(playerId, moves) {
+    this.moves[playerId] = Object.create(Move);
     this.moves[playerId].updateMoves(moves);
   },
 
   movesCompleted() {
-    return this.moves.length === 2;
+    return Object.values(this.moves).length === 2;
   },
 
   toJSON: function () {
