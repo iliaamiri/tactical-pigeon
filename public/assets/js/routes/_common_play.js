@@ -7,7 +7,7 @@ import Game from "../helpers/Game.js";
 import RoundMove from "../helpers/RoundMove.js";
 
 // Core and Utils
-import {sounds} from "../core/sounds.js";
+import { sounds } from "../core/sounds.js";
 
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {

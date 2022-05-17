@@ -1,4 +1,5 @@
 const Countdown = document.querySelector('div.countdown');
+const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
 
 async function roundCountdown() {
 
