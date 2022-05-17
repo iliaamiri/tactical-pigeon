@@ -152,6 +152,15 @@ module.exports = async (io, socket) => {
 
     let thisPlayer = socket.user;
 
+    // Get the current Round
+    let currentRound = foundGame.getCurrentRound();
+
+    // Verify that the Round is finished or not.
+    if (currentRound.isRoundFinished()) {
+      socket.emit(':error', GameExceptions.roundFinishedAlready.userErrorMessage);
+      return;
+    }
+
     // Get opponent's playerId
     const otherPlayerId = Object.values(playersIds)
       .filter(_playerId => _playerId !== socket.user.playerId);
@@ -161,9 +170,6 @@ module.exports = async (io, socket) => {
 
     // Update the round moves for the current round.
     foundGame.updateRoundMoves(move, thisPlayer);
-
-    // Get the current Round
-    let currentRound = foundGame.getCurrentRound();
 
     // Get this player's moves
     let thisPlayerMove = currentRound.moves[thisPlayer.playerId];
