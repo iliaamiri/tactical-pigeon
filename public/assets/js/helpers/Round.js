@@ -140,13 +140,23 @@ class Round {
     // Calculate the result of this round
     let roundResult = this.tripletCompare(playerMoves);
 
+    let leftPigeon = document.querySelector("img.pigeon-left")
+    let rightPigeon = document.querySelector("img.pigeon-right")
+
     // Aftermath
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
       myTally.fillColumnVictory();
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-05.svg"
+      }, 600)
 
       setTimeout(function () {
         document.querySelector("#winRound").play();
       }, 750)
+
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg"
+      }, 1400);
 
       opponentTally.fillColumnDefeat();
 
@@ -185,10 +195,20 @@ class Round {
       }, 1400)
 
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
+
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-03.svg"
+      }, 600);
+
       myTally.fillColumnDefeat();
+
       setTimeout(function () {
         document.querySelector("#loseRound").play();
       }, 700);
+
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg"
+      }, 1400);
 
       opponentTally.fillColumnVictory();
 
@@ -230,10 +250,19 @@ class Round {
 
     } else { // Draw
       myTally.fillColumnDraw();
-      setTimeout(function () {
-        document.querySelector("#drawRound").play();
-      }, 750)
       opponentTally.fillColumnDraw();
+
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-11-01.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-11-01.svg";
+
+      }, 650)
+
+      setTimeout(() => {
+        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
+
+      }, 1500);
 
       setTimeout(function () {
         let span = document.createElement("span");

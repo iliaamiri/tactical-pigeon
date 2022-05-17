@@ -10,7 +10,7 @@ class Sunglasses {
 
   activate() {
     this.element.classList.remove("d-none");
-    this.element.classList.add("animate__backInDown");
+    this.element.classList.add("animate__backInDown", "animate__slow");
   }
 
   static {
