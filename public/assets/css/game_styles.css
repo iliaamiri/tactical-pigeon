@@ -368,6 +368,11 @@ div.loading-clouds-overlay div.loading-text {
   height: 30%;
   position: fixed;
   z-index: 60;
+  font-family: "Titan One", cursive;
+  font-size: 4em;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
 }
 
 /* Replay */
