@@ -34,13 +34,13 @@ if (username !== null) {
   blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
 }
 
-document.querySelector(".intro-page").classList.remove("d-none");
+document.querySelector(".intro-page").classList.remove("d-none"); // show the intro page
 
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
 myUsernameSpan.innerHTML = username;
 let opponentUsernameSpan = document.querySelector('div.opponent-username-div span.opponent-username-span');
-opponentUsernameSpan.innerHTML = 'computer';  
+opponentUsernameSpan.innerHTML = 'computer';
 
 //Initiating the game.
 Game.currentGame = new Game("offline_game");

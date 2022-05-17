@@ -40,7 +40,6 @@ try {
 let game = new Game(gameId, "online");
 
 // Loading the game (Exhibition)
-document.querySelector(".intro-page").classList.add("d-none"); // Hide the intro-page
 playAgainButton.classList.add("d-none"); // Hide the play again button
 loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds overlay
 
