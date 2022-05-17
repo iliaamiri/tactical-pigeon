@@ -43,7 +43,9 @@ const GameController = {
   },
 
   async showGamePage(req, res) {
-    res.render('play');
+    res.render('play', {
+      playMode: "offline"
+    });
   },
 
   async showOnlinePlay(req, res) {
