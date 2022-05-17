@@ -68,19 +68,6 @@ module.exports = async (io, socket) => {
       return;
     }
 
-    // Get my move history of the game.
-    let thisPlayerMoveHistory = [];
-    game.rounds.forEach(round => {
-      thisPlayerMoveHistory.push(round.moves[socket.user.playerId]);
-    });
-
-    // Construct my information (my ammo, my lives, my move history).
-    const playerMe = {
-      ammoInventories: socket.user.ammoInventory.toJSON(),
-      lives: socket.user.life.toJSON(),
-      moveHistory: thisPlayerMoveHistory,
-    };
-
     // Get opponent's playerId
     const otherPlayerId = Object.values(players)
       .filter(_playerId => _playerId !== socket.user.playerId);
@@ -88,14 +75,31 @@ module.exports = async (io, socket) => {
     // Find opponent's player object.
     let otherPlayer = Players.find(otherPlayerId);
 
-    // Get my opponent's move history of the game.
+    let thisPlayerMoveHistory = [];
     let otherPlayerMoveHistory = [];
     game.rounds.forEach(round => {
+      if (!round.movesCompleted()) {
+        return;
+      }
+
+      // Get my move history of the game.
+      thisPlayerMoveHistory.push(round.moves[socket.user.playerId]);
+
+      // Get my opponent's move history of the game.
       otherPlayerMoveHistory.push(round.moves[otherPlayer.playerId]);
     });
 
+    // Construct my information (my ammo, my lives, my move history).
+    const playerMe = {
+      username: socket.user.username,
+      ammoInventories: socket.user.ammoInventory.toJSON(),
+      lives: socket.user.life.toJSON(),
+      moveHistory: thisPlayerMoveHistory,
+    };
+
     // Construct my opponent's information (their ammo, their lives, their move history)
     const playerOpponent = {
+      username: otherPlayer.username,
       ammoInventories: otherPlayer.ammoInventory.toJSON(),
       lives: otherPlayer.life.toJSON(),
       moveHistory: otherPlayerMoveHistory,
@@ -125,101 +129,110 @@ module.exports = async (io, socket) => {
         }
       }
     */
-    const { gameId, move } = payload;
+    const {gameId, move} = payload;
 
+    // Find the game by gameId
     const foundGame = Games.find(gameId);
     if (!foundGame) {
       socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
       return;
     }
 
-    foundGame.updateRoundMoves(move, socket.user);
+    // Get players of the found game.
+    const playersIds = foundGame.players;
 
+    // Find this player who requested a game fetch and verify if they are in this game or not.
+    const thisPlayerId = Object.values(playersIds)
+      .filter(_playerId => _playerId === socket.user.playerId);
+    if (!thisPlayerId) {
+      // For security, don't tell the noisy people if the game even exists or not.
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
+    }
+
+    let thisPlayer = socket.user;
+
+    // Get opponent's playerId
+    const otherPlayerId = Object.values(playersIds)
+      .filter(_playerId => _playerId !== socket.user.playerId);
+
+    // Find opponent's player object.
+    let otherPlayer = Players.find(otherPlayerId);
+
+    // Update the round moves for the current round.
+    foundGame.updateRoundMoves(move, thisPlayer);
+
+    // Get the current Round
     let currentRound = foundGame.getCurrentRound();
 
-    // Inventory Ammo & Life accounting
-    Object.values(foundGame.players).forEach(playerId => { // For each player.
-      let player = Players.find(playerId);
-      let playerMove = currentRound.moves[player.playerId];
+    // Get this player's moves
+    let thisPlayerMove = currentRound.moves[thisPlayer.playerId];
 
-      //console.log('player move to account', playerMove);
-
-      // Decrease the inventory ammo if applicable.
-      Object.values(playerMove).forEach(bodyPartMove => {
-        if (bodyPartMove === 'attack') {
-          player.ammoInventory.attackDecrease();
-        } else if (bodyPartMove === 'block') {
-          player.ammoInventory.blockDecrease();
-        }
-      });
-      // console.log('inventory', JSON.stringify(inventory));
-
-      // If the player had no ammo, then the game is over.
-      if (player.ammoInventory.getTotalInventory() === 0) {
-        this.gameComplete = true;
+    // Inventory Ammo accounting
+    console.log('this player move to account: ', thisPlayerMove);
+    // Decrease the inventory ammo if applicable.
+    Object.values(thisPlayerMove).forEach(bodyPartMove => {
+      if (bodyPartMove === 'attack') {
+        thisPlayer.ammoInventory.attackDecrease();
+      } else if (bodyPartMove === 'block') {
+        thisPlayer.ammoInventory.blockDecrease();
       }
-
-      // Life accounting
-      // console.log('this players life', JSON.parse(JSON.stringify(life)));
-      let otherPlayerMove = Object.values(round.moves)
-        .filter(moveSet => moveSet.playerId !== player.playerId)[0].move;
-      //console.log('otherPlayerMove', otherPlayerMove);
-      let checkedMovesArr = [];
-      for (const key of Object.keys(playerMove)) {
-        checkedMovesArr.push(singleCompare(playerMove[key], otherPlayerMove[key]));
-      }
-      let roundResult = tripleCompare(checkedMovesArr);
-      if (roundResult === 2) {
-        player.life.loseLife();
-      }
-
-      // console.log('this players life after processing', JSON.parse(JSON.stringify(life)));
     });
-
-    if (currentRound === 5) {
-      this.gameComplete = true;
-    }
+    console.log('this player inventory', JSON.stringify(thisPlayer.ammoInventory)); // debug
 
     // If both players' moves have not been received yet, don't continue.
     if (!currentRound.movesCompleted()) {
       return;
     }
 
-    // console.log('moves received', moves);
-    // console.log('socket.user.userId =', socket.user.userId);
-    let movesWithoutUserId = {};
+    // Life accounting
+    console.log('this players life', JSON.parse(JSON.stringify(thisPlayer.life))); // debug
 
-    Object.keys(currentRound.moves).forEach(playerId => {
-      let userMoveSet = currentRound.moves[playerId];
-      let userName = Players.find(playerId).username;
-      // console.log('userName', userName);
-      movesWithoutUserId[userName] = userMoveSet.move.toJSON();
-    });
-    // console.log('movesWithoutUserId:', movesWithoutUserId);
+    // Get the other player's moves
+    let otherPlayerMove = currentRound.moves[otherPlayerId];
 
-    /*
-      movesWithoutUserId {
-        username1 {
-          head,
-          body,
-          legs,
-        },
-        username2 {
-          head,
-          body,
-          legs,
-        }
-      }
-    */
-    socket.emit("game:round:opponentMove", {
-      moves: movesWithoutUserId,
-      gameComplete: foundGame.gameComplete,
-    });
+    console.log('otherPlayerMove', otherPlayerMove); // debug
 
-    foundGame.nextRound();
-    if (foundGame.gameComplete) {
-      this.delete(gameId);
+    let checkedMovesArr = [];
+    for (const key of Object.keys(thisPlayerMove.toJSON())) {
+      checkedMovesArr.push(singleCompare(thisPlayerMove[key], otherPlayerMove[key]));
     }
+    let roundResult = tripleCompare(checkedMovesArr);
+    if (roundResult === 2) {
+      thisPlayer.life.loseLife();
+    }
+    if (roundResult === 1) {
+      otherPlayer.life.loseLife();
+    }
+
+    console.log('this players life after processing', JSON.parse(JSON.stringify(thisPlayer.life)));
+
+    if (thisPlayer.ammoInventory.getTotalInventory() === 0 // If the player had no ammo
+      || otherPlayer.ammoInventory.getTotalInventory() === 0 // If the other player had no ammo
+      || thisPlayer.life.lives === 0 // If this player had no lives
+      || otherPlayer.life.lives === 0 // If the other player had not lives
+      || currentRound === 5) // Or, if this was the last round
+    {
+      foundGame.gameComplete = true; // Mark the game as complete
+    } else {
+      foundGame.nextRound();
+    }
+
+    let thisPlayerPayload = {
+      opponentMoves: otherPlayerMove.toJSON(),
+      gameComplete: foundGame.gameComplete
+    };
+    let otherPlayerPayload = {
+      opponentMoves: thisPlayerMove.toJSON(),
+      gameComplete: foundGame.gameComplete
+    };
+
+    io.to(thisPlayer.socketId).emit("game:round:opponentMove", thisPlayerPayload);
+    io.to(otherPlayer.socketId).emit("game:round:opponentMove", otherPlayerPayload);
+
+    // if (foundGame.gameComplete) {
+    //   Games.delete(gameId);
+    // }
   };
 
   socket.on("game:searchForOpponent", searchForOpponent);
