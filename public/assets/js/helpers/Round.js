@@ -17,8 +17,9 @@ import Life from "../components/Inventories/Life.js";
 
 import restingMode from "./restingMode.js";
 
-// Utils
+// Cores and Utils
 import wait from '../utils/wait.js';
+import {socket} from "../io/client.js";
 
 class Round {
   #currentRoundNumber = 1;
@@ -78,9 +79,49 @@ class Round {
     let myTally = Tally.all.player1;
     let opponentTally = Tally.all.player2;
 
-    // Generating the Bot player's moves.
-    const opponentMove = Players.all.player2.generateRandomMoves();
-    console.log(opponentMove);
+    let opponentMove;
+    if (playMode === "online") {
+      const { receivedOpponentMoves, gameComplete } = await new Promise((resolve, reject) => {
+        // web socket emit "game:round:submitMove" with payload: gameId
+        socket.emit("game:round:submitMove", {
+          gameId: gameId,
+          move: Players.all.player1.moves.toJSON()
+        });
+
+        document.addEventListener('opponentMoveReady', event => {
+          // Destructure all the fetched data.
+          const { opponentMoves, gameComplete } = event.detail;
+
+          console.log(event); // debug
+
+          // Save the game to the localStorage
+          // TODO: update opponentMove and MoveHistory on LocalStorage
+
+          resolve({
+            receivedOpponentMoves: opponentMoves,
+            gameComplete
+          });
+        });
+      });
+
+      // Setting the opponent's move to its instance.
+      opponentMove = receivedOpponentMoves;
+      Object.keys(opponentMove).map(bodyPart => {
+        let move = opponentMove[bodyPart];
+        Players.all.player2.moves[bodyPart] = opponentMove[bodyPart];
+        if (move === "attack") {
+          Players.all.player2.ammoInventory.attacks.counter--;
+        }
+        if (move === "block") {
+          Players.all.player2.ammoInventory.blocks.counter--;
+        }
+      });
+    } else {
+      // Generating the Bot player's moves.
+      opponentMove = Players.all.player2.generateRandomMoves();
+    }
+
+    console.log("Opponent Moves: ", opponentMove); // debug
 
     // Fill my tally columns with my moves
     myTally.fillMoves();
@@ -340,6 +381,8 @@ class Round {
   }
 
   fillTheTalliesWithMoveHistory(moveHistory) {
+    console.log("move history ", moveHistory); // debug
+
     let player1Tally = Tally.all.player1;
     let player2Tally = Tally.all.player2;
 
@@ -348,11 +391,18 @@ class Round {
       let player1Moves = roundMoves.player1;
       let player2Moves = roundMoves.player2;
 
+      // Fill my tally columns with my moves
+      player1Tally.fillMoves(player1Moves);
+
+      // Fill opponent's tally columns with their moves
+      player2Tally.fillMoves(player2Moves);
+
       // Calculate players moves at each column AND gather them inside an array.
       let playerMoves = [];
       for (let index = 0; index < 3; index++) {
-        let player1MoveComponent = player1Moves[index];
-        let player2MoveComponent = player2Moves[index];
+        let player1MoveComponent = Object.values(player1Moves)[index];
+        let player2MoveComponent = Object.values(player2Moves)[index];
+
         playerMoves.push(this.singleCompare(player1MoveComponent, player2MoveComponent));
       }
 
