@@ -10,6 +10,8 @@ const speechBubble = document.querySelector(".bubble");
 const continueButton = document.querySelector(".continueBtn");
 const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
+const tutorialOverlay = document.querySelector('.tutorial-overlay');
+const exitTutorialBtn = document.querySelector('.exit-tutorial');
 
 // Helpers
 import Game from "../helpers/Game.js";
@@ -18,6 +20,7 @@ import Players from "../helpers/Players.js";
 import BotPlayer from "../helpers/BotPlayer.js";
 import changeRoundTitle from "../helpers/changeRoundTitle.js";
 import roundCountdown from "../helpers/roundCountdown.js";
+import Cookie from "../helpers/Cookie.js";
 
 // Core and Utils
 import { sounds } from "../core/sounds.js";
@@ -27,14 +30,6 @@ import Token from "../io/auth/Token.js";
 
 // Fetch username from cookie
 export let username = Token.fetchCachedUsernameOnly();
-
-// Inserting the username into the blue banner on the intro overlay
-let blueBannerUsernameSpan = document.querySelector('div.blueBanner p.character');
-if (username !== null) {
-  blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
-}
-
-document.querySelector(".intro-page").classList.remove("d-none"); // show the intro page
 
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
@@ -67,19 +62,13 @@ Tally.all = {
 };
 Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
 
-/* ---- Scroll Effect ---- */
-speechBubble.addEventListener("scroll", async event => {
-  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-});
+// check if old or new user.
+if (Cookie.get(username)) {
+  Cookie.set(username, "oldUser");
 
-// background intro screen
-continueButton.addEventListener("click", async event => {
-  console.log(event.target);
-  event.target.classList.remove("unpressed");
-  continueButton.classList.add("pressed");
-  document.querySelector(".intro-page").classList.add("d-none");
-  // first round preparation
+  // first round preparation, can poss move this to a shared first round prep helper?
   playAgainButton.classList.add("d-none");
+
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
 
@@ -98,6 +87,58 @@ continueButton.addEventListener("click", async event => {
 
   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
   document.querySelector('.done').classList.add('pop-in-animation');
+} else {
+  Cookie.set(username, "newUser");
+
+  // Inserting the username into the blue banner on the intro overlay
+  let blueBannerUsernameSpan = document.querySelector('div.blueBanner p.character');
+  if (username !== null) {
+    blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
+  }
+
+  document.querySelector(".intro-page").classList.remove("d-none"); // show the intro page
+
+  // background intro screen
+  continueButton.addEventListener("click", async event => {
+    console.log(event.target);
+    event.target.classList.remove("unpressed");
+    continueButton.classList.add("pressed");
+    document.querySelector(".intro-page").classList.add("d-none");
+    tutorialOverlay.classList.remove("d-none")
+  });
+
+  exitTutorialBtn.addEventListener("click", async event => {
+    tutorialOverlay.classList.add("d-none")
+
+    // first round preparation
+    playAgainButton.classList.add("d-none");
+
+    countdownOverlayComponent.classList.remove("d-none");
+    countdownOverlayComponent.classList.add("opaque");
+
+    await roundCountdown();
+
+    changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
+
+    // First round start timer
+    Timer.all['myTimer'].startCounter();
+
+    countdownOverlayComponent.classList.add("d-none");
+    countdownOverlayComponent.classList.remove("opaque");
+
+    pickMoveOverlay.classList.add('show-animation');
+    pigeon.classList.add('picking-move-animation');
+
+    document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+    document.querySelector('.done').classList.add('pop-in-animation');
+  })
+
+}
+console.log(Cookie.get(username))
+
+/* ---- Scroll Effect ---- */
+speechBubble.addEventListener("scroll", async event => {
+  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
 });
 
 await import('./_common_play.js');
