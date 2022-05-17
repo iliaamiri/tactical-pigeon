@@ -31,6 +31,14 @@ const Round = {
   },
 
   /**
+   * Checks whether the Round is finished or not.
+   * @returns {boolean}
+   */
+  isRoundFinished() {
+    return (Date.now() - this.startedAt) > (this.maxTimer * 1000);
+  },
+
+  /**
    * Add a player and their move to this Round. Runs when new move is submitted.
    * @param playerId
    * @param moves
