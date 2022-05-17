@@ -8,6 +8,11 @@ const GameExceptions = {
     errMessage: new Error("GAME_NOT_FOUND"),
     userErrorMessage: "Game does not exist",
     httpStatus: 404
+  },
+  roundFinishedAlready: {
+    errMessage: new Error("ROUND_FINISHED_ALREADY"),
+    userErrorMessage: "This round is finished. Cannot submit move at this time.",
+    httpStatus: 400
   }
 };
 module.exports = GameExceptions;
