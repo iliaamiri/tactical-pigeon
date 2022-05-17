@@ -1,48 +1,60 @@
 export const sounds = {
   theme: {
     path: "/assets/music/Fluffing-a-Duck.mp3",
-    audioElement: document.querySelector("audio#bgMusic")
+    audioElement: document.querySelector("audio#bgMusic"),
+    soundLevel: 0.5
   },
   winRound: {
     path: "/assets/music/win-round-sound.wav",
-    audioElement: document.querySelector("audio#winRound")
+    audioElement: document.querySelector("audio#winRound"),
+    soundLevel: 0.5
   },
   winGame: {
     path: "/assets/music/winning-game.wav",
-    audioElement: document.querySelector("audio#winGame")
+    audioElement: document.querySelector("audio#winGame"),
+    soundLevel: 0.5
   },
   loseGame: {
     path: "/assets/music/lose-game-moan.wav",
-    audioElement: document.querySelector("audio#loseGame")
+    audioElement: document.querySelector("audio#loseGame"),
+    soundLevel: 0.5
   },
   drawGame: {
     path: "/assets/music/draw-game.wav",
-    audioElement: document.querySelector("audio#drawGame")
+    audioElement: document.querySelector("audio#drawGame"),
+    soundLevel: 0.5
   },
   loseRound: {
     path: "/assets/music/click-error.wav",
-    audioElement: document.querySelector("audio#loseRound")
+    audioElement: document.querySelector("audio#loseRound"),
+    soundLevel: 0.5
   },
   forkChecked: {
-    path: "/assets/music/fork-click.mp3"
+    path: "/assets/music/fork-click.mp3",
+    soundLevel: 0.5
   },
   shieldClicked: {
-    path: "/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav"
+    path: "/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav",
+    soundLevel: 0.5
   },
   denyTheClick: {
-    path: "/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav"
+    path: "/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav",
+    soundLevel: 0.5
   },
   putInTheTally: {
-    path: "/assets/music/putting-in-tally.wav"
+    path: "/assets/music/putting-in-tally.wav",
+    soundLevel: 0.5
   },
   doneChecked: {
-    path: "/assets/music/SuccessAttack.mp3"
+    path: "/assets/music/SuccessAttack.mp3",
+    soundLevel: 0.5
   }
 }
 
 export async function playSound(sound) {
   let audio;
   audio = new Audio(sound.path);
+  audio.volume = sound.soundLevel;
   sound.audio = audio;
   if (sound.mute === undefined || sound.mute === false) {
     await audio.play();
