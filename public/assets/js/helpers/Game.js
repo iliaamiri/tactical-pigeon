@@ -141,16 +141,17 @@ class Game {
     console.log('game result', gameResult);
     if (gameResult === 'win') {
       ResultOverlay.updateTitle('victory');
-
+     
       // you get sunglasses
       Sunglasses.left.activate();
-
+   
       // game win sound effect
       await playSound(sounds.winGame);
       // document.querySelector("#winGame").play()
 
     } else if (gameResult === 'loss') {
       ResultOverlay.updateTitle('defeat');
+
 
       // opponent gets sunglasses
       Sunglasses.right.activate();
