@@ -41,6 +41,10 @@ const Game = {
    * Makes a new round as the next ongoing round and pushes it to the rounds array.
    */
   nextRound() {
+    if (this.getCurrentRoundNumber() >= 5) {
+      this.gameComplete = true;
+      return;
+    }
     const newRound = Object.create(Round);
     newRound.initNew(this.getCurrentRoundNumber() + 1, this.gameId);
     this.rounds.push(newRound);
