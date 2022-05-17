@@ -30,7 +30,10 @@ const Player = {
 
     // Initiate the players' initial ammo and lives.
     this.ammoInventory = Object.create(AmmoInventory);
+    this.ammoInventory.init(game.gameId, this.playerId);
+
     this.life = Object.create(Life);
+    this.life.init(game.gameId, this.playerId);
   },
 
   reSyncInRepo() {
