@@ -57,13 +57,28 @@ await new Promise((resolve, reject) => {
 
       console.log(event); // debug
 
-      // Save the game to the localStorage
-      // LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
+      // Make sure everything is ready.
+      new Promise((resolve, reject) => {
+        // Check if this is the beginning of the game
+        if (playerMe.moveHistory.length === 0) {
+          socket.emit("game:iamready", gameId);
 
-      // initiate everything from the beginning
-      game.initiateOnline(playerMe, playerOpponent, gameComplete);
+          document.addEventListener('opponentReadyToo', event => {
+            resolve();
+          });
+        } else {
+          resolve();
+        }
+      })
+        .then(() => {
+          // Save the game to the localStorage
+          // LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
 
-      resolve(event);
+          // initiate everything from the beginning
+          game.initiateOnline(playerMe, playerOpponent, gameComplete);
+        console.log("ayoyooooo")
+          resolve(event);
+        });
     });
   } else {
     const { playerMe, playerOpponent, gameComplete } = cachedGameFound;

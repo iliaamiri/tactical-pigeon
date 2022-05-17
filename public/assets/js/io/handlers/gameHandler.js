@@ -47,6 +47,13 @@ export default async (io, socket) => {
     );
   };
 
+  const opponentReadyToo = () => {
+    document.dispatchEvent(
+      new CustomEvent('opponentReadyToo')
+    );
+  };
+
+  socket.on('game:ready:start', opponentReadyToo);
   socket.on('game:matchFound', matchFound);
   socket.on('game:fetch:result', fetchCurrentStateOfGame);
   socket.on('game:round:opponentMove', receiveOpponentMoves)
