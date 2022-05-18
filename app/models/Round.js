@@ -41,7 +41,7 @@ const Round = {
    */
   isRoundFinished() {
     console.log("isRoundFinished: ", Date.now() - this.startedAt, this.maxTimer, this.maxTimer * 1000)
-    return (Date.now() - this.startedAt - this.timeDelay - 5000) > (this.maxTimer * 1000);
+    return (Date.now() - this.startedAt - this.timeDelay - 10000) > (this.maxTimer * 1000);
   },
 
   /**
