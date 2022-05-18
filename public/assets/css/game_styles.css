@@ -64,7 +64,7 @@ body {
   left:30vw;
   height: 6.5vw;
   width:5.2vw;
-  background-image: url("/assets/img/backgrounds/SVG/night-button-02.svg");
+  background-image: url("/assets/img/backgrounds/SVG/night-button.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -204,7 +204,7 @@ div.yourPigeon {
 div.backstory-title {
   font-family: "Titan One", cursive;
   font-size: 6.2vh;
-  font-size-adjust: ;
+  /* font-size-adjust: ; */
   text-align: center;
   color: white;
   -webkit-text-stroke-width: 0.2vh;

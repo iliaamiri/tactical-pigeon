@@ -31,9 +31,11 @@ document.querySelector("body").addEventListener('click', event => {
       startBtn.classList.add("playOnlineBtn");
     } else {
       startBtn.classList.remove("playOnlineBtn");
+      blueClouds.classList.add("d-none");
+      startBtn.classList.remove("pressed");
+      SearchingText.DOMElement.style.display = "none";
     }
   }
-
 });
 
 // Start Button Hover
@@ -43,6 +45,7 @@ startBtn.addEventListener('mouseout', event => event.target.classList.remove('ho
 // Start Button Click Listener
 startBtn.addEventListener('click', async event => {
   let target = event.target;
+
   target.classList.add("pressed")
 
   let audio = new Audio("/assets/music/SuccessAttack.mp3");
