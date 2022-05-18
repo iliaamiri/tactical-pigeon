@@ -156,10 +156,10 @@ module.exports = async (io, socket) => {
     let currentRound = foundGame.getCurrentRound();
 
     // Verify that the Round is finished or not.
-    if (currentRound.isRoundFinished()) {
-      socket.emit(':error', GameExceptions.roundFinishedAlready.userErrorMessage);
-      return;
-    }
+    // if (currentRound.isRoundFinished()) {
+    //   socket.emit(':error', GameExceptions.roundFinishedAlready.userErrorMessage);
+    //   return;
+    // }
 
     // Get opponent's playerId
     const otherPlayerId = Object.values(playersIds)
