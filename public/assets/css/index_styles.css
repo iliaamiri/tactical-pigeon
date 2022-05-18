@@ -23,8 +23,10 @@ div.indexWrapper {
 span.online-text-searching {
   display: none;
   font-family: "Titan One", cursive;
-  color: #4f7c93;
+  color: white;
   font-size: 1.6rem;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #407d96;
 }
 
 div.container {
@@ -32,6 +34,35 @@ div.container {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+}
+
+/* Loading Clouds no BK Overlay */
+div.loading-clouds-noBK-overlay {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  z-index: -60;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/assets/img/Overlays/LoadingCloudsNoBK.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.loading-clouds-noBK-overlay div.loading-text {
+  width: 30%;
+  height: 30%;
+  position: fixed;
+  z-index: 60;
+  font-family: "Titan One", cursive;
+  font-size: 4em;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
 }
 
 /* Play Mode Toggle */

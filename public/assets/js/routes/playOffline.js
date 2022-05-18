@@ -6,8 +6,13 @@ import Tally from "../components/Tally.js";
 
 const playAgainButton = document.querySelector(".play-again");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
-const speechBubble = document.querySelector(".bubble");
+const nextButton = document.querySelector('.nextBtn');
+const backButton = document.querySelector('.backBtn');
+const backStartContainer = document.querySelector('.back-start');
+const nextContainer = document.querySelector('.next');
 const continueButton = document.querySelector(".continueBtn");
+const backstoryContainer = document.querySelector('.backstory-container');
+const objectivesBanner = document.querySelector('.objectives');
 const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
 const tutorialOverlay = document.querySelector('.tutorial-overlay');
@@ -89,14 +94,31 @@ if (Cookie.get(username)) {
   document.querySelector('.done').classList.add('pop-in-animation');
 } else {
   Cookie.set(username, "newUser");
+  
+  // show the intro page
+  document.querySelector(".intro-page").classList.remove("d-none");
 
   // Inserting the username into the blue banner on the intro overlay
   let blueBannerUsernameSpan = document.querySelector('div.blueBanner p.character');
   if (username !== null) {
     blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
   }
+  
+  // when Next is clicked in Intro, show the Objectives
+  nextButton.addEventListener('click', event => {
+    backstoryContainer.classList.add('d-none');
+    nextContainer.classList.add('d-none');
+    objectivesBanner.classList.remove('d-none');
+    backStartContainer.classList.remove('d-none');
+  });
 
-  document.querySelector(".intro-page").classList.remove("d-none"); // show the intro page
+  // when Back is clicked in Intro, whow the Backstory again
+  backButton.addEventListener('click', event => {
+    backstoryContainer.classList.remove('d-none');
+    nextContainer.classList.remove('d-none');
+    objectivesBanner.classList.add('d-none');
+    backStartContainer.classList.add('d-none');
+  });
 
   // background intro screen
   continueButton.addEventListener("click", async event => {

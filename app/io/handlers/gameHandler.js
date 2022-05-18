@@ -1,11 +1,17 @@
 // Exceptions
 const GameExceptions = require("../../../core/Exceptions/GameExceptions");
 
+// Models
+const Move = require("../../models/Move");
+const Round = require("../../models/Round");
+
 // Repos
 const Games = require("../../repos/Games");
-const singleCompare = require("../helpers/singleCompare");
-const tripleCompare = require("../helpers/tripleCompare");
 const Players = require("../../repos/Players").Players;
+
+// Helpers
+const lifeAccountingAndRoundEvaluation = require("../helpers/roundSubmitMove/lifeAccountingAndRoundEvaluation");
+const preparePayloadAndEmit = require("../helpers/roundSubmitMove/preparePayloadAndEmit");
 
 module.exports = async (io, socket) => {
   // socket.user : ref to Player : authenticated player.
@@ -188,59 +194,87 @@ module.exports = async (io, socket) => {
 
     // If both players' moves have not been received yet, don't continue.
     if (!currentRound.movesCompleted()) {
+      currentRound.timeoutObject = setTimeout(() => {
+        // Make an empty move for the other player. (Consider the other player's move as an empty move).
+        let otherPlayerMove = Object.create(Move);
+
+        // Life accounting and Round evaluation
+        lifeAccountingAndRoundEvaluation(currentRound, otherPlayerId, thisPlayerMove, thisPlayer, otherPlayerMove, otherPlayer, foundGame);
+
+        preparePayloadAndEmit(io, foundGame, otherPlayerMove, thisPlayerMove, thisPlayer, otherPlayer);
+      }, currentRound.getTimeLeftTilRoundFinishes() + 5000);
       return;
     }
 
-    // Life accounting
-    console.log('this players life', JSON.parse(JSON.stringify(thisPlayer.life))); // debug
+    // Clear the timeout, because the opponent has submitted their move it seems.
+    currentRound.clearMoveTimout();
 
     // Get the other player's moves
     let otherPlayerMove = currentRound.moves[otherPlayerId];
 
-    console.log('otherPlayerMove', otherPlayerMove); // debug
+    // Life accounting and Round evaluation
+    lifeAccountingAndRoundEvaluation(currentRound, otherPlayerId, thisPlayerMove, thisPlayer, otherPlayerMove, otherPlayer, foundGame);
 
-    let checkedMovesArr = [];
-    for (const key of Object.keys(thisPlayerMove.toJSON())) {
-      checkedMovesArr.push(singleCompare(thisPlayerMove[key], otherPlayerMove[key]));
+    preparePayloadAndEmit(io, foundGame, otherPlayerMove, thisPlayerMove, thisPlayer, otherPlayer);
+
+    if (foundGame.gameComplete) {
+      foundGame.end();
+      thisPlayer.cleanUpAfterGame();
+      otherPlayer.cleanUpAfterGame();
     }
-    let roundResult = tripleCompare(checkedMovesArr);
-    if (roundResult === 2) {
-      thisPlayer.life.loseLife();
-    }
-    if (roundResult === 1) {
-      otherPlayer.life.loseLife();
-    }
-
-    console.log('this players life after processing', JSON.parse(JSON.stringify(thisPlayer.life)));
-
-    if (thisPlayer.ammoInventory.getTotalInventory() === 0 // If the player had no ammo
-      || otherPlayer.ammoInventory.getTotalInventory() === 0 // If the other player had no ammo
-      || thisPlayer.life.lives === 0 // If this player had no lives
-      || otherPlayer.life.lives === 0 // If the other player had not lives
-      || currentRound === 5) // Or, if this was the last round
-    {
-      foundGame.gameComplete = true; // Mark the game as complete
-    } else {
-      foundGame.nextRound();
-    }
-
-    let thisPlayerPayload = {
-      opponentMoves: otherPlayerMove.toJSON(),
-      gameComplete: foundGame.gameComplete
-    };
-    let otherPlayerPayload = {
-      opponentMoves: thisPlayerMove.toJSON(),
-      gameComplete: foundGame.gameComplete
-    };
-
-    io.to(thisPlayer.socketId).emit("game:round:opponentMove", thisPlayerPayload);
-    io.to(otherPlayer.socketId).emit("game:round:opponentMove", otherPlayerPayload);
-
-    // if (foundGame.gameComplete) {
-    //   Games.delete(gameId);
-    // }
   };
 
+  const playerIsReady = (gameId) => {
+    // Find the game by gameId
+    console.log("PLAYER IS READY", gameId)
+    const foundGame = Games.find(gameId);
+    if (!foundGame) {
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
+    }
+
+    // Get players of the found game.
+    const playersIds = foundGame.players;
+
+    // Find this player who requested a game fetch and verify if they are in this game or not.
+    const thisPlayerId = Object.values(playersIds)
+      .filter(_playerId => _playerId === socket.user.playerId);
+    if (!thisPlayerId) {
+      // For security, don't tell the noisy people if the game even exists or not.
+      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      return;
+    }
+
+    // If both players are ALREADY ready, don't over-do the purpose of this handler.
+    // Purpose of the next if statement: If the player refreshes or something, this will still tell that the game is ready
+    if (foundGame.areBothPlayersReady()) {
+      socket.emit("game:ready:start");
+      return;
+    }
+
+    foundGame.playersReadyStatus[thisPlayerId] = true;
+    console.log("are both players ready", foundGame.areBothPlayersReady());
+    // If both of the players of the game were ready.
+    if (foundGame.areBothPlayersReady()) {
+      // Get opponent's playerId
+      const otherPlayerId = Object.values(playersIds)
+        .filter(_playerId => _playerId !== socket.user.playerId);
+
+      // Find opponent's player object.
+      let otherPlayer = Players.find(otherPlayerId);
+
+      // Tell both players that everyone is ready, so the round can start from now.
+      io.to(socket.user.socketId).emit("game:ready:start");
+      io.to(otherPlayer.socketId).emit("game:ready:start");
+
+      // Actually start the first round now.
+      setTimeout(() => {
+        foundGame.nextRound();
+      }, Round.timeDelay);
+    }
+  };
+
+  socket.on("game:iamready", playerIsReady);
   socket.on("game:searchForOpponent", searchForOpponent);
   socket.on("game:fetch", fetchCurrentStateOfGame);
   socket.on("game:round:submitMove", roundSubmitMove);

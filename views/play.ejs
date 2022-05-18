@@ -43,10 +43,6 @@
 
         <!-- Intro Overlay -->
         <div class="intro-page d-none">
-          <div class="scrollMessage animate__bounceInDown animate__animated animate__slow">
-            <span>Scroll down!</span>
-            <img src="/assets/img/Overlays/ArrowDown.svg" alt="arrow down">
-          </div>
           <div class="blueBanner">
             <% if (typeof playMode !== "undefined" && playMode === 'online') { %>
               <p class="character"> <%= myUsername %>, you are: PUSINESS MAN </p>
@@ -56,28 +52,42 @@
           </div>
           <div class="yourPigeon"></div>
           <div class="bubble bubble-bottom-left">
-            <span class="backstory">I’m a bird in the big apple. Lifes good! Amazing food, great night life,
-              what more can a
-              pigeon ask for? Well ...I wish &nbsp; <span class="pigeon-type"> hoodie pigeon</span> &nbsp;would stop
-              stealing my food....I’ll have to
-              take thing into my
-              own hands. Nothing personal, it’s just business.</span>
-            <div class="objectives">
-              <div class="objectives-title"></div>
-              <div class="objectives-banner">
-                <ul class="game-info">
-                  <li>Use your fork to attack unprotected spots to decrease your opponents lives</li>
-                  <br>
-                  <li>Use your shield block to protect yourself against opponent attacks</li>
-                  <br>
-                  <li>Winner is determined by the number of lives left or the amount of ammo left</li>
-                </ul>
-                <div class="continueBtn animate__animated animate__pulse animate__infinite">
-                  Got
-                  it!
-                </div>
+            <div class="backstory-container">
+              <div class="backstory-title">Backstory</div>
+              <div class="backstory-text">
+                I’m a bird in the Big Apple. Life's good! Amazing food, great night life,
+                what more can a pigeon ask for? Well... I wish&nbsp;<span class="pigeon-type">hoodie pigeon</span>&nbsp;would stop
+                stealing my food... I’ll have to
+                take things into my
+                own hands. Nothing personal, just business.
               </div>
             </div>
+            <div class="objectives d-none">
+              <div class="objectives-title">Objectives</div>
+              <div class="objectives-banner">
+                <ul class="game-info">
+                  <li>Use forks to attack and decrease your opponent's lives</li>
+                  <li>Use shields to protect yourself against your opponent's attacks</li>
+                  <li>The winner is determined by the number of lives left or the amount of ammo left</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="back-start d-none">
+              <div class="backBtn animate__animated animate__pulse animate__infinite">
+                Back
+              </div>
+              <div class="continueBtn animate__animated animate__pulse animate__infinite">
+                Start game!
+              </div>
+            </div>
+            <div class="next">
+              <div class="nextBtn animate__animated animate__pulse animate__infinite">
+                Next
+              </div>
+            </div>
+            
+            
           </div>
         </div>
 

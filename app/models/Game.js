@@ -14,19 +14,35 @@ const Game = {
     // $ref: Round
   ],
 
+  playersReadyStatus: {
+    // "<playerId>": boolean (true | false)
+  },
+
+  endedAt: null,
+
   initNewGame(playersArr) {
     this.gameId = makeId();
     this.rounds = [];
-    this.nextRound();
+    this.playersReadyStatus = {};
     this.players = [];
 
     // Add the players' IDs to the game instance.
     playersArr.map(player => {
       this.players.push(player.playerId);
+      this.playersReadyStatus[player.playerId] = false;
 
       // Initiate the players for a new game (prepare them for a new game).
       player.initForNewGame(this);
     });
+  },
+
+  areBothPlayersReady() {
+    for (let status of Object.values(this.playersReadyStatus)) {
+      if (!status) {
+        return false;
+      }
+    }
+    return true;
   },
 
   updateRoundMoves(moves, player) {
@@ -45,6 +61,12 @@ const Game = {
       this.gameComplete = true;
       return;
     }
+
+    let currentRound = this.getCurrentRound();
+    if (currentRound) {
+      currentRound.clearMoveTimout();
+    }
+
     const newRound = Object.create(Round);
     newRound.initNew(this.getCurrentRoundNumber() + 1, this.gameId);
     this.rounds.push(newRound);
@@ -69,6 +91,10 @@ const Game = {
     }
 
     return this.rounds[this.getCurrentRoundNumber() - 1];
+  },
+
+  end() {
+    this.endedAt = Date.now();
   },
 
   toJSON: function () {

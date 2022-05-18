@@ -40,6 +40,12 @@ const Player = {
     Players.update(this.playerId, this);
   },
 
+  cleanUpAfterGame() {
+    this.currentGameIdPlaying = null;
+    this.life = null;
+    this.ammoInventory = null;
+  },
+
   toJSON: function () {
     return {
       playerId: this.playerId,
