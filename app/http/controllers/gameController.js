@@ -79,7 +79,7 @@ const GameController = {
     let myUsername;
     let opponentUsername;
 
-    // we need to check if the authenticated user is one the players of the game
+    // we need to check if the authenticated user is one of the players of the game
     if (!game.players.includes(foundPlayer.playerId)) {
       // throw an error
       res.render('layouts/404');
