@@ -23,7 +23,7 @@ module.exports = async (io, socket) => {
   const searchForOpponent = () => {
     // Do not allow a connected user to add themselves to the matching queue again. (security)
     if (socket.user.currentGameIdPlaying) {
-      socket.emit(':error', GameExceptions.currentlyInGame.userErrorMessage);
+      socket.emit(':error', GameExceptions.currentlyInGame);
       return;
     }
 
@@ -58,7 +58,7 @@ module.exports = async (io, socket) => {
     // Check if any game with this `gameId` exists or not.
     const game = Games.find(gameId);
     if (!game) {
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 
@@ -70,7 +70,7 @@ module.exports = async (io, socket) => {
       .filter(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 
@@ -140,7 +140,7 @@ module.exports = async (io, socket) => {
     // Find the game by gameId
     const foundGame = Games.find(gameId);
     if (!foundGame) {
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 
@@ -152,7 +152,7 @@ module.exports = async (io, socket) => {
       .filter(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 
@@ -163,7 +163,7 @@ module.exports = async (io, socket) => {
 
     // Verify that the Round is finished or not. TODO: figure this out.
     // if (currentRound.isRoundFinished()) {
-    //   socket.emit(':error', GameExceptions.roundFinishedAlready.userErrorMessage);
+    //   socket.emit(':error', GameExceptions.roundFinishedAlready);
     //   return;
     // }
 
@@ -229,7 +229,7 @@ module.exports = async (io, socket) => {
     console.log("PLAYER IS READY", gameId)
     const foundGame = Games.find(gameId);
     if (!foundGame) {
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 
@@ -241,7 +241,7 @@ module.exports = async (io, socket) => {
       .filter(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
-      socket.emit(':error', GameExceptions.gameNotFound.userErrorMessage);
+      socket.emit(':error', GameExceptions.gameNotFound);
       return;
     }
 

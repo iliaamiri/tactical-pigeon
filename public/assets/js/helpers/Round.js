@@ -88,6 +88,11 @@ class Round {
           move: Players.all.player1.moves.toJSON()
         });
 
+        // Custom error
+        socket.on(":error", err => {
+          console.log("App Error: ", err);
+        });
+
         document.addEventListener('opponentMoveReady', event => {
           // Destructure all the fetched data.
           const { opponentMoves, gameComplete } = event.detail;

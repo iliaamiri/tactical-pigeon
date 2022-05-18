@@ -54,6 +54,9 @@ const GameController = {
     // we need to make sure that the gameId exists in the Games.all
     const game = Games.find(gameId);
 
+    // check if the game is still ongoing and not finished
+    let gameComplete = (game.gameComplete === true);
+
     // the user should be authenticated at this point
     const jwtToken = req.cookies.JWT;
 
@@ -65,7 +68,6 @@ const GameController = {
     }
   
     const foundTokenObj = Tokens.all.get(jwtToken);
-  
     if (!foundTokenObj) {
       res.render('layouts/404', {
         error: AuthExceptions.authFailed.errMessage
@@ -74,28 +76,28 @@ const GameController = {
     }
   
     let foundPlayer = Players.find(foundTokenObj.playerId);
-    // console.log('foundPlyaerId:', foundPlayer.playerId);
 
     let myUsername;
     let opponentUsername;
 
-    // we need to check if the authenticated user is one the players of the game
+    // we need to check if the authenticated user is one of the players of the game
     if (!game.players.includes(foundPlayer.playerId)) {
       // throw an error
       res.render('layouts/404');
       return;
     }
 
-    let newArr = JSON.parse(JSON.stringify(game.players));
-    const index = newArr.indexOf(foundPlayer.playerId);
-    if (index > -1) {
-      newArr.splice(index, 1); // 2nd parameter means remove one item only
+    // If the game was already finishes, let the user know, and allow them to redirect back to home or something.
+    if (gameComplete) {
+      res.render('layouts/gameAlreadyEnded');
+      return;
     }
-    myUsername = Players.find(foundPlayer.playerId).username;
-    opponentUsername = Players.find(newArr[0]).username;
 
-    // check if the game is still ongoing and not finished
-    let gameComplete = (game.gameComplete === true);
+    // Get opponent player's playerId
+    let opponentPlayerId = game.players.find(playerId => playerId !== foundPlayer.playerId);
+
+    myUsername = Players.find(foundPlayer.playerId).username;
+    opponentUsername = Players.find(opponentPlayerId).username;
 
     res.render('play', {
       playMode: "online",

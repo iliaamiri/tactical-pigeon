@@ -9,14 +9,14 @@ module.exports = (socket, next) => {
   const jwtToken = socket.handshake.auth.token;
 
   if (!jwtToken) {
-    next(authExceptions.authFailed.errMessage);
+    next(authExceptions.authFailed);
     return;
   }
 
   const foundTokenObj = Tokens.all.get(jwtToken);
 
   if (!foundTokenObj) {
-    next(authExceptions.authFailed.errMessage);
+    next(authExceptions.authFailed);
     return;
   }
 
@@ -36,7 +36,7 @@ module.exports = (socket, next) => {
 
   if (foundPlayer.socketId) {
     socket.server.connected[foundPlayer.socketId].disconnect();
-    next(authExceptions.alreadyInMatch.errMessage);
+    next(authExceptions.alreadyInMatch);
     return;
   }
   foundPlayer.socketId = socket.id;

@@ -30,6 +30,19 @@ div.flip-overlay img {
   width: 30%;
 }
 
+a.button-error-action { /* TODO */
+  background-color: #e8ba1d;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: "Titan One", cursive;
+  font-size: 3vw;
+}
+
 @media only screen and (min-width: 350px) and (orientation: portrait) {
   div.flip-overlay {
     display: none;

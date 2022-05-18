@@ -76,7 +76,7 @@ await new Promise((resolve, reject) => {
 
           // initiate everything from the beginning
           game.initiateOnline(playerMe, playerOpponent, gameComplete);
-        console.log("ayoyooooo")
+
           resolve(event);
         });
     });
