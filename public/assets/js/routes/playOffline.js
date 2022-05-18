@@ -6,12 +6,11 @@ import Tally from "../components/Tally.js";
 
 const playAgainButton = document.querySelector(".play-again");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
-//const speechBubble = document.querySelector(".bubble");
 const nextButton = document.querySelector('.nextBtn');
 const backButton = document.querySelector('.backBtn');
 const backStartContainer = document.querySelector('.back-start');
 const nextContainer = document.querySelector('.next');
-const continueButton = document.querySelector(".continueBtn");const backstory = document.querySelector('.backstory');
+const continueButton = document.querySelector(".continueBtn");
 const backstoryContainer = document.querySelector('.backstory-container');
 const objectivesBanner = document.querySelector('.objectives');
 const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
@@ -49,16 +48,13 @@ nextButton.addEventListener('click', event => {
   nextContainer.classList.add('d-none');
   objectivesBanner.classList.remove('d-none');
   backStartContainer.classList.remove('d-none');
-  /* backButton.classList.remove('d-none');
-  continueButton.classList.remove('d-none'); */
-  backButton.addEventListener('click', event => {
-    backstoryContainer.classList.remove('d-none');
-    nextContainer.classList.remove('d-none');
-    objectivesBanner.classList.add('d-none');
-    backStartContainer.classList.add('d-none');
-    /* backButton.classList.add('d-none');
-    continueButton.classList.add('d-none'); */
-  });
+});
+
+backButton.addEventListener('click', event => {
+  backstoryContainer.classList.remove('d-none');
+  nextContainer.classList.remove('d-none');
+  objectivesBanner.classList.add('d-none');
+  backStartContainer.classList.add('d-none');
 });
 
 // inserting the username and 'computer' under the health bars
@@ -91,11 +87,6 @@ Tally.all = {
   'player2': new Tally(document.querySelector('table.tally.opponent-tally'), Players.all.player2)
 };
 Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
-
-/* ---- Scroll Effect ---- */
-/* speechBubble.addEventListener("scroll", async event => {
-  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-}); */
 
 // background intro screen
 continueButton.addEventListener("click", async event => {
