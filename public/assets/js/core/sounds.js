@@ -5,27 +5,27 @@ export const sounds = {
     soundLevel: 0.5
   },
   winRound: {
-    path: "/assets/music/win-round-sound.wav",
+    path: "/assets/music/win-round-sound.mp3",
     audioElement: document.querySelector("audio#winRound"),
     soundLevel: 0.5
   },
   winGame: {
-    path: "/assets/music/winning-game.wav",
+    path: "/assets/music/winning-game.mp3",
     audioElement: document.querySelector("audio#winGame"),
     soundLevel: 0.5
   },
   loseGame: {
-    path: "/assets/music/lose-game-moan.wav",
+    path: "/assets/music/lose-game-moan.mp3",
     audioElement: document.querySelector("audio#loseGame"),
     soundLevel: 0.5
   },
   drawGame: {
-    path: "/assets/music/draw-game.wav",
+    path: "/assets/music/draw-game.mp3",
     audioElement: document.querySelector("audio#drawGame"),
     soundLevel: 0.5
   },
   loseRound: {
-    path: "/assets/music/click-error.wav",
+    path: "/assets/music/click-error.mp3",
     audioElement: document.querySelector("audio#loseRound"),
     soundLevel: 0.5
   },
@@ -34,15 +34,15 @@ export const sounds = {
     soundLevel: 0.5
   },
   shieldClicked: {
-    path: "/assets/music/mixkit-player-jumping-in-a-video-game-2043.wav",
+    path: "/assets/music/mixkit-player-jumping-in-a-video-game-2043.mp3",
     soundLevel: 0.5
   },
   denyTheClick: {
-    path: "/assets/music/mixkit-neutral-bot-pinbal-tone-3137.wav",
+    path: "/assets/music/mixkit-neutral-bot-pinbal-tone-3137.mp3",
     soundLevel: 0.5
   },
   putInTheTally: {
-    path: "/assets/music/putting-in-tally.wav",
+    path: "/assets/music/putting-in-tally.mp3",
     soundLevel: 0.5
   },
   doneChecked: {
