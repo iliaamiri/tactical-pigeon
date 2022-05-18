@@ -24,28 +24,28 @@
     </div>
 
     <div class="logo floating">
-        <img src="/assets/img/GUI-controls/MenuStart/Game Title.png" alt="">
+        <img src="/assets/img/GUI-controls/MenuStart/Game Title-01.svg" alt="">
+    </div>
+
+<div class="indexWrapper">
+    <div class="play-mode-toggle-container">
+        <span>Play Online:</span>
+        <div class="toggleWrapper">
+            <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+            <label for="toggle1" class="toggleLabel"></label>
+        </div>
     </div>
 
     <div class="start">
-        <div class="play-mode-toggle-container">
-            <span>Play Online:</span>
-            <div class="toggleWrapper">
-                <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
-                <label for="toggle1" class="toggleLabel"></label>
-            </div>
-        </div>
-
         <p class="title-enter-name">Enter your name: </p>
-
         <input type="text" class="usernameInput">
-
         <button class="play">
             <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
         </button>
-
         <span class="online-text-searching">Finding an opponent</span>
     </div>
+</div>
+
 </div>
 
 <!-- <audio controls autoplay>
@@ -54,6 +54,7 @@
 <!-- JavaScript -->
 <!-- App -->
 <%- include('_partials/commonJsFooters.ejs') -%>
+
 </body>
 
 </html>
