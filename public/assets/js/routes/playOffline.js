@@ -156,11 +156,6 @@ if (Cookie.get(username)) {
   })
 
 }
-console.log(Cookie.get(username))
-
-/* ---- Scroll Effect ---- */
-speechBubble.addEventListener("scroll", async event => {
-  document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-});
+console.log(Cookie.get(username));
 
 await import('./_common_play.js');
