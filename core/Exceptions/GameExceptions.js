@@ -13,6 +13,11 @@ const GameExceptions = {
     errMessage: new Error("ROUND_FINISHED_ALREADY"),
     userErrorMessage: "This round is finished. Cannot submit move at this time.",
     httpStatus: 400
+  },
+  gameAlreadyStarted: {
+    errMessage: new Error("GAME_ALREADY_STARTED"),
+    userErrorMessage: "Both players are ready. Game is already started.",
+    httpStatus: 400
   }
 };
 module.exports = GameExceptions;

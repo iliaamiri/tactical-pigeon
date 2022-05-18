@@ -15,7 +15,7 @@ const AuthController = {
    */
   async loginOrSignUp(req, res) {
     // Get the givenUsername input from body AND make sure of its existence.
-    const {givenUsername} = req.body;
+    const { givenUsername } = req.body;
     if (!givenUsername) {
       throw AuthExceptions.badInput; // Send error if the parameter does not exist.
     }
@@ -43,7 +43,8 @@ const AuthController = {
     // Send back the token value to the user.
     res.json({
       status: true,
-      tokenValue: generatedTokenValue
+      tokenValue: generatedTokenValue,
+      
     });
   }
 };

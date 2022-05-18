@@ -12,6 +12,11 @@ const Round = {
 
   startedAt: null,
 
+  // There will be a gap of time between the server and client communication (this is an approximate)
+  timeDelay: 2000, // in milliseconds.
+
+  timeoutObject: null,
+
   moves: {
     // <player1Id>: $ref: Move,
     // <player2Id>: $ref: Move
@@ -35,7 +40,26 @@ const Round = {
    * @returns {boolean}
    */
   isRoundFinished() {
-    return (Date.now() - this.startedAt) > (this.maxTimer * 1000);
+    console.log("isRoundFinished: ", Date.now() - this.startedAt, this.maxTimer, this.maxTimer * 1000)
+    return (Date.now() - this.startedAt - this.timeDelay - 5000) > (this.maxTimer * 1000);
+  },
+
+  /**
+   * Gets the time left until the round finishes. (in milliseconds)
+   * @returns {number}
+   */
+  getTimeLeftTilRoundFinishes() {
+    console.log("Time left til round finishes: ", (this.startedAt + (this.maxTimer * 1000)) - Date.now() + this.timeDelay);
+    return (this.startedAt + (this.maxTimer * 1000) + this.timeDelay) - Date.now();
+  },
+
+  /**
+   * Clears the timeoutObject if exists.
+   */
+  clearMoveTimout() {
+    if (this.timeoutObject) {
+      clearTimeout(this.timeoutObject);
+    }
   },
 
   /**
