@@ -28,41 +28,37 @@
             <span class="portrait">FLIP TO PLAY</span>
         </div>
 
-        <div class="logo floating">
-            <img src="/assets/img/GUI-controls/MenuStart/Game Title.png" alt="">
-        </div>
+    <div class="logo floating">
+        <img src="/assets/img/GUI-controls/MenuStart/Game Title-01.svg" alt="">
+    </div>
 
-        <div class="start">
-            <div class="play-mode-toggle-container">
-                <span>Play Online:</span>
-                <div class="toggleWrapper">
-                    <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
-                    <label for="toggle1" class="toggleLabel"></label>
-                </div>
-            </div>
-
-            <p class="title-enter-name">Enter your name: </p>
-
-            <input type="text" class="usernameInput">
-
-            <button class="play">
-                <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
-            </button>
-
-            <span class="online-text-searching">Finding an opponent</span>
-        </div>
-
-        <!-- Loading Clouds -->
-        <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s">
+<div class="indexWrapper">
+    <div class="play-mode-toggle-container">
+        <span>Play Online:</span>
+        <div class="toggleWrapper">
+            <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+            <label for="toggle1" class="toggleLabel"></label>
         </div>
     </div>
 
-    <!-- <audio controls autoplay>
-  <source src="\assets\music\Itty-Bitty-8-Bit-Music.mp3" type="audio/mp3">
-</audio> -->
-    <!-- JavaScript -->
-    <!-- App -->
-    <%- include('_partials/commonJsFooters.ejs') -%>
+    <div class="start">
+        <p class="title-enter-name">Enter your name: </p>
+        <input type="text" class="usernameInput">
+        <button class="play">
+            <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
+        </button>
+        <span class="online-text-searching">Finding an opponent</span>    
+     
+     </div>
+
+ </div>
+    
+    <!-- Loading Clouds -->
+        <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s">
+        </div>
+</div>
+
+
 </body>
 
 </html>

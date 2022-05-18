@@ -109,6 +109,9 @@
           <!-- <span class="count">3</span> -->
         </div>
 
+         <!-- button that triggers night background (in progress)> -->
+         <div class="nightBg" id="nightBg" alt=""></div>
+
         <!-- Play Again Button -->
         <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
           <div id="pulse" class="play-again mb-5"></div>
@@ -388,6 +391,21 @@
 
       import { playSound, sounds } from "/assets/js/core/sounds.js";
 
+      // trying to add night mode/different map for pigeon battle
+      let nightBg = document.querySelector("#nightBg");
+      
+      nightBg.addEventListener("click", function(){
+        let body = document.querySelector("body");
+        body.classList.remove("default-background");
+        body.classList.add("night-night-background");
+        body.style.backgroundColor = "#736c9c";
+
+        // fork.src = "/assets/img/GUI-controls/MainControls/SVG/Asset 2.svg";
+        // shield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg"
+        opponentShield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg";
+        document.querySelector("div.container-fluid > div:nth-child(2) > div.opponent-counter-box > img").src = "/assets/img/GUI-controls/MainControls/SVG/fork-night-pink.svg";
+      })
+
       //for playing theme music without user interaction + repeatings
       let theme = document.querySelector("#bgMusic");
       let continueButton = document.querySelector(".continueBtn");
@@ -473,7 +491,6 @@
       let doneButton = document.querySelector(".done");
       doneButton.onclick = function () {
         playSound(sounds.doneChecked);
-
       }
 
       // changing mute to unmuted svg and viceversa
@@ -485,8 +502,6 @@
           muteBtn.style.backgroundImage = 'url("/assets/img/GUI-controls/MainControls/Mute.svg")';
         }
       }
-
-      // drag + drop event handlers
 
     </script>
 

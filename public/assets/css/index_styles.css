@@ -14,6 +14,12 @@ p {
   font-size: 1.5rem;
 }
 
+div.indexWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 span.online-text-searching {
   display: none;
   font-family: "Titan One", cursive;
@@ -66,7 +72,6 @@ div.play-mode-toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -60px;
 }
 
 div.play-mode-toggle-container span {
@@ -84,19 +89,20 @@ div.play-mode-toggle-container span {
 div.start {
   display: flex;
   flex-direction: column;
-  background-image: url("/assets/img/GUI-controls/MenuStart/menubg.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 55vh;
-  width: 36vw;
+  width: 28vw;
+  margin: 1.5vw 0 0 1.2vw;
   align-items: center;
   justify-content: center;
-  padding: 3%;
+  padding: 0 1vw;
+  background-color: #cedce7;
+  border-style: inset none inset none;
+  border-bottom: 0.4vw #597b91 solid;
+  border-radius: 1.6vw;
+  border-top: 0.4vw #e1ebf0 solid;
 }
 
 div.start p.title-enter-name {
-  transition: 1s;
+  font-size: 2vw;
 }
 
 div.start p.title-enter-name.error-alert {
@@ -105,14 +111,20 @@ div.start p.title-enter-name.error-alert {
   color: #fff9e5;
 }
 
+button.play {
+  margin:0;
+  padding:0;
+  margin-top: 1vw;
+}
+
 div.startBtn {
   background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  width: 20vw;
-  height: 14vh;
-  margin-top: 15px;
-  /* cursor: pointer; */
+  width: 16vw;
+  height:7vw;
+  border-radius: 1vw;
+  cursor: pointer;
 }
 
 div.startBtn.unpressed {
@@ -120,13 +132,12 @@ div.startBtn.unpressed {
 }
 
 div.startBtn.hover {
-  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
-  /* cursor: not-allowed; */
+  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg"); 
+  cursor: not-allowed;
 }
 
 div.startBtn.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
-  /* cursor: not-allowed; */
 }
 
 div.playOnlineBtn.playOnlineBtn {
@@ -152,7 +163,7 @@ div.logo {
 }
 
 div.logo img {
-  height: 50vh;
+  width:47vw;
 }
 
 .floating {
@@ -183,137 +194,20 @@ button {
 }
 
 input.usernameInput {
-  padding: 6px;
+  padding: 0.5vw;
   margin-top: -5px;
-  border-radius: 3px;
+  border-radius: 0.9vw;
   display: inline-block;
   font-family: "Titan One", cursive;
   color: #4f7c93;
   font-size: 1.5vw;
   text-align: center;
   letter-spacing: 1px;
+  width: 15vw;
+  background-color:rgba(248, 248, 255, 0.548);
+  border-color: #407D96;
+  border-width: 0.15vw;
 }
-
-/* Extra small devices (phones, 600px and down) */
-
-@media only screen and (max-width: 600px) {
-  input.usernameInput {
-    width: 20vw;
-    height: auto;
-    margin: 0;
-    padding: 2px;
-  }
-
-  p {
-    font-size: 2.3vw;
-  }
-
-  div.start img {
-    width: 25vw;
-    height: auto;
-    margin-bottom: 10px;
-  }
-
-  div.start {
-    height: 60vh;
-    width: 45vw;
-    margin: 0;
-  }
-
-  div.logo img {
-    width: 52vw;
-    height: auto;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-
-@media only screen and (min-width: 600px) {
-  div.play-mode-toggle-container span {
-    font-size: 2.6vw;
-  }
-
-  div.play-mode-toggle-container {
-    margin-top: 0;
-  }
-
-  input.usernameInput {
-    width: 25vw;
-    margin: 0;
-    font-size: 1.7vw;
-  }
-
-  div.start {
-    height: 60vh;
-    width: 40vw;
-    margin: 0;
-  }
-
-  div.start img {
-    width: 22vw;
-    height: auto;
-  }
-
-  p {
-    font-size: 2.7vw;
-  }
-
-  div.logo img {
-    width: 50vw;
-    height: auto;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-
-@media only screen and (min-width: 992px) {
-  div.play-mode-toggle-container span {
-    font-size: 1.8vw;
-  }
-  input.usernameInput {
-    width: 20vw;
-    margin: 0;
-    font-size: 1.7vw;
-  }
-
-  p {
-    font-size: 2.3vw;
-  }
-
-  div.start img {
-    width: 16vw;
-    height: auto;
-    margin-bottom: 10px;
-  }
-
-  div.logo img {
-    width: 40vw;
-    height: auto;
-  }
-
-  div.container {
-    margin-left: 12vw;
-    margin-right: 12vw;
-  }
-}
-
-/* Large Desktop */
-
-@media only screen and (min-width: 1200px) {
-  div.play-mode-toggle-container {
-    margin-top: -50px;
-  }
-}
-
-/* 4K */
-
-@media only screen and (min-width: 1400px) {
-  div.play-mode-toggle-container {
-    margin-top: -120px;
-  }
-}
-
-/* Portrait Overlay */
 
 span.portrait {
   font-family: "Titan One", cursive;

@@ -158,7 +158,7 @@ class Round {
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
-      }, 1400);
+      }, 1440);
 
       opponentTally.fillColumnDefeat();
 
@@ -212,7 +212,7 @@ class Round {
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
-      }, 1400);
+      }, 1440);
 
       opponentTally.fillColumnVictory();
 
