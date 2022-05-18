@@ -156,6 +156,6 @@ if (Cookie.get(username)) {
   })
 
 }
-console.log(Cookie.get(username))
+console.log(Cookie.get(username));
 
 await import('./_common_play.js');
