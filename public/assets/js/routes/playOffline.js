@@ -6,8 +6,14 @@ import Tally from "../components/Tally.js";
 
 const playAgainButton = document.querySelector(".play-again");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
-const speechBubble = document.querySelector(".bubble");
-const continueButton = document.querySelector(".continueBtn");
+//const speechBubble = document.querySelector(".bubble");
+const nextButton = document.querySelector('.nextBtn');
+const backButton = document.querySelector('.backBtn');
+const backStartContainer = document.querySelector('.back-start');
+const nextContainer = document.querySelector('.next');
+const continueButton = document.querySelector(".continueBtn");const backstory = document.querySelector('.backstory');
+const backstoryContainer = document.querySelector('.backstory-container');
+const objectivesBanner = document.querySelector('.objectives');
 const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
 
@@ -34,7 +40,26 @@ if (username !== null) {
   blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
 }
 
-document.querySelector(".intro-page").classList.remove("d-none"); // show the intro page
+// show the intro page
+document.querySelector(".intro-page").classList.remove("d-none"); 
+
+// when Next is clicked in Intro, show the Objectives
+nextButton.addEventListener('click', event => {
+  backstoryContainer.classList.add('d-none');
+  nextContainer.classList.add('d-none');
+  objectivesBanner.classList.remove('d-none');
+  backStartContainer.classList.remove('d-none');
+  /* backButton.classList.remove('d-none');
+  continueButton.classList.remove('d-none'); */
+  backButton.addEventListener('click', event => {
+    backstoryContainer.classList.remove('d-none');
+    nextContainer.classList.remove('d-none');
+    objectivesBanner.classList.add('d-none');
+    backStartContainer.classList.add('d-none');
+    /* backButton.classList.add('d-none');
+    continueButton.classList.add('d-none'); */
+  });
+});
 
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
@@ -68,9 +93,9 @@ Tally.all = {
 Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
 
 /* ---- Scroll Effect ---- */
-speechBubble.addEventListener("scroll", async event => {
+/* speechBubble.addEventListener("scroll", async event => {
   document.querySelector(".scrollMessage").classList.add("animate__bounceOutUp");
-});
+}); */
 
 // background intro screen
 continueButton.addEventListener("click", async event => {
@@ -78,6 +103,7 @@ continueButton.addEventListener("click", async event => {
   event.target.classList.remove("unpressed");
   continueButton.classList.add("pressed");
   document.querySelector(".intro-page").classList.add("d-none");
+
   // first round preparation
   playAgainButton.classList.add("d-none");
   countdownOverlayComponent.classList.remove("d-none");
