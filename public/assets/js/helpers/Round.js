@@ -67,6 +67,8 @@ class Round {
   static tdCounter = 0;
 
   async donePressed() {
+    // hide the done (fight!) button
+    document.querySelector('div.done').classList.add('d-none');
     // disabling buttons for a moment
     let doneBtn = document.querySelector(".done");
     doneBtn.disableClick(); // disabling done button
