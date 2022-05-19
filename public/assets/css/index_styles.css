@@ -208,6 +208,22 @@ input.usernameInput {
   border-width: 0.15vw;
 }
 
+div.map-selection-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  background: #ffdc4b;
+  border: 7px solid white;
+  border-radius: 200px;
+  font-size: 4em;
+  padding-bottom: 10px;
+}
+
 span.portrait {
   font-family: "Titan One", cursive;
   font-size: 35px;
