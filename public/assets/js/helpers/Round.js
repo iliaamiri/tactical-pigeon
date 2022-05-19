@@ -327,8 +327,7 @@ class Round {
       this.currentRoundNumber < this.counterRange[1] // If this wasn't the last round
       && Life.all.myLife.counter > 0 // If player1 still has lives
       && Life.all.opponentLife.counter > 0 // If player2 still has lives
-      && leftPlayerTotalInventory > 0 // if our player has no inventory, there's no point to continue
-      && rightPlayerTotalInventory > 0 // if opponent has no inventory, there's no point to continue
+      && leftPlayerTotalInventory + rightPlayerTotalInventory !== 0 // if both players have no inventory
     ) {
 
       setTimeout(async () => {
