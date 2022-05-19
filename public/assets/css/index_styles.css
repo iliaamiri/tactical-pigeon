@@ -209,19 +209,19 @@ input.usernameInput {
 }
 
 div.map-selection-button {
+  margin: 1vw 1vw 0 0;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
-  background: #ffdc4b;
-  border: 7px solid white;
-  border-radius: 200px;
-  font-size: 4em;
-  padding-bottom: 10px;
+  width: 8vw;
+  height: 8vw;
+  background-image: url("/assets/img/backgrounds/SVG/map-button.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 
 span.portrait {
