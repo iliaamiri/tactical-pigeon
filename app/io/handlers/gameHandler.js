@@ -21,6 +21,12 @@ module.exports = async (io, socket) => {
    * If there were more than or equal to 2 players in the queue, an event will be emitted and matches two players.
    */
   const searchForOpponent = () => {
+    // Do not allow a player who is already in the match to be added to the queue.
+    if (Players.isInMatchQueue(socket.user.playerId)) {
+      socket.emit(':error', GameExceptions.playerAlreadyInMatchQueue);
+      return;
+    }
+
     // Do not allow a connected user to add themselves to the matching queue again. (security)
     if (socket.user.currentGameIdPlaying) {
       socket.emit(':error', GameExceptions.currentlyInGame);

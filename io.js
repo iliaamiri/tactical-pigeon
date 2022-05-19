@@ -12,7 +12,7 @@ module.exports = (server) => {
     try {
       await gameHandler(io, socket);
     } catch (err) {
-      console.log(err);
+      console.log("socket error: ", err);
     }
 
     socket.on("disconnect", (err) => {

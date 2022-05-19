@@ -2,7 +2,10 @@ const singleCompare = include("./test/compare-moves");
 const Games = include('./app/repos/Games');
 const Tokens = include('./app/repos/Tokens');
 const Players = include("app/repos/Players").Players;
+
+// Exceptions
 const AuthExceptions = include('core/Exceptions/AuthExceptions');
+const GameExceptions = include('core/Exceptions/GameExceptions');
 
 const GameController = {
   async submitGameMove(req, res) {
@@ -53,6 +56,13 @@ const GameController = {
 
     // we need to make sure that the gameId exists in the Games.all
     const game = Games.find(gameId);
+
+    if (!game) {
+      res.render('layouts/404', {
+        error: GameExceptions.gameNotFound.errMessage
+      });
+      return;
+    }
 
     // check if the game is still ongoing and not finished
     let gameComplete = (game.gameComplete === true);
