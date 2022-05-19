@@ -37,8 +37,9 @@ import Token from "../io/auth/Token.js";
 // Fetch username from cookie
 export let username = Token.fetchCachedUsernameOnly();
 
-// Hide the clouds overlay early
+// Hide the clouds overlay and playAgainButton
 loadingCloudsOverlay.classList.add("d-none");
+playAgainButton.classList.add("d-none");
 
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
@@ -75,9 +76,6 @@ Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.curre
 if (Cookie.get(username)) {
   Cookie.set(username, "oldUser");
 
-  // first round preparation, can poss move this to a shared first round prep helper?
-  playAgainButton.classList.add("d-none");
-
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
 
@@ -98,7 +96,7 @@ if (Cookie.get(username)) {
   document.querySelector('.done').classList.add('pop-in-animation');
 } else {
   Cookie.set(username, "newUser");
-  
+
   // show the intro page
   document.querySelector(".intro-page").classList.remove("d-none");
 
@@ -107,7 +105,7 @@ if (Cookie.get(username)) {
   if (username !== null) {
     blueBannerUsernameSpan.innerHTML = `Hi ${username},<br>you are: PUSINESS MAN`;
   }
-  
+
   // when Next is clicked in Intro, show the Objectives
   nextButton.addEventListener('click', event => {
     backstoryContainer.classList.add('d-none');
@@ -135,9 +133,6 @@ if (Cookie.get(username)) {
 
   exitTutorialBtn.addEventListener("click", async event => {
     tutorialOverlay.classList.add("d-none")
-
-    // first round preparation
-    playAgainButton.classList.add("d-none");
 
     countdownOverlayComponent.classList.remove("d-none");
     countdownOverlayComponent.classList.add("opaque");
