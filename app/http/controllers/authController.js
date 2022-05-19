@@ -14,6 +14,11 @@ const AuthController = {
    * @returns {Promise<void>}
    */
   async loginOrSignUp(req, res) {
+    // Check if the user is already authenticated or not.
+    if (req.user) {
+      throw AuthExceptions.alreadyAuthenticated;
+    }
+
     // Get the givenUsername input from body AND make sure of its existence.
     const { givenUsername } = req.body;
     if (!givenUsername) {
