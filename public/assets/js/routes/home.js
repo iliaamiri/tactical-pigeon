@@ -9,6 +9,7 @@ const titleEnterName = document.querySelector("div.start p.title-enter-name");
 const iosToggleInput = document.querySelector("div.toggleWrapper input.mobileToggle.mobileToggle");
 const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 
+// Socket
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
 
@@ -35,6 +36,11 @@ document.querySelector("body").addEventListener('click', event => {
       startBtn.classList.remove("pressed");
       SearchingText.DOMElement.style.display = "none";
     }
+  }
+
+  /* ---- Map Selection Button ---- */
+  if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
+    location.href = "/play/map/selection";
   }
 });
 
