@@ -8,6 +8,9 @@
   <title>Play!</title>
   <!-- TODO: Add a fav icon here -->
 
+  <!-- Preload the clouds overlay -->
+  <link rel="preload" href="/assets/img/Overlays/LoadingClouds.svg" as="image">
+
   <%- include('_partials/commonCssHeaders.ejs') -%>
 
     <!-- Page Custom CSS - game_styles -->
@@ -28,6 +31,8 @@
 </head>
 
 <body>
+  <!-- <div class="loading-cover"></div> -->
+  
   <div class="container-fluid big-container">
     <div class="row content-row">
       <div class="col-md-12">
