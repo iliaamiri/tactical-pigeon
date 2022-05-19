@@ -8,18 +8,51 @@
     <title>Choose Map</title>
     <!-- TODO: Add a fav icon here -->
 
-    <%- include('_partials/commonCssHeaders.ejs') -%>
-
     <!-- Page Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/carousel_styles.css">
 </head>
 
 <body>
+<!-- Portrait Mode Overlay -->
+<div class="flip-overlay">
+    <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
+    <span class="portrait">FLIP TO PLAY</span>
+</div>
+
+<div class="select-done-button">
+    Select
+</div>
+
+<div class="container">
+    <div class="card-carousel">
+        <div class="card street-background" data-map-name="street">
+            <p>Street</p>
+        </div>
+        <div class="card playground-background" data-map-name="playground">
+            <p>Playground</p>
+        </div>
+        <div class="card pigeon-nights-background" data-map-name="pigeon-nights">
+            <p>Pigeon <br>
+                Nights
+            </p>
+        </div>
+    </div>
+    <a href="#" class="visuallyhidden card-controller">Carousel controller</a>
+</div>
+
+
 
 <!-- JavaScript -->
 <!-- App -->
 <%- include('_partials/commonJsFooters.ejs') -%>
 
+<script src="/assets/js/libraries/carousel.min.js"></script>
 </body>
 
 </html>
