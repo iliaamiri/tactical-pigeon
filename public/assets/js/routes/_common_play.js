@@ -88,10 +88,13 @@ document.querySelector('body').addEventListener('click', async event => {
   let tutorialOverlay = document.querySelector(".tutorial-overlay");
   let helpBtn = document.querySelector(".help");
   if (target.tagName === "DIV" && target.classList.contains('help')) {
+    console.log(Game.currentGame.gameMode)
+    if (Game.currentGame.gameMode === "offline") {
+      Timer.all['myTimer'].pauseCounter();
+    }
     tutorialOverlay.classList.remove("d-none");
     tutorialOverlay.classList.add("animate__fadeInLeft");
     helpBtn.classList.remove("animate__infinite");
-    Timer.all['myTimer'].pauseCounter();
   }
   if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
     tutorialOverlay.classList.add("d-none");

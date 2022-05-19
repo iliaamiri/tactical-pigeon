@@ -8,6 +8,7 @@ import Tally from "../components/Tally.js";
 const roundTitle = document.querySelector('div.round-title');
 const Countdown = document.querySelector('div.countdown');
 const doneButton = document.querySelector('div.done');
+const waitSign = document.querySelector('.wait-sign');
 
 // Helpers
 import Game from "./Game.js";
@@ -46,7 +47,7 @@ class Round {
 
   updateRoundTitle() {
     roundTitle.innerHTML = `<span>Round ${this.currentRoundNumber}</span>`;
-    roundTitle.classList.add("animate__bounceInDown")
+    roundTitle.classList.add("animate__bounceInDown");
   }
 
   increaseCounter() {
@@ -93,11 +94,20 @@ class Round {
           console.log("App Error: ", err);
         });
 
+        console.log(opponentMove)
+        if (!opponentMove) {
+          waitSign.classList.remove("d-none")
+          waitSign.classList.add("animate__slideInDown")
+        }
+
         document.addEventListener('opponentMoveReady', event => {
           // Destructure all the fetched data.
           const { opponentMoves, gameComplete } = event.detail;
 
           console.log('opponentmoveready event listener', event); // debug
+
+          waitSign.classList.remove("animate__slideInDown")
+          waitSign.classList.add("d-none")
 
           // Save the game to the localStorage
           // TODO: update opponentMove and MoveHistory on LocalStorage
