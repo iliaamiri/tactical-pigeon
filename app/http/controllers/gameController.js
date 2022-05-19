@@ -116,6 +116,10 @@ const GameController = {
       gameComplete: gameComplete,
       opponentUsername: opponentUsername
     });
+  },
+
+  async mapSelection(req, res) {
+    res.render('chooseMap');
   }
 };
 
