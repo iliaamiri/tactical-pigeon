@@ -41,13 +41,18 @@ startBtn.addEventListener('mouseover', event => event.target.classList.add("hove
 startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
 
 // Start Button Click Listener
-startBtn.addEventListener('click', async event => {
-  let target = event.target;
-  target.classList.add("pressed")
+startBtn.addEventListener('click', async function(event) {
+  let target = this;
+
+  // If the button was already pressed, don't continue anymore.
+  if (target.classList.contains('pressed')) {
+    return;
+  }
 
   let audio = new Audio("/assets/music/SuccessAttack.mp3");
   await audio.play();
 
+  // Get username and verify that it is not empty
   const playerUsername = usernameInput.value;
   if (playerUsername.length < 1) {
     usernameInput.focus();
@@ -55,9 +60,11 @@ startBtn.addEventListener('click', async event => {
     return;
   }
 
-  if (target.classList.contains("playOnlineBtn")) { // Play Online
-    target.classList.add("pressed");
+  // Make it pressed
+  target.classList.remove('unpressed');
+  target.classList.add('pressed');
 
+  if (target.classList.contains("playOnlineBtn")) { // Play Online
     usernameInput.disabled = true;
 
     try {
@@ -74,9 +81,26 @@ startBtn.addEventListener('click', async event => {
       const tokenValue = authResult.tokenValue;
 
       Token.save(tokenValue, playerUsername);
+    } catch (error) {
+      let errMessage = error.message;
 
+      switch (errMessage) {
+        case "ALREADY_AUTHENTICATED":
+          console.log("Already Authenticated");
+          break;
+        default:
+          // Revert everything back if the user couldn't be authenticated by axios request.
+          SearchingText.DOMElement.style.display = "none";
+          usernameInput.disabled = false;
+          target.classList.remove("pressed");
+          target.classList.add('unpressed');
+          break;
+      }
+    }
+      // Connect to the web socket.
       const socket = await clientSocketConnect();
 
+      // Show the "Finding an opponent" text block and start animating it for searching
       SearchingText.DOMElement.style.display = "block";
       SearchingForOpponent.animate();
 
@@ -84,28 +108,35 @@ startBtn.addEventListener('click', async event => {
       blueClouds.classList.remove("d-none");
       blueClouds.classList.add("animate__fadeIn");
 
-      socket.on('connect_error', err => {
-        let message = err.message;
-        console.log(message);
-        if (message === "AUTHENTICATION_FAILED") {
+      // Handle any socket connection error.
+      socket.on('connect_error', socketError => {
+        console.log(socketError); // debug
+
+        let errMessage = socketError.errMessage;
+        let userErrorMessage = socketError.userErrorMessage ?? "Something wrong happened!";
+
+        if (errMessage === "AUTHENTICATION_FAILED") {
           location.href = "/";
           return;
         }
+        switch (errMessage) {
+          case "AUTHENTICATION_FAILED":
+            location.href = "/";
+            return;
+          case "PLAYER_ALREADY_IN_MATCH_QUEUE":
+            console.log("Player is already in the match queue"); // debug TODO: let the user know as well.
+            return;
+          default:
+            console.log("Unhandled: ", errMessage);
+            break;
+        }
 
         SearchingForOpponent.clearAnimation();
-        SearchingText.DOMElement.innerHTML = err.userErrorMssage ?? "Something wrong happened!";
+        SearchingText.DOMElement.innerHTML = userErrorMessage;
 
       });
 
       socket.emit("game:searchForOpponent");
-    } catch (error) {
-      console.log(error);
-
-      // Revert everything back if the user couldn't be authenticated by axios request.
-      SearchingText.DOMElement.style.display = "none";
-      usernameInput.disabled = false;
-      target.classList.remove("pressed");
-    }
   } else { // Play Offline
     Token.saveUsername(playerUsername);
 
@@ -114,9 +145,6 @@ startBtn.addEventListener('click', async event => {
       window.clearTimeout(tID);		// clear time out.
     }, 1350);
   }
-
-  playButton.classList.remove("unpressed");
-  playButton.classList.add("pressed");
 });
 
 // Play Button Hover
