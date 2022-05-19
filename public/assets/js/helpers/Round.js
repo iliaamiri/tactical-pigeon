@@ -359,47 +359,6 @@ class Round {
         }, 800);
       }, 1600);
     }
-
-    /* if (
-      (
-        this.currentRoundNumber < this.counterRange[1] // If this wasn't the last round
-        && Life.all.myLife.counter > 0 // If player1 still has lives
-        && Life.all.opponentLife.counter > 0 // If player2 still has lives
-        && leftPlayerTotalInventory + rightPlayerTotalInventory > 0  // if both players still have inventory
-      ) && !(
-        (Life.all.myLife.counter !== Life.all.opponentLife.counter)
-        && (
-          AmmoInventory.all['attack-left'].counter === 0 
-          && AmmoInventory.all.opponentAttack.counter === 0
-        )
-      )
-    ) {
-      setTimeout(async () => {
-        document.querySelector("div.countdown-overlay").classList.remove("d-none");
-
-        await this.roundCountdown();
-
-        document.querySelector("div.countdown-overlay").classList.add("d-none");
-
-        this.increaseCounter();
-
-        setTimeout(() => {
-          this.clearBoardForNewRound();
-        }, 800);
-      }, 1600);
-    } else {
-      // Evaluate the game
-      await Game.currentGame.gameOver();
-
-      let replayBtn = document.querySelector(".play-again");
-      replayBtn.classList.add('replay-in-animation');
-      replayBtn.classList.remove('replay-out-animation');
-      replayBtn.classList.remove('d-none');
-
-      document.querySelector('div.done').classList.add('d-none');
-      document.querySelector('div.moves-placeholder').classList.add('d-none');
-      this.resetCounter();
-    } */
   }
 
   // simple timeout between rounds, no extra animations
