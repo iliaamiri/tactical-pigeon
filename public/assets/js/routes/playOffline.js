@@ -17,6 +17,7 @@ const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
 const tutorialOverlay = document.querySelector('.tutorial-overlay');
 const exitTutorialBtn = document.querySelector('.exit-tutorial');
+const loadingCloudsOverlay = document.querySelector('div.loading-clouds-overlay');
 
 // Helpers
 import Game from "../helpers/Game.js";
@@ -73,6 +74,7 @@ if (Cookie.get(username)) {
 
   // first round preparation, can poss move this to a shared first round prep helper?
   playAgainButton.classList.add("d-none");
+  loadingCloudsOverlay.classList.add("d-none"); // show the loading clouds overlay
 
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
