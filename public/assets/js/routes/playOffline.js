@@ -37,6 +37,9 @@ import Token from "../io/auth/Token.js";
 // Fetch username from cookie
 export let username = Token.fetchCachedUsernameOnly();
 
+// Hide the clouds overlay early
+loadingCloudsOverlay.classList.add("d-none");
+
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');
 myUsernameSpan.innerHTML = username;
@@ -74,7 +77,6 @@ if (Cookie.get(username)) {
 
   // first round preparation, can poss move this to a shared first round prep helper?
   playAgainButton.classList.add("d-none");
-  loadingCloudsOverlay.classList.add("d-none"); // show the loading clouds overlay
 
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
