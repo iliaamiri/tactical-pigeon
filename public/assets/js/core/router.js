@@ -36,8 +36,8 @@ const router = {
         if (!targetPathSegment) {
           return;
         }
-        if (targetPathSegment.includes(":")) {
-          break;
+        if (!targetPathSegment.includes(":")) {
+          return;
         }
       }
     }
