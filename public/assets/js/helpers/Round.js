@@ -4,6 +4,8 @@ import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import AmmoIcon from "../components/Inventories/AmmoIcon.js";
 import Timer from '../components/Timer.js';
 import Tally from "../components/Tally.js";
+import SearchingText from "../components/Home/SearchingText.js";
+import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 
 const roundTitle = document.querySelector('div.round-title');
 const Countdown = document.querySelector('div.countdown');
@@ -98,6 +100,8 @@ class Round {
         if (!opponentMove) {
           waitSign.classList.remove("d-none")
           waitSign.classList.add("animate__slideInDown")
+          SearchingText.DOMElement.style.display = "block";
+          SearchingForOpponent.animateWait();
         }
 
         document.addEventListener('opponentMoveReady', event => {
