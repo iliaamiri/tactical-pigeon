@@ -85,14 +85,15 @@ h1 {
 
 div.card p {
   font-family: "Titan One", cursive;
-  font-size: 10vh;
+  font-size: 3.8vw;
   color: white;
-  margin-bottom: 0.6em;
+  margin-bottom: 1.7vw;
 }
 
 div.card.pigeon-nights-background p {
   -webkit-text-stroke-width: 0.22vw;
   -webkit-text-stroke-color: rgb(77, 87, 180);
+  margin-bottom: 1.2vw;
 }
 
 div.card.street-background p {
@@ -190,32 +191,6 @@ div.flip-overlay img {
   }
 }
 
-@media only screen and (min-width: 600px) {
-  div.card p {
-    font-size: 4vh;
-  }
-}
-
-@media only screen and (min-width: 763px) {
-  div.card p {
-    font-size: 5vh;
-  }
-}
-
-@media only screen and (min-width: 1094px) {
-  div.card p {
-    font-size: 7vh;
-  }
-}
-
-@media only screen and (min-width: 1294px) {
-  div.card p {
-    font-size: 10vh;
-  }
-}
-
-/* hand animation */
-
 div.hand img  {
   position:absolute;
   height:7vw;
@@ -223,7 +198,7 @@ div.hand img  {
   top: 27vw;
   left: 65vw;
   animation: swipe-x 2s alternate infinite ease-in-out;
-  z-index: 50000;
+  z-index: 1000;
 }
 
 /* ANIMATION KEYFRAMES */
