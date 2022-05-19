@@ -2,12 +2,24 @@
 import Timer from "../components/Timer.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
 
+const body = document.querySelector('body');
+
 // Helpers
 import Game from "../helpers/Game.js";
 import RoundMove from "../helpers/RoundMove.js";
+import { backgroundsCssClassNames } from "../helpers/Backgrounds.js";
 
 // Core and Utils
 import { sounds } from "../core/sounds.js";
+import Cookie from "../helpers/Cookie.js";
+
+// Set the map
+let selectedMap = Cookie.get("selectedMap");
+if (selectedMap && Object.keys(backgroundsCssClassNames).includes(selectedMap)) {
+  body.classList.add(backgroundsCssClassNames[selectedMap]);
+} else { // Or add the default background
+  body.classList.add(backgroundsCssClassNames.street);
+}
 
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
 document.querySelector('body').addEventListener('click', async event => {
