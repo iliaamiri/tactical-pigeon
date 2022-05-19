@@ -4,7 +4,8 @@ const Life = require("./Life");
 const {Players} = require("../repos/Players");
 
 const Player = {
-  playerId: null, // int (db primary key auto increment)
+  rowId: null, // int (db primary key auto increment)
+  playerId: null, // string (random generated)
   username: null, // string
   ammoInventory: null, //$ref: AmmoInventory
 
