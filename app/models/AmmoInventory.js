@@ -31,6 +31,10 @@ const AmmoInventory = {
     return totalInventory;
   },
 
+  getAttacks() {
+    return this.attackCount;
+  },
+
   toJSON() {
     return {
       blockCount: this.blockCount,
