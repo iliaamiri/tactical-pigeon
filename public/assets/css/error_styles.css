@@ -11,7 +11,7 @@ div.background {
   justify-content: center;
 }
 
-.h1, span.portrait {
+h1, span.portrait {
   font-family: "Titan One", cursive;
   font-size: 2vw;
   color: white;
