@@ -113,7 +113,7 @@
         </div>
 
         <!-- button that triggers night background (in progress)> -->
-        <div class="nightBg" id="nightBg" alt=""></div>
+        <div class="nightBg animate__animated animate__faster" id="nightBg" alt=""></div>
 
         <!-- Play Again Button -->
         <div class="play-again-container d-none position-absolute d-flex justify-content-center align-items-end">
@@ -403,15 +403,28 @@
       let nightBg = document.querySelector("#nightBg");
 
       nightBg.addEventListener("click", function () {
+
         let body = document.querySelector("body");
-        body.classList.remove("default-background");
-        body.classList.add("night-night-background");
-        body.style.backgroundColor = "#736c9c";
+
+        if (body.classList.contains("default-background")) {
+          body.classList.remove("default-background");
+          body.classList.add("night-night-background");
+          body.style.backgroundColor = "#736c9c";
+
+          opponentShield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg";
+          let opponentFork = document.querySelector("div.container-fluid > div:nth-child(2) > div.opponent-counter-box > img")
+          opponentFork.src = "/assets/img/GUI-controls/MainControls/SVG/fork-night-pink.svg";
+        } else {
+          body.classList.remove("night-night-background");
+          body.classList.add("default-background")
+        }
+
+        nightBg.classList.remove("animate__pulse");
+        void nightBg.offsetWidth;
+        nightBg.classList.add("animate__pulse");
 
         // fork.src = "/assets/img/GUI-controls/MainControls/SVG/Asset 2.svg";
-        // shield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg"
-        opponentShield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg";
-        document.querySelector("div.container-fluid > div:nth-child(2) > div.opponent-counter-box > img").src = "/assets/img/GUI-controls/MainControls/SVG/fork-night-pink.svg";
+        // shield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg" 
       })
 
       //for playing theme music without user interaction + repeatings
