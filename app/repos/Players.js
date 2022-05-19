@@ -66,12 +66,6 @@ const Players = {
         console.log("Mutex Unlocked.. Username: ", player.username);
         console.log("Match Queue after Mutex Unlocked: ", this.matchQueue);
       });
-    // if (this.matchQueue.length === 2) {
-    //   // console.log('match queue', this.matchQueue);
-    //   //playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
-    //   playerEmitter.emit('matchReady', this.matchQueue);
-    //   this.matchQueue = [];
-    // }
   },
 
   /**
