@@ -56,26 +56,6 @@ body {
   padding: 20% 0 0 0;
 }
 
-/* button to implement night background */
-
-#nightBg {
-  margin:0;
-  top: -1vw;
-  left:30vw;
-  height: 6.5vw;
-  width:5.2vw;
-  background-image: url("/assets/img/backgrounds/SVG/night-button.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  align-self: flex-start;
-  z-index: 21;
-  border-radius: 0.5vw;
-  border-style: none none inset none;
-  border-bottom: 0.2vw #7a8eff solid; 
-  position:absolute;
-}
-
 /* fills space that appears when browser width gets too thin*/
 /*900px and up) */
 
