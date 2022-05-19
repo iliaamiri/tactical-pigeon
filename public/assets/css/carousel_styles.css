@@ -6,7 +6,7 @@
 
 html {
   font-family: system-ui;
-  background: #ffdc4b;
+  background-image: url("/assets/img/backgrounds/bottom-background-1.svg");
 }
 
 body {
@@ -18,7 +18,6 @@ body {
   z-index: -1;
   right: 0;
   opacity: 0;
-
 }
 
 h1 {
@@ -37,7 +36,6 @@ h1 {
 
 .card-carousel {
   --card-width: 80%;
-  /*--card-max-width: 700px;*/
   --card-max-width: 40%;
   --card-height: 90%;
   --carousel-min-width: 600px;
@@ -61,7 +59,6 @@ h1 {
 }
 
 .card-carousel .card {
-  /*background: whitesmoke;*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -90,9 +87,22 @@ div.card p {
   font-family: "Titan One", cursive;
   font-size: 10vh;
   color: white;
-  -webkit-text-stroke-width: 0.5vh;
-  -webkit-text-stroke-color: #407d96;
   margin-bottom: 0.6em;
+}
+
+div.card.pigeon-nights-background p {
+  -webkit-text-stroke-width: 0.22vw;
+  -webkit-text-stroke-color: rgb(77, 87, 180);
+}
+
+div.card.street-background p {
+  -webkit-text-stroke-width: 0.22vw;
+  -webkit-text-stroke-color: rgb(123, 116, 128);
+}
+
+div.card.playground-background p {
+  -webkit-text-stroke-width: 0.22vw;
+  -webkit-text-stroke-color: rgb(121, 85, 76);
 }
 
 div.card.street-background {
@@ -109,94 +119,35 @@ div.card.pigeon-nights-background {
 
 .card.highlight {
   filter: brightness(1);
-  border: 2px solid black;
-  /*box-shadow: inset 0 -70px 100em 3px #000000;*/
+  border: 0.2vw solid #407d96;
+  outline:0.3vw solid white;
+  box-shadow: 12px 12px 1vw 1vw rgba(192, 220, 231, 0.322);
 }
 
 div.select-done-button {
   position: absolute;
-  bottom: 30px;
-  right: 20px;
-  height: 100px;
-  width: 250px;
+  bottom: 2.8vw;
+  right: 2.5vw;
+  height: 4.5vw;
+  width: 11vw;
   background-color: #ffdc4b;
-  border: 3px solid white;
-  font-family: "Titan One", cursive;
-  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
-  z-index: 10000;
+  border-radius: 1.5vw;
+  font-family: "Titan One", cursive;
+  font-size: 1.8vw;
+  color: #407d96; 
+  border-color: #e4bd20;
+  border-width: 0.5vw;
+  border-style: none none inset none;
+  z-index:1000;
 }
 
 div.select-done-button:hover {
   cursor: pointer;
-  filter: brightness(0.7);
+  filter: brightness(0.8);
 }
-
-
-/*.card:nth-of-type(1) .image-container {*/
-/*  background-image: url("https://static.addtoany.com/images/dracaena-cinnabari.jpg");*/
-/*}*/
-
-/*.card:nth-of-type(2) .image-container {*/
-/*  background-image: url("https://www.w3schools.com/w3css/img_lights.jpg")*/
-/*}*/
-
-/*.card:nth-of-type(3) .image-container {*/
-/*  background-image: url("https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")*/
-/*}*/
-
-/*.card:nth-of-type(4) .image-container {*/
-/*  background-image: url("https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")*/
-/*}*/
-
-/*.card:nth-of-type(5) .image-container {*/
-/*  background-image: url("https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg")*/
-/*}*/
-
-
-/*.image-container {*/
-/*  width: 8em;*/
-/*  height: 8em;*/
-/*  position: relative;*/
-/*  background-size: cover;*/
-/*  margin-bottom: 2em;*/
-/*  border-radius: 100%;*/
-/*  padding: 1em;*/
-/*  -webkit-box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3);*/
-/*  -moz-box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3);*/
-/*  box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3);*/
-
-/*}*/
-
-/*.image-container::after {*/
-/*  content: "";*/
-/*  display: block;*/
-/*  width: 120%;*/
-/*  height: 120%;*/
-/*  border: solid 3px rgba(0, 0, 0, .1);*/
-/*  border-radius: 100%;*/
-/*  position: absolute;*/
-/*  top: calc(-10% - 3px);*/
-/*  left: calc(-10% - 3px);*/
-/*}*/
-
-/*h2 {*/
-/*  padding: 1em;*/
-/*  margin-top: 1em;*/
-/*  background: rgba(0, 0, 0, .3);*/
-/*  text-align: center;*/
-/*  color: white;*/
-/*  border-radius: .2em;*/
-/*  display: inline-block;*/
-/*  transform: translateX(calc((100vw - 100%) / 2))*/
-/*}*/
-
-/*h2 a {*/
-/*  color: #f5b916*/
-/*}*/
 
 span.portrait {
   font-family: "Titan One", cursive;
@@ -261,4 +212,49 @@ div.flip-overlay img {
   div.card p {
     font-size: 10vh;
   }
+}
+
+/* hand animation */
+
+div.hand img  {
+  position:absolute;
+  height:7vw;
+  width:7vw;
+  top: 27vw;
+  left: 65vw;
+  animation: swipe-x 2s alternate infinite ease-in-out;
+  z-index: 50000;
+}
+
+/* ANIMATION KEYFRAMES */
+
+@keyframes swipe-x {
+	0% {
+		transform: translateX(0px);
+	}
+	25% {
+		transform: translateX(50px) rotateZ(10deg);
+	}
+	50% {
+		transform: translateX(0px);
+	}
+	75% {
+		transform: translateX(-50px) rotateZ(-10deg);
+	}
+}
+
+/* SVG ANIMATION */
+
+.wrapper * {
+	transform-origin: 50% 50%;
+	perspective: 100px;
+}
+
+.hand {
+	transform-origin: 25% 50%;
+}
+
+.hand-x {
+	animation: swipe-x 1.25s ease-in-out backwards;
+	animation-iteration-count:infinite;
 }
