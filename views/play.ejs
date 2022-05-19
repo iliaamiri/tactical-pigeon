@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- For Online Game -->
-      <script>
-        <% if (typeof playMode !=="undefined" && playMode==="online" ) { %>
+    <script>
+        <% if (typeof playMode !== "undefined" && playMode === "online") { %>
         const playMode = "online";
         const gameId = "<%= gameId %>";
         const myUsername = "<%= myUsername %>";
@@ -27,7 +27,7 @@
         <% } else { %>
         const playMode = "offline";
         <% } %>
-      </script>
+    </script>
 </head>
 
 <body class="default-background">
@@ -44,19 +44,22 @@
         <!-- Intro Overlay -->
         <div class="intro-page d-none">
           <div class="blueBanner">
-            <% if (typeof playMode !== "undefined" && playMode === 'online') { %>
-              <p class="character"> <%= myUsername %>, you are: PUSINESS MAN </p>
-            <% } else { %>
-              <p class="character">you are: PUSINESS MAN </p>
-            <% } %>
+            <% if (typeof playMode !=="undefined" && playMode==='online' ) { %>
+              <p class="character">
+                <%= myUsername %>, you are: PUSINESS MAN
+              </p>
+              <% } else { %>
+                <p class="character">you are: PUSINESS MAN </p>
+                <% } %>
           </div>
           <div class="yourPigeon"></div>
           <div class="bubble bubble-bottom-left">
             <div class="backstory-container">
-              <div class="backstory-title">Backstory</div>
+              <!-- <div class="backstory-title">Backstory</div> -->
               <div class="backstory-text">
                 I’m a bird in the Big Apple. Life's good! Amazing food, great night life,
-                what more can a pigeon ask for? Well... I wish&nbsp;<span class="pigeon-type">hoodie pigeon</span>&nbsp;would stop
+                what more can a pigeon ask for? Well... I wish&nbsp;<span class="pigeon-type">hoodie
+                  pigeon</span>&nbsp;would stop
                 stealing my food... I’ll have to
                 take things into my
                 own hands. Nothing personal, just business.
@@ -72,7 +75,7 @@
                 </ul>
               </div>
             </div>
-            
+
             <div class="back-start d-none">
               <div class="backBtn animate__animated animate__pulse animate__infinite">
                 Back
@@ -86,8 +89,8 @@
                 Next
               </div>
             </div>
-            
-            
+
+
           </div>
         </div>
 
@@ -109,11 +112,11 @@
           <!-- <span class="count">3</span> -->
         </div>
 
-         <!-- button that triggers night background (in progress)> -->
-         <div class="nightBg" id="nightBg" alt=""></div>
+        <!-- button that triggers night background (in progress)> -->
+        <div class="nightBg animate__animated animate__faster" id="nightBg" alt=""></div>
 
         <!-- Play Again Button -->
-        <div class="play-again-container position-absolute d-flex justify-content-center align-items-end">
+        <div class="play-again-container d-none position-absolute d-flex justify-content-center align-items-end">
           <div id="pulse" class="play-again mb-5"></div>
         </div>
 
@@ -125,6 +128,11 @@
         <!-- Timer Counter -->
         <div class="timer-counter blue">
           <span class="time-nums">30</span>
+        </div>
+
+        <!-- Wait for opponent to complete move notice -->
+        <div class="wait-sign d-none position-absolute animate__animated">
+          <!-- <span>waiting for opponent</span> -->
         </div>
 
         <!-- Help Button -->
@@ -279,9 +287,9 @@
               </div>
               <div class="username-div my-username-div">
                 <span class="username-span my-username-span">
-                  <% if (typeof playMode !== "undefined" && playMode === 'online') { %>
+                  <% if (typeof playMode !=="undefined" && playMode==='online' ) { %>
                     <%= myUsername %>
-                  <% }%>
+                      <% }%>
                 </span>
               </div>
             </div>
@@ -295,9 +303,9 @@
               </div>
               <div class="username-div opponent-username-div">
                 <span class="username-span opponent-username-span">
-                  <% if (typeof playMode !== "undefined" && playMode === 'online') { %>
+                  <% if (typeof playMode !=="undefined" && playMode==='online' ) { %>
                     <%= opponentUsername %>
-                  <% }%>
+                      <% }%>
                 </span>
               </div>
             </div>
@@ -393,17 +401,30 @@
 
       // trying to add night mode/different map for pigeon battle
       let nightBg = document.querySelector("#nightBg");
-      
-      nightBg.addEventListener("click", function(){
+
+      nightBg.addEventListener("click", function () {
+
         let body = document.querySelector("body");
-        body.classList.remove("default-background");
-        body.classList.add("night-night-background");
-        body.style.backgroundColor = "#736c9c";
+
+        if (body.classList.contains("default-background")) {
+          body.classList.remove("default-background");
+          body.classList.add("night-night-background");
+          body.style.backgroundColor = "#736c9c";
+
+          //opponentShield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg";
+          let opponentFork = document.querySelector("div.container-fluid > div:nth-child(2) > div.opponent-counter-box > img")
+          //opponentFork.src = "/assets/img/GUI-controls/MainControls/SVG/fork-night-pink.svg";
+        } else {
+          body.classList.remove("night-night-background");
+          body.classList.add("default-background")
+        }
+
+        nightBg.classList.remove("animate__pulse");
+        void nightBg.offsetWidth;
+        nightBg.classList.add("animate__pulse");
 
         // fork.src = "/assets/img/GUI-controls/MainControls/SVG/Asset 2.svg";
-        // shield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg"
-        opponentShield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg";
-        document.querySelector("div.container-fluid > div:nth-child(2) > div.opponent-counter-box > img").src = "/assets/img/GUI-controls/MainControls/SVG/fork-night-pink.svg";
+        // shield.src = "/assets/img/GUI-controls/MainControls/SVG/vikingShield-night_1.svg" 
       })
 
       //for playing theme music without user interaction + repeatings

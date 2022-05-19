@@ -13,7 +13,7 @@ import Round from "./Round.js";
 import BotPlayer from "./BotPlayer.js";
 
 // Core and utils
-import {playSound, sounds} from "../core/sounds.js";
+import { playSound, sounds } from "../core/sounds.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
 
 
@@ -34,16 +34,16 @@ class Game {
     this.gameMode = gameMode;
     Game.currentGame = this;
   }
-
+  
   static findByGameFromCache() {
-    const {playerMe, playerOpponent, gameStatus} = LocalStorageCache.fetch();
+    const { playerMe, playerOpponent, gameStatus } = LocalStorageCache.fetch();
 
     // Check if cache data is corrupted
     if (!playerMe || !playerOpponent || gameStatus) {
       return null;
     }
 
-    return {playerMe, playerOpponent, gameStatus};
+    return { playerMe, playerOpponent, gameStatus };
   }
 
   initiateOnline(playerMe, playerOpponent, gameComplete) {
@@ -105,10 +105,10 @@ class Game {
     console.log('game result', gameResult);
     if (gameResult === 'win') {
       ResultOverlay.updateTitle('victory');
-     
+
       // you get sunglasses
       Sunglasses.left.activate();
-   
+
       // game win sound effect
       await playSound(sounds.winGame);
       // document.querySelector("#winGame").play()
@@ -173,6 +173,10 @@ class Game {
   }
 
   resetGame() {
+    // check if online or offline, if online, redirect to index
+    if (this.gameMode === "online") {
+      return location.href = "/";
+    }
     return location.reload();
   }
 

@@ -24,7 +24,7 @@ span.online-text-searching {
   display: none;
   font-family: "Titan One", cursive;
   color: white;
-  font-size: 1.6rem;
+  font-size: 1.7vw;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #407d96;
 }
@@ -93,7 +93,7 @@ div.start {
   margin: 1.5vw 0 0 1.2vw;
   align-items: center;
   justify-content: center;
-  padding: 0 1vw;
+  padding: 1vw 1vw;
   background-color: #cedce7;
   border-style: inset none inset none;
   border-bottom: 0.4vw #597b91 solid;
@@ -115,6 +115,7 @@ button.play {
   margin:0;
   padding:0;
   margin-top: 1vw;
+  outline:0;
 }
 
 div.startBtn {
@@ -122,9 +123,8 @@ div.startBtn {
   background-size: contain;
   background-repeat: no-repeat;
   width: 16vw;
-  height:7vw;
+  height:5vw;
   border-radius: 1vw;
-  cursor: pointer;
 }
 
 div.startBtn.unpressed {
@@ -133,7 +133,6 @@ div.startBtn.unpressed {
 
 div.startBtn.hover {
   background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg"); 
-  cursor: not-allowed;
 }
 
 div.startBtn.pressed {

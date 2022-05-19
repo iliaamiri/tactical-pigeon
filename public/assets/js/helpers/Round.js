@@ -8,6 +8,7 @@ import Tally from "../components/Tally.js";
 const roundTitle = document.querySelector('div.round-title');
 const Countdown = document.querySelector('div.countdown');
 const doneButton = document.querySelector('div.done');
+const waitSign = document.querySelector('.wait-sign');
 
 // Helpers
 import Game from "./Game.js";
@@ -46,7 +47,7 @@ class Round {
 
   updateRoundTitle() {
     roundTitle.innerHTML = `<span>Round ${this.currentRoundNumber}</span>`;
-    roundTitle.classList.add("animate__bounceInDown")
+    roundTitle.classList.add("animate__bounceInDown");
   }
 
   increaseCounter() {
@@ -93,11 +94,20 @@ class Round {
           console.log("App Error: ", err);
         });
 
+        console.log(opponentMove)
+        if (!opponentMove) {
+          waitSign.classList.remove("d-none")
+          waitSign.classList.add("animate__slideInDown")
+        }
+
         document.addEventListener('opponentMoveReady', event => {
           // Destructure all the fetched data.
           const { opponentMoves, gameComplete } = event.detail;
 
           console.log('opponentmoveready event listener', event); // debug
+
+          waitSign.classList.remove("animate__slideInDown")
+          waitSign.classList.add("d-none")
 
           // Save the game to the localStorage
           // TODO: update opponentMove and MoveHistory on LocalStorage
@@ -323,14 +333,28 @@ class Round {
     document.querySelector(".timer-counter").classList.remove("red");
     document.querySelector(".timer-counter").classList.add("blue");
 
-    if (
-      this.currentRoundNumber < this.counterRange[1] // If this wasn't the last round
-      && Life.all.myLife.counter > 0 // If player1 still has lives
-      && Life.all.opponentLife.counter > 0 // If player2 still has lives
-      && leftPlayerTotalInventory > 0 // if our player has no inventory, there's no point to continue
-      && rightPlayerTotalInventory > 0 // if opponent has no inventory, there's no point to continue
+    if ( 
+      ( // EITHER:
+        this.currentRoundNumber === this.counterRange[1] // If this was the last round
+        || Life.all.myLife.counter === 0 // If player1 has 0 lives
+        || Life.all.opponentLife.counter === 0 // If player2 has 0 lives
+        || leftPlayerTotalInventory + rightPlayerTotalInventory === 0  // if both players have 0 inventory
+      ) || ( // OR:
+        Life.all.myLife.counter !== Life.all.opponentLife.counter // lives are unequal
+        && AmmoInventory.all['attack-left'].counter === 0 // and there are no forks left...
+        && AmmoInventory.all.opponentAttack.counter === 0 // ... for both players
+      )
     ) {
-
+      // Finish and evaluate the game
+      await Game.currentGame.gameOver();
+      let replayBtn = document.querySelector(".play-again");
+      replayBtn.classList.add('replay-in-animation');
+      replayBtn.classList.remove('replay-out-animation');
+      replayBtn.classList.remove('d-none');
+      document.querySelector('div.done').classList.add('d-none');
+      document.querySelector('div.moves-placeholder').classList.add('d-none');
+      this.resetCounter();
+    } else {
       setTimeout(async () => {
         document.querySelector("div.countdown-overlay").classList.remove("d-none");
 
@@ -344,19 +368,6 @@ class Round {
           this.clearBoardForNewRound();
         }, 800);
       }, 1600);
-
-    } else {
-      // Evaluate the game
-      await Game.currentGame.gameOver();
-
-      let replayBtn = document.querySelector(".play-again");
-      replayBtn.classList.add('replay-in-animation');
-      replayBtn.classList.remove('replay-out-animation');
-      replayBtn.classList.remove('d-none');
-
-      document.querySelector('div.done').classList.add('d-none');
-      document.querySelector('div.moves-placeholder').classList.add('d-none');
-      this.resetCounter();
     }
   }
 

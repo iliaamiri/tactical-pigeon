@@ -31,9 +31,11 @@ document.querySelector("body").addEventListener('click', event => {
       startBtn.classList.add("playOnlineBtn");
     } else {
       startBtn.classList.remove("playOnlineBtn");
+      blueClouds.classList.add("d-none");
+      startBtn.classList.remove("pressed");
+      SearchingText.DOMElement.style.display = "none";
     }
   }
-
 });
 
 // Start Button Hover
