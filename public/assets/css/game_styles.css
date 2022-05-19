@@ -559,14 +559,34 @@ div.wait-sign {
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/assets/img/GUI-controls/MainControls/waitSign.svg");
-  height: 14vw;
-  width: 11vw;
+  height: 17vw;
+  width: 13vw;
   top: -3vw;
   left: 45%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
+  display: flex;
+  justify-content: center;
   z-index: 21;
+}
+
+div.wait-sign-banner {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("/assets/img/GUI-controls/MainControls/waitSign-banner.svg");
+  height: 7vw;
+  width: 13vw;
+  margin-top: 6.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+span.online-text-searching {
+  font-family: "Titan One", cursive;
+  color: #407d96;
+  font-size: 1.5vw;
+  -webkit-text-stroke-width: 0.05vw;
+  -webkit-text-stroke-color: white;
+  padding-left: 1.5vw;
 }
 
 /* Help Button */

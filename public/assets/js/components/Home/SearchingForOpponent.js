@@ -15,6 +15,13 @@ const SearchingForOpponent = {
     }, 700);
   },
 
+  animateWait() {
+    this.interval = setInterval(() => {
+      SearchingText.DOMElement.innerHTML = `Waiting for opponent${dots.substring(0, searchingTextDots % 4)}`;
+      searchingTextDots++;
+    }, 700);
+  },
+
   clearAnimation() {
     clearInterval(this.interval);
   },
