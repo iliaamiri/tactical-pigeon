@@ -133,6 +133,15 @@ const Players = {
     this.matchQueue.splice(player2_index, 1);
 
     return [player1, player2];
+  },
+
+  /**
+   * Checks if the player is already in a match queue or not.
+   * @param playerId
+   * @returns {*}
+   */
+  isInMatchQueue(playerId) {
+    return this.matchQueue.find(_playerId => _playerId === playerId);
   }
 };
 
