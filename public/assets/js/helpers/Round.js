@@ -158,6 +158,16 @@ class Round {
       playerMoves.push(this.singleCompare(myMoveComponent, opponentMoveComponent));
     }
 
+    if (playerMoves.includes(1)) {
+      // Decrease opponent life
+      Life.all.opponentLife.decreaseCounter();
+    }
+
+    if (playerMoves.includes(2)) {
+      // Decrease my life
+      Life.all.myLife.decreaseCounter();
+    }
+
     // Calculate the result of this round
     let roundResult = this.tripletCompare(playerMoves);
 
@@ -183,7 +193,8 @@ class Round {
 
       opponentTally.fillColumnDefeat();
 
-      Life.all.opponentLife.decreaseCounter();
+      // Decrease opponent life
+      /* Life.all.opponentLife.decreaseCounter(); */
 
       //winning round popup
 
@@ -238,7 +249,7 @@ class Round {
       opponentTally.fillColumnVictory();
 
       // Decrease my life
-      Life.all.myLife.decreaseCounter();
+      /* Life.all.myLife.decreaseCounter(); */
 
       //losing round popup
       setTimeout(function () {
@@ -500,6 +511,8 @@ class Round {
     } else {
       return 0;
     }
+
+    return resultArr;
   }
 
   static all = {}
