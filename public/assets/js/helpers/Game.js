@@ -29,6 +29,8 @@ class Game {
 
   endResult = null;
 
+  gameFinished = "false";
+
   constructor(gameId, gameMode = "offline") {
     this.gameId = gameId;
     this.gameMode = gameMode;
@@ -148,6 +150,7 @@ class Game {
       await playSound(sounds.drawGame);
       // document.querySelector("#drawGame").play()
     }
+    this.gameFinished = "true";
   }
 
   calculateGameResults() {

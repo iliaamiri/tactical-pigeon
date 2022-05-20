@@ -11,7 +11,7 @@ import { backgroundsCssClassNames } from "../helpers/Backgrounds.js";
 
 // Core and Utils
 import { sounds } from "../core/sounds.js";
-import Cookie from "../helpers/Cookie.js";
+import Cookie from "../helpers/Cookie.js"
 
 // Set the map
 let selectedMap = Cookie.get("selectedMap");
@@ -111,7 +111,10 @@ document.querySelector('body').addEventListener('click', async event => {
   if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
     tutorialOverlay.classList.add("d-none");
     tutorialOverlay.classList.remove("animate__fadeInLeft");
-    Timer.all['myTimer'].startCounter();
+    console.log(Game.currentGame.gameFinished)
+    if (Game.currentGame.gameFinished === "false") {
+      Timer.all['myTimer'].startCounter();
+    }
   }
 
   /* ---- Mute Button ---- */

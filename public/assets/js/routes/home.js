@@ -13,6 +13,14 @@ const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 import Token from "../io/auth/Token.js";
 import clientSocketConnect from '../io/client.js';
 
+// Reloads page if accessed from cache
+window.addEventListener("pageshow", function (event) {
+  let historyTraversal = event.persisted;
+  if (historyTraversal) {
+    window.location.reload();
+  }
+});
+
 if (Token.fetchCachedUsernameOnly()) {
   titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
   usernameInput.value = Token.username;
@@ -49,8 +57,9 @@ startBtn.addEventListener('mouseover', event => event.target.classList.add("hove
 startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
 
 // Start Button Click Listener
-startBtn.addEventListener('click', async function(event) {
+startBtn.addEventListener('click', async function (event) {
   let target = this;
+  console.log("start hit")
 
   // If the button was already pressed, don't continue anymore.
   if (target.classList.contains('pressed')) {
@@ -105,46 +114,46 @@ startBtn.addEventListener('click', async function(event) {
           break;
       }
     }
-      // Connect to the web socket.
-      const socket = await clientSocketConnect();
+    // Connect to the web socket.
+    const socket = await clientSocketConnect();
 
-      // Show the "Finding an opponent" text block and start animating it for searching
-      SearchingText.DOMElement.style.display = "block";
-      SearchingForOpponent.animate();
+    // Show the "Finding an opponent" text block and start animating it for searching
+    SearchingText.DOMElement.style.display = "block";
+    SearchingForOpponent.animate();
 
-      // Show blue clouds
-      blueClouds.classList.remove("d-none");
-      blueClouds.classList.add("animate__fadeIn");
+    // Show blue clouds
+    blueClouds.classList.remove("d-none");
+    blueClouds.classList.add("animate__fadeIn");
 
-      // Handle any socket connection error.
-      socket.on('connect_error', socketError => {
-        console.log(socketError); // debug
+    // Handle any socket connection error.
+    socket.on('connect_error', socketError => {
+      console.log(socketError); // debug
 
-        let errMessage = socketError.errMessage;
-        let userErrorMessage = socketError.userErrorMessage ?? "Something wrong happened!";
+      let errMessage = socketError.errMessage;
+      let userErrorMessage = socketError.userErrorMessage ?? "Something wrong happened!";
 
-        if (errMessage === "AUTHENTICATION_FAILED") {
+      if (errMessage === "AUTHENTICATION_FAILED") {
+        location.href = "/";
+        return;
+      }
+      switch (errMessage) {
+        case "AUTHENTICATION_FAILED":
           location.href = "/";
           return;
-        }
-        switch (errMessage) {
-          case "AUTHENTICATION_FAILED":
-            location.href = "/";
-            return;
-          case "PLAYER_ALREADY_IN_MATCH_QUEUE":
-            console.log("Player is already in the match queue"); // debug TODO: let the user know as well.
-            return;
-          default:
-            console.log("Unhandled: ", errMessage);
-            break;
-        }
+        case "PLAYER_ALREADY_IN_MATCH_QUEUE":
+          console.log("Player is already in the match queue"); // debug TODO: let the user know as well.
+          return;
+        default:
+          console.log("Unhandled: ", errMessage);
+          break;
+      }
 
-        SearchingForOpponent.clearAnimation();
-        SearchingText.DOMElement.innerHTML = userErrorMessage;
+      SearchingForOpponent.clearAnimation();
+      SearchingText.DOMElement.innerHTML = userErrorMessage;
 
-      });
+    });
 
-      socket.emit("game:searchForOpponent");
+    socket.emit("game:searchForOpponent");
   } else { // Play Offline
     Token.saveUsername(playerUsername);
 

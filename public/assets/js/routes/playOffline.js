@@ -128,11 +128,9 @@ if (Cookie.get(username)) {
     event.target.classList.remove("unpressed");
     continueButton.classList.add("pressed");
     document.querySelector(".intro-page").classList.add("d-none");
-    tutorialOverlay.classList.remove("d-none")
-  });
 
-  exitTutorialBtn.addEventListener("click", async event => {
-    tutorialOverlay.classList.add("d-none")
+    // tutorialOverlay.classList.remove("d-none")
+    // tutorialOverlay.classList.add("d-none")
 
     countdownOverlayComponent.classList.remove("d-none");
     countdownOverlayComponent.classList.add("opaque");
@@ -152,7 +150,30 @@ if (Cookie.get(username)) {
 
     document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
     document.querySelector('.done').classList.add('pop-in-animation');
-  })
+  });
+
+  // exitTutorialBtn.addEventListener("click", async event => {
+  //   tutorialOverlay.classList.add("d-none")
+
+  //   countdownOverlayComponent.classList.remove("d-none");
+  //   countdownOverlayComponent.classList.add("opaque");
+
+  //   await roundCountdown();
+
+  //   changeRoundTitle(Game.currentGame.currentRound.currentRoundNumber);
+
+  //   // First round start timer
+  //   Timer.all['myTimer'].startCounter();
+
+  //   countdownOverlayComponent.classList.add("d-none");
+  //   countdownOverlayComponent.classList.remove("opaque");
+
+  //   pickMoveOverlay.classList.add('show-animation');
+  //   pigeon.classList.add('picking-move-animation');
+
+  //   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
+  //   document.querySelector('.done').classList.add('pop-in-animation');
+  // })
 
 }
 console.log(Cookie.get(username));
