@@ -43,8 +43,18 @@ playerEmitter.on('matchReady', function (playersIdsArr) {
 const Players = {
   playerEmitter: playerEmitter, // playerEmitter Event
 
-  // A Map collection of all the active users. The purpose of this property is to cache the active players the program
-  // actively reads and writes. In short, this will help performance.
+  /* A Map collection of all the active users. The purpose of this property is to cache the active players the program
+  actively reads and writes. In short, this will help performance.
+
+  Definition of an active user:
+    1. A user who was recently called by the client side and their information were used.
+    2. A guest user who did not sign up and is always treated as an untracked user whose activity nor information
+       will not be saved in our database.
+
+  Active users can be easily removed in these scenarios:
+    1. The tracked user has not been queried in the app for a long time.
+    2. The guest user's last login date was a long time ago. (2 days).
+  */
   allActiveUsers: new Map(), // <"<playerId", {$ref Player}>
 
   // An Array of all online players playerIds who are in the process of finding an opponent and a match. This array's
@@ -89,6 +99,14 @@ const Players = {
 
     // Return true if the player was found in the database, else return false to say (not tracked).
     return !!foundPlayer;
+  },
+
+  isGuest(player) {
+    return this.isUsernameInGuestIdFormat(player.username);
+  },
+
+  isUsernameInGuestIdFormat(username) {
+    return username.substring(0, 6) === "guest_";
   },
 
   /**
@@ -188,6 +206,16 @@ const Players = {
    */
   findActiveUserById(playerId) {
     return this.allActiveUsers.get(playerId) || null;
+  },
+
+  /**
+   * Provides and interface for finding guest users. Even though in our policy we identify the guest users by their guestId
+   * in the player's username, we don't want to confuse them with tracked users in the code.
+   * @param guestId
+   * @returns {Player|null}
+   */
+  findGuestUser(guestId) {
+    return this.findActivePlayerByUsername(guestId);
   },
 
   /**

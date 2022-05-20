@@ -3,10 +3,13 @@ import Cookie from '../../helpers/Cookie.js';
 const Token = {
   jwtCookieKey: "JWT",
   usernameCookieKey: "user",
+  guestIdCookieKey: "guestId",
 
   tokenVal: null,
 
   username: "Player 1",
+
+  guestId: null,
 
   save(tokenValue) {
     Cookie.set(this.jwtCookieKey, tokenValue);
@@ -18,11 +21,25 @@ const Token = {
     this.username = username;
   },
 
+  saveGuest(guestId) {
+    Cookie.set(this.guestIdCookieKey, guestId);
+    this.guestId = guestId;
+  },
+
   fetchCachedUsernameOnly() {
     let foundUsername = Cookie.get(this.usernameCookieKey);
     if (foundUsername) {
       this.username = foundUsername;
       return foundUsername;
+    }
+    return null;
+  },
+
+  fetchCachedGuestId() {
+    let foundGuestId = Cookie.get(this.guestIdCookieKey);
+    if (foundGuestId) {
+      this.guestId = foundGuestId;
+      return foundGuestId;
     }
     return null;
   },

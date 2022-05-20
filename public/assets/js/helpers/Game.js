@@ -16,6 +16,7 @@ import BotPlayer from "./BotPlayer.js";
 // Core and utils
 import { playSound, sounds } from "../core/sounds.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
+import Token from "../io/auth/Token.js";
 
 
 class Game {
@@ -71,6 +72,12 @@ class Game {
       });
     }
 
+    if (myUsername.substring(0, 6) === "guest_") {
+      Token.fetchCachedUsernameOnly();
+      console.log("here", Token, Token.username)
+      myUsername = Token.username;
+    }
+
     // Initiating the players.
     Players.all.player1 = new Player(myUsername, {
       'blocks': AmmoInventory.all['block-left'],
@@ -80,6 +87,16 @@ class Game {
       'blocks': AmmoInventory.all['opponentBlock'],
       'attacks': AmmoInventory.all['opponentAttack']
     });
+
+    const leftUsernameBox = document.querySelector('div.my-username-div span.username-span');
+    const introBannerUsernameSpan = document.querySelector('div.intro-page p.character span');
+
+    if (leftUsernameBox) {
+      leftUsernameBox.innerHTML = myUsername;
+    }
+    if (introBannerUsernameSpan) {
+      introBannerUsernameSpan.innerHTML = myUsername;
+    }
 
     // Initiating the tallies.
     Tally.all = {

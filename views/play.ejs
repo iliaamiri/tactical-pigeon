@@ -53,7 +53,8 @@
           <div class="blueBanner">
             <% if (typeof playMode !=="undefined" && playMode==='online' ) { %>
               <p class="character">
-                <%= myUsername %>, you are: PUSINESS MAN
+<!--                , you are: PUSINESS MAN-->
+                <span></span>, you are: PUSINESS MAN
               </p>
               <% } else { %>
                 <p class="character">you are: PUSINESS MAN </p>
@@ -307,9 +308,7 @@
               </div>
               <div class="username-div my-username-div">
                 <span class="username-span my-username-span">
-                  <% if (typeof playMode !=="undefined" && playMode==='online' ) { %>
-                    <%= myUsername %>
-                      <% }%>
+
                 </span>
               </div>
             </div>

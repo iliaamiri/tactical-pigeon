@@ -4,9 +4,9 @@ const gameEmitter = new EventEmitter();
 const Games = {
   gameEmitter: gameEmitter,
   all: {
-    "<gameId>": {
-      
-    }
+    // "<gameId>": {
+    //  $ref to Game
+    // }
   },
 
   // all the CRUD methods (delete, save, findById)

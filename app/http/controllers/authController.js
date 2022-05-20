@@ -1,3 +1,4 @@
+const {makeGuestId} = require("../../../core/utils");
 const AuthExceptions = include("core/Exceptions/AuthExceptions");
 
 const Player = include("app/models/Player");
@@ -7,51 +8,115 @@ const Tokens = include("app/repos/Tokens");
 
 const AuthController = {
   /**
-   * Handles login/signup. It expects one input and that is "givenUsername" in the body of the JSON request. If the username
-   * exists, the user will be logged-in as that username. Otherwise, a new user (player) will be created and logged-in.
+   * Handles login/signup for a guest.
+   *
+   * Definition of a guest: A guest is a user who doesn't want to be tracked and just wants to play casually. Their info
+   * will not be tracked. There can be many guests with the exact same username.
+   *
+   * This controller expects an optional `guestId`. If there was an `guestId`, they will be logged-in as that guest.
+   * If there were no guestId, the controller will make a new guest user and logs them in.
    * @param req
    * @param res
    * @returns {Promise<void>}
    */
-  async loginOrSignUp(req, res) {
+  async beOurGuest(req, res) {
+    console.log(req.user, "ayy")
+
     // Check if the user is already authenticated or not.
     if (req.user) {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    // Get the givenUsername input from body AND make sure of its existence.
-    const { givenUsername } = req.body;
-    if (!givenUsername) {
-      throw AuthExceptions.badInput; // Send error if the parameter does not exist.
-    }
+    // Get the guestId input from body. This is optional.
+    let {givenUsername, givenGuestId} = req.body;
 
-    // Validate the username.
-    if (givenUsername.length < 1 || givenUsername.length > 50) {
-      throw AuthExceptions.badInput;
-    }
+    console.log(givenGuestId);
 
-    // Find user by the username from the Players repo. Create and save a new player with that username if no user -
-    // had that username.
-    let user = Players.findActivePlayerByUsername(givenUsername);
-    if (!user) {
+    let user;
+
+    if (givenGuestId) {
+      // Validate the guestId.
+      givenGuestId = givenGuestId.trim().toLowerCase();
+      if (givenGuestId.length < 5 || givenGuestId.substring(0, 6) !== "guest_") {
+        console.log("here", givenGuestId, givenGuestId.length, givenGuestId.substring(0, 6), givenGuestId.substring(0, 6) === "guest_")
+        throw AuthExceptions.badInput;
+      }
+
+      user = Players.findGuestUser(givenGuestId);
+      if (!user) {
+        user = Object.create(Player);
+        user.initNewGuestPlayer();
+
+        Players.addAsActivePlayer(user);
+      }
+    } else {
       user = Object.create(Player);
-      user.initNewPlayer(givenUsername);
+      user.initNewGuestPlayer();
 
       Players.addAsActivePlayer(user);
     }
 
-    console.log("Authenticated. Username & ID: ", givenUsername, user.playerId); // debug
+    console.log("Authenticated as a guest. Guest ID: ", user.playerId); // debug
 
-    // Make a JWT token and login the user.
-    const generatedTokenValue = Tokens.create(user.playerId, givenUsername);
+    // Make a JWT token and login the guest user.
+    const generatedTokenValue = Tokens.create(user.playerId, user.playerId);
 
     // Send back the token value to the user.
     res.json({
       status: true,
       tokenValue: generatedTokenValue,
-      
+      guestId: user.playerId
     });
-  }
+  },
+
+  async login(req, res) {
+    // Check if the user is already authenticated or not.
+    if (req.user) {
+      throw AuthExceptions.alreadyAuthenticated;
+    }
+
+    const {givenEmail, givenPassword} = req.body;
+
+    // Verify that inputs exists
+    if (givenEmail || givenPassword) {
+      // TODO: throw an exception
+    }
+
+    // Verify about the integrity of the email address
+    // TODO: regex or something
+
+    // Check with database.
+    // Throw an exception if not found
+
+    // make token
+
+    // success! give token
+  },
+
+  async signUpToBeTracked(req, res) {
+    // Check if the user is already authenticated or not.
+    if (req.user) {
+      throw AuthExceptions.alreadyAuthenticated;
+    }
+
+    const {givenEmail, givenPassword} = req.body;
+
+    // Verify that inputs exists
+    if (givenEmail || givenPassword) {
+      // TODO: throw an exception
+    }
+
+    // Verify about the integrity of the email address
+    // TODO: regex or something
+
+    // Verify about the strength of the password.
+    // TODO: at least 6 characters. at least 1 number, at least one uncommon character.
+
+    // TODO: Call Player.addToDatabase and verify that it  was done successfully
+    // throw an exception if not successful
+
+    // Success! res.json({status: true})
+  },
 };
 
 module.exports = AuthController;

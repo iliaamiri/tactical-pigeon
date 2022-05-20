@@ -42,13 +42,16 @@ module.exports = (socket, next) => {
     Players.addAsActivePlayer(foundPlayer);
   }
 
+  // Make sure to not let an already connected user connect again with another web socket instance.
   if (foundPlayer.socketId) {
-    socket.server.connected[foundPlayer.socketId].disconnect();
     next(authExceptions.alreadyInMatch);
     return;
   }
+
+  // If user is not already connected, give them a socketId as a proof that they are connected.
   foundPlayer.socketId = socket.id;
 
+  // Pass the player object to the socket.
   socket.user = foundPlayer;
 
   // console.log("Token: ", jwtToken);

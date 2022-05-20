@@ -34,6 +34,9 @@ if (selectedMap === "playground") {
   mapButton.style.backgroundImage ='url("/assets/img/backgrounds/SVG/street-button.svg")';
 } 
 
+// Fetch guestId (if exists)
+Token.fetchCachedGuestId();
+
 if (Token.fetchCachedUsernameOnly()) {
   titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
   usernameInput.value = Token.username;
@@ -99,7 +102,8 @@ startBtn.addEventListener('click', async function (event) {
 
     try {
       const authResponse = await axios.post("/api/auth/letMeIn", {
-        givenUsername: playerUsername
+        givenUsername: playerUsername,
+        givenGuestId: Token.guestId
       });
 
       const authResult = authResponse.data;
@@ -109,8 +113,11 @@ startBtn.addEventListener('click', async function (event) {
       }
 
       const tokenValue = authResult.tokenValue;
+      const guestId = authResult.guestId;
 
-      Token.save(tokenValue, playerUsername);
+      Token.save(tokenValue);
+      Token.saveUsername(playerUsername);
+      Token.saveGuest(guestId);
     } catch (error) {
       let errMessage = error.message;
 

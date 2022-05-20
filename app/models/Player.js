@@ -1,4 +1,4 @@
-const {makeId} = require("../../core/utils");
+const {makeId, makeGuestId} = require("../../core/utils");
 const AmmoInventory = require("./AmmoInventory");
 const Life = require("./Life");
 const {Players} = require("../repos/Players");
@@ -15,6 +15,12 @@ const Player = {
   currentGameIdPlaying: null, // current gameId where user is playing in.
 
   life: null, // $ref: Life
+
+  initNewGuestPlayer() {
+    let newGuestId = makeGuestId();
+    this.username = newGuestId;
+    this.initOnlinePlayer(newGuestId, newGuestId);
+  },
 
   initNewPlayer(username) {
     let newPlayerId = makeId();
