@@ -93,8 +93,13 @@ const Game = {
     return this.rounds[this.getCurrentRoundNumber() - 1];
   },
 
-  end() {
+  end(winnerPlayerId = null) {
+    this.gameComplete = true;
     this.endedAt = Date.now();
+
+    if (winnerPlayerId) {
+      this.winnerPlayerId = winnerPlayerId;
+    }
   },
 
   toJSON: function () {
