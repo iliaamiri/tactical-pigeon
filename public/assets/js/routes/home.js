@@ -1,6 +1,7 @@
 // Components
 import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
+import Cookie from "../helpers/Cookie.js";
 
 const usernameInput = document.querySelector('input.usernameInput');
 const playButton = document.querySelector('button.play');
@@ -20,6 +21,18 @@ window.addEventListener("pageshow", function (event) {
     window.location.reload();
   }
 });
+
+//changing map button appearance according to map selection
+let selectedMap = Cookie.get("selectedMap");
+let mapButton = document.querySelector("div.map-selection-button");
+console.log(selectedMap);
+if (selectedMap === "playground") {
+  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/playground-button.svg")';
+} else if(selectedMap === "pigeon-nights") {
+  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/night-button.svg")';
+} else if(selectedMap === "street"){
+  mapButton.style.backgroundImage ='url("/assets/img/backgrounds/SVG/street-button.svg")';
+} 
 
 if (Token.fetchCachedUsernameOnly()) {
   titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
