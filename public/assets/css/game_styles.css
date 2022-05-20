@@ -417,8 +417,8 @@ div.loading-clouds-overlay {
 }
 
 div.loading-clouds-overlay div.loading-text {
-  width: 30%;
-  height: 30%;
+  /* width: 30%;
+  height: 30%; */
   position: fixed;
   z-index: 60;
   font-family: "Titan One", cursive;
