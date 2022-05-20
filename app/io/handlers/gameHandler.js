@@ -73,7 +73,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(players)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -82,7 +82,7 @@ module.exports = async (io, socket) => {
 
     // Get opponent's playerId
     const otherPlayerId = Object.values(players)
-      .filter(_playerId => _playerId !== socket.user.playerId);
+      .find(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
     let otherPlayer = Players.findActiveUserById(otherPlayerId);
@@ -155,7 +155,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -175,7 +175,7 @@ module.exports = async (io, socket) => {
 
     // Get opponent's playerId
     const otherPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId !== socket.user.playerId);
+      .find(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
     let otherPlayer = Players.findActiveUserById(otherPlayerId);
@@ -244,7 +244,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -264,7 +264,7 @@ module.exports = async (io, socket) => {
     if (foundGame.areBothPlayersReady()) {
       // Get opponent's playerId
       const otherPlayerId = Object.values(playersIds)
-        .filter(_playerId => _playerId !== socket.user.playerId);
+        .find(_playerId => _playerId !== socket.user.playerId);
 
       // Find opponent's player object.
       let otherPlayer = Players.findActiveUserById(otherPlayerId);
