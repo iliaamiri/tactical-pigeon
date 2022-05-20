@@ -10,6 +10,8 @@ const Player = {
 
   socketId: null, // socket.io Id. Changes for each socket connection.
 
+  disconnectDetectionSetTimoutId: null,
+
   currentGameIdPlaying: null, // current gameId where user is playing in.
 
   life: null, // $ref: Life
@@ -42,6 +44,10 @@ const Player = {
 
   reSyncInDatabase() {
     Players.updateInDatabase(this.playerId, this);
+  },
+
+  isOnline() {
+    return !!(this.socketId);
   },
 
   cleanUpAfterGame() {
