@@ -45,7 +45,7 @@ module.exports = async (io, socket) => {
       const playersUsernames = [];
       // console.log('game players', game.players);
       game.players.forEach(playerId => {
-        playersUsernames.push(Players.all[playerId].username);
+        playersUsernames.push(Players.findActiveUserById(playerId).username);
       });
       const payload = {
         gameId: game.gameId,
@@ -73,7 +73,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(players)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -82,10 +82,10 @@ module.exports = async (io, socket) => {
 
     // Get opponent's playerId
     const otherPlayerId = Object.values(players)
-      .filter(_playerId => _playerId !== socket.user.playerId);
+      .find(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
-    let otherPlayer = Players.find(otherPlayerId);
+    let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
     let thisPlayerMoveHistory = [];
     let otherPlayerMoveHistory = [];
@@ -155,7 +155,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -175,10 +175,10 @@ module.exports = async (io, socket) => {
 
     // Get opponent's playerId
     const otherPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId !== socket.user.playerId);
+      .find(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
-    let otherPlayer = Players.find(otherPlayerId);
+    let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
     // Update the round moves for the current round.
     foundGame.updateRoundMoves(move, thisPlayer);
@@ -244,7 +244,7 @@ module.exports = async (io, socket) => {
 
     // Find this player who requested a game fetch and verify if they are in this game or not.
     const thisPlayerId = Object.values(playersIds)
-      .filter(_playerId => _playerId === socket.user.playerId);
+      .find(_playerId => _playerId === socket.user.playerId);
     if (!thisPlayerId) {
       // For security, don't tell the noisy people if the game even exists or not.
       socket.emit(':error', GameExceptions.gameNotFound);
@@ -264,10 +264,10 @@ module.exports = async (io, socket) => {
     if (foundGame.areBothPlayersReady()) {
       // Get opponent's playerId
       const otherPlayerId = Object.values(playersIds)
-        .filter(_playerId => _playerId !== socket.user.playerId);
+        .find(_playerId => _playerId !== socket.user.playerId);
 
       // Find opponent's player object.
-      let otherPlayer = Players.find(otherPlayerId);
+      let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
       // Tell both players that everyone is ready, so the round can start from now.
       io.to(socket.user.socketId).emit("game:ready:start");

@@ -19,7 +19,7 @@ module.exports = (strict = true) => {
       }
 
       // Find the player object from the online players' collection.
-      let foundPlayer = Players.find(foundTokenObj.playerId);
+      let foundPlayer = Players.findActiveUserById(foundTokenObj.playerId);
       if (!foundPlayer) {
         // Revoke the token that has no player attached to it.
         Tokens.revoke(jwtToken);

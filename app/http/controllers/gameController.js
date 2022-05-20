@@ -85,7 +85,7 @@ const GameController = {
       return;
     }
   
-    let foundPlayer = Players.find(foundTokenObj.playerId);
+    let foundPlayer = Players.findActiveUserById(foundTokenObj.playerId);
 
     let myUsername;
     let opponentUsername;
@@ -106,8 +106,8 @@ const GameController = {
     // Get opponent player's playerId
     let opponentPlayerId = game.players.find(playerId => playerId !== foundPlayer.playerId);
 
-    myUsername = Players.find(foundPlayer.playerId).username;
-    opponentUsername = Players.find(opponentPlayerId).username;
+    myUsername = Players.findActiveUserById(foundPlayer.playerId).username;
+    opponentUsername = Players.findActiveUserById(opponentPlayerId).username;
 
     res.render('play', {
       playMode: "online",
