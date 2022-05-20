@@ -37,6 +37,11 @@ document.querySelector('body').addEventListener('click', async event => {
     Game.currentGame.resetGame();
   }
 
+  if (target.tagName === "DIV" && target.classList.contains("back-home")) {
+    console.log("back to home")
+    location.href = "/"
+  }
+
   /* ---- Done ---- */
   if (target.tagName === "DIV" && target.classList.contains('doneStyled')) {
     await Game.currentGame.currentRound.donePressed();
