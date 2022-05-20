@@ -5,6 +5,7 @@ import Sunglasses from "../components/Pigeons/Sunglasses.js";
 import ResultOverlay from '../components/ResultOverlay.js';
 import Tally from "../components/Tally.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
+import Timer from "../components/Timer.js";
 
 // Helpers
 import Players from "./Players.js";
@@ -48,7 +49,7 @@ class Game {
     return { playerMe, playerOpponent, gameStatus };
   }
 
-  initiateOnline(playerMe, playerOpponent, gameComplete) {
+  initiateOnline(playerMe, playerOpponent, gameComplete, timeLeft) {
     // Player 1 (Me)
     let myUsername = playerMe.username;
     let myAmmoInventories = playerMe.ammoInventories;
@@ -97,6 +98,10 @@ class Game {
 
     Life.all.myLife.counter = myLives;
     Life.all.opponentLife.counter = opponentLives;
+
+    if (this.currentRound.currentRoundNumber !== 1) {
+      Timer.all['myTimer'].counter = Math.floor(timeLeft / 1000);
+    }
   }
 
   async gameOver() {

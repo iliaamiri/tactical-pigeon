@@ -117,11 +117,14 @@ module.exports = async (io, socket) => {
       moveHistory: otherPlayerMoveHistory,
     };
 
+    let currentRound = game.getCurrentRound();
+
     // Prepare the payload for me.
     const payload = {
       playerMe,
       playerOpponent,
       gameComplete: game.gameComplete,
+      timeLeft: currentRound?.getTimeLeftTilRoundFinishes()
     };
 
     console.log("fetch payload: ", payload);

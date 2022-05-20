@@ -53,7 +53,7 @@ await new Promise((resolve, reject) => {
 
     document.addEventListener('gameFetchedReady', event => {
       // Destructure all the fetched data.
-      const { playerMe, playerOpponent, gameComplete } = event.detail;
+      const { playerMe, playerOpponent, gameComplete, timeLeft } = event.detail;
 
       console.log(event); // debug
 
@@ -75,14 +75,15 @@ await new Promise((resolve, reject) => {
           // LocalStorageCache.saveGame(playerMe, playerOpponent, gameComplete);
 
           // initiate everything from the beginning
-          game.initiateOnline(playerMe, playerOpponent, gameComplete);
-          console.log(Timer.all['myTimer'].counter)
+          game.initiateOnline(playerMe, playerOpponent, gameComplete, timeLeft);
+
+          
           resolve(event);
         });
     });
   } else {
-    const { playerMe, playerOpponent, gameComplete } = cachedGameFound;
-    game.initiateOnline(playerMe, playerOpponent, gameComplete);
+    const { playerMe, playerOpponent, gameComplete, timeLeft } = cachedGameFound;
+    game.initiateOnline(playerMe, playerOpponent, gameComplete, timeLeft);
   }
 });
 
