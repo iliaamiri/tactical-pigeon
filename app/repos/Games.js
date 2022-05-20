@@ -3,7 +3,11 @@ const gameEmitter = new EventEmitter();
 
 const Games = {
   gameEmitter: gameEmitter,
-  all: {},
+  all: {
+    "<gameId>": {
+      
+    }
+  },
 
   // all the CRUD methods (delete, save, findById)
   add: function (game) {
