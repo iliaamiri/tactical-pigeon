@@ -63,7 +63,7 @@
 }
 
 .toggleWrapper input.mobileToggle.mobileToggle:checked+label:before {
-  background: #2ecc71;
+  background: #4f7c93;
   transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
 }
 
