@@ -1,6 +1,7 @@
 const userAuthMiddleware = require("./app/io/middlewares/userAuth");
 
 const gameHandler = require("./app/io/handlers/gameHandler");
+const {Players} = require("./app/repos/Players");
 
 module.exports = (server) => {
   const io = require('socket.io')(server);
@@ -16,8 +17,9 @@ module.exports = (server) => {
     }
 
     socket.on("disconnect", (err) => {
-      socket.user.socketId = null;
-      socket.user.reSyncInRepo();
+      // Check if the player is in a game or not at the moment
+      // If they were currently in a game,
+      Players.makeOffline(socket.user);
     });
   });
 

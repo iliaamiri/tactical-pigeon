@@ -45,7 +45,7 @@ module.exports = async (io, socket) => {
       const playersUsernames = [];
       // console.log('game players', game.players);
       game.players.forEach(playerId => {
-        playersUsernames.push(Players.all[playerId].username);
+        playersUsernames.push(Players.findActiveUserById(playerId).username);
       });
       const payload = {
         gameId: game.gameId,
@@ -85,7 +85,7 @@ module.exports = async (io, socket) => {
       .filter(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
-    let otherPlayer = Players.find(otherPlayerId);
+    let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
     let thisPlayerMoveHistory = [];
     let otherPlayerMoveHistory = [];
@@ -178,7 +178,7 @@ module.exports = async (io, socket) => {
       .filter(_playerId => _playerId !== socket.user.playerId);
 
     // Find opponent's player object.
-    let otherPlayer = Players.find(otherPlayerId);
+    let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
     // Update the round moves for the current round.
     foundGame.updateRoundMoves(move, thisPlayer);
@@ -267,7 +267,7 @@ module.exports = async (io, socket) => {
         .filter(_playerId => _playerId !== socket.user.playerId);
 
       // Find opponent's player object.
-      let otherPlayer = Players.find(otherPlayerId);
+      let otherPlayer = Players.findActiveUserById(otherPlayerId);
 
       // Tell both players that everyone is ready, so the round can start from now.
       io.to(socket.user.socketId).emit("game:ready:start");

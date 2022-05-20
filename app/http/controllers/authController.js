@@ -32,12 +32,12 @@ const AuthController = {
 
     // Find user by the username from the Players repo. Create and save a new player with that username if no user -
     // had that username.
-    let user = Players.findByUsername(givenUsername);
+    let user = Players.findActivePlayerByUsername(givenUsername);
     if (!user) {
       user = Object.create(Player);
       user.initNewPlayer(givenUsername);
 
-      Players.add(user);
+      Players.addAsActivePlayer(user);
     }
 
     console.log("Authenticated. Username & ID: ", givenUsername, user.playerId); // debug

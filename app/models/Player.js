@@ -4,8 +4,7 @@ const Life = require("./Life");
 const {Players} = require("../repos/Players");
 
 const Player = {
-  rowId: null, // int (db primary key auto increment)
-  playerId: null, // string (random generated)
+  playerId: null, // int (db primary key auto increment)
   username: null, // string
   ammoInventory: null, //$ref: AmmoInventory
 
@@ -38,7 +37,11 @@ const Player = {
   },
 
   reSyncInRepo() {
-    Players.update(this.playerId, this);
+    Players.updateActivePlayer(this.playerId, this);
+  },
+
+  reSyncInDatabase() {
+    Players.updateInDatabase(this.playerId, this);
   },
 
   cleanUpAfterGame() {
@@ -47,7 +50,7 @@ const Player = {
     this.ammoInventory = null;
   },
 
-  toJSON: function () {
+  toJSON() {
     return {
       playerId: this.playerId,
       username: this.username,

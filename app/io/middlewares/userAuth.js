@@ -20,18 +20,26 @@ module.exports = (socket, next) => {
     return;
   }
 
-  let foundPlayer = Players.find(foundTokenObj.playerId);
+  // Fetch the player
+  let foundPlayer = Players.fetchThePlayerById(foundTokenObj.playerId);
 
+  // If player does not exist at all.
   if (!foundPlayer) {
-    foundPlayer = Object.create(Player);
+    let decodedData;
     try {
-      let decodedData = Tokens.verifyIntegrity(jwtToken);
-      foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
-      Players.add(foundPlayer);
-    } catch (err) {
+      // Decode the JWT token.
+      decodedData = Tokens.verifyIntegrity(jwtToken);
+    } catch (err) { // Failed to decode.
+      console.log(err); // Fatal error
       next(err);
       return;
     }
+    // Instantiate a new player to be added as a guest in our active players. Invalid instance.
+    foundPlayer = Object.create(Player);
+
+    // Initiate the player object as an online player.
+    foundPlayer.initOnlinePlayer(decodedData.playerId, decodedData.username);
+    Players.addAsActivePlayer(foundPlayer);
   }
 
   if (foundPlayer.socketId) {
@@ -40,6 +48,9 @@ module.exports = (socket, next) => {
     return;
   }
   foundPlayer.socketId = socket.id;
+
+  // Make the player online.
+  Players.addAsOnline(foundPlayer.playerId);
 
   socket.user = foundPlayer;
 
