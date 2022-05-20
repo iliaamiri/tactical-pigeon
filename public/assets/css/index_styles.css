@@ -103,7 +103,8 @@ div.start {
 
 div.start p.title-enter-name {
   font-size: 2vw;
-}
+  text-align: center;
+ } 
 
 div.start p.title-enter-name.error-alert {
   -webkit-text-stroke-width: 1px;
