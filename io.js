@@ -36,7 +36,7 @@ module.exports = (server) => {
 
       let onGoingGame = Games.find(socket.user.currentGameIdPlaying);
       // If they were currently in a game:
-      if (onGoingGame.gameComplete) {
+      if (!onGoingGame || onGoingGame.gameComplete) {
         return;
       }
 

@@ -119,15 +119,24 @@
           <!-- <span class="count">3</span> -->
         </div>
 
-        <!-- Play Again Button -->
-        <div class="play-again-container d-none position-absolute d-flex justify-content-center">
-          <div id="pulse" class="play-again mb-5"></div>
-        </div>
+        <% if (playMode === "online") { %>
+          <!-- Play Again Button -->
+          <div class="play-again-container d-none position-absolute d-flex justify-content-center">
+            <div id="pulse" class="play-again mb-5"></div>
+          </div>
+        <% } %>
 
-        <!-- Back to Main Button -->
-        <div class="back-home-container d-none position-absolute d-flex justify-content-center align-items-end">
-          <div id="pulse" class="back-home mb-5"></div>
-        </div>
+        <% if (playMode === "offline") { %>
+          <!-- Play Again Button -->
+          <div class="play-again-container d-none position-absolute d-flex justify-content-center">
+            <div id="pulse" class="play-again mb-5"></div>
+          </div>
+          
+          <!-- Back to Main Button -->
+          <div class="back-home-container d-none position-absolute d-flex justify-content-center align-items-end">
+            <div id="pulse" class="back-home mb-5"></div>
+          </div>
+        <% } %>
 
         <!-- Game Result Banner -->
         <div class="result-container position-absolute d-flex justify-content-center">

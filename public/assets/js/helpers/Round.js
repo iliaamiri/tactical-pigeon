@@ -373,9 +373,11 @@ class Round {
 
       // Back to Home button
       let backHomeBtn = document.querySelector(".back-home");
-      backHomeBtn.classList.add('replay-in-animation');
-      backHomeBtn.classList.remove('replay-out-animation');
-      backHomeBtn.classList.remove('d-none');
+      if (backHomeBtn) {
+        backHomeBtn.classList.add('replay-in-animation');
+        backHomeBtn.classList.remove('replay-out-animation');
+        backHomeBtn.classList.remove('d-none');
+      }
 
       document.querySelector('div.done').classList.add('d-none');
       document.querySelector('div.moves-placeholder').classList.add('d-none');
