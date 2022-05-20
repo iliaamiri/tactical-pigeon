@@ -172,6 +172,11 @@ div.back-button {
   z-index:1000;
 }
 
+div.back-button:hover{
+  cursor: pointer;
+  filter: brightness(0.8);
+ } 
+
 span.portrait {
   font-family: "Titan One", cursive;
   font-size: 35px;
