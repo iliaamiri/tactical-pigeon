@@ -108,43 +108,19 @@ const Players = {
     // TODO: insert the new player to the database
   },
 
-  /**
-   * Adds the player's playerId to the `onlinePlayersIds` Set collection. If there were no player object in the `allActivePlayers`
-   * collection, this method will try to find the player from the database and add it to the active users' collection.
-   * And at the end will return true if no player were found.
-   * @param playerId
-   * @returns {boolean}
-   */
-  addAsOnline(playerId) {
-    const foundPlayerInActivePlayersCollection = this.findActiveUserById(playerId);
-    if (foundPlayerInActivePlayersCollection) {
-      this.onlinePlayersIds.add(playerId);
-      return true;
-    }
-
-    const foundPlayerInDatabase = this.findFromDatabase(playerId);
-    if (foundPlayerInDatabase) {
-      this.addAsActivePlayer(foundPlayerInActivePlayersCollection);
-      this.onlinePlayersIds.add(playerId);
-      return true;
-    }
-
-    return false;
-  },
-
-  makeOffline(player) {
+  disconnected(player) {
     player.socketId = null;
     player.reSyncInRepo();
   },
 
   /**
-   * Checks if the player's playerId exists in the `onlinePlayersIds` collection or not. If it does, this method will
-   * return true, else: false.
+   * Fetches the player object. If the player object's socketId property wasn't null, it means that the player is online.
    * @param playerId
    * @returns {boolean}
    */
   isOnline(playerId) {
-    return this.onlinePlayersIds.has(playerId);
+    const foundPlayer = this.fetchThePlayerById(playerId);
+    return !!(foundPlayer.socketId);
   },
 
   updateInDatabase(playerId, player) {
@@ -170,6 +146,7 @@ const Players = {
   },
 
   deleteFromDatabase(playerId) {
+    // TODO: connects to sql and deletes a user
   },
 
   /**
@@ -220,7 +197,7 @@ const Players = {
    */
   findActivePlayerByUsername(username) { // : Player
     return Array.from(
-        Map.values(this.allActiveUsers)
+        this.allActiveUsers.values()
       )
         .find(player => player.username === username)
       || null;

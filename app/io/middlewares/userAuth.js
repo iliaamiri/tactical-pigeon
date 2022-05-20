@@ -49,9 +49,6 @@ module.exports = (socket, next) => {
   }
   foundPlayer.socketId = socket.id;
 
-  // Make the player online.
-  Players.addAsOnline(foundPlayer.playerId);
-
   socket.user = foundPlayer;
 
   // console.log("Token: ", jwtToken);
