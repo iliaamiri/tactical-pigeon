@@ -105,6 +105,13 @@ class Game {
     // resultOverlay.classList.add('victory');
     let gameResult = this.calculateGameResults();
     console.log('game result', gameResult);
+
+    document.querySelector('.play-again').classList.remove('d-none');
+    let bckHomeBtn = document.querySelector('.back-home');
+    if (bckHomeBtn) {
+      bckHomeBtn.classList.remove('d-none');
+    }
+
     if (gameResult === 'win') {
       ResultOverlay.updateTitle('victory');
 
