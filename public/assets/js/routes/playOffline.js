@@ -5,6 +5,7 @@ import Timer from '../components/Timer.js';
 import Tally from "../components/Tally.js";
 
 const playAgainButton = document.querySelector(".play-again");
+const BackHomeButton = document.querySelector(".back-home");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
 const nextButton = document.querySelector('.nextBtn');
 const backButton = document.querySelector('.backBtn');
@@ -40,6 +41,7 @@ export let username = Token.fetchCachedUsernameOnly();
 // Hide the clouds overlay and playAgainButton
 loadingCloudsOverlay.classList.add("d-none");
 playAgainButton.classList.add("d-none");
+BackHomeButton.classList.add("d-none");
 
 // inserting the username and 'computer' under the health bars
 let myUsernameSpan = document.querySelector('div.my-username-div span.my-username-span');

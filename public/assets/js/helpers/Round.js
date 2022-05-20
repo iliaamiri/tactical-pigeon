@@ -364,10 +364,19 @@ class Round {
     ) {
       // Finish and evaluate the game
       await Game.currentGame.gameOver();
+
+      // Play again button
       let replayBtn = document.querySelector(".play-again");
       replayBtn.classList.add('replay-in-animation');
       replayBtn.classList.remove('replay-out-animation');
       replayBtn.classList.remove('d-none');
+
+      // Back to Home button
+      let backHomeBtn = document.querySelector(".back-home");
+      backHomeBtn.classList.add('replay-in-animation');
+      backHomeBtn.classList.remove('replay-out-animation');
+      backHomeBtn.classList.remove('d-none');
+
       document.querySelector('div.done').classList.add('d-none');
       document.querySelector('div.moves-placeholder').classList.add('d-none');
       this.resetCounter();
