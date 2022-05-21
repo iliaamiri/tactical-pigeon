@@ -1,4 +1,4 @@
-import Game from '../helpers/Game.js';
+import Game from '../../helpers/Game.js';
 
 class Tally {
   tallyElement;

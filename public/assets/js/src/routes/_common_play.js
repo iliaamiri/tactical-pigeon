@@ -1,6 +1,6 @@
 // Components
-import Timer from "../components/Timer.js";
-import MovePlaceholder from "../components/MovePlaceholder.js";
+import Timer from "../components/Play/Timer.js";
+import MovePlaceholder from "../components/Play/MovePlaceholder.js";
 const body = document.querySelector('body');
 
 // Helpers

@@ -1,15 +1,14 @@
 // Components
-import MovePlaceholder from '../components/MovePlaceholder.js';
+import MovePlaceholder from '../components/Play/MovePlaceholder.js';
 import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import AmmoIcon from "../components/Inventories/AmmoIcon.js";
-import Timer from '../components/Timer.js';
-import Tally from "../components/Tally.js";
+import Timer from '../components/Play/Timer.js';
+import Tally from "../components/Tallies/Tally.js";
 import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 
 const roundTitle = document.querySelector('div.round-title');
 const Countdown = document.querySelector('div.countdown');
-const doneButton = document.querySelector('div.done');
 const waitSign = document.querySelector('.wait-sign');
 
 // Helpers
@@ -23,6 +22,10 @@ import restingMode from "./restingMode.js";
 // Cores and Utils
 import wait from '../utils/wait.js';
 import {socket} from "../io/client.js";
+import DoneButton from "../components/DoneButton";
+import RoundPoints from "../components/Tallies/RoundPoints";
+import BackHomeButton from "../components/Play/BackHomeButton";
+import ReplayButton from "../components/Play/ReplayButton";
 
 class Round {
   #currentRoundNumber = 1;
@@ -67,11 +70,8 @@ class Round {
   static tdCounter = 0;
 
   async donePressed() {
-    // hide the done (fight!) button
-    document.querySelector('div.done').classList.add('d-none');
-    // disabling buttons for a moment
-    let doneBtn = document.querySelector(".done");
-    doneBtn.disableClick(); // disabling done button
+    DoneButton.click();
+
     Object.values(AmmoIcon.all)
       .map(ammoIconComponent => ammoIconComponent.iconElement.disableClick()); // disabling inventory ammo images/buttons.
 
@@ -171,8 +171,8 @@ class Round {
     // Calculate the result of this round
     let roundResult = this.tripletCompare(playerMoves);
 
-    let leftPigeon = document.querySelector("img.pigeon-left")
-    let rightPigeon = document.querySelector("img.pigeon-right")
+    let leftPigeon = document.querySelector("img.pigeon-left");
+    let rightPigeon = document.querySelector("img.pigeon-right");
 
     // Aftermath
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
@@ -198,35 +198,7 @@ class Round {
 
       //winning round popup
 
-      setTimeout(function () {
-        let span = document.createElement("span");
-        span.innerHTML = "+1";
-        span.classList.add("roundResult", "roundWin");
-        let roundPoints;
-
-        if (Round.tdCounter === 0) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)");
-        }
-        if (Round.tdCounter === 1) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)");
-        }
-        if (Round.tdCounter === 2) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)");
-        }
-        if (Round.tdCounter === 3) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)");
-        }
-        if (Round.tdCounter === 4) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)");
-        }
-
-        roundPoints.appendChild(span);
-        Round.tdCounter++;
-      }, 350);
-
-      setTimeout(function () {
-        document.querySelector("span.roundResult").remove();
-      }, 1400)
+      RoundPoints.exhibit("win", "+1");
 
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
 
@@ -252,37 +224,7 @@ class Round {
       /* Life.all.myLife.decreaseCounter(); */
 
       //losing round popup
-      setTimeout(function () {
-
-        let span = document.createElement("span");
-        span.innerHTML = "-1";
-        span.classList.add("roundResult", "roundLose");
-        let roundPoints;
-
-        if (Round.tdCounter === 0) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
-        }
-        if (Round.tdCounter === 1) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
-        }
-        if (Round.tdCounter === 2) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
-        }
-        if (Round.tdCounter === 3) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
-        }
-        if (Round.tdCounter === 4) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
-        }
-
-        roundPoints.appendChild(span);
-        Round.tdCounter++
-      }, 350);
-
-      setTimeout(function () {
-        document.querySelector("span.roundResult").remove();
-      }, 1500);
-
+      RoundPoints.exhibit("lose", "-1");
 
     } else { // Draw
       myTally.fillColumnDraw();
@@ -300,38 +242,7 @@ class Round {
 
       }, 1500);
 
-      setTimeout(function () {
-        let span = document.createElement("span");
-        span.innerHTML = "draw!";
-        span.style.fontSize = "1.4vw";
-        span.style.webkitTextStrokeWidth = "0.1vw";
-        span.classList.add("roundResult", "roundDraw");
-        let roundPoints;
-
-        if (Round.tdCounter === 0) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(2)")
-        }
-        if (Round.tdCounter === 1) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(3)")
-        }
-        if (Round.tdCounter === 2) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(4)")
-        }
-        if (Round.tdCounter === 3) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(5)")
-        }
-        if (Round.tdCounter === 4) {
-          roundPoints = document.querySelector("table > tbody > tr:nth-child(1) > td:nth-child(6)")
-        }
-
-        roundPoints.appendChild(span);
-        Round.tdCounter++
-      }, 350);
-
-      setTimeout(function () {
-        document.querySelector("span.roundResult").remove();
-      }, 1500);
-
+      RoundPoints.exhibit("draw", "draw!");
     }
 
     roundTitle.classList.remove("animate__bounceInDown")
@@ -366,20 +277,12 @@ class Round {
       await Game.currentGame.gameOver();
 
       // Play again button
-      let replayBtn = document.querySelector(".play-again");
-      replayBtn.classList.add('replay-in-animation');
-      replayBtn.classList.remove('replay-out-animation');
-      replayBtn.classList.remove('d-none');
+      ReplayButton.show();
 
-      // Back to Home button
-      let backHomeBtn = document.querySelector(".back-home");
-      if (backHomeBtn) {
-        backHomeBtn.classList.add('replay-in-animation');
-        backHomeBtn.classList.remove('replay-out-animation');
-        backHomeBtn.classList.remove('d-none');
-      }
+      // Show the back to Home button
+      BackHomeButton.show();
 
-      document.querySelector('div.done').classList.add('d-none');
+      DoneButton.hide();
       document.querySelector('div.moves-placeholder').classList.add('d-none');
       this.resetCounter();
     } else {
@@ -409,7 +312,7 @@ class Round {
     RoundMove.selectedMoveType = 'none';
 
 
-    document.querySelector('div.done').classList.remove('d-none');
+    DoneButton.hide();
     document.querySelector('div.moves-placeholder').classList.remove('d-none');
 
     document.querySelectorAll('div.mv-placeholder').forEach((element) => {
@@ -437,14 +340,13 @@ class Round {
     Timer.all["myTimer"].startCounter();
 
     // Enabling everything back for the next new round
-    doneButton.enableClick(); // enabling done button
+    DoneButton.reset();
 
     Object.values(AmmoIcon.all)
       .map(ammoIconComponent => ammoIconComponent.iconElement.enableClick()); // enabling inventory ammo images/buttons.
 
     Object.values(MovePlaceholder.all)
       .map(movePlaceholderComponent => movePlaceholderComponent.target.enableClick()); // enabling the move placeholders
-
   }
 
   async roundCountdown() {
@@ -522,8 +424,6 @@ class Round {
     } else {
       return 0;
     }
-
-    return resultArr;
   }
 
   static all = {}

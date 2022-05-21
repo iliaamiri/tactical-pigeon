@@ -3,9 +3,10 @@ import Life from "../components/Inventories/Life.js";
 import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import Sunglasses from "../components/Pigeons/Sunglasses.js";
 import ResultOverlay from '../components/ResultOverlay.js';
-import Tally from "../components/Tally.js";
-import MovePlaceholder from "../components/MovePlaceholder.js";
-import Timer from "../components/Timer.js";
+import Tally from "../components/Tallies/Tally.js";
+import MovePlaceholder from "../components/Play/MovePlaceholder.js";
+import Timer from "../components/Play/Timer.js";
+import ReplayButton from "../components/Play/ReplayButton.js";
 
 // Helpers
 import Players from "./Players.js";
@@ -127,7 +128,7 @@ class Game {
     let gameResult = this.calculateGameResults();
     console.log('game result', gameResult); // debug
 
-    document.querySelector('.play-again').classList.remove('d-none');
+    ReplayButton.show();
     let bckHomeBtn = document.querySelector('.back-home');
     if (bckHomeBtn) {
       bckHomeBtn.classList.remove('d-none');

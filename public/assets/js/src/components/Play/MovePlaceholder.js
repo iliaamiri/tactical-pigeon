@@ -1,6 +1,6 @@
-import AmmoInventory from './Inventories/AmmoInventory.js';
-import RoundMove from "../helpers/RoundMove.js";
-import Players from "../helpers/Players.js";
+import AmmoInventory from '../Inventories/AmmoInventory.js';
+import RoundMove from "../../helpers/RoundMove.js";
+import Players from "../../helpers/Players.js";
 
 class MovePlaceholder {
   checked = false;

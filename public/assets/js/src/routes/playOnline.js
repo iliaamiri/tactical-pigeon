@@ -1,8 +1,7 @@
 // Components
-import Timer from "../components/Timer.js";
-import MovePlaceholder from "../components/MovePlaceholder.js";
+import Timer from "../components/Play/Timer.js";
+import MovePlaceholder from "../components/Play/MovePlaceholder.js";
 const loadingCloudsOverlay = document.querySelector('div.loading-clouds-overlay');
-const playAgainButton = document.querySelector(".play-again");
 const countdownOverlayComponent = document.querySelector("div.countdown-overlay");
 const pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
 const pickMoveOverlay = document.querySelector('div.move-picker-overlay');
@@ -15,6 +14,7 @@ import roundCountdown from "../helpers/roundCountdown.js";
 // Core and utils
 import clientSocketConnect from "../io/client.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
+import ReplayButton from "../components/Play/ReplayButton.js";
 
 console.log("Hit playOnline.js");
 
@@ -40,7 +40,7 @@ try {
 let game = new Game(gameId, "online");
 
 // Loading the game (Exhibition)
-playAgainButton.classList.add("d-none"); // Hide the play again button
+ReplayButton.hide(); // Hide the play again button
 loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds overlay
 
 await new Promise((resolve, reject) => {

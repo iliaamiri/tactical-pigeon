@@ -4,7 +4,7 @@
   --left-pigeon-distance-from-the-edges: 20.08928571428571%;
   --right-pigeon-distance-from-the-edges: 11%;
 
-  /* Tally Table Cell Sizes */
+  /* Tallies Table Cell Sizes */
 
   --tally-table-cell-size: 40px;
   /* ~ mobile */
@@ -730,7 +730,7 @@ div.table-labels div.tabol-labol>img {
   margin: 10px;
 }
 
-/* Tally Table */
+/* Tallies Table */
 
 div.row.board {
   height: 45%;

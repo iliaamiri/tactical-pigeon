@@ -1,4 +1,4 @@
-import Game from "../helpers/Game.js";
+import Game from "../../helpers/Game.js";
 
 let myTimerCounter = document.querySelector('span.time-nums');
 
