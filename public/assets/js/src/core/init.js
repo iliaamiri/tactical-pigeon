@@ -32,7 +32,7 @@ export default () => {
   /**
    * Disables/Enabling clicking on an element.
    * Why did I made a new file and did this?
-   *  Well, to answer the first questions: I don't wanna scroll in main.js until my finger dies.
+   *  Well, to answer the first questions: I don't wanna scroll in index.js until my finger dies.
    *  And for the second question: doesn't it look nice? -> element.disableClick() ! or element.enableClick() !
    */
   HTMLElement.prototype.disableClick = function () {

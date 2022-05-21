@@ -1,7 +1,6 @@
 // Components
 import Timer from "../components/Timer.js";
 import MovePlaceholder from "../components/MovePlaceholder.js";
-
 const body = document.querySelector('body');
 
 // Helpers
@@ -13,16 +12,19 @@ import { backgroundsCssClassNames } from "../helpers/Backgrounds.js";
 import { sounds } from "../core/sounds.js";
 import Cookie from "../helpers/Cookie.js"
 
+// Sounds
+await import("../helpers/soundController.js");
+
 // Set the map
 let selectedMap = Cookie.get("selectedMap");
 if (selectedMap && Object.keys(backgroundsCssClassNames).includes(selectedMap)) {
-  document.querySelector('body').classList.add(backgroundsCssClassNames[selectedMap]);
+  body.classList.add(backgroundsCssClassNames[selectedMap]);
 } else { // Or add the default background
-  document.querySelector('body').classList.add(backgroundsCssClassNames.street);
+  body.classList.add(backgroundsCssClassNames.street);
 }
 
 // Wrapping every click handler in one listener to be able to handle the spam clicks easier.
-document.querySelector('body').addEventListener('click', async event => {
+body.addEventListener('click', async event => {
   let target = event.target;
 
   // Checking if this element is not clickable

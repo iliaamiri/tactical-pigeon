@@ -1,7 +1,7 @@
 import config from "../config.js";
 
 const Cookie = {
-  set(cname, cvalue, exdays) {
+  set(cname, cvalue, exdays = 2) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();

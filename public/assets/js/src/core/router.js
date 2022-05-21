@@ -1,6 +1,6 @@
 const currentPath = () => {
   let path = window.location.pathname;
-  path = path.replaceAll("?", "");
+  path = path.replace("?", "");
   if (path.length > 1 && path[path.length - 1] === "/") {
     path = path.substring(0, path.length - 1);
   }
