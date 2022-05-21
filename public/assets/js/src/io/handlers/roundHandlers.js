@@ -1,7 +1,17 @@
 export default (io, socket) => {
-  const receiveOpponentMove = (payload) => {
-    const {gameId, moves, gameComplete} = payload;
+  const receiveOpponentMoves = (payload) => {
+    const { opponentMoves, gameComplete } = payload;
+    // console.log("Opponent Moves received: ", opponentMoves);
+    // console.log("Game Complete: ", gameComplete);
+
+    document.dispatchEvent(
+      new CustomEvent('opponentMoveReady', {
+        detail: {
+          opponentMoves, gameComplete
+        }
+      })
+    );
   };
 
-  socket.on('game:round:opponentMove', receiveOpponentMove);
+  socket.on('game:round:opponentMove', receiveOpponentMoves);
 };

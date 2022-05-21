@@ -1,12 +1,12 @@
 function restingMode() {
   document.querySelectorAll('.show-animation').forEach(element => {
-    console.log('element', element);
+    // console.log('element', element); // debug
     element.classList.add('hide-animation');
     element.classList.remove('show-animation');
   });
 
   document.querySelectorAll('.pop-in-animation').forEach(element => {
-    console.log('element', element);
+    // console.log('element', element); // debug
     element.classList.add('pop-out-animation');
     element.classList.remove('pop-in-animation');
   });

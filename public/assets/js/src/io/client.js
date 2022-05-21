@@ -8,7 +8,7 @@ export let socket;
 export default async function clientSocketConnect() {
   Token.fetchCachedToken();
   if (!Token.tokenVal) {
-    console.log("Auth Failed");
+    // console.log("Auth Failed"); // debug
     return;
   }
 
@@ -16,7 +16,7 @@ export default async function clientSocketConnect() {
     auth: { token: Token.tokenVal}
   });
 
-  console.log(socket);
+  console.log(socket); // debug
 
   try {
     await handlersIndex(io, socket);
@@ -28,7 +28,7 @@ export default async function clientSocketConnect() {
     console.log("Connected.");
   });
 
-  socket.io.on("reconnection_attempt", () => {
+  socket.io.on("reconnect_attempt", () => {
     console.log("reconnection attempt");
   });
 

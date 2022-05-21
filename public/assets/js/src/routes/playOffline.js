@@ -126,7 +126,7 @@ if (Cookie.get(username)) {
 
   // background intro screen
   continueButton.addEventListener("click", async event => {
-    console.log(event.target);
+    // console.log(event.target); // debug
     event.target.classList.remove("unpressed");
     continueButton.classList.add("pressed");
     document.querySelector(".intro-page").classList.add("d-none");

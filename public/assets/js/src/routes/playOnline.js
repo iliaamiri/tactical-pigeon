@@ -24,7 +24,7 @@ try {
 
   socket.on('connect_error', err => {
     let message = err.message;
-    console.log(message);
+    console.log(message); // debug
     if (message === "AUTHENTICATION_FAILED") {
       alert("Authentication Failed. Please try again.");
 
@@ -44,7 +44,7 @@ playAgainButton.classList.add("d-none"); // Hide the play again button
 loadingCloudsOverlay.classList.remove("d-none"); // show the loading clouds overlay
 
 await new Promise((resolve, reject) => {
-  console.log("hitting HERE")
+  console.log("hitting HERE"); // debug
   // Check if there are caches to load from
   let cachedGameFound = Game.findByGameFromCache();
   if (!cachedGameFound) { // If not, fetch information from the server.
@@ -55,7 +55,7 @@ await new Promise((resolve, reject) => {
       // Destructure all the fetched data.
       const { playerMe, playerOpponent, gameComplete, timeLeft } = event.detail;
 
-      console.log(event); // debug
+      // console.log(event); // debug
 
       // Make sure everything is ready.
       new Promise((resolve, reject) => {

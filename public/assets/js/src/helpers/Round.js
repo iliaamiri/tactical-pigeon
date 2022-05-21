@@ -98,7 +98,7 @@ class Round {
           console.log("App Error: ", err);
         });
 
-        console.log(opponentMove)
+        // console.log(opponentMove); // debug
         if (!opponentMove) {
           waitSign.classList.remove("d-none")
           waitSign.classList.add("animate__slideInDown")
@@ -110,7 +110,7 @@ class Round {
           // Destructure all the fetched data.
           const { opponentMoves, gameComplete } = event.detail;
 
-          console.log('opponentmoveready event listener', event); // debug
+          // console.log('opponentmoveready event listener', event); // debug
 
           waitSign.classList.remove("animate__slideInDown")
           waitSign.classList.add("d-none")
@@ -142,7 +142,7 @@ class Round {
       opponentMove = Players.all.player2.generateRandomMoves();
     }
 
-    console.log("Opponent Moves: ", opponentMove); // debug
+    // console.log("Opponent Moves: ", opponentMove); // debug
 
     // Fill my tally columns with my moves
     myTally.fillMoves();
@@ -337,7 +337,7 @@ class Round {
     roundTitle.classList.remove("animate__bounceInDown")
     restingMode();
 
-    console.log('life.all', Life.all);
+    // console.log('life.all', Life.all); // debug
 
     let leftPlayerTotalInventory =
       AmmoInventory.all['attack-left'].counter
@@ -459,7 +459,7 @@ class Round {
   }
 
   fillTheTalliesWithMoveHistory(moveHistory) {
-    console.log("move history ", moveHistory); // debug
+    // console.log("move history ", moveHistory); // debug
 
     let player1Tally = Tally.all.player1;
     let player2Tally = Tally.all.player2;

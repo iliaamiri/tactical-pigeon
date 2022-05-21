@@ -7,7 +7,7 @@ import {playSound, sounds} from "../../core/sounds.js";
 
 export default async (io, socket) => {
   const matchFound = (payload) => {
-    console.log("match found. payload: ", payload);
+    console.log("match found. payload: ", payload); // debug
 
     const { gameId, players } = payload;
 
@@ -22,26 +22,12 @@ export default async (io, socket) => {
   };
 
   const fetchCurrentStateOfGame = (payload) => {
-    console.log(payload);
+    // console.log(payload); // debug
 
     document.dispatchEvent(
       new CustomEvent('gameFetchedReady', {
         detail: {
           ...payload
-        }
-      })
-    );
-  };
-
-  const receiveOpponentMoves = (payload) => {
-    const { opponentMoves, gameComplete } = payload;
-    console.log("Opponent Moves received: ", opponentMoves);
-    console.log("Game Complete: ", gameComplete);
-
-    document.dispatchEvent(
-      new CustomEvent('opponentMoveReady', {
-        detail: {
-          opponentMoves, gameComplete
         }
       })
     );
@@ -56,5 +42,4 @@ export default async (io, socket) => {
   socket.on('game:ready:start', opponentReadyToo);
   socket.on('game:matchFound', matchFound);
   socket.on('game:fetch:result', fetchCurrentStateOfGame);
-  socket.on('game:round:opponentMove', receiveOpponentMoves)
 };

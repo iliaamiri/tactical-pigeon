@@ -74,7 +74,6 @@ class Game {
 
     if (myUsername.substring(0, 6) === "guest_") {
       Token.fetchCachedUsernameOnly();
-      console.log("here", Token, Token.username)
       myUsername = Token.username;
     }
 
@@ -126,7 +125,7 @@ class Game {
     // connect result calculation here
     // resultOverlay.classList.add('victory');
     let gameResult = this.calculateGameResults();
-    console.log('game result', gameResult);
+    console.log('game result', gameResult); debug
 
     document.querySelector('.play-again').classList.remove('d-none');
     let bckHomeBtn = document.querySelector('.back-home');

@@ -35,12 +35,12 @@ body.addEventListener('click', async event => {
   }
 
   if (target.tagName === "DIV" && target.classList.contains("play-again")) {
-    console.log("user wants to play again!");
+    // console.log("user wants to play again!"); // debug
     Game.currentGame.resetGame();
   }
 
   if (target.tagName === "DIV" && target.classList.contains("back-home")) {
-    console.log("back to home")
+    // console.log("back to home"); // debug
     location.href = "/"
   }
 
@@ -85,7 +85,7 @@ body.addEventListener('click', async event => {
     RoundMove.selectedMoveType !== 'none' &&
     target.classList.contains('mv-placeholder')
   ) {
-    console.log('selectedMoveType', RoundMove.selectedMoveType);
+    // console.log('selectedMoveType', RoundMove.selectedMoveType); // debug
     let bodyPartType;
 
     if (target.classList.contains('head')) {
@@ -107,7 +107,7 @@ body.addEventListener('click', async event => {
   let tutorialOverlay = document.querySelector(".tutorial-overlay");
   let helpBtn = document.querySelector(".help");
   if (target.tagName === "DIV" && target.classList.contains('help')) {
-    console.log(Game.currentGame.gameMode)
+    // console.log(Game.currentGame.gameMode); // debug
     if (Game.currentGame.gameMode === "offline") {
       Timer.all['myTimer'].pauseCounter();
     }
@@ -118,7 +118,7 @@ body.addEventListener('click', async event => {
   if (target.tagName === "SPAN" && target.classList.contains('exit-tutorial')) {
     tutorialOverlay.classList.add("d-none");
     tutorialOverlay.classList.remove("animate__fadeInLeft");
-    console.log(Game.currentGame.gameFinished)
+    // console.log(Game.currentGame.gameFinished); // debug
     if (Game.currentGame.gameFinished === "false") {
       Timer.all['myTimer'].startCounter();
     }
@@ -126,7 +126,7 @@ body.addEventListener('click', async event => {
 
   /* ---- Mute Button ---- */
   if (target.tagName === "DIV" && target.classList.contains('mute')) {
-    console.log("muting");
+    // console.log("muting"); // debug
     document.dispatchEvent(
       new CustomEvent('soundMuteToggle', {
         detail: {

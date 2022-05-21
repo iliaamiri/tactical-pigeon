@@ -108,7 +108,7 @@ startBtn.addEventListener('click', async function (event) {
 
       const authResult = authResponse.data;
       if (!authResult.status) {
-        console.log(authResult);
+        // console.log(authResult); // debug
         throw new Error(authResult.error);
       }
 
