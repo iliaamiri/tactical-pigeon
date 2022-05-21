@@ -39,7 +39,12 @@ export default async (io, socket) => {
     );
   };
 
+  const wonOpponentLeft = () => {
+
+  };
+
   socket.on('game:ready:start', opponentReadyToo);
   socket.on('game:matchFound', matchFound);
   socket.on('game:fetch:result', fetchCurrentStateOfGame);
+  socket.on('game:won:opponentLeft', wonOpponentLeft);
 };

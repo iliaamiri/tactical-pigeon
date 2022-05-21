@@ -125,7 +125,7 @@ class Game {
     // connect result calculation here
     // resultOverlay.classList.add('victory');
     let gameResult = this.calculateGameResults();
-    console.log('game result', gameResult); debug
+    console.log('game result', gameResult); // debug
 
     document.querySelector('.play-again').classList.remove('d-none');
     let bckHomeBtn = document.querySelector('.back-home');
