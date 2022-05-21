@@ -14,15 +14,27 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "luxon": "^2.4.0",
+    "npm-run-all": "^4.1.5",
     "sequelize": "^6.17.0",
     "socket.io": "^4.4.1"
   },
+  "private": true,
   "devDependencies": {
-    "jest": "^27.5.1"
+    "@babel/core": "^7.18.0",
+    "@babel/plugin-transform-object-assign": "^7.16.7",
+    "@babel/preset-env": "^7.18.0",
+    "babel-loader": "^8.2.5",
+    "jest": "^27.5.1",
+    "socket.io-client": "^4.5.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-remove-debug": "^0.1.0"
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "npx nodemon server.js",
+    "dev": "npm-run-all --parallel watch:serve watch:build",
+    "watch:build" : "npx webpack --watch",
+    "watch:serve": "npx nodemon server.js",
     "test": "npx jest"
   },
   "repository": {

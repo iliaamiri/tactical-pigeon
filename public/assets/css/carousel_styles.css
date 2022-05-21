@@ -226,6 +226,7 @@ div.hand img  {
   left: 65vw;
   animation: swipe-x 2s alternate infinite ease-in-out;
   z-index: 1000;
+  pointer-events: none;
 }
 
 /* ANIMATION KEYFRAMES */

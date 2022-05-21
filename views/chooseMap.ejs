@@ -8,6 +8,11 @@
     <title>Choose Map</title>
     <!-- TODO: Add a fav icon here -->
 
+    <!-- Preload backgrounds -->
+    <link rel="preload" href="/assets/img/backgrounds/backgroundSVG-01.svg" as="image">
+    <link rel="preload" href="/assets/img/backgrounds/backgroundSVG-02.svg" as="image">
+    <link rel="preload" href="/assets/img/backgrounds/night-bg-01.svg" as="image">
+
     <!-- Page Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -55,10 +60,10 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="/assets/js/libraries/carousel.min.js"></script>
     <!-- App -->
     <%- include('_partials/commonJsFooters.ejs') -%>
 
-        <script src="/assets/js/libraries/carousel.min.js"></script>
 </body>
 
 </html>

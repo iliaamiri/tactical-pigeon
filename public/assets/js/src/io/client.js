@@ -1,4 +1,4 @@
-import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import {io} from "socket.io-client";
 import Token from './auth/Token.js';
 
 import handlersIndex from "./handlersIndex.js";
