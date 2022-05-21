@@ -13,6 +13,9 @@ import { backgroundsCssClassNames } from "../helpers/Backgrounds.js";
 import { sounds } from "../core/sounds.js";
 import Cookie from "../helpers/Cookie.js"
 
+// Sounds
+await import("../helpers/soundController.js");
+
 // Set the map
 let selectedMap = Cookie.get("selectedMap");
 if (selectedMap && Object.keys(backgroundsCssClassNames).includes(selectedMap)) {
