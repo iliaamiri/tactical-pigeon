@@ -32,9 +32,10 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "npm-run-all --parallel watch:serve watch:build",
+    "build": "npx webpack",
+    "dev": "npm-run-all --parallel watch:start watch:build",
     "watch:build" : "npx webpack --watch",
-    "watch:serve": "npx nodemon server.js",
+    "watch:start": "npx nodemon server.js",
     "test": "npx jest"
   },
   "repository": {
