@@ -1,6 +1,8 @@
 const EventEmitter = require('events');
 const playerEmitter = new EventEmitter();
 
+const database = require("../../databaseAccessLayer");
+
 const Games = require("./Games");
 const Game = require("../models/Game");
 
@@ -122,8 +124,19 @@ const Players = {
    * will be recorded and analyzed.
    * @param player
    */
-  addToDatabase(player) {
-    // TODO: insert the new player to the database
+  async addToDatabase(player) {
+    // Insert the new player to the database
+    let result;
+    try {
+      result = await database.addUser({
+        username: player.username,
+        password: player.password
+      });
+      return player;
+    } catch (err) {
+      console.error("SQL error: ", new Error(result));
+      return err;
+    }
   },
 
   disconnected(player) {
@@ -139,10 +152,6 @@ const Players = {
   isOnline(playerId) {
     const foundPlayer = this.fetchThePlayerById(playerId);
     return !!(foundPlayer.socketId);
-  },
-
-  updateInDatabase(playerId, player) {
-    // TODO: connect to sql to update this player.
   },
 
   /**

@@ -227,7 +227,12 @@ module.exports = async (io, socket) => {
     preparePayloadAndEmit(io, foundGame, otherPlayerMove, thisPlayerMove, thisPlayer, otherPlayer);
 
     if (foundGame.gameComplete) {
-      foundGame.end();
+      const winnerPlayerId = foundGame.calculateGameResults(thisPlayer, otherPlayer);
+      let winnerPlayer = null;
+      if (winnerPlayerId) {
+        winnerPlayer = (winnerPlayerId === thisPlayerId) ? thisPlayer : otherPlayer;
+      }
+      foundGame.end(thisPlayer, otherPlayer, winnerPlayer);
       thisPlayer.cleanUpAfterGame();
       otherPlayer.cleanUpAfterGame();
     }

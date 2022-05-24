@@ -1,6 +1,8 @@
 const Round = require("./Round");
 const {makeId} = require("../../core/utils");
 
+const database = require("../../databaseAccessLayer");
+
 const Game = {
   rowId: null, // int (db primary key auto incrmn)
   gameId: null, // string
@@ -93,13 +95,72 @@ const Game = {
     return this.rounds[this.getCurrentRoundNumber() - 1];
   },
 
-  end(winnerPlayerId = null) {
+  end(player1, player2, winnerPlayer = null) {
     this.gameComplete = true;
     this.endedAt = Date.now();
 
-    if (winnerPlayerId) {
-      this.winnerPlayerId = winnerPlayerId;
+    if (!player1 || !player2) {
+      console.log(
+        new Error("While winnerPlayer was passed, the loserPlayer was not passed to Game.end method. make sure to pass both"),
+        "Player1: ", player1,
+        "Player2: ", player2); // debug
+      return;
     }
+
+    console.log("Player1 set : ", player1);
+    console.log("Player2 set : ", player2);
+    console.log("winnerPlayer? : ", winnerPlayer);
+
+    if (winnerPlayer) { // If there was a winner
+      this.winnerPlayerId = winnerPlayer.playerId;
+      const loserPlayer = (player1.playerId === winnerPlayer.playerId) ? player2 : player1;
+
+      if (winnerPlayer.isTracked()) {
+        database.incrementGameStatsById(winnerPlayer.playerId, "won")
+          .catch(err => console.debug(new Error(err)));
+      }
+      if (loserPlayer.isTracked()) {
+        database.incrementGameStatsById(loserPlayer.playerId, "lost")
+          .catch(err => console.debug(new Error(err)));
+      }
+    } else { // DRAW
+      if (player1.isTracked()) {
+        database.incrementGameStatsById(player1.playerId)
+          .catch(err => console.debug(new Error(err)));
+      }
+      if (player2.isTracked()) {
+        database.incrementGameStatsById(player2.playerId)
+          .catch(err => console.debug(new Error(err)));
+      }
+    }
+  },
+
+  /**
+   * Returns the playerId of the winner. returns null if there were no winner.
+   * @param thisPlayer
+   * @param otherPlayer
+   * @returns {null|*|null}
+   */
+  calculateGameResults(thisPlayer, otherPlayer) {
+    console.log('calculating game results...');
+    if (thisPlayer.life.lives > otherPlayer.life.lives) {
+      return thisPlayer.playerId;
+    } else if (thisPlayer.life.lives < otherPlayer.life.lives) {
+      return otherPlayer.playerId; // loss
+    }
+
+    // if there's a draw, one can win by inventory counts
+    let leftPlayerTotalInventory = thisPlayer.ammoInventory.getTotalInventory();
+    let rightPlayerTotalInventory = otherPlayer.ammoInventory.getTotalInventory();
+
+    if (leftPlayerTotalInventory > rightPlayerTotalInventory) {
+      return thisPlayer.playerId; // win
+    } else if (leftPlayerTotalInventory < rightPlayerTotalInventory) {
+      return otherPlayer.playerId; // loss
+    }
+
+    // if lives and inventories are exactly equal,
+    return null; // draw
   },
 
   toJSON: function () {
