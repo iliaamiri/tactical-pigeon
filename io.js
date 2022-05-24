@@ -62,7 +62,7 @@ module.exports = (server) => {
           }
 
           // End the ongoing game (announce the opponent as the winner of the game if applicable).
-          onGoingGame.end(opponentPlayer?.playerId);
+          onGoingGame.end(socket.user, opponentPlayer, opponentPlayer);
         }
 
         // Reset player's timeout cool-down for any future disconnection.

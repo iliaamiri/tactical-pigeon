@@ -6,6 +6,8 @@ const {Players} = require("../repos/Players");
 const Player = {
   playerId: null, // int (db primary key auto increment)
   username: null, // string
+  password: null, // string (confidential sensitive data)
+
   ammoInventory: null, //$ref: AmmoInventory
 
   socketId: null, // socket.io Id. Changes for each socket connection.
@@ -54,6 +56,10 @@ const Player = {
 
   isOnline() {
     return !!(this.socketId);
+  },
+
+  isTracked() {
+    return Players.isTracked(this.playerId);
   },
 
   cleanUpAfterGame() {

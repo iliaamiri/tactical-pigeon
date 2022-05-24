@@ -75,10 +75,10 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    const {givenEmail, givenPassword} = req.body;
+    const {givenUsername, givenPassword} = req.body;
 
     // Verify that inputs exists
-    if (givenEmail || givenPassword) {
+    if (givenUsername || givenPassword) {
       // TODO: throw an exception
     }
 
@@ -99,10 +99,10 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    const {givenEmail, givenPassword} = req.body;
+    const {givenUsername, givenPassword} = req.body;
 
     // Verify that inputs exists
-    if (givenEmail || givenPassword) {
+    if (givenUsername || givenPassword) {
       // TODO: throw an exception
     }
 
