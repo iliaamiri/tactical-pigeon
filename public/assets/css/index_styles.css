@@ -20,13 +20,14 @@ div.indexWrapper {
   align-items: center;
 }
 
-span.online-text-searching {
+span.online-text-searching.online-text-searching {
   display: none;
   font-family: "Titan One", cursive;
   color: white;
   font-size: 1.7vw;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #407d96;
+  margin: 0.5vw 0 0 0;
 }
 
 div.container {
@@ -89,11 +90,11 @@ div.play-mode-toggle-container span {
 div.start {
   display: flex;
   flex-direction: column;
-  width: 28vw;
+  width: 35.5vw;
   margin: 1.5vw 0 0 1.2vw;
   align-items: center;
   justify-content: center;
-  padding: 1vw 1vw;
+  padding: 1.3vw 1.5vw 1.5vw;
   background-color: #cedce7;
   border-style: inset none inset none;
   border-bottom: 0.4vw #597b91 solid;
@@ -101,10 +102,18 @@ div.start {
   border-top: 0.4vw #e1ebf0 solid;
 }
 
-div.start p.title-enter-name {
-  font-size: 2vw;
+div.start span{
+  font-size: 1.6vw;
   text-align: center;
+  font-family: "Titan One", cursive;
+  color:#4f7c93;
+  margin-bottom: 0.4vw;
  } 
+
+ p.title-enter-name {
+   text-align: center;
+   font-size: 2.3vw;
+ }
 
 div.start p.title-enter-name.error-alert {
   -webkit-text-stroke-width: 1px;
@@ -194,13 +203,13 @@ button {
 }
 
 input.usernameInput {
-  padding: 0.5vw;
-  margin-top: -5px;
+  padding: 0.25vw;
+  margin-top: -1vw;
   border-radius: 0.9vw;
   display: inline-block;
   font-family: "Titan One", cursive;
-  color: #4f7c93;
-  font-size: 1.5vw;
+  color: #4488a3;
+  font-size: 1.3vw;
   text-align: center;
   letter-spacing: 1px;
   width: 15vw;
