@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
 const is_heroku = process.env.IS_HEROKU || false;
 
@@ -22,10 +22,10 @@ const dbConfigLocal = {
 
 let database;
 if (is_heroku) {
-  database = mysql.createPool(dbConfigHeroku);
+  database = mysql.createPool(dbConfigHeroku).promise();
 }
 else {
-  database = mysql.createPool(dbConfigLocal);
+  database = mysql.createPool(dbConfigLocal).promise();
 }
 
 module.exports = database;
