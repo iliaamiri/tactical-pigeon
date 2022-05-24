@@ -7,6 +7,7 @@ import Tally from "../components/Tallies/Tally.js";
 import MovePlaceholder from "../components/Play/MovePlaceholder.js";
 import Timer from "../components/Play/Timer.js";
 import ReplayButton from "../components/Play/ReplayButton.js";
+import BackHomeButton from "../components/Play/BackHomeButton.js";
 
 // Helpers
 import Players from "./Players.js";
@@ -18,6 +19,7 @@ import BotPlayer from "./BotPlayer.js";
 import { playSound, sounds } from "../core/sounds.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
 import Token from "../io/auth/Token.js";
+import DoneButton from "../components/DoneButton";
 
 
 class Game {
@@ -121,6 +123,25 @@ class Game {
     }
   }
 
+  async gameOverDueToOpponentDisconnection() {
+    DoneButton.hide();
+
+    ReplayButton.show();
+    // Show the back to Home button
+    BackHomeButton.show();
+
+    ResultOverlay.updateTitle('victory');
+
+    // you get sunglasses
+    Sunglasses.left.activate();
+
+    // game win sound effect
+    await playSound(sounds.winGame);
+    // document.querySelector("#winGame").play()
+
+    this.gameFinished = "true";
+  }
+
   async gameOver() {
     // results tied to clicking the done button, results show faster than animation though
     // connect result calculation here
@@ -129,10 +150,8 @@ class Game {
     console.log('game result', gameResult); // debug
 
     ReplayButton.show();
-    let bckHomeBtn = document.querySelector('.back-home');
-    if (bckHomeBtn) {
-      bckHomeBtn.classList.remove('d-none');
-    }
+    // Show the back to Home button
+    BackHomeButton.show();
 
     if (gameResult === 'win') {
       ResultOverlay.updateTitle('victory');

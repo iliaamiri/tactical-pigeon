@@ -9,7 +9,6 @@ import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 
 const roundTitle = document.querySelector('div.round-title');
 const Countdown = document.querySelector('div.countdown');
-const waitSign = document.querySelector('.wait-sign');
 
 // Helpers
 import Game from "./Game.js";
@@ -22,10 +21,11 @@ import restingMode from "./restingMode.js";
 // Cores and Utils
 import wait from '../utils/wait.js';
 import {socket} from "../io/client.js";
-import DoneButton from "../components/DoneButton";
-import RoundPoints from "../components/Tallies/RoundPoints";
-import BackHomeButton from "../components/Play/BackHomeButton";
-import ReplayButton from "../components/Play/ReplayButton";
+import DoneButton from "../components/DoneButton.js";
+import RoundPoints from "../components/Tallies/RoundPoints.js";
+import BackHomeButton from "../components/Play/BackHomeButton.js";
+import ReplayButton from "../components/Play/ReplayButton.js";
+import WaitSign from "../components/Multiplayer/WaitSign.js";
 
 class Round {
   #currentRoundNumber = 1;
@@ -100,10 +100,8 @@ class Round {
 
         // console.log(opponentMove); // debug
         if (!opponentMove) {
-          waitSign.classList.remove("d-none")
-          waitSign.classList.add("animate__slideInDown")
-          SearchingText.DOMElement.style.display = "block";
-          SearchingForOpponent.animateWait();
+          WaitSign.hide();
+          WaitSign.show("Waiting for opponent");
         }
 
         document.addEventListener('opponentMoveReady', event => {
@@ -112,8 +110,7 @@ class Round {
 
           // console.log('opponentmoveready event listener', event); // debug
 
-          waitSign.classList.remove("animate__slideInDown")
-          waitSign.classList.add("d-none")
+          WaitSign.hide();
 
           // Save the game to the localStorage
           // TODO: update opponentMove and MoveHistory on LocalStorage

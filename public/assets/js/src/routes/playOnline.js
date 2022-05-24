@@ -15,6 +15,11 @@ import roundCountdown from "../helpers/roundCountdown.js";
 import clientSocketConnect from "../io/client.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
 import ReplayButton from "../components/Play/ReplayButton.js";
+import BackHomeButton from "../components/Play/BackHomeButton";
+import DoneButton from "../components/DoneButton";
+import SearchingText from "../components/Home/SearchingText";
+import SearchingForOpponent from "../components/Home/SearchingForOpponent";
+import WaitSign from "../components/Multiplayer/WaitSign";
 
 console.log("Hit playOnline.js");
 
@@ -114,5 +119,24 @@ pigeon.classList.add('picking-move-animation');
 
 document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
 document.querySelector('.done').classList.add('pop-in-animation');
+
+document.addEventListener('opponentDisconnected', async event => {
+  WaitSign.hide();
+  WaitSign.show("Wait for opponent");
+});
+
+document.addEventListener('opponentReconnected', async event => {
+  WaitSign.showTemporarily("Opponent Reconnected", false);
+});
+
+document.addEventListener('wonOpponentLeft', async event => {
+  WaitSign.showTemporarily("Opponent Left, You Won.", false);
+
+  // Finish and evaluate the game
+  await Game.currentGame.gameOverDueToOpponentDisconnection();
+
+  document.querySelector('div.moves-placeholder').classList.add('d-none');
+  Game.currentGame.currentRound.resetCounter();
+});
 
 await import('./_common_play.js');

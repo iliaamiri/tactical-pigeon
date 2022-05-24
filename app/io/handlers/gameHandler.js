@@ -153,6 +153,11 @@ module.exports = async (io, socket) => {
       return;
     }
 
+    if (foundGame.gameComplete) {
+      socket.emit(':error', GameExceptions.gameNotFound);
+      return;
+    }
+
     // Get players of the found game.
     const playersIds = foundGame.players;
 

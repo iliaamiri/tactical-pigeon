@@ -8,18 +8,17 @@ let dots = "...";
 const SearchingForOpponent = {
   ...Component,
 
-  animate() {
+  animateWithDots() {
+    let text = SearchingText.DOMElement.innerHTML;
     this.interval = setInterval(() => {
-      SearchingText.DOMElement.innerHTML = `Finding an opponent${dots.substring(0, searchingTextDots % 4)}`;
+      SearchingText.DOMElement.innerHTML = text + dots.substring(0, searchingTextDots % 4);
       searchingTextDots++;
     }, 700);
   },
 
-  animateWait() {
-    this.interval = setInterval(() => {
-      SearchingText.DOMElement.innerHTML = `Waiting for opponent${dots.substring(0, searchingTextDots % 4)}`;
-      searchingTextDots++;
-    }, 700);
+  animate() {
+    SearchingText.DOMElement.innerHTML = 'Finding an opponent';
+    this.animateWithDots();
   },
 
   clearAnimation() {
