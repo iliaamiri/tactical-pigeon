@@ -205,6 +205,7 @@ button {
 input.usernameInput {
   padding: 0.25vw;
   margin-top: -1vw;
+  margin-bottom: 5px;
   border-radius: 0.9vw;
   display: inline-block;
   font-family: "Titan One", cursive;
