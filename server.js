@@ -9,7 +9,7 @@ const PORT = configs.PORT;
 const makeApplication = require('./app');
 const server = makeApplication();
 
-if (cluster.isMaster && configs.APP_MODE === "production") {
+if (cluster.isMaster && configs.APP_MODE === "production" && false) {
   console.log(`Running on: http://localhost:${PORT}`);
 
   for (let cpu of os.cpus()) {
