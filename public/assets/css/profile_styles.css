@@ -1,0 +1,75 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-image: url("/assets/img/backgrounds/CustomizePigeon-Background.svg");
+}
+
+body {
+  margin: 0;
+}
+
+/* Pigeon */
+
+div.pigeon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+div.selectedPigeon {
+  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-04.svg");
+}
+
+
+
+
+
+/* Portrait Overlay */
+
+span.portrait {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
+  margin-top: 10px;
+}
+
+div.flip-overlay img {
+  width: 30%;
+}
+
+@media only screen and (min-width: 350px) and (orientation: portrait) {
+  div.flip-overlay {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  div.flip-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    left: 0;
+    background-color: #ffdc4b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  div.flip-overlay {
+    display: none;
+  }
+}
