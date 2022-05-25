@@ -11,9 +11,11 @@ Router.assign('/', 'home');
 
 Router.assign('/play', 'playOffline');
 Router.assign('/play/map/selection', 'mapSelection');
-Router.assign('/play/:gameId', 'playOnline');
 Router.assign('/play/profile', 'userProfile');
 Router.assign('/play/customizePigeon', 'customizePigeon');
+
+// This route should be the last one for the /play routes
+Router.assign('/play/:gameId', 'playOnline');
 
 
 await import(`./routes/${Router.chosenPath}.js`);
