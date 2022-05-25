@@ -12,7 +12,7 @@ const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 
 // Socket
 import Token from "../io/auth/Token.js";
-import clientSocketConnect from '../io/client.js';
+import clientSocketConnect, {socket} from '../io/client.js';
 
 // Reloads page if accessed from cache
 window.addEventListener("pageshow", function (event) {
@@ -55,6 +55,9 @@ document.querySelector("body").addEventListener('click', event => {
     if (iosToggleInput.checked) {
       startBtn.classList.add("playOnlineBtn");
     } else {
+      if (socket?.connected) {
+        socket.disconnect();
+      }
       startBtn.classList.remove("playOnlineBtn");
       blueClouds.classList.add("d-none");
       startBtn.classList.remove("pressed");
