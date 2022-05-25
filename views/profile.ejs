@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <!-- TODO: Add a fav icon here -->
+
+  <!-- Preload backgrounds -->
+  <link rel="preload" href="/assets/img/backgrounds/backgroundSVG-01.svg" as="image">
+  <link rel="preload" href="/assets/img/backgrounds/backgroundSVG-02.svg" as="image">
+  <link rel="preload" href="/assets/img/backgrounds/night-bg-01.svg" as="image">
+
+  <!-- Page Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/profile_styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <!-- Font $ bootstrap -->
+  <%- include('_partials/commonCssHeaders.ejs') -%>
+</head>
+
+<body>
+
+  <!-- Portrait Mode Overlay -->
+  <div class="flip-overlay">
+    <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
+    <span class="portrait">FLIP TO PLAY</span>
+  </div>
+
+  <div class="container">
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <div class="save-btn">
+        <span>Save</span>
+      </div>
+      <div class="exit-btn">
+        <span>Exit</span>
+      </div>
+    </div>
+
+    <!-- Hue Adjuster -->
+    <div class="dial-container">
+      <div class="dial-title-background">
+        <span>Hue</span>
+      </div>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      </div>
+    </div>
+
+    <!-- Main Pigeon -->
+    <div class="selectedPigeon">
+      <div class="pigeon"></div>
+    </div>
+
+    <!-- Pigeon Type Selecter -->
+    <div class="type-selecter">
+      <div class="selecter-title-background">
+        <span>Pigeon Type</span>
+      </div>
+      <div class="type-row">
+        <div class="type-container">
+          <img src="/assets/img/pigeons/pigeonV2/PigeonV2-1.svg" alt="Hoodie Pigeon">
+        </div>
+        <div class="type-container">
+          <div class="pigeon-placeholder">
+            <img src="" alt="lock">
+          </div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-container">
+          <div class="pigeon-placeholder">
+            <img src="" alt="lock">
+          </div>
+        </div>
+        <div class="type-container">
+          <div class="pigeon-placeholder">
+            <img src="" alt="lock">
+          </div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-container">
+          <div class="pigeon-placeholder">
+            <img src="" alt="lock">
+          </div>
+        </div>
+        <div class="type-container">
+          <div class="pigeon-placeholder">
+            <img src="" alt="lock">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- App -->
+  <%- include('_partials/commonJsFooters.ejs') -%>
+
+</body>
+
+</html>

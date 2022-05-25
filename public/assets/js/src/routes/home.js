@@ -28,11 +28,11 @@ let mapButton = document.querySelector("div.map-selection-button");
 console.log(selectedMap);
 if (selectedMap === "playground") {
   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/playground-button.svg")';
-} else if(selectedMap === "pigeon-nights") {
+} else if (selectedMap === "pigeon-nights") {
   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/night-button.svg")';
-} else if(selectedMap === "street"){
-  mapButton.style.backgroundImage ='url("/assets/img/backgrounds/SVG/street-button.svg")';
-} 
+} else if (selectedMap === "street") {
+  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/street-button.svg")';
+}
 
 // Fetch guestId (if exists)
 Token.fetchCachedGuestId();
@@ -65,6 +65,18 @@ document.querySelector("body").addEventListener('click', event => {
   /* ---- Map Selection Button ---- */
   if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
     location.href = "/play/map/selection";
+  }
+  console.log(event.target)
+  /* ---- Profile Button ---- */
+  if (target.tagName === "BUTTON" && target.classList.contains("profile")) {
+    console.log(event.target)
+    window.location.href = "/play/profile";
+    // location.href = "/play/profile";
+  }
+
+  /* ---- Customize Pigeon Button ---- */
+  if (target.tagName === "BUTTON" && target.classList.contains("customize")) {
+    location.href = "/play/customizePigeon";
   }
 });
 
