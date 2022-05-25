@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, "./public/assets/js/dist/"),
     filename: 'main.js'
   },
-  mode: "development",
+  mode: process.env?.APP_MODE || 'none',
   // mode: "production",
   experiments: {
     topLevelAwait: true,
