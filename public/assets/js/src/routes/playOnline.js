@@ -20,6 +20,10 @@ import DoneButton from "../components/DoneButton";
 import SearchingText from "../components/Home/SearchingText";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent";
 import WaitSign from "../components/Multiplayer/WaitSign";
+import ResultOverlay from "../components/ResultOverlay";
+import Sunglasses from "../components/Pigeons/Sunglasses";
+import {playSound, sounds} from "../core/sounds";
+import LeftPigeon from "../components/Pigeons/LeftPigeon";
 
 console.log("Hit playOnline.js");
 
@@ -60,13 +64,22 @@ await new Promise((resolve, reject) => {
       // Destructure all the fetched data.
       const { playerMe, playerOpponent, gameComplete, timeLeft } = event.detail;
 
-      // console.log(event); // debug
+      console.log(event); // debug
 
       // Make sure everything is ready.
       new Promise((resolve, reject) => {
         // Check if this is the beginning of the game
         if (playerMe.moveHistory.length === 0) {
           socket.emit("game:iamready", gameId);
+
+          document.addEventListener('wonOpponentLeftBeforeGameStarted', async event => {
+            console.log("Opponent left, you won even before the game started"); // debug
+
+            ResultOverlay.updateTitle('victory');
+
+            // game win sound effect
+            await playSound(sounds.winGame);
+          });
 
           document.addEventListener('opponentReadyToo', event => {
             resolve();
@@ -121,8 +134,7 @@ document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
 document.querySelector('.done').classList.add('pop-in-animation');
 
 document.addEventListener('opponentDisconnected', async event => {
-  WaitSign.hide();
-  WaitSign.show("Wait for opponent");
+  WaitSign.show("Opponent is reconnecting", true, true);
 });
 
 document.addEventListener('opponentReconnected', async event => {
@@ -132,10 +144,17 @@ document.addEventListener('opponentReconnected', async event => {
 document.addEventListener('wonOpponentLeft', async event => {
   WaitSign.showTemporarily("Opponent Left, You Won.", false);
 
+  LeftPigeon.exitMovePickingMode();
+
+  pickMoveOverlay.classList.add('hide-animation');
+  pickMoveOverlay.classList.remove('show-animation');
+
+  document.querySelector('div.moves-placeholder').classList.add('d-none');
+
   // Finish and evaluate the game
   await Game.currentGame.gameOverDueToOpponentDisconnection();
 
-  document.querySelector('div.moves-placeholder').classList.add('d-none');
+  Timer.all['myTimer'].resetCounter();
   Game.currentGame.currentRound.resetCounter();
 });
 

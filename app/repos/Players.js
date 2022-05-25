@@ -19,13 +19,13 @@ playerEmitter.on('matchReady', function (playersIdsArr) {
   // Get the player objects from playerIds.
   let playersArr = playersIdsArr.map(playerId => Players.findActiveUserById(playerId));
 
-  console.log('two players are ready to be matched:', playersArr); // debug 🪲
+  // console.log('two players are ready to be matched:', playersArr); // debug 🪲
 
   // Create new game instance and initiate it.
   const game = Object.create(Game);
   game.initNewGame(playersArr);
 
-  console.log('game newly created and Initiated', JSON.parse(JSON.stringify(game)), "playersArr: ", playersArr);
+  // console.log('game newly created and Initiated', JSON.parse(JSON.stringify(game)), "playersArr: ", playersArr);
 
   // Initiate the players' inventories and lives for a new game.
   playersArr.forEach(player => {
@@ -36,7 +36,7 @@ playerEmitter.on('matchReady', function (playersIdsArr) {
   // Add the game instance to the Games collection.
   Games.add(game);
 
-  console.log('Games.all', Games.showAll()); // debug
+  // console.log('Games.all', Games.showAll()); // debug
 
   // Signal `gameReady` Event and pass the game instance to the socket handler.
   playerEmitter.emit('gameReady', game);
@@ -70,22 +70,22 @@ const Players = {
    * @param player
    */
   addToMatchQueue(player) {
-    console.log('adding player to match queue', player);
+    // console.log('adding player to match queue', player);
     this.matchQueue.push(player.playerId);
     //console.log('match queue length', this.matchQueue.length); // debug
     const mutex = new Mutex();
     mutex
       .runExclusive(() => {
         if (this.matchQueue.length >= 2) {
-          console.log('match queue', this.matchQueue); // debug
+          // console.log('match queue', this.matchQueue); // debug
           playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
 
-          console.log("Match Queue updated: ", this.matchQueue); // debug
+          // console.log("Match Queue updated: ", this.matchQueue); // debug
         }
       })
       .then(() => {
-        console.log("Mutex Unlocked.. Username: ", player.username);
-        console.log("Match Queue after Mutex Unlocked: ", this.matchQueue);
+        // console.log("Mutex Unlocked.. Username: ", player.username);
+        // console.log("Match Queue after Mutex Unlocked: ", this.matchQueue);
       });
   },
 

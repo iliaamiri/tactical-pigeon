@@ -115,10 +115,14 @@ class Game {
     // Set the current round number
     this.currentRound.currentRoundNumber = myMoveHistory.length + 1;
 
-    Life.all.myLife.counter = myLives;
-    Life.all.opponentLife.counter = opponentLives;
+    for (let i = 0; i < Life.all.myLife.counterRange[1] - myLives; i++) {
+      Life.all.myLife.decreaseCounter();
+    }
+    for (let i = 0; i < Life.all.opponentLife.counterRange[1] - opponentLives; i++) {
+      Life.all.opponentLife.decreaseCounter();
+    }
 
-    if (this.currentRound.currentRoundNumber !== 1) {
+    if (this.currentRound.currentRoundNumber !== 1 || timeLeft) {
       Timer.all['myTimer'].counter = Math.floor(timeLeft / 1000);
     }
   }

@@ -2,7 +2,7 @@
 const userAuthMiddleware = require("./app/io/middlewares/userAuth");
 
 // Handlers
-const gameHandler = require("./app/io/handlers/gameHandler");
+const gameHandler = require("./app/io/handlers/Game/gameHandler");
 const disconnectionHandler = require('./app/io/handlers/disconnectionHandler');
 
 module.exports = (server) => {

@@ -8,7 +8,7 @@ const SearchingText = {
   },
 
   hide() {
-
+    this.DOMElement.style.display = "none";
   },
 };
 

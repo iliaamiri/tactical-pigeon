@@ -4,6 +4,6 @@ class ResultOverlay {
   static updateTitle(title) {
     this.element.classList.add(title);
   }
-};
+}
 
 export default ResultOverlay;

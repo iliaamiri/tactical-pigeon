@@ -40,18 +40,32 @@ export default async (io, socket) => {
   };
 
   const wonOpponentLeft = () => {
+    console.log("Event Emitted: wonOpponentLeft")
+
     document.dispatchEvent(
       new CustomEvent('wonOpponentLeft')
     );
   };
 
+  const wonOpponentBeforeGameStarted = () => {
+    console.log("Event Emitted: wonOpponentBeforeGameStarted");
+
+    document.dispatchEvent(
+      new CustomEvent('wonOpponentLeftBeforeGameStarted')
+    );
+  }
+
   const opponentReconnected = () => {
+    console.log("Event Emitted: opponentReconnected")
+
     document.dispatchEvent(
       new CustomEvent('opponentReconnected')
     );
   };
 
   const opponentDisconnected = () => {
+    console.log("Event Emitted: opponentDisconnected")
+
     document.dispatchEvent(
       new CustomEvent('opponentDisconnected')
     );
@@ -61,6 +75,7 @@ export default async (io, socket) => {
   socket.on('game:matchFound', matchFound);
   socket.on('game:fetch:result', fetchCurrentStateOfGame);
   socket.on('game:won:opponentLeft', wonOpponentLeft);
+  socket.on('game:won:opponentLeft:beforeGameStarted', wonOpponentBeforeGameStarted);
   socket.on('game:opponentReconnected', opponentReconnected);
   socket.on('game:opponentDisconnected', opponentDisconnected);
 };

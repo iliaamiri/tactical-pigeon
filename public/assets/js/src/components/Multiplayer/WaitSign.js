@@ -8,7 +8,10 @@ const WaitSign = {
   previousText: null,
   isShown: false,
 
-  show(text, withDots = true) {
+  show(text, withDots = true, override = false) {
+    if (override && this.isShown) {
+      this.hide();
+    }
     this.isShown = true;
     this.DOMElement.classList.remove("d-none");
     this.DOMElement.classList.add("animate__slideInDown");
@@ -21,18 +24,22 @@ const WaitSign = {
   hide() {
     this.DOMElement.classList.remove("animate__slideInDown");
     this.DOMElement.classList.add("d-none");
+    SearchingText.hide();
     this.isShown = false;
+    SearchingForOpponent.clearAnimation();
   },
 
   showTemporarily(text, withDots = true, timeout = 3000) {
+    let previousText = this.previousText;
     if (this.isShown) {
       this.hide();
     }
-    let previousText = this.previousText;
     this.show(text, withDots);
     setTimeout(() => {
       this.hide();
-      this.show(previousText);
+      if (previousText) {
+        this.show(previousText);
+      }
     }, timeout);
   }
 };
