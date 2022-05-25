@@ -138,7 +138,7 @@ startBtn.addEventListener('click', async function (event) {
     const socket = await clientSocketConnect();
 
     // Show the "Finding an opponent" text block and start animating it for searching
-    SearchingText.DOMElement.style.display = "block";
+    SearchingText.show();
     SearchingForOpponent.animate();
 
     // Show blue clouds

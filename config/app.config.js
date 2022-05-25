@@ -1,6 +1,7 @@
 appConfigs = {
   APP_NAME: process.env.APP_NAME ?? "Tactical People",
   APP_DEBUG: process.env.APP_DEBUG ?? false,
+  APP_MODE: process.env.APP_MODE ?? "development",
   APP_URL: process.env.APP_URL ?? "http://localhost",
   APP_VERSION: process.env.APP_VERSION ?? 1.0,
   JWT_RSA_PRIVATE_KEY: JWT_PRIVATE_KEY || null,

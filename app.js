@@ -9,10 +9,15 @@ const cookieParser = require('cookie-parser');
 * */
 const http = require("http");
 
+/*
+  * ///////////// Importing the express module and initiating it (app) /////////////
+  * https://expressjs.com/
+  * */
 const express = require("express");
 
+function makeApplication() {
+  const app = express();
 
-function makeApp(app) {
   /*
   * ///////////// Creating a http server using express' instance /////////////
   * */
@@ -43,4 +48,4 @@ function makeApp(app) {
   return server;
 }
 
-module.exports = makeApp;
+module.exports = makeApplication;

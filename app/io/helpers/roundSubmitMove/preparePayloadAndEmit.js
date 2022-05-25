@@ -8,7 +8,7 @@ function preparePayloadAndEmit(io, foundGame, otherPlayerMove, thisPlayerMove, t
     gameComplete: foundGame.gameComplete
   };
 
-  console.log("emitting the opponent moves", thisPlayerPayload, otherPlayerPayload); // debug
+  // console.log("emitting the opponent moves", thisPlayerPayload, otherPlayerPayload); // debug
 
   io.to(thisPlayer.socketId).emit("game:round:opponentMove", thisPlayerPayload);
   io.to(otherPlayer.socketId).emit("game:round:opponentMove", otherPlayerPayload);

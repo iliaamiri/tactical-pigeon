@@ -47,6 +47,10 @@ const Game = {
     return true;
   },
 
+  isPlayerReady(playerId) {
+    return this.playersReadyStatus[playerId];
+  },
+
   updateRoundMoves(moves, player) {
     // Get the current round.
     const currentRound = this.getCurrentRound();

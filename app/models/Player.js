@@ -13,6 +13,7 @@ const Player = {
   socketId: null, // socket.io Id. Changes for each socket connection.
 
   disconnectDetectionSetTimoutId: null,
+  disconnectDetectionWhileTransitioningBetweenPages_SetTimeoutId: null,
 
   currentGameIdPlaying: null, // current gameId where user is playing in.
 

@@ -1,3 +1,5 @@
+import LeftPigeon from "../components/Pigeons/LeftPigeon.js";
+
 function restingMode() {
   document.querySelectorAll('.show-animation').forEach(element => {
     // console.log('element', element); // debug
@@ -11,9 +13,7 @@ function restingMode() {
     element.classList.remove('pop-in-animation');
   });
 
-  let pigeon = document.querySelector('div.pigeons-container img.pigeon-left');
-  pigeon.classList.add('revert-pigeon-pick-move');
-  pigeon.classList.remove('picking-move-animation');
+  LeftPigeon.exitMovePickingMode();
 
   document.getElementById("attack-image")
     .setAttribute("src", "/assets/img/GUI-controls/MainControls/attackfork-1.png");
