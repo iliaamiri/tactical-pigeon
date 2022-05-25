@@ -1,3 +1,4 @@
+const SHA2 = require("sha2");
 const {makeGuestId} = require("../../../core/utils");
 const AuthExceptions = include("core/Exceptions/AuthExceptions");
 
@@ -5,6 +6,10 @@ const Player = include("app/models/Player");
 
 const Players = include("app/repos/Players").Players;
 const Tokens = include("app/repos/Tokens");
+
+const database = include("databaseAccessLayer");
+
+const passwordPepper = "SeCretPeppa4MySal+";
 
 const AuthController = {
   /**
@@ -20,7 +25,7 @@ const AuthController = {
    * @returns {Promise<void>}
    */
   async beOurGuest(req, res) {
-    console.log(req.user, "ayy")
+    console.log(req.user, "be our guest")
 
     // Check if the user is already authenticated or not.
     if (req.user) {
@@ -77,20 +82,35 @@ const AuthController = {
 
     const {givenUsername, givenPassword} = req.body;
 
-    // Verify that inputs exists
-    if (givenUsername || givenPassword) {
-      // TODO: throw an exception
+    // Verify that inputs exist
+    if (!givenUsername || !givenPassword) {
+      // throw an exception
+      throw AuthExceptions.badInput;
     }
 
-    // Verify about the integrity of the email address
-    // TODO: regex or something
-
     // Check with database.
-    // Throw an exception if not found
+    const user = await database.getUserByUsernamePassword(givenUsername);
+    if (!givenUsername) {
+      // Throw an exception if not found
+      throw AuthExceptions.badInput;
+    }
 
-    // make token
+    // TODO: make sure the password checks out
+    const password_hash = SHA2["SHA-512"](user.password + passwordPepper + user.password_salt);
+    if (user.password_hash !== password_hash) {
+      // ask to log in again
+      throw AuthExceptions.authFailed;
+    }
 
-    // success! give token
+    // Make a JWT token and login the guest user
+    const generatedTokenValue = Tokens.create(user.playerId, user.username);
+
+    // Send back the token value to the user.
+    res.json({
+      status: true,
+      tokenValue: generatedTokenValue,
+      userId: user.playerId
+    });
   },
 
   async signUpToBeTracked(req, res) {
@@ -102,20 +122,34 @@ const AuthController = {
     const {givenUsername, givenPassword} = req.body;
 
     // Verify that inputs exists
-    if (givenUsername || givenPassword) {
-      // TODO: throw an exception
+    if (!givenUsername || !givenPassword || givenPassword.length > 2) {
+      // throw an exception
+      throw AuthExceptions.badInput;
     }
 
-    // Verify about the integrity of the email address
-    // TODO: regex or something
-
-    // Verify about the strength of the password.
+    // TODO: Verify about the strength of the password.
     // TODO: at least 6 characters. at least 1 number, at least one uncommon character.
 
     // TODO: Call Player.addToDatabase and verify that it  was done successfully
-    // throw an exception if not successful
+    try {
+      const signInResult = await database.addUser({
+        username: givenUsername, 
+        password: givenPassword
+      });
+      console.log('sign in DB result:', signInResult);
+    } catch (error) {
+      console.error('signup error:', error);
+    }
 
-    // Success! res.json({status: true})
+    // Make a JWT token and login the guest user
+    const generatedTokenValue = Tokens.create(signInResult.playerId, signInResult.username);
+
+    // Send back the token value to the user
+    res.json({
+      status: true,
+      tokenValue: generatedTokenValue,
+      userId: user.playerId
+    });
   },
 };
 

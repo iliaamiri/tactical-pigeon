@@ -13,9 +13,9 @@ const dbConfigHeroku = {
 
 const dbConfigLocal = {
   host: "localhost",
-  user: "root",
-  password: "Password",
-  database: "lab_example",
+  user: "tactical_helper",
+  password: "Password12345",
+  database: "tactical_db",
   multipleStatements: false,
   namedPlaceholders: true
 };

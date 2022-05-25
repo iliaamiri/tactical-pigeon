@@ -6,7 +6,16 @@ let tableName = "player";
 
 async function getAllUsers() {
   let sqlQuery = `SELECT * FROM ${tableName}`;
+  
   return database.query(sqlQuery);
+}
+
+async function getUserByUsernamePassword(username) {
+  let sqlQuery = `SELECT username, password_hash, password_salt, games_played, games_won, games_lost FROM ${tableName} WHERE username = :username`;
+  let params = {
+    username: username,
+  };
+  return database.query(sqlQuery, params);
 }
 
 async function addUser(postData) {
@@ -62,6 +71,7 @@ async function deleteUser(playerId) {
 
 module.exports = {
   getAllUsers,
+  getUserByUsernamePassword,
   addUser,
   deleteUser,
   updateGameStatsById,
