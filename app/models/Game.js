@@ -120,20 +120,20 @@ const Game = {
       const loserPlayer = (player1.playerId === winnerPlayer.playerId) ? player2 : player1;
 
       if (winnerPlayer.isTracked()) {
-        database.incrementGameStatsById(winnerPlayer.playerId, "won")
+        database.playerEntity.incrementGameStatsById(winnerPlayer.playerId, "won")
           .catch(err => console.debug(new Error(err)));
       }
       if (loserPlayer.isTracked()) {
-        database.incrementGameStatsById(loserPlayer.playerId, "lost")
+        database.playerEntity.incrementGameStatsById(loserPlayer.playerId, "lost")
           .catch(err => console.debug(new Error(err)));
       }
     } else { // DRAW
       if (player1.isTracked()) {
-        database.incrementGameStatsById(player1.playerId)
+        database.playerEntity.incrementGameStatsById(player1.playerId)
           .catch(err => console.debug(new Error(err)));
       }
       if (player2.isTracked()) {
-        database.incrementGameStatsById(player2.playerId)
+        database.playerEntity.incrementGameStatsById(player2.playerId)
           .catch(err => console.debug(new Error(err)));
       }
     }

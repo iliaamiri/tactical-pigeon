@@ -12,10 +12,10 @@ const dbConfigHeroku = {
 };
 
 const dbConfigLocal = {
-  host: "localhost",
-  user: "tactical_helper",
-  password: "Password12345",
-  database: "tactical_db",
+  host: "eyvqcfxf5reja3nv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "cf93jnxntj6xyqx8",
+  password: "uuqy7o1grxsa5tx9",
+  database: "t0t5f35zhr193gam",
   multipleStatements: false,
   namedPlaceholders: true
 };
