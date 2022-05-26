@@ -38,25 +38,31 @@
     </div>
 
     <div class="indexWrapper">
-      <div class="play-mode-toggle-container">
-        <span>Play Online:</span>
-        <div class="toggleWrapper">
-          <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
-          <label for="toggle1" class="toggleLabel"></label>
-        </div>
-      </div>
+      
 
       <div class="start">
-        <p class="title-enter-name">Enter your name: </p>
-        <span>Username: &nbsp; <input type="text" class="usernameInput" maxlength="15">
-        </span>
-        <span>Password: &nbsp; <input type="password" class="usernameInput" maxlength="18">
-        </span>
+        <span class="play-as-guest">Play as guest</span>
+        <div class="play-mode-toggle-container">
+          <span>Play Online: &nbsp; </span>
+          <div class="toggleWrapper">
+            <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+            <label for="toggle1" class="toggleLabel"></label>
+          </div>
+        </div>
         <button class="play">
           <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
         </button>
         <span class="online-text-searching">Finding an opponent</span>
+      </div>
 
+      <div class="login">
+        <p class="title-enter-name">Log in: </p>
+        <p>Email: &nbsp; <input type="text" class="emailInput" maxlength="15"></p>
+        <p>Password: &nbsp; <input type="password" class="passwordInput" maxlength="18"></p>
+        <button class="log-in-button">Log in</button>
+        <p class="sign-up-link">
+          Sign up
+        </p>
       </div>
 
     <button class="profile">Profile</button>

@@ -1,4 +1,5 @@
 const SHA2 = require("sha2");
+const crypto = require('crypto')
 const {makeGuestId} = require("../../../core/utils");
 const AuthExceptions = include("core/Exceptions/AuthExceptions");
 
@@ -25,7 +26,7 @@ const AuthController = {
    * @returns {Promise<void>}
    */
   async beOurGuest(req, res) {
-    console.log(req.user, "be our guest")
+    console.log(req.body, "be our guest")
 
     // Check if the user is already authenticated or not.
     if (req.user) {
@@ -33,9 +34,9 @@ const AuthController = {
     }
 
     // Get the guestId input from body. This is optional.
-    let {givenUsername, givenGuestId} = req.body;
+    let {givenGuestId} = req.body;
 
-    console.log(givenGuestId);
+    console.log('givenGuestId:', givenGuestId);
 
     let user;
 
@@ -61,7 +62,7 @@ const AuthController = {
       Players.addAsActivePlayer(user);
     }
 
-    console.log("Authenticated as a guest. Guest ID: ", user.playerId); // debug
+    console.log("Authenticated as a guest. Guest ID:", user.playerId); // debug
 
     // Make a JWT token and login the guest user.
     const generatedTokenValue = Tokens.create(user.playerId, user.playerId);
@@ -80,36 +81,36 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    const {givenUsername, givenPassword} = req.body;
+    const {givenEmail, givenPassword} = req.body;
 
     // Verify that inputs exist
-    if (!givenUsername || !givenPassword) {
+    if (!givenEmail || !givenPassword) {
       // throw an exception
       throw AuthExceptions.badInput;
     }
 
     // Check with database.
-    const user = await database.getUserByUsernamePassword(givenUsername);
-    if (!givenUsername) {
-      // Throw an exception if not found
-      throw AuthExceptions.badInput;
-    }
+    const queryData = await database.getUserByEmail(givenEmail);
+    console.log('user from DB:', queryData[0][0]);
+    let user = queryData[0][0];
 
     // TODO: make sure the password checks out
-    const password_hash = SHA2["SHA-512"](user.password + passwordPepper + user.password_salt);
+    const password_hash = SHA2["SHA-512"](givenEmail + user.username + givenPassword + passwordPepper + user.password_salt).toString("hex");
     if (user.password_hash !== password_hash) {
+      console.log(`hashes dont match. hash for password: ${password_hash}. hash from DB: ${user.password_hash}`);
       // ask to log in again
       throw AuthExceptions.authFailed;
     }
+    console.log('login successful!');
 
     // Make a JWT token and login the guest user
-    const generatedTokenValue = Tokens.create(user.playerId, user.username);
+    const generatedTokenValue = Tokens.create(user.player_id, user.username);
 
     // Send back the token value to the user.
     res.json({
       status: true,
       tokenValue: generatedTokenValue,
-      userId: user.playerId
+      username: user.username
     });
   },
 
@@ -119,10 +120,10 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    const {givenUsername, givenPassword} = req.body;
+    const {givenEmail, givenUsername, givenPassword} = req.body;
 
     // Verify that inputs exists
-    if (!givenUsername || !givenPassword || givenPassword.length > 2) {
+    if (!givenEmail || !givenPassword || givenPassword.length < 2) {
       // throw an exception
       throw AuthExceptions.badInput;
     }
@@ -130,25 +131,35 @@ const AuthController = {
     // TODO: Verify about the strength of the password.
     // TODO: at least 6 characters. at least 1 number, at least one uncommon character.
 
-    // TODO: Call Player.addToDatabase and verify that it  was done successfully
+    const passwordSalt = crypto.randomUUID({disableEntropyCache : true});
+    console.log('passwordSalt', passwordSalt);
+    const passwordHash = SHA2["SHA-512"](givenEmail + givenUsername + givenPassword + passwordPepper + passwordSalt).toString("hex");
+
+    // TODO: Call Player.addToDatabase and verify that it was done successfully
+    let signInResult;
     try {
-      const signInResult = await database.addUser({
-        username: givenUsername, 
-        password: givenPassword
+      signInResult = await database.addUser({
+        email: givenEmail, 
+        username: givenUsername,
+        hash: passwordHash,
+        salt: passwordSalt,
       });
-      console.log('sign in DB result:', signInResult);
+      // console.log('sign in DB result:', signInResult);
     } catch (error) {
       console.error('signup error:', error);
     }
 
     // Make a JWT token and login the guest user
-    const generatedTokenValue = Tokens.create(signInResult.playerId, signInResult.username);
+    let signupData = await database.getUserByEmail(givenEmail);
+    const newUser = signupData[0][0];
+    console.log('newUser from DB:', newUser);
+    const generatedTokenValue = Tokens.create(newUser.player_id, newUser.username);
 
     // Send back the token value to the user
     res.json({
       status: true,
       tokenValue: generatedTokenValue,
-      userId: user.playerId
+      username: newUser.username
     });
   },
 };

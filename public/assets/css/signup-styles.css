@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #b1d2d1;
+  min-height: 100vh;
+}
+
+p {
+  font-family: "Titan One", cursive;
+  color: #4f7c93;
+  font-size: 1.5rem;
+}
+
+div.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}

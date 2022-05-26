@@ -10,29 +10,33 @@ async function getAllUsers() {
   return database.query(sqlQuery);
 }
 
-async function getUserByUsernamePassword(username) {
-  let sqlQuery = `SELECT username, password_hash, password_salt, games_played, games_won, games_lost FROM ${tableName} WHERE username = :username`;
+async function getUserByEmail(email) {
+  let sqlQuery = `SELECT player_id, email, username, password_hash, password_salt, games_played, games_won, games_lost FROM ${tableName} WHERE email = :email`;
   let params = {
-    username: username,
+    email: email,
   };
   return database.query(sqlQuery, params);
 }
 
 async function addUser(postData) {
-  let sqlInsertQuery = `INSERT INTO ${tableName} (username, password_salt) VALUES (:username, sha2(UUID(),512));`;
+  let sqlInsertQuery = `INSERT INTO ${tableName} (email, username, password_hash, password_salt) VALUES (:email, :username, :password_hash, :password_salt);`;
   let params = {
+    email: postData.email,
     username: postData.username,
+    password_hash: postData.hash,
+    password_salt: postData.salt,
   };
   console.log(sqlInsertQuery);
-  const [results] = await database.query(sqlInsertQuery, params);
-  let insertedID = results.insertId;
-  let updatePasswordHash = `UPDATE ${tableName} SET password_hash = sha2(concat(:password,:pepper,password_salt),512) WHERE player_id = :userId;`
+  return database.query(sqlInsertQuery, params);
+  /* console.log('results:', results);
+  let insertedID = results.insertId; */
+  /* let updatePasswordHash = `UPDATE ${tableName} SET password_hash = sha2(concat(:password,:pepper,password_salt),512) WHERE player_id = :userId;`
   let params2 = {
     password: postData.password,
     pepper: passwordPepper,
     userId: insertedID
   }
-  console.log(updatePasswordHash);
+  console.log('updatePasswordHash:', updatePasswordHash); */
   return database.query(updatePasswordHash, params2);
 }
 
@@ -71,7 +75,7 @@ async function deleteUser(playerId) {
 
 module.exports = {
   getAllUsers,
-  getUserByUsernamePassword,
+  getUserByEmail,
   addUser,
   deleteUser,
   updateGameStatsById,
