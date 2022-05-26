@@ -174,7 +174,7 @@ class Round {
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
       myTally.fillColumnVictory();
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-05.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_hand_to_chest_alternate_1.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-8.svg";
       }, 600)
 
@@ -183,7 +183,7 @@ class Round {
       }, 750)
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
       }, 1440);
 
@@ -199,7 +199,7 @@ class Round {
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-03.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_rip.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-9.svg";
       }, 600);
 
@@ -210,7 +210,7 @@ class Round {
       }, 700);
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
       }, 1440);
 
@@ -227,13 +227,13 @@ class Round {
       opponentTally.fillColumnDraw();
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-11-01.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_no_legs_normal_alternate_1.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-11-01.svg";
 
       }, 650)
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pigeonV1/PigeonV1-01.svg";
+        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
         rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
 
       }, 1500);
