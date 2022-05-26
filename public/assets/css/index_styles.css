@@ -202,7 +202,71 @@ button {
   border: none;
 }
 
+div.login {
+  display: flex;
+  flex-direction: column;
+  width: 35.5vw;
+  margin: 1.5vw 0 0 1.2vw;
+  align-items: center;
+  justify-content: center;
+  padding: 1.3vw 1.5vw 1.5vw;
+  background-color: #cedce7;
+  border-style: inset none inset none;
+  border-bottom: 0.4vw #597b91 solid;
+  border-radius: 1.6vw;
+  border-top: 0.4vw #e1ebf0 solid;
+}
+
+div.signup {
+  display: flex;
+  flex-direction: column;
+  width: 35.5vw;
+  margin: 1.5vw 0 0 1.2vw;
+  align-items: center;
+  justify-content: center;
+  padding: 1.3vw 1.5vw 1.5vw;
+  background-color: #cedce7;
+  border-style: inset none inset none;
+  border-bottom: 0.4vw #597b91 solid;
+  border-radius: 1.6vw;
+  border-top: 0.4vw #e1ebf0 solid;
+}
+
+input.emailInput {
+  padding: 0.25vw;
+  margin-top: -1vw;
+  margin-bottom: 5px;
+  border-radius: 0.9vw;
+  display: inline-block;
+  font-family: "Titan One", cursive;
+  color: #4488a3;
+  font-size: 1.3vw;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 15vw;
+  background-color:rgba(248, 248, 255, 0.548);
+  border-color: #407D96;
+  border-width: 0.15vw;
+}
+
 input.usernameInput {
+  padding: 0.25vw;
+  margin-top: -1vw;
+  margin-bottom: 5px;
+  border-radius: 0.9vw;
+  display: inline-block;
+  font-family: "Titan One", cursive;
+  color: #4488a3;
+  font-size: 1.3vw;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 15vw;
+  background-color:rgba(248, 248, 255, 0.548);
+  border-color: #407D96;
+  border-width: 0.15vw;
+}
+
+input.passwordInput {
   padding: 0.25vw;
   margin-top: -1vw;
   margin-bottom: 5px;
@@ -247,4 +311,12 @@ div.map-selection-button {
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+}
+
+p.sign-up-link {
+  align-self: flex-start;
+}
+
+p.index-link {
+  align-self: flex-start;
 }
