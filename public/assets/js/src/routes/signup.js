@@ -35,9 +35,9 @@ document.querySelector("body").addEventListener('click', async function (event) 
       const username = authResult.username;
 
       Token.save(tokenValue);
-      Token.saveUsername(username);
+      Token.saveEmailAndUsername(emailInput.value, username);
       
-      location.href = '/profile';
+      location.href = '/play/profile';
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);

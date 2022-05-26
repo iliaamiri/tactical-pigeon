@@ -162,6 +162,10 @@ div.item-background {
   border-radius: 1vw;
 }
 
+div.item-background.hidden {
+  opacity: 0;
+}
+
 div.item-background img.new-item {
   opacity: 100%;
 }
