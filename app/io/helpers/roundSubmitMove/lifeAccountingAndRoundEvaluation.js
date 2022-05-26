@@ -29,18 +29,18 @@ function lifeAccountingAndRoundEvaluation(currentRound, otherPlayerId, thisPlaye
 
   if (
     ( // this is a three-part either-or condition. EITHER:
-      thisPlayer.ammoInventory.getTotalInventory() + otherPlayer.ammoInventory.getTotalInventory() === 0 // If both players have no ammo
-      || thisPlayer.life.lives === 0 // If this player had no lives
-      || otherPlayer.life.lives === 0 // If the other player had not lives
+      thisPlayer.ammoInventory?.getTotalInventory() + otherPlayer.ammoInventory?.getTotalInventory() === 0 // If both players have no ammo
+      || thisPlayer.life?.lives === 0 // If this player had no lives
+      || otherPlayer.life?.lives === 0 // If the other player had not lives
       || currentRound === 5 // If this was the last round
     ) || ( // OR:
-      thisPlayer.life.lives !== otherPlayer.life.lives // lives are unequal
-      && thisPlayer.ammoInventory.getAttacks() === 0 && otherPlayer.ammoInventory.getAttacks() === 0 // and there are no forks left
+      thisPlayer.life?.lives !== otherPlayer.life?.lives // lives are unequal
+      && thisPlayer.ammoInventory.getAttacks() === 0 && otherPlayer.ammoInventory?.getAttacks() === 0 // and there are no forks left
     ) || ( // OR:
       currentRound === 4 // It's the end of round 4
       && (
-        thisPlayer.ammoInventory.getAttacks() === otherPlayer.ammoInventory.getAttacks() // they have equal amounts of attacks left
-        || thisPlayer.ammoInventory.getBlocks() === otherPlayer.ammoInventory.getBlocks() // they have equal amounts of blocks left
+        thisPlayer.ammoInventory?.getAttacks() === otherPlayer.ammoInventory?.getAttacks() // they have equal amounts of attacks left
+        || thisPlayer.ammoInventory?.getBlocks() === otherPlayer.ammoInventory?.getBlocks() // they have equal amounts of blocks left
       )
     )
   ) {
