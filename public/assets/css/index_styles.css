@@ -237,6 +237,10 @@ div.signup {
   border-bottom: 0.4vw #597b91 solid;
   border-radius: 1.6vw;
   border-top: 0.4vw #e1ebf0 solid;
+  font-size: 1.5vw;
+  font-family: "Titan One", cursive;
+  color:#4f7c93;
+  text-align: center;
 }
 
 input.emailInput {
@@ -258,6 +262,10 @@ input.emailInput {
 
 span.email-text{
   padding-left:3.3vw;
+}
+
+span.email-text-signup{
+  padding-left:3.8vw;
 }
 
 input.usernameInput {
@@ -325,6 +333,7 @@ div.map-selection-button {
 }
 
 p.sign-up-link {
+  margin-top:1vw;
   align-self: center;
   font-size: 1.3vw;
   color: #4f7c93;
@@ -336,10 +345,17 @@ p.sign-up-link:hover{
 }
 
 p.index-link {
-  align-self: flex-start;
+  align-self: center;
+  margin-top: 1vw;
+  font-size: 1.3vw;
 }
 
-.sign-up-button{
+p.index-link:hover{
+  text-decoration: underline;
+  color: #e1ebf0;
+}
+
+button.sign-up-button{
   background-image: url("/assets/img/GUI-controls/MenuStart/signup.svg");
   background-size: contain;
   background-repeat: no-repeat;
@@ -347,4 +363,8 @@ p.index-link {
   height:5vw;
   border-radius: 1vw;
   margin-top: 0.5vw;
+}
+
+button.sign-up-button:hover{
+  filter: brightness(0.75);
 }
