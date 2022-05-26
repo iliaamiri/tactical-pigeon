@@ -138,7 +138,7 @@ const Players = {
     // Insert the new player to the database
     let result;
     try {
-      result = await database.addUser({
+      result = await database.playerEntity.addUser({
         username: player.username,
         password: player.password
       });
