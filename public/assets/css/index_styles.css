@@ -142,6 +142,7 @@ div.startBtn {
   height:5vw;
   border-radius: 1vw;
   margin-top: 0.5vw;
+  cursor: pointer;
 }
 
 div.startBtn.unpressed {
@@ -337,6 +338,7 @@ p.sign-up-link {
   align-self: center;
   font-size: 1.3vw;
   color: #4f7c93;
+  cursor: pointer;
 }
 
 p.sign-up-link:hover{
@@ -348,6 +350,7 @@ p.index-link {
   align-self: center;
   margin-top: 1vw;
   font-size: 1.3vw;
+  cursor: pointer;
 }
 
 p.index-link:hover{
@@ -363,6 +366,7 @@ button.sign-up-button{
   height:5vw;
   border-radius: 1vw;
   margin-top: 0.5vw;
+  cursor: pointer;
 }
 
 button.sign-up-button:hover{
