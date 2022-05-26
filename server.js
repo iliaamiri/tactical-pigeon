@@ -9,6 +9,7 @@ const PORT = configs.PORT;
 const makeApplication = require('./app');
 const server = makeApplication();
 
+// TODO: scale express + socket.io using redis
 if (cluster.isMaster && configs.APP_MODE === "production" && false) {
   console.log(`Running on: http://localhost:${PORT}`);
 
