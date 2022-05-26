@@ -3,7 +3,7 @@ const profileRouter = express.Router();
 
 const ProfileController = require('../../app/http/controllers/profileController');
 
-profileRouter.post("/getUserData", ProfileController.getUserData);
+profileRouter.get("/getUserData", ProfileController.getUserData);
 
 
 module.exports = profileRouter;
