@@ -118,17 +118,9 @@ const GameController = {
     });
   },
 
-  async mapSelection(req, res) {
-    res.render('chooseMap');
-  },
+  
 
-  async customizePigeon(req, res) {
-    res.render('customizePigeon');
-  },
-
-  async profile(req, res) {
-    res.render('profile');
-  }
+  
 };
 
 module.exports = GameController;
