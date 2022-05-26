@@ -5,16 +5,17 @@ import Cookie from "../helpers/Cookie.js";
 
 const playButton = document.querySelector('button.play');
 const startBtn = document.querySelector('div.startBtn');
-// const titleEnterName = document.querySelector("p.title-enter-name");
+const titleEnterName = document.querySelector("p.title-enter-name");
 const iosToggleInput = document.querySelector("input.mobileToggle");
 const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 const emailInput = document.querySelector('input.emailInput');
 const passwordInput = document.querySelector('input.passwordInput');
-const logInButton = document.querySelector('button.log-in-button');
+// const logInButton = document.querySelector('button.log-in-button');
+let loginOptions = document.querySelectorAll(".start span");
 
 // Socket
 import Token from "../io/auth/Token.js";
-import clientSocketConnect, {socket} from '../io/client.js';
+import clientSocketConnect, { socket } from '../io/client.js';
 
 // Reloads page if accessed from cache
 window.addEventListener("pageshow", function (event) {
@@ -25,16 +26,16 @@ window.addEventListener("pageshow", function (event) {
 });
 
 //changing map button appearance according to map selection
-let selectedMap = Cookie.get("selectedMap");
-let mapButton = document.querySelector("div.map-selection-button");
-console.log(selectedMap);
-if (selectedMap === "playground") {
-  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/playground-button.svg")';
-} else if (selectedMap === "pigeon-nights") {
-  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/night-button.svg")';
-} else if (selectedMap === "street") {
-  mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/street-button.svg")';
-}
+// let selectedMap = Cookie.get("selectedMap");
+// let mapButton = document.querySelector("div.map-selection-button");
+// console.log(selectedMap);
+// if (selectedMap === "playground") {
+//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/playground-button.svg")';
+// } else if (selectedMap === "pigeon-nights") {
+//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/night-button.svg")';
+// } else if (selectedMap === "street") {
+//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/street-button.svg")';
+// }
 
 // Fetch guestId (if exists)
 Token.fetchCachedGuestId();
@@ -53,28 +54,45 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
   /* ---- Mobile Toggle ---- */
   if (
-    (target.tagName === "LABEL" && target.classList.contains("toggleLabel")) 
+    (target.tagName === "LABEL" && target.classList.contains("toggleLabel"))
     || (target.tagName === "DIV" && target.classList.contains("mobileToggle"))
   ) {
     iosToggleInput.checked = !iosToggleInput.checked;
+
     if (iosToggleInput.checked) {
-      startBtn.classList.add("playOnlineBtn");
+      startBtn.classList.add("playAsGuest");
+      loginOptions.forEach((span) => {
+        span.classList.add("d-none")
+        if (span.classList.contains("username")) {
+          span.classList.remove("d-none")
+        }
+      })
+      titleEnterName.innerHTML = "Enter a Username:"
+
     } else {
       if (socket?.connected) {
         socket.disconnect();
       }
-      startBtn.classList.remove("playOnlineBtn");
+      startBtn.classList.remove("playAsGuest");
       blueClouds.classList.add("d-none");
       startBtn.classList.remove("pressed");
       SearchingText.DOMElement.style.display = "none";
+      loginOptions.forEach((span) => {
+        span.classList.remove("d-none")
+        if (span.classList.contains("username")) {
+          span.classList.add("d-none")
+        }
+      })
+      titleEnterName.innerHTML = "Login to account:"
     }
   }
 
   /* ---- Map Selection Button ---- */
-  if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
-    location.href = "/play/map/selection";
-  }
-  console.log(event.target)
+  // if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
+  //   location.href = "/play/map/selection";
+  // }
+  // console.log(event.target)
+
   /* ---- Profile Button ---- */
   if (target.tagName === "BUTTON" && target.classList.contains("profile")) {
     console.log(event.target)
@@ -107,7 +125,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       Token.save(tokenValue);
       Token.saveUsername(username);
 
-      location.href = '/profile';
+      location.href = '/userHome';
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);
