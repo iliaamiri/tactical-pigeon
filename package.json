@@ -35,7 +35,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "npx webpack",
-    "dev": "npm-run-all --parallel watch:start watch:build",
+    "dev": "npm run watch:start",
+    "dev2": "npm-run-all --parallel watch:start watch:build",
     "watch:build": "npx webpack --watch",
     "watch:start": "npx nodemon server.js",
     "test": "npx jest"
