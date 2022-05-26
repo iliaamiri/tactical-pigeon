@@ -49,21 +49,6 @@ div.container-fluid.move-picker-overlay {
   padding: 20% 0 0 0;
 }
 
-/* fills space that appears when browser width gets too thin*/
-/*900px and up) */
-
-@media only screen and (min-width: 900px) {
-  .bottom-background {
-    opacity: 100;
-  }
-}
-
-@media only screen and (min-height: 415px) {
-  .bottom-background {
-    opacity: 100;
-  }
-}
-
 
 /* --------------- Nav Buttons --------------- */
 div.nav-buttons div {
