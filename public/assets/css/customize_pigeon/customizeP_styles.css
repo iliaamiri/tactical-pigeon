@@ -186,7 +186,8 @@ div.pigeon {
 div.selectedPigeon {
   /*margin-bottom: 60px;*/
   position: relative;
-  top: 60px;
+  top: 0px;
+  left: -10px;
   height: 460px;
   width: 100%;
   background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-04.svg");
@@ -196,7 +197,7 @@ div.selectedPigeon {
 }
 
 
-/* --------------- */
+/* --------------- Type Selector Title -------------- */
 div.selector-title-background {
   margin-top: 100px;
   background-color: #CADDE8;
@@ -215,7 +216,73 @@ div.selector-title-background span {
   -webkit-text-stroke-color: white;
 }
 
+/* ---------------- Pigeons Selection ------------- */
+div.type-selector {
+  height: 200px;
+}
+div.type-selector > .type-container {
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  background-color: #fcda54;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-bottom: 7px;
+}
 
+div.pigeon-type-option {
+  height: 70px;
+  width: 70px;
+  background-color: #fdeda8;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.pigeon-placeholder {
+  background-image: url("/assets/img/Icons/pigeon-placeholder.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div.pigeon-type-option .locked {
+  height: 30px;
+  width: 30px;
+  background-image: url("/assets/img/Icons/LockIcon.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+div.pigeon-type-option > .locked.hidden {
+  display: none;
+}
+
+/* Custom Scrollbar */
+/* width */
+div.type-selector > div::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+div.type-selector > div::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #e2c44b;
+  border-radius: 10px;
+}
+
+/* Handle */
+div.type-selector > div::-webkit-scrollbar-thumb {
+  background: #487e96 ;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+div.type-selector > div::-webkit-scrollbar-thumb:hover {
+  background: #487e96;
+  width: 5px;
+}
 
 
 
