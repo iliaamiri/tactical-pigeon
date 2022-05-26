@@ -13,17 +13,11 @@ import roundCountdown from "../helpers/roundCountdown.js";
 
 // Core and utils
 import clientSocketConnect from "../io/client.js";
-import LocalStorageCache from "../core/LocalStorageCache.js";
 import ReplayButton from "../components/Play/ReplayButton.js";
-import BackHomeButton from "../components/Play/BackHomeButton";
-import DoneButton from "../components/DoneButton";
-import SearchingText from "../components/Home/SearchingText";
-import SearchingForOpponent from "../components/Home/SearchingForOpponent";
-import WaitSign from "../components/Multiplayer/WaitSign";
-import ResultOverlay from "../components/ResultOverlay";
-import Sunglasses from "../components/Pigeons/Sunglasses";
-import {playSound, sounds} from "../core/sounds";
-import LeftPigeon from "../components/Pigeons/LeftPigeon";
+import WaitSign from "../components/Multiplayer/WaitSign.js";
+import ResultOverlay from "../components/ResultOverlay.js";
+import {playSound, sounds} from "../core/sounds.js";
+import LeftPigeon from "../components/Pigeons/LeftPigeon.js";
 
 console.log("Hit playOnline.js");
 

@@ -25,7 +25,7 @@ import restingMode from "./restingMode.js";
 // Cores and Utils
 import wait from '../utils/wait.js';
 import {socket} from "../io/client.js";
-import LeftPigeon from "../components/Pigeons/LeftPigeon";
+import LeftPigeon from "../components/Pigeons/LeftPigeon.js";
 
 class Round {
   #currentRoundNumber = 1;

@@ -18,5 +18,6 @@ Router.assign('/play/customizePigeon', 'customizePigeon');
 // This route should be the last one for the /play routes
 Router.assign('/play/:gameId', 'playOnline');
 
+console.log(Router.chosenPath);
 
 await import(`./routes/${Router.chosenPath}.js`);
