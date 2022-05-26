@@ -19,7 +19,7 @@ import BotPlayer from "./BotPlayer.js";
 import { playSound, sounds } from "../core/sounds.js";
 import LocalStorageCache from "../core/LocalStorageCache.js";
 import Token from "../io/auth/Token.js";
-import DoneButton from "../components/DoneButton";
+import DoneButton from "../components/DoneButton.js";
 
 
 class Game {

@@ -2,6 +2,7 @@ import Cookie from '../../helpers/Cookie.js';
 
 const Token = {
   jwtCookieKey: "JWT",
+  emailCookieKey: "email",
   usernameCookieKey: "user",
   guestIdCookieKey: "guestId",
 
@@ -16,7 +17,8 @@ const Token = {
     this.tokenVal = tokenValue;
   },
 
-  saveUsername(username) {
+  saveEmailAndUsername(email, username) {
+    Cookie.set(this.emailCookieKey, email);
     Cookie.set(this.usernameCookieKey, username);
     this.username = username;
   },

@@ -90,7 +90,7 @@ const AuthController = {
     }
 
     // Check with database.
-    const queryData = await database.getUserByEmail(givenEmail);
+    const queryData = await database.playerEntity.getUserByEmail(givenEmail);
     console.log('user from DB:', queryData[0][0]);
     let user = queryData[0][0];
 
@@ -138,7 +138,7 @@ const AuthController = {
     // TODO: Call Player.addToDatabase and verify that it was done successfully
     let signInResult;
     try {
-      signInResult = await database.addUser({
+      signInResult = await database.playerEntity.addUser({
         email: givenEmail, 
         username: givenUsername,
         hash: passwordHash,
@@ -150,7 +150,7 @@ const AuthController = {
     }
 
     // Make a JWT token and login the guest user
-    let signupData = await database.getUserByEmail(givenEmail);
+    let signupData = await database.playerEntity.getUserByEmail(givenEmail);
     const newUser = signupData[0][0];
     console.log('newUser from DB:', newUser);
     const generatedTokenValue = Tokens.create(newUser.player_id, newUser.username);

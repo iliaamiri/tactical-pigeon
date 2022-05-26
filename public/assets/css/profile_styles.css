@@ -44,7 +44,7 @@ div.pigeon {
 }
 
 div.selectedPigeon {
-  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-04.svg");
+  background-image: url("/assets/img/pigeons/pusiness_pigeon/right_hand_to_chest.svg");
   position: relative;
   top: 3vw;
   right: 1vw;
@@ -160,6 +160,10 @@ div.span-background span {
 div.item-background {
   background-color: white;
   border-radius: 1vw;
+}
+
+div.item-background.hidden {
+  opacity: 0;
 }
 
 div.item-background img.new-item {
