@@ -121,7 +121,7 @@ div.card.pigeon-nights-background {
 .card.highlight {
   filter: brightness(1);
   border: 0.2vw solid #407d96;
-  outline:0.3vw solid white;
+  outline: 0.3vw solid white;
   box-shadow: 12px 12px 1vw 1vw rgba(192, 220, 231, 0.322);
 }
 
@@ -139,11 +139,11 @@ div.select-done-button {
   font-family: "Titan One", cursive;
   font-size: 1.8vw;
   letter-spacing: 1px;
-  color: #407d96; 
+  color: #407d96;
   border-color: #e4bd20;
   border-width: 0.5vw;
   border-style: none none inset none;
-  z-index:1000;
+  z-index: 1000;
 }
 
 div.select-done-button:hover {
@@ -165,63 +165,22 @@ div.back-button {
   font-family: "Titan One", cursive;
   font-size: 1.8vw;
   letter-spacing: 1px;
-  color: white; 
+  color: white;
   border-color: #2a5161;
   border-width: 0.5vw;
   border-style: none none inset none;
-  z-index:1000;
+  z-index: 1000;
 }
 
-div.back-button:hover{
+div.back-button:hover {
   cursor: pointer;
   filter: brightness(0.8);
- } 
-
-span.portrait {
-  font-family: "Titan One", cursive;
-  font-size: 35px;
-  color: white;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #407d96;
-  margin-top: 10px;
 }
 
-div.flip-overlay img {
-  width: 30%;
-}
-
-@media only screen and (min-width: 350px) and (orientation: portrait) {
-  div.flip-overlay {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  div.flip-overlay {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 60;
-    top: 0;
-    left: 0;
-    background-color: #ffdc4b;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  div.flip-overlay {
-    display: none;
-  }
-}
-
-div.hand img  {
-  position:absolute;
-  height:7vw;
-  width:7vw;
+div.hand img {
+  position: absolute;
+  height: 7vw;
+  width: 7vw;
   top: 27vw;
   left: 65vw;
   animation: swipe-x 2s alternate infinite ease-in-out;
@@ -232,32 +191,32 @@ div.hand img  {
 /* ANIMATION KEYFRAMES */
 
 @keyframes swipe-x {
-	0% {
-		transform: translateX(0px);
-	}
-	25% {
-		transform: translateX(50px) rotateZ(10deg);
-	}
-	50% {
-		transform: translateX(0px);
-	}
-	75% {
-		transform: translateX(-50px) rotateZ(-10deg);
-	}
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(50px) rotateZ(10deg);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-50px) rotateZ(-10deg);
+  }
 }
 
 /* SVG ANIMATION */
 
 .wrapper * {
-	transform-origin: 50% 50%;
-	perspective: 100px;
+  transform-origin: 50% 50%;
+  perspective: 100px;
 }
 
 .hand {
-	transform-origin: 25% 50%;
+  transform-origin: 25% 50%;
 }
 
 .hand-x {
-	animation: swipe-x 1.25s ease-in-out backwards;
-	animation-iteration-count:infinite;
+  animation: swipe-x 1.25s ease-in-out backwards;
+  animation-iteration-count: infinite;
 }

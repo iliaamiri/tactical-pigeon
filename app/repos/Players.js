@@ -77,16 +77,26 @@ const Players = {
     mutex
       .runExclusive(() => {
         if (this.matchQueue.length >= 2) {
-          // console.log('match queue', this.matchQueue); // debug
-          playerEmitter.emit('matchReady', this.pickTwoRandomPlayersFromQueue());
+          console.log('match queue', this.matchQueue); // debug
+          const pickedPlayers = this.pickTwoRandomPlayersFromQueue();
+          if (pickedPlayers) {
+            playerEmitter.emit('matchReady', pickedPlayers);
+          }
 
-          // console.log("Match Queue updated: ", this.matchQueue); // debug
+          console.log("Match Queue updated: ", this.matchQueue); // debug
         }
       })
       .then(() => {
-        // console.log("Mutex Unlocked.. Username: ", player.username);
-        // console.log("Match Queue after Mutex Unlocked: ", this.matchQueue);
+        console.log("Mutex Unlocked.. Username: ", player.username);
+        console.log("Match Queue after Mutex Unlocked: ", this.matchQueue);
       });
+  },
+
+  removeFromMatchQueue(playerId) {
+    let index = this.matchQueue.indexOf(playerId);
+    if (index > -1) {
+      delete this.matchQueue[index];
+    }
   },
 
   /**
@@ -255,13 +265,39 @@ const Players = {
     if (this.matchQueue.length < 2)
       return null;
 
-    let player1_index = Math.floor(Math.random() * this.matchQueue.length);
-    let player1 = this.matchQueue[player1_index];
+    let player1_index;
+    let player1;
+    for (let i = 0; i < 4; i++) {
+      player1_index = Math.floor(Math.random() * this.matchQueue.length);
+      player1 = this.matchQueue[player1_index];
+      if (player1 !== undefined) {
+        break;
+      }
+
+      // Remove the bad index
+      this.matchQueue.splice(player1_index, 1);
+    }
+    if (!player1) {
+      return null;
+    }
 
     this.matchQueue.splice(player1_index, 1);
 
-    let player2_index = Math.floor(Math.random() * this.matchQueue.length);
-    let player2 = this.matchQueue[player2_index];
+    let player2_index;
+    let player2;
+    for (let i = 0; i < 4; i++) {
+      player2_index = Math.floor(Math.random() * this.matchQueue.length);
+      player2 = this.matchQueue[player2_index];
+      if (player2 !== undefined) {
+        break;
+      }
+
+      // Remove the bad index
+      this.matchQueue.splice(player2_index, 1);
+    }
+    if (!player2) {
+      return null;
+    }
 
     this.matchQueue.splice(player2_index, 1);
 

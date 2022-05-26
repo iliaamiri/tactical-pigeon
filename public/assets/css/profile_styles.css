@@ -1,35 +1,180 @@
-
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  font-family: "Titan One", cursive;
 }
 
-html {
-  background-image: url("/assets/img/backgrounds/CustomizePigeon-Background.svg");
-}
-
-body {
+html, body {
+  height: 100%;
   margin: 0;
 }
 
-/* Pigeon */
+div.wrapper {
+  background-color: #407d96;
+  min-height: 100%; 
+}
+
+div.outer {
+  padding: 3% 0 5% 5%;
+}
+
+/* Top Left */
+
+div.back-btn {
+  background-image: url("/assets/img/Icons/BackBtn.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 5vw;
+  width: 5vw;
+  margin-top: 2vw;
+  filter: drop-shadow(0 0.5vw 0.2rem rgba(0,0,0, 0.5));
+}
+
+div.back-btn:hover {
+  cursor: pointer;
+  filter: brightness(0.7);
+}
 
 div.pigeon {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100%;
-  width: 100%;
+  height: 15vw;
+  width: 15vw;
 }
 
 div.selectedPigeon {
   background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-04.svg");
+  position: relative;
+  top: 3vw;
+  right: 1vw;
 }
 
+span.username {
+  color: white;
+  font-size: 5vw;
+}
 
+span.level-title {
+  color: #ffdc4b;
+  font-size: 1.5vw;
+}
 
+div.level {
+  height: 1vw;
+  width: 4vw;
+  margin-right: 1vw;
+}
 
+div.level.filled {
+  background-color: #ffdc4b;
+}
+
+div.level.unfilled {
+  background-color: black;
+  opacity: 20%;
+}
+
+div.main-info {
+  margin-bottom: 2vw;
+}
+
+/* Achievements */
+
+div.badge-background {
+  /* background-color: white; */
+  opacity: 20%;
+  /* height: 9vw; */
+  width: 100%;
+  margin-top: 10%;
+  border-bottom: 9vw solid white;
+	border-left: 4.5vw solid transparent;
+}
+
+span.badge-title {
+  color: #ffdc4b;
+  position: relative;
+  top: -2vw;
+  left: 21vw;
+  font-size: 2.5vw;
+}
+
+img.badge {
+  background-color: #ffdc4b;
+  width: 4vw;
+  height: 4vw;
+}
+
+/* Game Stats */
+
+.top-buffer { 
+  margin-top: 5%; 
+}
+
+div.gradient-background {
+  height: 6vw;
+  width: 100%;
+  background: linear-gradient(90deg, #407d96 20%, 65%, #ffdc4b);
+  margin-bottom: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5vw 0 1.5vw;
+}
+
+span.stat-title {
+  color: white;
+  font-size: 2.5vw;
+}
+
+span.stat {
+  color: #407d96;
+  font-size: 3vw;
+}
+
+/* Unlocked Items */
+
+div.items-container {
+  border: 0.2vw solid white;
+  height: 24vw;
+  margin-right: 5vw;
+  border-radius: 2vw;
+  overflow: scroll;
+}
+
+div.span-background {
+  position: absolute;
+  top: -2.2vw;
+  left: 10vw;
+  height: 2.5vw;
+  width: 23vw;
+  background-color: #407d96;
+  text-align: center;
+}
+
+div.span-background span {
+  color: white;
+  font-size: 2.5vw;
+}
+
+div.item-background {
+  background-color: white;
+  border-radius: 1vw;
+}
+
+div.item-background img.new-item {
+  opacity: 100%;
+}
+
+div.left-item {
+  padding: 0;
+  margin: 3vw 3vw 0 3vw;
+}
+
+div.right-item {
+  padding: 0;
+  margin: 3vw 3vw 0 0;
+}
 
 /* Portrait Overlay */
 

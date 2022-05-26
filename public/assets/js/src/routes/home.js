@@ -14,7 +14,7 @@ const logInButton = document.querySelector('button.log-in-button');
 
 // Socket
 import Token from "../io/auth/Token.js";
-import clientSocketConnect from '../io/client.js';
+import clientSocketConnect, {socket} from '../io/client.js';
 
 // Reloads page if accessed from cache
 window.addEventListener("pageshow", function (event) {
@@ -60,6 +60,9 @@ document.querySelector("body").addEventListener('click', async function (event) 
     if (iosToggleInput.checked) {
       startBtn.classList.add("playOnlineBtn");
     } else {
+      if (socket?.connected) {
+        socket.disconnect();
+      }
       startBtn.classList.remove("playOnlineBtn");
       blueClouds.classList.add("d-none");
       startBtn.classList.remove("pressed");

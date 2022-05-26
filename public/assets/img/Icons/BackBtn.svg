@@ -1,6 +1,5 @@
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_289_1596)">
-<rect width="48" height="48" fill="white"/>
 <circle cx="24" cy="24" r="21.5" fill="white" stroke="#407D96" stroke-width="5"/>
 <path d="M36 24H12M12 24L20.5 14M12 24L20.5 33.5" stroke="#407D96" stroke-width="5" stroke-linecap="round"/>
 </g>

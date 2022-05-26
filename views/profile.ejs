@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile</title>
+  <title>Customize Pigeon</title>
   <!-- TODO: Add a fav icon here -->
 
   <!-- Preload backgrounds -->
@@ -29,75 +29,104 @@
     <span class="portrait">FLIP TO PLAY</span>
   </div>
 
-  <div class="container">
+  <div class="wrapper">
+    <div class="outer container-fluid">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col top-left d-flex">
 
-    <!-- Navigation Buttons -->
-    <div class="nav-buttons">
-      <div class="save-btn">
-        <span>Save</span>
-      </div>
-      <div class="exit-btn">
-        <span>Exit</span>
+              <!-- Back Buton -->
+              <div class="back-btn"></div>
+
+              <!-- Your Pigeon -->
+              <div class="pigeon selectedPigeon"></div>
+
+              <!-- Name & Level -->
+              <div class="main-info d-flex flex-column justify-content-end">
+                <span class="username">Sarah123</span>
+                <div class="level-bars d-flex">
+                  <div class="level filled"></div>
+                  <div class="level filled"></div>
+                  <div class="level unfilled"></div>
+                  <div class="level unfilled"></div>
+                  <div class="level unfilled"></div>
+                </div>
+                <span class="level-title">Level 2</span>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="badge-background">
+                <div class="badges-container">
+                  <img src="" alt="" class="badge">
+                  <img src="" alt="" class="badge">
+                  <img src="" alt="" class="badge">
+                  <img src="" alt="" class="badge">
+                  <img src="" alt="" class="badge">
+                </div>
+              </div>
+              <span class="badge-title">Achievements</span>
+            </div>
+          </div>
+
+          <div class="row top-buffer">
+            <div class="col">
+              <div class="gradient-background">
+                <span class="stat-title">Games Played</span>
+                <span class="stat">15</span>
+              </div>
+
+              <div class="gradient-background">
+                <span class="stat-title">Win Ratio</span>
+                <span class="stat">73%</span>
+              </div>
+
+              <div class="gradient-background">
+                <span class="stat-title">XP</span>
+                <span class="stat">10pts</span>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="span-background">
+                <span>Unlocked Items</span>
+              </div>
+              <div class="items-container">
+              <div class="container">
+                <div class="row">
+
+                  <div class="col left-item">
+                      <div class="item-background">
+                        <img src="/assets/img/pigeons/pigeonV2/PigeonV2-1.svg" alt="Hoodie Pigeon" class="new-item">
+                      </div>
+                  </div>
+
+                  <div class="col right-item">
+                      <div class="item-background">
+                        <img src="/assets/img/pigeons/pigeonV2/PigeonV2-1.svg" alt="Hoodie Pigeon">
+                      </div>
+                  </div>
+
+                  <div class="col right-item">
+                    <div class="item-background">
+                      <img src="/assets/img/pigeons/pigeonV2/PigeonV2-1.svg" alt="Hoodie Pigeon">
+                    </div>
+                </div>
+
+                </div>
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Hue Adjuster -->
-    <div class="dial-container">
-      <div class="dial-title-background">
-        <span>Hue</span>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-      </div>
-    </div>
-
-    <!-- Main Pigeon -->
-    <div class="selectedPigeon">
-      <div class="pigeon"></div>
-    </div>
-
-    <!-- Pigeon Type Selecter -->
-    <div class="type-selecter">
-      <div class="selecter-title-background">
-        <span>Pigeon Type</span>
-      </div>
-      <div class="type-row">
-        <div class="type-container">
-          <img src="/assets/img/pigeons/pigeonV2/PigeonV2-1.svg" alt="Hoodie Pigeon">
-        </div>
-        <div class="type-container">
-          <div class="pigeon-placeholder">
-            <img src="" alt="lock">
-          </div>
-        </div>
-      </div>
-      <div class="type-row">
-        <div class="type-container">
-          <div class="pigeon-placeholder">
-            <img src="" alt="lock">
-          </div>
-        </div>
-        <div class="type-container">
-          <div class="pigeon-placeholder">
-            <img src="" alt="lock">
-          </div>
-        </div>
-      </div>
-      <div class="type-row">
-        <div class="type-container">
-          <div class="pigeon-placeholder">
-            <img src="" alt="lock">
-          </div>
-        </div>
-        <div class="type-container">
-          <div class="pigeon-placeholder">
-            <img src="" alt="lock">
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+
 
   <!-- App -->
   <%- include('_partials/commonJsFooters.ejs') -%>
