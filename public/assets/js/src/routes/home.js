@@ -52,14 +52,13 @@ document.querySelector("body").addEventListener('click', async function (event) 
   let target = event.target;
 
   /* ---- Mobile Toggle ---- */
-  if (
-    (target.tagName === "LABEL" && target.classList.contains("toggleLabel"))
+  if ((target.tagName === "LABEL" && target.classList.contains("toggleLabel"))
     || (target.tagName === "DIV" && target.classList.contains("mobileToggle"))
   ) {
     iosToggleInput.checked = !iosToggleInput.checked;
 
     if (iosToggleInput.checked) {
-      startBtn.classList.add("playAsGuest");
+      startBtn.classList.add("d-none");
       loginOptions.forEach((span) => {
         span.classList.add("d-none")
         if (span.classList.contains("username")) {
