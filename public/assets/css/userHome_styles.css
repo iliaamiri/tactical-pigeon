@@ -86,6 +86,10 @@ img.logout-button{
   margin-bottom:0.3vh;
 }
 
+.play-options a {
+  width: 100%;
+}
+
 .play-options img{
   height:fit-content;
   border-radius: 7.3vw;
