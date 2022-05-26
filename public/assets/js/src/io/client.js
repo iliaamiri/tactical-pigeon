@@ -1,4 +1,5 @@
-import {io} from "socket.io-client";
+// import {io} from "socket.io-client"; // for webpack
+import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import Token from './auth/Token.js';
 
 import handlersIndex from "./handlersIndex.js";
