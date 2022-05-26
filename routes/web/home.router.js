@@ -8,5 +8,8 @@ homeRouter.get("/", HomeController.gameHome);
 homeRouter.get("/userHome", HomeController.userHome);
 homeRouter.get('/signup', HomeController.signUp);
 homeRouter.get('/profile', HomeController.profile);
+homeRouter.get('/mapselection', HomeController.mapSelection);
+homeRouter.get('/customizePigeon', HomeController.customizePigeon);
+homeRouter.get('/profile', HomeController.profile);
 
 module.exports = homeRouter;

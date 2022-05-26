@@ -37,7 +37,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       Token.save(tokenValue);
       Token.saveEmailAndUsername(emailInput.value, username);
       
-      location.href = '/play/profile';
+      location.href = '/profile';
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);

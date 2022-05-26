@@ -89,20 +89,20 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
   /* ---- Map Selection Button ---- */
   // if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
-  //   location.href = "/play/map/selection";
+  //   location.href = "/map/selection";
   // }
   // console.log(event.target)
 
   /* ---- Profile Button ---- */
   if (target.tagName === "BUTTON" && target.classList.contains("profile")) {
     console.log(event.target)
-    window.location.href = "/play/profile";
-    // location.href = "/play/profile";
+    window.location.href = "/profile";
+    // location.href = "/profile";
   }
 
   /* ---- Customize Pigeon Button ---- */
   if (target.tagName === "BUTTON" && target.classList.contains("customize")) {
-    location.href = "/play/customizePigeon";
+    location.href = "/customizePigeon";
   }
 
   /* ---- Log In Button ---- */

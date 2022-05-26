@@ -9,13 +9,12 @@ await import('./routes/_common.js');
 
 Router.assign('/', 'home');
 Router.assign('/signup', 'signup');
-
 Router.assign('/userHome', 'userHome');
+Router.assign('/mapselection', 'mapSelection');
+Router.assign('/profile', 'userProfile');
+Router.assign('/customizePigeon', 'customizePigeon');
 
 Router.assign('/play', 'playOffline');
-Router.assign('/play/map/selection', 'mapSelection');
-Router.assign('/play/profile', 'userProfile');
-Router.assign('/play/customizePigeon', 'customizePigeon');
 
 // This route should be the last one for the /play routes
 Router.assign('/play/:gameId', 'playOnline');
