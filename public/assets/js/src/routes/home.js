@@ -3,7 +3,6 @@ import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 import Cookie from "../helpers/Cookie.js";
 
-const playButton = document.querySelector('button.play');
 const startBtn = document.querySelector('div.startBtn');
 const titleEnterName = document.querySelector("p.title-enter-name");
 const iosToggleInput = document.querySelector("input.mobileToggle");
@@ -199,7 +198,7 @@ startBtn.addEventListener('click', async function (event) {
         default:
           // Revert everything back if the user couldn't be authenticated by axios request.
           SearchingText.DOMElement.style.display = "none";
-          usernameInput.disabled = false;
+          // usernameInput.disabled = false;
           target.classList.remove("pressed");
           target.classList.add('unpressed');
           break;
@@ -275,7 +274,7 @@ startBtn.addEventListener('click', async function (event) {
         default:
           // Revert everything back if the user couldn't be authenticated by axios request.
           SearchingText.DOMElement.style.display = "none";
-          usernameInput.disabled = false;
+          // usernameInput.disabled = false;
           target.classList.remove("pressed");
           target.classList.add('unpressed');
           break;
@@ -293,5 +292,5 @@ startBtn.addEventListener('click', async function (event) {
 });
 
 // Play Button Hover
-playButton.addEventListener('mouseover', event => event.target.classList.add("hover"));
-playButton.addEventListener('mouseout', event => event.target.classList.remove('hover'));
+startBtn.addEventListener('mouseover', event => event.target.classList.add("hover"));
+startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
