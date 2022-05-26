@@ -5,6 +5,12 @@ const HomeController = {
   async userHome(req, res) {
     res.render('userHome');
   },
+  async signUp(req, res) {
+    res.render('register');
+  },
+  async profile(req, res) {
+    res.render('profile');
+  }
 };
 
 module.exports = HomeController;

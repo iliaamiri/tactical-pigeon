@@ -3,12 +3,14 @@ import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 import Cookie from "../helpers/Cookie.js";
 
-const usernameInput = document.querySelector('input.usernameInput');
 const playButton = document.querySelector('button.play');
 const startBtn = document.querySelector('div.startBtn');
-const titleEnterName = document.querySelector("div.start p.title-enter-name");
-const iosToggleInput = document.querySelector("div.toggleWrapper input.mobileToggle.mobileToggle");
+// const titleEnterName = document.querySelector("p.title-enter-name");
+const iosToggleInput = document.querySelector("input.mobileToggle");
 const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
+const emailInput = document.querySelector('input.emailInput');
+const passwordInput = document.querySelector('input.passwordInput');
+const logInButton = document.querySelector('button.log-in-button');
 
 // Socket
 import Token from "../io/auth/Token.js";
@@ -38,19 +40,22 @@ if (selectedMap === "playground") {
 Token.fetchCachedGuestId();
 
 if (Token.fetchCachedUsernameOnly()) {
-  titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
-  usernameInput.value = Token.username;
-  usernameInput.disabled = true;
+  // TODO: This should redirect us to the profile page if we have a good token
+
+  // titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
+  // usernameInput.value = Token.username;
+  // usernameInput.disabled = true;
 }
 
 // General Click Event Listener
-document.querySelector("body").addEventListener('click', event => {
+document.querySelector("body").addEventListener('click', async function (event) {
   let target = event.target;
 
   /* ---- Mobile Toggle ---- */
-  if ((target.tagName === "LABEL" && target.classList.contains("toggleLabel")) ||
-    (target.tagName === "DIV" && target.classList.contains("mobileToggle"))) {
-
+  if (
+    (target.tagName === "LABEL" && target.classList.contains("toggleLabel")) 
+    || (target.tagName === "DIV" && target.classList.contains("mobileToggle"))
+  ) {
     iosToggleInput.checked = !iosToggleInput.checked;
     if (iosToggleInput.checked) {
       startBtn.classList.add("playOnlineBtn");
@@ -81,6 +86,38 @@ document.querySelector("body").addEventListener('click', event => {
   if (target.tagName === "BUTTON" && target.classList.contains("customize")) {
     location.href = "/play/customizePigeon";
   }
+
+  /* ---- Log In Button ---- */
+  if (target.tagName === "BUTTON" && target.classList.contains("log-in-button")) {
+    try {
+      const logInResponse = await axios.post("/api/auth/login", {
+        givenEmail: emailInput.value,
+        givenPassword: passwordInput.value
+      });
+
+      const authResult = logInResponse.data;
+      if (!authResult.status) {
+        // console.log(authResult); // debug
+        throw new Error(authResult.error);
+      }
+
+      const tokenValue = authResult.tokenValue;
+      const username = authResult.username;
+
+      Token.save(tokenValue);
+      Token.saveUsername(username);
+
+      location.href = '/profile';
+    } catch (error) {
+      let errMessage = error.message;
+      console.log(errMessage);
+    }
+  }
+
+  /* ---- Sign Up Link ---- */
+  if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
+    location.href = '/signup';
+  }
 });
 
 // Start Button Hover
@@ -101,29 +138,29 @@ startBtn.addEventListener('click', async function (event) {
   await audio.play();
 
   // Get username and verify that it is not empty
-  const playerUsername = usernameInput.value;
+  /* const playerUsername = usernameInput.value;
   if (playerUsername.length < 1) {
     usernameInput.focus();
     titleEnterName.classList.add("error-alert");
     return;
-  }
+  } */
 
   // Make it pressed
   target.classList.remove('unpressed');
   target.classList.add('pressed');
 
   if (target.classList.contains("playOnlineBtn")) { // Play Online
-    usernameInput.disabled = true;
+    // usernameInput.disabled = true;
 
     try {
       const authResponse = await axios.post("/api/auth/letMeIn", {
-        givenUsername: playerUsername,
+        // givenUsername: playerUsername,
         givenGuestId: Token.guestId
       });
 
       const authResult = authResponse.data;
       if (!authResult.status) {
-        // console.log(authResult); // debug
+        console.log(authResult); // debug
         throw new Error(authResult.error);
       }
 
@@ -131,7 +168,7 @@ startBtn.addEventListener('click', async function (event) {
       const guestId = authResult.guestId;
 
       Token.save(tokenValue);
-      Token.saveUsername(playerUsername);
+      Token.saveUsername(guestId); //
       Token.saveGuest(guestId);
     } catch (error) {
       let errMessage = error.message;
@@ -190,6 +227,43 @@ startBtn.addEventListener('click', async function (event) {
 
     socket.emit("game:searchForOpponent");
   } else { // Play Offline
+
+    try {
+      const authResponse = await axios.post("/api/auth/letMeIn", {
+        // givenUsername: playerUsername,
+        givenGuestId: Token.guestId
+      });
+
+      const authResult = authResponse.data;
+      if (!authResult.status) {
+        console.log(authResult); // debug
+        throw new Error(authResult.error);
+      }
+
+      const tokenValue = authResult.tokenValue;
+      const guestId = authResult.guestId;
+
+      Token.save(tokenValue);
+      Token.saveUsername(guestId); //
+      Token.saveGuest(guestId);
+    } catch (error) {
+      let errMessage = error.message;
+
+      switch (errMessage) {
+        case "ALREADY_AUTHENTICATED":
+          console.log("Already Authenticated");
+          break;
+        default:
+          // Revert everything back if the user couldn't be authenticated by axios request.
+          SearchingText.DOMElement.style.display = "none";
+          usernameInput.disabled = false;
+          target.classList.remove("pressed");
+          target.classList.add('unpressed');
+          break;
+      }
+    }
+
+    const playerUsername = Token.guestId;
     Token.saveUsername(playerUsername);
 
     let tID = setTimeout(function () {

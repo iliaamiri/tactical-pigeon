@@ -1,36 +1,3 @@
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  background-image: url("/assets/img/backgrounds/CustomizePigeon-Background.svg");
-}
-
-body {
-  margin: 0;
-}
-
-/* Pigeon */
-
-div.pigeon {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100%;
-  width: 100%;
-}
-
-div.selectedPigeon {
-  background-image: url("/assets/img/pigeons/pigeonV1/PigeonV1-04.svg");
-}
-
-
-
-
-
 /* Portrait Overlay */
 
 span.portrait {
