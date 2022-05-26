@@ -10,6 +10,8 @@ await import('./routes/_common.js');
 Router.assign('/', 'home');
 Router.assign('/signup', 'signup');
 
+Router.assign('/userHome', 'userHome');
+
 Router.assign('/play', 'playOffline');
 Router.assign('/play/map/selection', 'mapSelection');
 Router.assign('/play/profile', 'userProfile');

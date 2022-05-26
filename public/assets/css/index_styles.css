@@ -73,12 +73,13 @@ div.play-mode-toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: -1vw;
 }
 
 div.play-mode-toggle-container span {
   font-family: "Titan One", cursive;
   font-size: 1.7vw;
-  color: #407D96;
+  color: #5d99a8;
   -webkit-text-stroke-width: 0.05vw;
   -webkit-text-stroke-color: white;
   margin-top: -4px;
@@ -103,7 +104,7 @@ div.start {
 }
 
 div.start span{
-  font-size: 1.6vw;
+  font-size: 1.5vw;
   text-align: center;
   font-family: "Titan One", cursive;
   color:#4f7c93;
@@ -112,13 +113,17 @@ div.start span{
 
  p.title-enter-name {
    text-align: center;
-   font-size: 2.3vw;
+   font-size: 2vw;
  }
 
 div.start p.title-enter-name.error-alert {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #e8ba1d;
   color: #fff9e5;
+}
+
+div.start span.username{
+  margin: 0.9vw 0 1.2vw;
 }
 
 button.play {
@@ -129,36 +134,38 @@ button.play {
 }
 
 div.startBtn {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
+  /* background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg"); */
+  background-image: url("/assets/img/GUI-controls/MenuStart/login.svg"); 
   background-size: contain;
   background-repeat: no-repeat;
   width: 16vw;
   height:5vw;
   border-radius: 1vw;
+  margin-top: 0.5vw;
 }
 
 div.startBtn.unpressed {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Start.svg");
+  background-image: url("/assets/img/GUI-controls/MenuStart/login.svg");
 }
 
 div.startBtn.hover {
-  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg"); 
+  background-image: url("/assets/img/GUI-controls/MenuStart/login-pressed.svg"); 
 }
 
-div.startBtn.pressed {
-  background-image: url("/assets/img/GUI-controls/MenuStart/StartPressed.svg");
+ div.startBtn.pressed {
+  background-image: url("/assets/img/GUI-controls/MenuStart/login-pressed.svg");
+} 
+
+div.playAsGuest.playAsGuest {
+  background-image: url("/assets/img/GUI-controls/MenuStart/start.svg");
 }
 
-div.playOnlineBtn.playOnlineBtn {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Static.svg");
+div.playAsGuest.playAsGuest.hover {
+  background-image: url("/assets/img/GUI-controls/MenuStart/startPressed.svg");
 }
 
-div.playOnlineBtn.playOnlineBtn.hover {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.svg");
-}
-
-div.playOnlineBtn.playOnlineBtn.pressed {
-  background-image: url("/assets/img/GUI-controls/MenuStart/Play_Online_Hover.svg");
+div.playAsGuest.playAsGuest.pressed {
+  background-image: url("/assets/img/GUI-controls/MenuStart/startPressed.svg");
 }
 
 /* Logo */
@@ -168,7 +175,7 @@ div.logo {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2em;
+  margin: 0 1.8vw 3vw 0;
 }
 
 div.logo img {
@@ -230,6 +237,10 @@ div.signup {
   border-bottom: 0.4vw #597b91 solid;
   border-radius: 1.6vw;
   border-top: 0.4vw #e1ebf0 solid;
+  font-size: 1.5vw;
+  font-family: "Titan One", cursive;
+  color:#4f7c93;
+  text-align: center;
 }
 
 input.emailInput {
@@ -247,6 +258,14 @@ input.emailInput {
   background-color:rgba(248, 248, 255, 0.548);
   border-color: #407D96;
   border-width: 0.15vw;
+}
+
+span.email-text{
+  padding-left:3.3vw;
+}
+
+span.email-text-signup{
+  padding-left:3.8vw;
 }
 
 input.usernameInput {
@@ -314,9 +333,38 @@ div.map-selection-button {
 }
 
 p.sign-up-link {
-  align-self: flex-start;
+  margin-top:1vw;
+  align-self: center;
+  font-size: 1.3vw;
+  color: #4f7c93;
+}
+
+p.sign-up-link:hover{
+  text-decoration: underline;
+  color: #e1ebf0;
 }
 
 p.index-link {
-  align-self: flex-start;
+  align-self: center;
+  margin-top: 1vw;
+  font-size: 1.3vw;
+}
+
+p.index-link:hover{
+  text-decoration: underline;
+  color: #e1ebf0;
+}
+
+button.sign-up-button{
+  background-image: url("/assets/img/GUI-controls/MenuStart/signup.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 16vw;
+  height:5vw;
+  border-radius: 1vw;
+  margin-top: 0.5vw;
+}
+
+button.sign-up-button:hover{
+  filter: brightness(0.75);
 }

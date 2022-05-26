@@ -27,61 +27,48 @@
     </div>
 
     <!-- Map Selection -->
-    <div class="map-selection-container">
+    <!-- <div class="map-selection-container">
       <div class="map-selection-label">
         <span>Battleground:</span>
       </div>
       <div class="map-selection-button animate__animated animate__pulse animate__infinite"></div>
-    </div>
+    </div> -->
 
     <div class="logo floating">
       <img src="/assets/img/GUI-controls/MenuStart/Game Title-01.svg" alt="">
     </div>
 
     <div class="indexWrapper">
-      
+
+      <div class="play-mode-toggle-container">
+        <span>Play as Guest: &nbsp; </span>
+        <div class="toggleWrapper">
+          <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+          <label for="toggle1" class="toggleLabel"></label>
+        </div>
+      </div>
 
       <div class="start">
-        <span class="play-as-guest">Play as guest</span>
-        <div class="play-mode-toggle-container">
-          <span>Play Online: &nbsp; </span>
-          <div class="toggleWrapper">
-            <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
-            <label for="toggle1" class="toggleLabel"></label>
-          </div>
-        </div>
-        <button class="play">
-          <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
-        </button>
+        <!-- <span class="play-as-guest">Play as guest</span> -->
+        <p class="title-enter-name">Login to account: </p>
+        <span class="email-text">Email: &nbsp;&nbsp; <input type="text" class="emailInput" maxlength="22"></span>
+        <span>Password: &nbsp; <input type="password" class="passwordInput" maxlength="18"></span>
+        <span class="username d-none">Username: &nbsp; <input type="text" class="usernameInput" maxlength="12"></span>
+
+        <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
+
         <span class="online-text-searching">Finding an opponent</span>
+
       </div>
-
-      <div class="login">
-        <p class="title-enter-name">Log in: </p>
-        <p>Email: &nbsp; <input type="text" class="emailInput" maxlength="15"></p>
-        <p>Password: &nbsp; <input type="password" class="passwordInput" maxlength="18"></p>
-        <button class="log-in-button">Log in</button>
-        <p class="sign-up-link">
-          Sign up
-        </p>
-      </div>
-
-    <button class="profile">Profile</button>
-    <button class="customize">Customize</button>
-
+      <p class="sign-up-link"> or Sign up!</p>
+      <button class="profile">Profile</button>
+      <button class="customize">Customize</button>
+      
+      <!-- Loading Clouds -->
+      <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s"> </div>
     </div>
 
-    <!-- Loading Clouds -->
-    <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s">
-    </div>
-  </div>
-
-  <!-- <audio controls autoplay>
-  <source src="\assets\music\Itty-Bitty-8-Bit-Music.mp3" type="audio/mp3">
-</audio> -->
-  <!-- JavaScript -->
-  <!-- App -->
-  <%- include('_partials/commonJsFooters.ejs') -%>
+    <%- include('_partials/commonJsFooters.ejs') -%>
 </body>
 
 </html>
