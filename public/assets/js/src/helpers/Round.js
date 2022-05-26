@@ -175,7 +175,7 @@ class Round {
       myTally.fillColumnVictory();
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_hand_to_chest_alternate_1.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-8.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_rip.svg";
       }, 600)
 
       setTimeout(function () {
@@ -184,7 +184,7 @@ class Round {
 
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
       }, 1440);
 
       opponentTally.fillColumnDefeat();
@@ -200,7 +200,7 @@ class Round {
 
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_rip.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-9.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_hand_to_chest.svg";
       }, 600);
 
       myTally.fillColumnDefeat();
@@ -211,7 +211,7 @@ class Round {
 
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
       }, 1440);
 
       opponentTally.fillColumnVictory();
@@ -228,13 +228,13 @@ class Round {
 
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_no_legs_normal_alternate_1.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-11-01.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/right_no_legs_normal_alternate.svg";
 
       }, 650)
 
       setTimeout(() => {
         leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/pigeonV2/PigeonV2-6.svg";
+        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
 
       }, 1500);
 
