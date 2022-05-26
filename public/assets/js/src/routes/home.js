@@ -105,9 +105,9 @@ document.querySelector("body").addEventListener('click', async function (event) 
       const username = authResult.username;
 
       Token.save(tokenValue);
-      Token.saveUsername(username);
+      Token.saveEmailAndUsername(emailInput.value, username);
 
-      location.href = '/profile';
+      location.href = '/play/profile';
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);
@@ -165,10 +165,11 @@ startBtn.addEventListener('click', async function (event) {
       }
 
       const tokenValue = authResult.tokenValue;
+      const email = authResult.email;
       const guestId = authResult.guestId;
 
       Token.save(tokenValue);
-      Token.saveUsername(guestId); //
+      Token.saveEmailAndUsername(email, guestId); //
       Token.saveGuest(guestId);
     } catch (error) {
       let errMessage = error.message;
@@ -244,7 +245,7 @@ startBtn.addEventListener('click', async function (event) {
       const guestId = authResult.guestId;
 
       Token.save(tokenValue);
-      Token.saveUsername(guestId); //
+      Token.saveEmailAndUsername(null, username); //
       Token.saveGuest(guestId);
     } catch (error) {
       let errMessage = error.message;
@@ -264,7 +265,7 @@ startBtn.addEventListener('click', async function (event) {
     }
 
     const playerUsername = Token.guestId;
-    Token.saveUsername(playerUsername);
+    Token.saveEmailAndUsername(null, playerUsername);
 
     let tID = setTimeout(function () {
       window.location.href = document.location.href + "play";

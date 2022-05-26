@@ -74,17 +74,17 @@
             <div class="col">
               <div class="gradient-background">
                 <span class="stat-title">Games Played</span>
-                <span class="stat">15</span>
+                <span class="stat games-played">15</span>
+              </div>
+
+              <div class="gradient-background">
+                <span class="stat-title">Games Won</span>
+                <span class="stat games-won">7</span>
               </div>
 
               <div class="gradient-background">
                 <span class="stat-title">Win Ratio</span>
-                <span class="stat">73%</span>
-              </div>
-
-              <div class="gradient-background">
-                <span class="stat-title">XP</span>
-                <span class="stat">10pts</span>
+                <span class="stat win-ratio">73%</span>
               </div>
             </div>
 
@@ -103,14 +103,14 @@
                   </div>
 
                   <div class="col right-item">
-                      <div class="item-background">
-                        <img src="/assets/img/pigeons/hoodie_pigeon/right_normal" alt="Hoodie Pigeon">
+                      <div class="item-background hidden">
+                        <!-- <img src="/assets/img/pigeons/hoodie_pigeon/right_normal.svg" alt="Hoodie Pigeon"> -->
                       </div>
                   </div>
 
                   <div class="col right-item">
-                    <div class="item-background">
-                      <img src="/assets/img/pigeons/hoodie_pigeon/right_normal.svg" alt="Hoodie Pigeon">
+                    <div class="item-background hidden">
+                      <!-- <img src="/assets/img/pigeons/hoodie_pigeon/right_normal.svg" alt="Hoodie Pigeon"> -->
                     </div>
                 </div>
 
@@ -126,11 +126,12 @@
     </div>
   </div>
 
-
+  <script src="/assets/js/src/routes/userProfile.js"></script>
 
   <!-- App -->
   <%- include('_partials/commonJsFooters.ejs') -%>
-
+  
+  
 </body>
 
 </html>
