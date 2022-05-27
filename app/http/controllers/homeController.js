@@ -10,35 +10,36 @@ const HomeController = {
     res.render('index');
   },
   async userHome(req, res) {
-    if (!req.user.email) {
+    if (!req.user || !req.user.email) {
       res.redirect('/');
       return;
     }
     res.render('userHome');
   },
   async signUp(req, res) {
-    if (!req.user.email) {
-      res.redirect('/');
+    if (req.user && req.user.email) {
+      console.log('req.user', req.user);
+      res.redirect('/userHome');
       return;
     }
     res.render('register');
   },
   async profile(req, res) {
-    if (!req.user.email) {
+    if (!req.user || !req.user.email) {
       res.redirect('/');
       return;
     }
     res.render('profile');
   },
   async mapSelection(req, res) {
-    if (!req.user.email) {
+    if (!req.user || !req.user.email) {
       res.redirect('/');
       return;
     }
     res.render('chooseMap');
   },
   async customizePigeon(req, res) {
-    if (!req.user.email) {
+    if (!req.user || !req.user.email) {
       res.redirect('/');
       return;
     }

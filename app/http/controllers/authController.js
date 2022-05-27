@@ -154,7 +154,8 @@ const AuthController = {
 
     // Make a JWT token and login the guest user
     let signupData = await database.playerEntity.getUserByEmail(givenEmail);
-    const newUser = signupData[0][0];
+    console.log('signupData', signupData);
+    const newUser = signupData;
     console.log('newUser from DB:', newUser);
     const generatedTokenValue = Tokens.create(newUser.player_id, newUser.username);
 
