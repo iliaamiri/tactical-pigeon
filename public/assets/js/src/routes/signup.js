@@ -1,3 +1,4 @@
+import Cookie from "../helpers/Cookie.js";
 import Token from "../io/auth/Token.js";
 
 const emailInput = document.querySelector('input.emailInput');
@@ -31,13 +32,15 @@ document.querySelector("body").addEventListener('click', async function (event) 
         throw new Error(authResult.error);
       }
 
+      Cookie.destroy();
+
       const tokenValue = authResult.tokenValue;
       const username = authResult.username;
 
       Token.save(tokenValue);
       Token.saveEmailAndUsername(emailInput.value, username);
       
-      location.href = '/profile';
+      location.href = '/userHome';
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);

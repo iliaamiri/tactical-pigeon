@@ -11,7 +11,8 @@
   <%- include('_partials/commonCssHeaders.ejs') -%>
 
     <!-- Page Custom CSS - game_styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="/assets/css/_commons/flip_overlay.css">
     <link rel="stylesheet" href="/assets/css/index_styles.css">
     <link rel="stylesheet" href="/assets/css/ios_toggle.css">
@@ -39,8 +40,10 @@
     </div>
 
     <div class="play-popup">
-      <img src="/assets/img/GUI-controls/MainControls/SVG/multiplayer.svg" alt="">
-      <img src="/assets/img/GUI-controls/MainControls/SVG/singleplayer.svg" alt="">
+      <img src="/assets/img/GUI-controls/MainControls/SVG/multiplayer.svg"
+        alt="">
+      <img src="/assets/img/GUI-controls/MainControls/SVG/singleplayer.svg"
+        alt="">
     </div>
 
 
@@ -49,7 +52,8 @@
       <div class="play-mode-toggle-container">
         <span>Play as Guest: &nbsp; </span>
         <div class="toggleWrapper">
-          <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1">
+          <input type="checkbox" name="toggle1" class="mobileToggle"
+            id="toggle1">
           <label for="toggle1" class="toggleLabel"></label>
         </div>
       </div>
@@ -57,20 +61,28 @@
       <div class="start">
         <!-- <span class="play-as-guest">Play as guest</span> -->
         <p class="title-enter-name">Login to account: </p>
-        <span class="email-text">Email: &nbsp;&nbsp; <input type="text" class="emailInput" maxlength="22"></span>
-        <span>Password: &nbsp; <input type="password" class="passwordInput" maxlength="18"></span>
-        <span class="username d-none">Username: &nbsp; <input type="text" class="usernameInput" maxlength="12"></span>
+        <div class="login-inputs container-fluid">
+          <span class="email-text">Email: &nbsp;&nbsp; <input type="text"
+            class="emailInput" maxlength="22"></span>
+          <span>Password: &nbsp; <input type="password" class="passwordInput"
+            maxlength="18"></span>
+        </div>
+        <span class="username d-none">Username: &nbsp; <input type="text"
+          class="usernameInput" maxlength="12"></span>
 
-        <div class="startBtn animate__animated animate__pulse animate__infinite unpressed"></div>
+        <div
+          class="startBtn animate__animated animate__pulse animate__infinite unpressed">
+        </div>
 
-        <div class="play-container">
-        <a href="/play">
-          <img src="/assets/img/GUI-controls/MainControls/SVG/singleplayer.svg" alt="">
-        </a>
-        <span> OFFLINE</span>
-        <img src="/assets/img/GUI-controls/MainControls/SVG/multiplayer.svg" alt="">
-        <span> ONLINE</span>
-      </div>
+        <div class="play-container d-none">
+          <img class="playOfflineBtn"
+            src="/assets/img/GUI-controls/MainControls/SVG/singleplayer.svg"
+            alt="">
+          <span> OFFLINE</span>
+          <img class="playOnlineBtn" src="/assets/img/GUI-controls/MainControls/SVG/multiplayer.svg"
+            alt="">
+          <span> ONLINE</span>
+        </div>
         <span class="online-text-searching">Finding an opponent</span>
 
       </div>
@@ -79,7 +91,9 @@
       <button class="customize">Customize</button>
 
       <!-- Loading Clouds -->
-      <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s"> </div>
+      <div
+        class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s">
+      </div>
     </div>
 
     <%- include('_partials/commonJsFooters.ejs') -%>
