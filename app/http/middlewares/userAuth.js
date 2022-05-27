@@ -10,6 +10,7 @@ const AuthExceptions = include('core/Exceptions/AuthExceptions');
 
 module.exports = (strict = true) => {
   return async (req, res, next) => {
+    // console.log('userAugh req.cookies:', req.cookies);
     try {
       // Verify the JWT cookie's existence
       const jwtToken = req.cookies.JWT;
@@ -19,6 +20,7 @@ module.exports = (strict = true) => {
 
       // Find the token object of the player in the active dictionary.
       const foundTokenObj = Tokens.all.get(jwtToken);
+      // console.log('foundTokenObj:', foundTokenObj);
       if (!foundTokenObj) {
         throw AuthExceptions.authFailed;
       }
@@ -30,8 +32,10 @@ module.exports = (strict = true) => {
         foundPlayer = Players.findGuestUser(foundTokenObj.playerId);
       } else {
         // Find the player object from the online players' collection. This attempt potentially will include querying the database.
-        foundPlayer = Players.fetchThePlayerById(foundTokenObj.playerId);
+        foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId);
       }
+
+      // console.log('did userAuth find player in Players', foundPlayer);
 
       // If the player couldn't be found.
       if (!foundPlayer) {
@@ -40,7 +44,7 @@ module.exports = (strict = true) => {
           // Decode the JWT token.
           decodedData = Tokens.verifyIntegrity(jwtToken);
         } catch (err) { // Failed to decode.
-          console.log(err); // Fatal error
+          // console.log(err); // Fatal error
           throw AuthExceptions.authFailed;
         }
 
@@ -58,10 +62,10 @@ module.exports = (strict = true) => {
 
         throw AuthExceptions.authFailed;
       }
-
+      // console.log('userAugh found player:', foundPlayer);
       req.user = foundPlayer;
     } catch (err) {
-      console.log("error", err); // debug
+      // console.log("error", err); // debug
       if (strict) {
         throw err;
       }

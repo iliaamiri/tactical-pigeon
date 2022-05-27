@@ -60,6 +60,14 @@ function init() {
     return database.query(sqlQuery, params);
   }
 
+  async function getUserById(player_id) {
+    let sqlQuery = `SELECT player_id, email, username, password_hash, password_salt, games_played, games_won, games_lost FROM ${tableName} WHERE player_id = :player_id`;
+    let params = {
+      player_id: player_id,
+    };
+    return database.query(sqlQuery, params);
+  }
+
   async function addUser(postData) {
     let sqlInsertQuery = `INSERT INTO ${tableName} (email, username, password_hash, password_salt) VALUES (:email, :username, :password_hash, :password_salt);`;
     let params = {
@@ -118,6 +126,7 @@ function init() {
   return {
     getAllUsers,
     getUserByEmail,
+    getUserById,
     addUser,
     updateGameStatsById,
     incrementGameStatsById,

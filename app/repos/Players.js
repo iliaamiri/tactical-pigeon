@@ -193,13 +193,13 @@ const Players = {
    * @param playerId
    * @returns {null|*}
    */
-  fetchThePlayerById(playerId) {
+  async fetchThePlayerById(playerId) {
     const foundPlayerInRepo = this.findActiveUserById(playerId);
     if (foundPlayerInRepo) {
       return foundPlayerInRepo;
     }
 
-    const foundPlayerInDatabase = this.findFromDatabase(playerId);
+    const foundPlayerInDatabase = await this.findFromDatabase(playerId);
     if (foundPlayerInDatabase) {
       this.addAsActivePlayer(foundPlayerInDatabase);
       return foundPlayerInDatabase;
@@ -208,14 +208,21 @@ const Players = {
     return null;
   },
 
-  findFromDatabase(playerId) {
+  async findFromDatabase(playerId) {
     // TODO: ask the database for the player's information
-
+    const dbInfo = await database.playerEntity.getUserById(playerId);
+    const playerInfo = dbInfo[0][0];
+    return {
+      playerId: playerInfo.player_id,
+      email: playerInfo.email,
+      username: playerInfo.username
+    };
     // TODO: return null if the database didn't have the user.
 
     // TODO: Make a new instance of the Player using player's information from database
 
     // TODO: return the new instance
+
   },
 
   /**
