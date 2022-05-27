@@ -33,7 +33,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       //console.log('signup authResult:', authResult);
       if (!authResult.status) {
         // console.log(authResult); // debug
-        // document.querySelector(".signup-error-exists").classList.remove("d-none")
+        document.querySelector(".signup-error-exists").classList.remove("d-none")
         throw new Error(authResult.error);
       }
 
