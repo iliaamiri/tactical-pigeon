@@ -74,6 +74,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
     } else {
       /* if (socket?.connected) {
         socket.disconnect();
+// <<<<<<< yevgeniy-login
       } */
       // blueClouds.classList.add("d-none");
       // SearchingText.DOMElement.style.display = "none";
@@ -84,6 +85,20 @@ document.querySelector("body").addEventListener('click', async function (event) 
       playContainer.classList.add('d-none');
 
       titleEnterName.classList.remove('d-none');
+// =======
+//       }
+//       startBtn.classList.remove("playAsGuest", "d-none");
+//       blueClouds.classList.add("d-none");
+//       startBtn.classList.remove("pressed");
+//       SearchingText.DOMElement.style.display = "none";
+//       loginOptions.forEach((span) => {
+//         span.classList.remove("d-none")
+//         if (span.classList.contains("username")) {
+//           span.classList.add("d-none")
+//         }
+//       })
+//       titleEnterName.innerHTML = "Login to account:"
+// >>>>>>> team-multiplayer-fix
     }
   }
 

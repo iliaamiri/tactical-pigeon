@@ -1,79 +1,46 @@
-const Tokens = require("../../repos/Tokens");
+const Player = require('../../models/player');
 
 const HomeController = {
   async gameHome(req, res) {
-    console.log(req.cookies);
-    // Go back home if you don't have a user cookie
-    if (!req.cookies || !req.cookies.JWT) {
-      res.render('index');
-      return;
-    }
-    const decodedData = Tokens.verifyIntegrity(req.cookies.JWT);
-    // if we don't pass the cookie test, go back home too
-    if (!decodedData) {
-      res.render('index');
-      return;
-    }
     res.redirect('/userHome');
   },
   async userHome(req, res) {
-    // Go back home if you don't have a user cookie
-    if (!req.cookies || !req.cookies.JWT) {
-      res.redirect('/');
-      return;
-    }
-    const decodedData = Tokens.verifyIntegrity(req.cookies.JWT);
-    // if we don't pass the cookie test, go back home too
-    if (!decodedData) {
-      res.redirect('/');
-      return;
-    }
     res.render('userHome');
   },
   async signUp(req, res) {
     res.render('register');
   },
   async profile(req, res) {
-    // Go back home if you don't have a user cookie
-    if (!req.cookies || !req.cookies.JWT) {
-      res.redirect('/');
-      return;
-    }
-    const decodedData = Tokens.verifyIntegrity(req.cookies.JWT);
-    // if we don't pass the cookie test, go back home too
-    if (!decodedData) {
-      res.redirect('/');
-      return;
-    }
     res.render('profile');
   },
   async mapSelection(req, res) {
-    // Go back home if you don't have a user cookie
-    if (!req.cookies || !req.cookies.JWT) {
-      res.redirect('/');
-      return;
-    }
-    const decodedData = Tokens.verifyIntegrity(req.cookies.JWT);
-    // if we don't pass the cookie test, go back home too
-    if (!decodedData) {
-      res.redirect('/');
-      return;
-    }
     res.render('chooseMap');
   },
   async customizePigeon(req, res) {
-    // Go back home if you don't have a user cookie
-    if (!req.cookies || !req.cookies.JWT) {
-      res.redirect('/');
-      return;
+    console.log(req.user);
+
+    /* FOR TEST PURPOSES ONLY */
+    if (!req.user) {
+      req.user = Object.create(Player);
+      req.user.initOnlinePlayer(1, "ilia", "a@a.com");
     }
-    const decodedData = Tokens.verifyIntegrity(req.cookies.JWT);
-    // if we don't pass the cookie test, go back home too
-    if (!decodedData) {
-      res.redirect('/');
-      return;
+    /* ---- FOR TEST PURPOSES ONLY */
+
+    const playerPigeons = await req.user.getPigeons();
+
+    let myPigeons = [];
+    if (playerPigeons.length !== 0) {
+      myPigeons = myPigeons.map(pigeon => {
+        return {
+          ...pigeon.toJSON(),
+          pigeonType: pigeon.pigeonType.toJSON()
+        }
+      });
     }
-    res.render('customizePigeon');
+
+    res.render('customizePigeon', {
+      myPigeons: myPigeons
+    });
   },
 };
 

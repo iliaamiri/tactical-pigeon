@@ -118,7 +118,7 @@ const Players = {
   },
 
   isUsernameInGuestIdFormat(username) {
-    return username.substring(0, 6) === "guest_";
+    return username?.substring(0, 6) === "guest_";
   },
 
   /**
