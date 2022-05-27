@@ -25,10 +25,12 @@ document.querySelector("body").addEventListener('click', async function (event) 
         givenPassword: passwordInput.value
       });
 
+      //console.log('signUpResponse', signUpResponse);
+
       const authResult = signUpResponse.data;
-      console.log('signup authResult:', authResult);
+      //console.log('signup authResult:', authResult);
       if (!authResult.status) {
-        // console.log(authResult); // debug
+        console.log(authResult); // debug
         // document.querySelector(".signup-error-exists").classList.remove("d-none")
         throw new Error(authResult.error);
       }
