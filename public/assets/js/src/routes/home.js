@@ -29,18 +29,6 @@ window.addEventListener("pageshow", function (event) {
   }
 });
 
-//changing map button appearance according to map selection
-// let selectedMap = Cookie.get("selectedMap");
-// let mapButton = document.querySelector("div.map-selection-button");
-// console.log(selectedMap);
-// if (selectedMap === "playground") {
-//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/playground-button.svg")';
-// } else if (selectedMap === "pigeon-nights") {
-//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/night-button.svg")';
-// } else if (selectedMap === "street") {
-//   mapButton.style.backgroundImage = 'url("/assets/img/backgrounds/SVG/street-button.svg")';
-// }
-
 // Fetch guestId (if exists)
 Token.fetchCachedGuestId();
 
@@ -157,7 +145,7 @@ startBtn.addEventListener('click', async function (event) {
     Token.saveEmailAndUsername(emailInput.value, username);
     setTimeout(() => {
       location.href = '/userHome';
-    }, 1000);
+    }, 1050);
     playSound(sounds.doneChecked);
 
   } catch (error) {
