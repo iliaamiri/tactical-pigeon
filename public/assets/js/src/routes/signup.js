@@ -1,5 +1,6 @@
 import Cookie from "../helpers/Cookie.js";
 import Token from "../io/auth/Token.js";
+import { playSound, sounds } from "../core/sounds.js";
 
 const emailInput = document.querySelector('input.emailInput');
 const usernameInput = document.querySelector('input.usernameInput');
@@ -19,6 +20,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
   /* ---- Sign Up Button ---- */
   if (target.tagName === "BUTTON" && target.classList.contains("sign-up-button")) {
     try {
+
       const signUpResponse = await axios.post("/api/auth/signup", {
         givenEmail: emailInput.value,
         givenUsername: usernameInput.value,
@@ -43,12 +45,15 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
       Token.save(tokenValue);
       Token.saveEmailAndUsername(emailInput.value, username);
-      
-      location.href = '/userHome';
+      setTimeout(() => {
+        location.href = '/userHome';
+      }, 1050);
+      playSound(sounds.doneChecked);
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);
-      document.querySelector(".signup-error").classList.remove("d-none")
+      document.querySelector(".signup-error").classList.remove("d-none");
+      playSound(sounds.loseRound);
     }
   }
 
