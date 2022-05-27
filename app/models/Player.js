@@ -11,6 +11,7 @@ const database = require("../../databaseAccessLayer");
 const Player = {
   playerId: null, // int (db primary key auto increment)
   username: null, // string
+  email: null, // string
   password: null, // string (confidential sensitive data)
 
   ammoInventory: null, //$ref: AmmoInventory
@@ -37,9 +38,10 @@ const Player = {
     this.initOnlinePlayer(newPlayerId, username);
   },
 
-  initOnlinePlayer(playerId, username) {
+  initOnlinePlayer(playerId, username, email) {
     this.playerId = playerId;
     this.username = username;
+    this.email = email;
   },
 
   initForNewGame(game) {

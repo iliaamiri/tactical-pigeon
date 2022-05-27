@@ -1,3 +1,5 @@
+const Player = require('../../models/player');
+
 const HomeController = {
   async gameHome(req, res) {
     res.render('index');
@@ -16,6 +18,14 @@ const HomeController = {
   },
   async customizePigeon(req, res) {
     console.log(req.user);
+
+    /* FOR TEST PURPOSES ONLY */
+    if (!req.user) {
+      req.user = Object.create(Player);
+      req.user.initOnlinePlayer(1, "ilia", "a@a.com");
+    }
+    /* ---- FOR TEST PURPOSES ONLY */
+
     const playerPigeons = await req.user.getPigeons();
 
     let myPigeons = [];
