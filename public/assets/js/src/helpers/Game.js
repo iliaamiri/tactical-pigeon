@@ -230,7 +230,7 @@ class Game {
   resetGame() {
     // check if online or offline, if online, redirect to index
     if (this.gameMode === "online") {
-      return location.href = "/";
+      // return location.href = "/";
     }
     return location.reload();
   }
