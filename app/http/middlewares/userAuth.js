@@ -35,7 +35,7 @@ module.exports = (strict = true) => {
         foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId, Player);
       }
 
-      console.log('did userAuth find player in Players', foundPlayer);
+      // console.log('did userAuth find player in Players', foundPlayer);
 
       // If the player couldn't be found.
       if (!foundPlayer) {

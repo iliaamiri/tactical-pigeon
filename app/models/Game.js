@@ -115,15 +115,29 @@ const Game = {
     console.log("Player2 set : ", player2);
     console.log("winnerPlayer? : ", winnerPlayer);
 
+    if (player1.gamesPlayed) {
+      player1.gamesPlayed += 1;
+    }
+
+    if (player2.gamesPlayed) {
+      player2.gamesPlayed += 1;
+    }
+
     if (winnerPlayer) { // If there was a winner
       this.winnerPlayerId = winnerPlayer.playerId;
       const loserPlayer = (player1.playerId === winnerPlayer.playerId) ? player2 : player1;
 
       if (winnerPlayer.isTracked()) {
+        if (winnerPlayer.gamesWon) {
+          winnerPlayer.gamesWon += 1;
+        }
         database.playerEntity.incrementGameStatsById(winnerPlayer.playerId, "won")
           .catch(err => console.debug(new Error(err)));
       }
       if (loserPlayer.isTracked()) {
+        if (loserPlayer.gamesLost) {
+          loserPlayer.gamesLost += 1;
+        }
         database.playerEntity.incrementGameStatsById(loserPlayer.playerId, "lost")
           .catch(err => console.debug(new Error(err)));
       }
