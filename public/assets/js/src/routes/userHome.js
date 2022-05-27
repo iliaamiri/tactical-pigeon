@@ -29,6 +29,42 @@ window.addEventListener("pageshow", function (event) {
   }
 });
 
+let singleplayer = document.querySelector("div.row.play-options > div:nth-child(2) > div > img")
+singleplayer.addEventListener("mouseenter", function(e){
+  playSound(sounds.singleplayer)
+})
+
+singleplayer.addEventListener("mouseleave", function(e){
+  document.dispatchEvent(
+    new CustomEvent('soundMuteToggle', {
+      detail: {
+        soundsToMute: [
+          sounds.singleplayer
+        ]
+      }
+    })
+  );
+})
+
+let multiplayer = document.querySelector("div.row.play-options > div:nth-child(3) > div > img")
+multiplayer.addEventListener("mouseenter", function(e){
+  playSound(sounds.multiplayer)
+})
+
+multiplayer.addEventListener("mouseleave", function(e){
+  document.dispatchEvent(
+    new CustomEvent('soundMuteToggle', {
+      detail: {
+        soundsToMute: [
+          sounds.multiplayer
+        ]
+      }
+    })
+  );
+})
+
+
+
 document.querySelector("body").addEventListener('click', async function (event) {
   let target = event.target;
   console.log('click target:', target);
