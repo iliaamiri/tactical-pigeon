@@ -57,7 +57,12 @@ function init() {
     let params = {
       email: email,
     };
-    return database.query(sqlQuery, params);
+    const [result] = await database.query(sqlQuery, params);
+    if (result && result.length > 0) {
+      return result[0];
+    } else {
+      return null;
+    }
   }
 
   async function getUserById(player_id) {
@@ -65,7 +70,12 @@ function init() {
     let params = {
       player_id: player_id,
     };
-    return database.query(sqlQuery, params);
+    const [result] = await database.query(sqlQuery, params);
+    if (result && result.length > 0) {
+      return result[0];
+    } else {
+      return null;
+    }
   }
 
   async function addUser(postData) {

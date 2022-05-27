@@ -204,7 +204,7 @@ const Players = {
     const foundPlayerInDatabase = await this.findFromDatabase(playerId);
     if (foundPlayerInDatabase) {
       const playerInstance = Object.create(Player);
-      playerInstance.initOnlinePlayer(foundPlayerInDatabase.playerId, foundPlayerInDatabase.username, foundPlayerInDatabase.email);
+      playerInstance.initOnlinePlayer(foundPlayerInDatabase.playerId, foundPlayerInDatabase.username, foundPlayerInDatabase.email, foundPlayerInDatabase.games_played, foundPlayerInDatabase.games_won, foundPlayerInDatabase.games_lost);
       this.addAsActivePlayer(playerInstance);
       return playerInstance;
     }
@@ -214,12 +214,18 @@ const Players = {
 
   async findFromDatabase(playerId) {
     // TODO: ask the database for the player's information
-    const dbInfo = await database.playerEntity.getUserById(playerId);
-    const playerInfo = dbInfo[0][0];
+    const foundPlayer = await database.playerEntity.getUserById(playerId);
+    if (!foundPlayer) {
+      return null;
+    }
+    const playerInfo = foundPlayer;
     return {
       playerId: playerInfo.player_id,
       email: playerInfo.email,
-      username: playerInfo.username
+      username: playerInfo.username,
+      games_played: playerInfo.games_played,
+      games_won: playerInfo.games_won,
+      games_lost: playerInfo.games_lost
     };
     // TODO: return null if the database didn't have the user.
 

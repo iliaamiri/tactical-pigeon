@@ -90,9 +90,12 @@ const AuthController = {
     }
 
     // Check with database.
-    const queryData = await database.playerEntity.getUserByEmail(givenEmail);
-    console.log('user from DB:', queryData[0][0]);
-    let user = queryData[0][0];
+    const foundUser = await database.playerEntity.getUserByEmail(givenEmail);
+    if (!foundUser) {
+      throw AuthExceptions.authFailed;
+    }
+    console.log('user from DB:', foundUser);
+    let user = foundUser;
 
     // TODO: make sure the password checks out
     const password_hash = SHA2["SHA-512"](givenEmail + user.username + givenPassword + passwordPepper + user.password_salt).toString("hex");

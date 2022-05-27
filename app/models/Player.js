@@ -25,6 +25,10 @@ const Player = {
 
   currentGameIdPlaying: null, // current gameId where user is playing in.
 
+  gamesPlayed: null,
+  gamesWon: null,
+  gamesLost: null,
+
   life: null, // $ref: Life
 
   initNewGuestPlayer() {
@@ -38,10 +42,13 @@ const Player = {
     this.initOnlinePlayer(newPlayerId, username);
   },
 
-  initOnlinePlayer(playerId, username, email) {
+  initOnlinePlayer(playerId, username, email, gamesPlayed, gamesWon, gamesLost) {
     this.playerId = playerId;
     this.username = username;
     this.email = email;
+    this.gamesPlayed = gamesPlayed;
+    this.gamesWon = gamesWon;
+    this.gamesLost = gamesLost;
   },
 
   initForNewGame(game) {
