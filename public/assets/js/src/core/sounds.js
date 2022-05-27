@@ -56,6 +56,14 @@ export const sounds = {
   buttonClick:{
     path: "/assets/music/buttonclick.mp3",
     soundLevel: 0.5
+  }, 
+  multiplayer:{
+    path:"/assets/music/multiplayer.mp3",
+    soundLevel:0.5
+  },
+  singleplayer:{
+    path:"/assets/music/singleplayer.mp3",
+    soundLevel:0.5
   }
 }
 
