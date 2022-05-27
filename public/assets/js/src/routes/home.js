@@ -70,6 +70,10 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
     }
   }
+   /* ---- Sign Up Link ---- */
+   if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
+    location.href = '/signup';
+    }
 });
 
 /* ---- Log In Button ---- */
