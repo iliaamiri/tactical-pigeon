@@ -1,3 +1,4 @@
+const {tableName: playerPigeonTableName} = require("./playerPigeon");
 const tableName = "player";
 
 function init() {
@@ -44,20 +45,35 @@ function init() {
   /**
    * Updates the selected_pigeon foreign key in the player table.
    * @param playerId
-   * @param playerPigeonId
+   * @param pigeonId
    */
-  async function updateSelectedPigeon(playerId, playerPigeonId) {
+  async function updateSelectedPigeon(playerId, pigeonId) {
+    let sqlSelectQuery =
+      `SELECT 
+        player_pigeon_id
+       FROM ${playerPigeonTableName}
+        WHERE player_id = :player_id AND pigeon_id = :pigeon_id`;
+
+    let selectParams = {player_id: playerId, pigeon_id: pigeonId};
+
+    let [resultPlayerPigeonId] = await database.query(sqlSelectQuery, selectParams);
+    if (!resultPlayerPigeonId || resultPlayerPigeonId.length < 1) {
+      throw new Error("The player does not own the pigeon.");
+    } else {
+      resultPlayerPigeonId = resultPlayerPigeonId[0].player_pigeon_id;
+    }
+
     let sqlUpdateQuery =
       `UPDATE ${tableName}
       SET selected_pigeon = :selected_pigeon
       WHERE player_id = :player_id`;
 
-    let params = {
-      selected_pigeon: playerPigeonId,
+    let updateParams = {
+      selected_pigeon: resultPlayerPigeonId,
       player_id: playerId
     };
 
-    return database.query(sqlUpdateQuery, params);
+    return database.query(sqlUpdateQuery, updateParams);
   }
 
 
@@ -151,7 +167,8 @@ function init() {
     updateGameStatsById,
     incrementGameStatsById,
     deleteUser,
-    getSelectedPigeon
+    getSelectedPigeon,
+    updateSelectedPigeon
   };
 }
 

@@ -43,13 +43,16 @@ const HomeController = {
     let numberOfLockedPigeons = 0;
     if (playerPigeons && playerPigeons.length !== 0) {
       const foundSelectedPigeon = await req.user.fetchSelectedPigeon();
-      console.log(foundSelectedPigeon.getPigeonId())
       if (foundSelectedPigeon) {
-        selectedPigeon = foundSelectedPigeon.toJSON();
+        selectedPigeon = {
+          pigeonId: foundSelectedPigeon.getPigeonId(),
+          ...foundSelectedPigeon.toJSON()
+        };
       }
 
       myPigeons = playerPigeons.map(pigeon => {
         return {
+          pigeonId: pigeon.getPigeonId(),
           isSelected: foundSelectedPigeon.getPigeonId() === pigeon.getPigeonId(),
           ...pigeon.toJSON(),
         }

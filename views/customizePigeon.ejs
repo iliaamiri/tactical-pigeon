@@ -70,7 +70,7 @@
                             </div>
                             <div class="slidecontainer">
                                 <div class="slider-wrapper">
-                                    <input type="range" step="1" min="1" max="100" value="30" class="slider"
+                                    <input type="range" step="1" min="1" max="100" value="<%= (selectedPigeon && selectedPigeon.hueAngle) ? selectedPigeon.hueAngle : 0 %>" class="slider"
                                         id="myRange" orient="vertical">
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                     <!-- Main Pigeon -->
                     <div class="col">
                         <% if (selectedPigeon && selectedPigeon.name) { %>
-                        <div class="selectedPigeon <%= selectedPigeon.name.replace(/\s+/g, '-') %>">
+                        <div class="selectedPigeon <%= selectedPigeon.name.replace(/\s+/g, '-') %>" data-pigeon-name="<%= selectedPigeon.name.replace(/\s+/g, '-') %>" data-hue-angle="<%= selectedPigeon.hueAngle %>" style="filter: hue-rotate(<%= (selectedPigeon.hueAngle / 100).toFixed(2) %>turn)">
                         <% } else { %>
                         <div class="selectedPigeon">
                         <% } %>
@@ -101,13 +101,13 @@
                                 <% for (let i = 0; i < myPigeons.length; i += 2) { %>
                                 <div class="row type-row justify-content-around">
                                     <div class="col type-background">
-                                        <div class="pigeon-type-option <%= myPigeons[i].name.replace(/\s+/g, '-') %> <%= (myPigeons[i].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                        <div class="pigeon-type-option <%= myPigeons[i].name.replace(/\s+/g, '-') %> <%= (myPigeons[i].isSelected) ? "active animate__animated animate__pulse animate__infinite" : "" %>" data-pigeon-name="<%= myPigeons[i].name.replace(/\s+/g, '-') %>" data-hue-angle="<%= myPigeons[i].hueAngle %>" data-mypigeon-arrindex="<%= i %>" style="filter: hue-rotate(<%= (myPigeons[i].hueAngle / 100).toFixed(2) %>turn)">
                                             <div class="locked hidden"></div>
                                         </div>
                                     </div>
                                     <% if (myPigeons[i + 1]) { %>
                                         <div class="col type-background">
-                                            <div class="pigeon-type-option <%= myPigeons[i + 1]?.name.replace(/\s+/g, '-') %> <%= (myPigeons[i + 1].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                            <div class="pigeon-type-option <%= myPigeons[i + 1]?.name.replace(/\s+/g, '-') %> <%= (myPigeons[i + 1].isSelected) ? "active animate__animated animate__pulse animate__infinite" : "" %>" data-pigeon-name="<%= myPigeons[i + 1].name.replace(/\s+/g, '-') %>" data-hue-angle="<%= myPigeons[i + 1].hueAngle %>" data-mypigeon-arrindex="<%= i + 1 %>" style="filter: hue-rotate(<%= (myPigeons[i + 1].hueAngle / 100).toFixed(2) %>turn)">
                                                 <div class="locked hidden"></div>
                                             </div>
                                         </div>

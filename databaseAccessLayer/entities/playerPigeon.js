@@ -99,6 +99,21 @@ function init() {
     return database.query(sqlInsertQuery, params);
   }
 
+  async function updatePlayerPigeonHue(playerId, pigeonId, hueAngle) {
+    let sqlUpdateQuery = `UPDATE ${tableName} SET hue_angle = :hue_angle WHERE player_id = :player_id AND pigeon_id = :pigeon_id`;
+    let params = {
+      player_id: playerId,
+      pigeon_id: pigeonId,
+      hue_angle: hueAngle
+    };
+    const [result] = await database.query(sqlUpdateQuery, params);
+    if (result && result.length > 0) {
+      return result;
+    } else {
+      return null;
+    }
+  }
+
   async function deletePlayerPigeon(playerId, pigeonId) {
     let sqlDeleteQuery = `DELETE FROM ${tableName} WHERE player_id = :player_id AND pigeon_id = :pigeon_id`;
     let params = {
@@ -114,7 +129,8 @@ function init() {
     getPlayerPigeon,
     addPlayerPigeon,
     deletePlayerPigeon,
-    countPlayerPigeons
+    countPlayerPigeons,
+    updatePlayerPigeonHue
   }
 }
 

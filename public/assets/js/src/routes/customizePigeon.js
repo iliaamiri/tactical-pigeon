@@ -1,30 +1,56 @@
-import { playSound, sounds } from "../core/sounds.js";
-
 const body = document.querySelector("body");
 const typeSelector = document.querySelector("div.type-selector");
 const selectedPigeon = document.querySelector("div.selectedPigeon");
+const saveButton = document.querySelector("img.save");
 
 document.querySelector('input#myRange').addEventListener('change', async event => {
   let value = event.target.value;
+
+  // Change the hue of the selected pigeon. And update the dataset.hueAngle value.
   selectedPigeon.style.setProperty('filter', `hue-rotate(${(value / 100).toFixed(2)}turn)`);
+  selectedPigeon.dataset.hueAngle = value;
+
+  // Update pigeonTypeOption's hue angle value.
+  let pigeonTypeOption = typeSelector.querySelector("div.pigeon-type-option.active");
+  if (pigeonTypeOption) {
+    let pigeonIndex = pigeonTypeOption.dataset.mypigeonArrindex;
+    myPigeons[pigeonIndex].hueAngle = value;
+    console.log(myPigeons);
+    pigeonTypeOption.dataset.hueAngle = value;
+    pigeonTypeOption.style.setProperty('filter', `hue-rotate(${(value / 100).toFixed(2)}turn)`);
+  }
+
+  // Toggle the save button to be enabled.
+  saveButton.classList.toggle("disabled", false);
 });
 
 body.addEventListener('click', async event => {
   let target = event.target;
   let tagName = target.tagName;
-  console.log(target)
 
   /* ----- Save Button ----- */
   if (tagName === "IMG" && target.classList.contains("save")) {
+    try {
+      let apiResponse = await axios.post('/api/profile/updatePigeonCustomization', {
+        myPigeons: myPigeons
+      });
 
+      if (apiResponse.data.status) {
+        console.log("Successfully updated the user's pigeon customization.");
+        saveButton.classList.toggle("disabled", true);
+      } else {
+        console.log("Failed to update the user's pigeon customization.");
+      }
+
+      console.log(apiResponse);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /* ----- Exit Button ----- */
   if (tagName === "IMG" && target.classList.contains("exit")) {
-    setTimeout(() => {
-      location.href = "/userHome";
-    }, 300);
-    playSound(sounds.softClick);
+    location.href = '/userHome';
   }
 
   /* ----- Type Selector ----- */
@@ -48,32 +74,53 @@ async function typeSelectorClickEventHandler(event) {
   }
 
   if (pigeonTypeOption.classList.contains('cool-down-click')) {
+    setTimeout(() => {
+      pigeonTypeOption.classList.remove('cool-down-click');
+    }, 1000);
     return;
   } else {
-    pigeonTypeOption.classList.toggle("cool-down-click", true);
+    pigeonTypeOption.classList.add("cool-down-click");
   }
 
-  if (pigeonTypeOption.querySelector('div.locked')) {
+  let locked = pigeonTypeOption.querySelector('div.locked');
+  if (locked && !locked.classList.contains('hidden')) {
     // add animate__animated animate__headShake classes to the locked icon and return
     let lockedIcon = pigeonTypeOption.querySelector('div.locked');
     lockedIcon.classList.add('animate__animated', 'animate__headShake');
     // clean up and return
     setTimeout(() => {
       lockedIcon.classList.remove('animate__animated', 'animate__headShake');
-      pigeonTypeOption.classList.toggle("cool-down-click", false);
+      pigeonTypeOption.classList.remove('cool-down-click');
     }, 1000);
     return;
   }
 
   if (pigeonTypeOption.classList.contains("active")) {
-    await deActivePigeonTypeOption(pigeonTypeOption);
-  } else {
-    await deActiveAllPigeonTypeOptions();
-    await activePigeonTypeOption(pigeonTypeOption);
+    pigeonTypeOption.classList.remove('cool-down-click');
+    return;
   }
 
+  await deActiveAllPigeonTypeOptions();
+  await activePigeonTypeOption(pigeonTypeOption);
+
+  for (let i = 0; i < myPigeons.length; i++) {
+    myPigeons[i].isSelected = false;
+  }
+
+  selectedPigeon.classList.remove(selectedPigeon.dataset.pigeonName);
+  selectedPigeon.dataset.pigeonName = pigeonTypeOption.dataset.pigeonName;
+  selectedPigeon.classList.add(pigeonTypeOption.dataset.pigeonName);
+
+  let activePigeonIndex = pigeonTypeOption.dataset.mypigeonArrindex;
+  myPigeons[activePigeonIndex].isSelected = true;
+
+  selectedPigeon.dataset.hueAngle = pigeonTypeOption.dataset.hueAngle;
+  selectedPigeon.style.setProperty('filter', `hue-rotate(${(pigeonTypeOption.dataset.hueAngle / 100).toFixed(2)}turn)`);
+
+  saveButton.classList.toggle("disabled", false);
+  console.log(myPigeons);
   // clean up the cool-down click
-  pigeonTypeOption.classList.toggle("cool-down-click", false);
+  pigeonTypeOption.classList.remove('cool-down-click');
 }
 
 async function deActiveAllPigeonTypeOptions() {
