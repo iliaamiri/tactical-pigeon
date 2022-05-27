@@ -2,6 +2,7 @@
 import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 import Cookie from "../helpers/Cookie.js";
+import { playSound, sounds } from "../core/sounds.js";
 
 const startBtn = document.querySelector('div.startBtn');
 const titleEnterName = document.querySelector("p.title-enter-name");
@@ -146,9 +147,7 @@ startBtn.addEventListener('click', async function (event) {
       // console.log(authResult); // debug
       throw new Error(authResult.error);
     }
-
-
-
+    
     const tokenValue = authResult.tokenValue;
     if (tokenValue) {
       Token.save(tokenValue);
@@ -156,9 +155,13 @@ startBtn.addEventListener('click', async function (event) {
 
     const username = authResult.username;
     Token.saveEmailAndUsername(emailInput.value, username);
+    setTimeout(() => {
+      location.href = '/userHome';
+    }, 1000);
+    playSound(sounds.doneChecked);
 
-    location.href = '/userHome';
   } catch (error) {
+    playSound(sounds.loseRound);
     let errMessage = error.message;
     console.log(errMessage);
   }
@@ -177,9 +180,6 @@ playWrapper.addEventListener('click', async function (event) {
   // if (target.classList.contains('pressed')) {
   //   return;
   // }
-
-  let audio = new Audio("/assets/music/SuccessAttack.mp3");
-  await audio.play();
 
   // Get username and verify that it is not empty
   /* const playerUsername = usernameInput.value;
