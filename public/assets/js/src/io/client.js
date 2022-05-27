@@ -8,6 +8,7 @@ export let socket;
 
 export default async function clientSocketConnect() {
   Token.fetchCachedToken();
+  console.log("----------------------------------------", Token.tokenVal)
   if (!Token.tokenVal) {
     // console.log("Auth Failed"); // debug
     return;

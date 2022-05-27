@@ -22,9 +22,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <script>
-      let myPigeons = "<%= JSON.stringify(myPigeons) %>";
+      let myPigeons = '<%- JSON.stringify(myPigeons) %>';
       myPigeons = JSON.parse(myPigeons);
-      console.log(myPigeons);
+      console.log('myPigeons', myPigeons);
+
+      let selectedPigeon = '<%- JSON.stringify(selectedPigeon) %>';
+      selectedPigeon = JSON.parse(selectedPigeon);
+      console.log('selectedPigeon', selectedPigeon);
+
+      let numberOfLockedPigeons = parseInt('<%- numberOfLockedPigeons %>');
+      console.log('numberOfLockedPigeons', numberOfLockedPigeons);
     </script>
 </head>
 
@@ -72,7 +79,13 @@
 
                     <!-- Main Pigeon -->
                     <div class="col">
-                        <div class="selectedPigeon pusiness-pigeon"></div>
+                        <% if (selectedPigeon && selectedPigeon.pigeonType && selectedPigeon.pigeonType.name) { %>
+                        <div class="selectedPigeon <%= selectedPigeon.pigeonType.name.replace(/\s+/g, '-') %>">
+                        <% } else { %>
+                        <div class="selectedPigeon">
+                        <% } %>
+                            <div class="pigeon"></div>
+                        </div>
                     </div>
 
                     <!-- Pigeon Type Selector -->
@@ -85,50 +98,52 @@
                         </div>
                         <div class="row type-selector justify-content-center">
                             <div class="col type-container">
+                                <% for (let i = 0; i < myPigeons.length; i += 2) { %>
                                 <div class="row type-row justify-content-around">
                                     <div class="col type-background">
-                                        <div class="pigeon-type-option animate__animated animate__pulse animate__infinite hoodie-pigeon">
-                                        <div class="locked hidden"></div>
+                                        <div class="pigeon-type-option <%= myPigeons[i].pigeonType.name.replace(/\s+/g, '-') %> <%= (myPigeons[i].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                            <div class="locked hidden"></div>
+                                        </div>
                                     </div>
-                                    </div>
+                                    <% if (myPigeons[i + 1]) { %>
+                                        <div class="col type-background">
+                                            <div class="pigeon-type-option <%= myPigeons[i + 1]?.pigeonType.name.replace(/\s+/g, '-') %> <%= (myPigeons[i + 1].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                                <div class="locked hidden"></div>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="col type-background">
+                                            <div class="pigeon-type-option pigeon-placeholder">
+                                                <div class="locked"></div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <% } %>
+                                <% for (let i = 0; i < numberOfLockedPigeons; i += 2) { %>
+                                <div class="row type-row justify-content-around">
                                     <div class="col type-background">
                                         <div class="pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
+                                            <div class="locked"></div>
+                                        </div>
                                     </div>
+                                    <% if ((i + 1) < numberOfLockedPigeons) { %>
+                                    <div class="col type-background">
+                                        <div class="pigeon-type-option pigeon-placeholder">
+                                            <div class="locked"></div>
+                                        </div>
                                     </div>
+                                    <% } else { %>
+                                        <div class="col type-background hidden-rendered">
+                                            <div class="pigeon-type-option pigeon-placeholder">
+                                                <div class="locked"></div>
+                                            </div>
+                                        </div>
+                                    <% } %>
                                 </div>
-                                <!-- <div class="row type-row justify-content-around mt-1">
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="row type-row justify-content-around mt-1">
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                </div>
-                                <div class="row type-row justify-content-around mt-1">
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                </div>
-                                <div class="row type-row justify-content-around mt-1">
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                    <div class="col-sm-5 pigeon-type-option pigeon-placeholder">
-                                        <div class="locked"></div>
-                                    </div>
-                                </div> -->
+                                <% } %>
+                            </div>
+
                         </div>
                     </div>
 

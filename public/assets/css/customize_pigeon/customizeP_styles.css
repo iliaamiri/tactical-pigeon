@@ -391,3 +391,7 @@ div.type-selector > div::-webkit-scrollbar-thumb:hover {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.hidden-rendered {
+  opacity: 0;
+}

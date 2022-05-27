@@ -10,6 +10,7 @@ webRouter.use((req, res, next) => {
 
 // centralized 505 error.
 webRouter.use((err, req, res, next) => {
+  console.log("505 ERROR: ", err)
   if (err?.errMessage && err.errMessage === "AUTHENTICATION_FAILED") {
     res.redirect('/');
     return;

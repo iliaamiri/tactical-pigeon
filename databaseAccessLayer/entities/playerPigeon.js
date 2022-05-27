@@ -9,6 +9,8 @@ function init() {
   async function getPigeons(playerId) {
     let sqlSelectQuery =
       `SELECT 
+        ${pigeonTableName}.pigeon_id AS pigeon_id,
+        ${pigeonTypeTableName}.pigeon_type_id AS pigeon_type_id,
         ${pigeonTableName}.hue_angle AS hue_angle,
         ${pigeonTypeTableName}.name AS name,
         ${pigeonTypeTableName}.asset_folder_path AS asset_folder_path
@@ -17,7 +19,7 @@ function init() {
         INNER JOIN ${pigeonTypeTableName} ON ${pigeonTableName}.pigeon_type_id = ${pigeonTypeTableName}.pigeon_type_id
         WHERE ${tableName}.player_id = :player_id`;
     let params = {player_id: playerId};
-    let result = await database.query(sqlSelectQuery, params);
+    let [result] = await database.query(sqlSelectQuery, params);
     if (result && result.length > 0) {
       return result;
     } else {
@@ -38,7 +40,7 @@ function init() {
         INNER JOIN ${playerTableName} ON ${tableName}.player_id = ${playerTableName}.player_id
         WHERE ${tableName}.pigeon_id = :pigeon_id`;
     let params = {pigeon_id: pigeonId};
-    let result = await database.query(sqlSelectQuery, params);
+    let [result] = await database.query(sqlSelectQuery, params);
     if (result && result.length > 0) {
       return result;
     } else {
@@ -75,6 +77,17 @@ function init() {
     }
   }
 
+  async function countPlayerPigeons(playerId) {
+    let sqlSelectQuery = `SELECT COUNT(*) AS count FROM ${tableName} WHERE ${tableName}.player_id = :player_id`;
+    let params = {player_id: playerId};
+    let [result] = await database.query(sqlSelectQuery, params);
+    if (result && result.length > 0) {
+      return result[0].count;
+    } else {
+      return null;
+    }
+  }
+
   async function addPlayerPigeon(playerId, pigeonId) {
     let sqlInsertQuery = `INSERT INTO ${tableName} (player_id, pigeon_id) VALUES (:player_id, :pigeon_id)`;
     let params = {
@@ -98,7 +111,8 @@ function init() {
     getPlayersWhoHaveThisPigeon,
     getPlayerPigeon,
     addPlayerPigeon,
-    deletePlayerPigeon
+    deletePlayerPigeon,
+    countPlayerPigeons
   }
 }
 

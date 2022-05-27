@@ -29,7 +29,7 @@ function init() {
 
     let params = {player_id: playerId};
 
-    let result = await database.query(sqlSelectQuery, params);
+    let [result] = await database.query(sqlSelectQuery, params);
     if (result && result.length > 0) {
       return result[0];
     } else {
@@ -121,7 +121,8 @@ function init() {
     addUser,
     updateGameStatsById,
     incrementGameStatsById,
-    deleteUser
+    deleteUser,
+    getSelectedPigeon
   };
 }
 

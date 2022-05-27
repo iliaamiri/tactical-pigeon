@@ -4,6 +4,27 @@ function init() {
   const {tableName: pigeonTypeTableName} = require('./pigeonType');
 
   const database = this.databaseInstance;
+
+  async function getAll() {
+    let sqlSelectQuery = `SELECT * FROM ${tableName}`;
+    let [result] = await database.query(sqlSelectQuery);
+    if (result.length === 0) {
+      return [];
+    } else {
+      return result;
+    }
+  }
+
+  async function countAll() {
+    let sqlSelectQuery = `SELECT COUNT(*) AS count FROM ${tableName}`;
+    let [result] = await database.query(sqlSelectQuery);
+    if (result && result.length > 0) {
+      return result[0].count;
+    } else {
+      return 0;
+    }
+  }
+
   async function findByPK(pigeonId) {
     let sqlSelectQuery =
       `SELECT
@@ -63,6 +84,8 @@ function init() {
   }
 
   return {
+    getAll,
+    countAll,
     findByPK,
     addNewPigeon,
     updatePigeon,

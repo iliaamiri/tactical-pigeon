@@ -14,7 +14,9 @@ export default async (io, socket) => {
     // UI exhibits
     playSound(sounds.winRound);
     SearchingForOpponent.clearAnimation();
-    SearchingText.DOMElement.innerHTML = "Match found!";
+    if (SearchingText.DOMElement) {
+      SearchingText.DOMElement.innerHTML = "Match found!";
+    }
 
     setTimeout(() => {
       location.href = "/play/" + gameId;

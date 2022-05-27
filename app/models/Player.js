@@ -97,6 +97,26 @@ const Player = {
     return pigeonsResult;
   },
 
+  async fetchSelectedPigeon() {
+    const selectedPigeon = await database.playerEntity.getSelectedPigeon(this.playerId);
+    if (!selectedPigeon) {
+      return null;
+    }
+
+    this.currentPigeon = Object.create(Pigeon);
+    this.currentPigeon.pigeonType = Object.create(PigeonType);
+    this.currentPigeon.initExistingPigeon(selectedPigeon.pigeon_id, selectedPigeon.pigeon_type_id, selectedPigeon.hue_angle);
+    this.currentPigeon.pigeonType.initExistingPigeonType(selectedPigeon.pigeon_type_id, selectedPigeon.name, selectedPigeon.asset_folder_path);
+
+    return this.currentPigeon;
+  },
+
+  async countUnlockedPigeons() {
+    const numberOfUnlockedPigeons = await database.playerPigeonEntity.countPlayerPigeons(this.playerId);
+    const numberOfAllPigeons = await database.pigeonEntity.countAll();
+    return numberOfAllPigeons - numberOfUnlockedPigeons;
+  },
+
   toJSON() {
     return {
       playerId: this.playerId,

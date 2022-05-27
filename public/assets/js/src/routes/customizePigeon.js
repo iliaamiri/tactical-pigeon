@@ -1,5 +1,11 @@
 const body = document.querySelector("body");
 const typeSelector = document.querySelector("div.type-selector");
+const selectedPigeon = document.querySelector("div.selectedPigeon");
+
+document.querySelector('input#myRange').addEventListener('change', async event => {
+  let value = event.target.value;
+  selectedPigeon.style.setProperty('filter', `hue-rotate(${(value / 100).toFixed(2)}turn)`);
+});
 
 body.addEventListener('click', async event => {
   let target = event.target;

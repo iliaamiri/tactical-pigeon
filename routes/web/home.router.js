@@ -5,14 +5,16 @@ const HomeController = require('../../app/http/controllers/homeController');
 
 const userAuthMiddleware = require("../../app/http/middlewares/userAuth");
 
-homeRouter.get("/", HomeController.gameHome);
+homeRouter.get("/", userAuthMiddleware(false), HomeController.gameHome);
+
+homeRouter.get('/signup', HomeController.signUp);
+
+homeRouter.use(userAuthMiddleware(true));
 
 homeRouter.get("/userHome", HomeController.userHome);
-homeRouter.get('/signup', HomeController.signUp);
 homeRouter.get('/profile', HomeController.profile);
 homeRouter.get('/mapselection', HomeController.mapSelection);
 // TODO: make this strict for the users not to be able to see customization page unless they are logged-in
-homeRouter.get('/customizePigeon', userAuthMiddleware(false), HomeController.customizePigeon);
-homeRouter.get('/profile', HomeController.profile);
+homeRouter.get('/customizePigeon', HomeController.customizePigeon);
 
 module.exports = homeRouter;

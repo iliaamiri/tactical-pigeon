@@ -132,6 +132,12 @@ document.querySelector("body").addEventListener('click', async function (event) 
 startBtn.addEventListener('click', async function (event) {
   try {
     console.log('login button hit');
+
+    Cookie.destroy('JWT');
+    Cookie.destroy('email');
+    Cookie.destroy('user');
+    Cookie.destroy('guestId');
+
     const logInResponse = await axios.post("/api/auth/login", {
       givenEmail: emailInput.value,
       givenPassword: passwordInput.value
@@ -143,10 +149,7 @@ startBtn.addEventListener('click', async function (event) {
       throw new Error(authResult.error);
     }
 
-    Cookie.destroy('JWT');
-    Cookie.destroy('email');
-    Cookie.destroy('user');
-    Cookie.destroy('guestId');
+
 
     const tokenValue = authResult.tokenValue;
     if (tokenValue) {
