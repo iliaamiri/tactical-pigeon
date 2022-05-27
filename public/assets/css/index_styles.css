@@ -373,8 +373,7 @@ button.sign-up-button:hover{
   filter: brightness(0.75);
 }
 .play-container{
-  margin-right:-2.8vw;
-  margin-left: -0.3vw;
+  margin: 1vw -2.8vw 0 -0.3vw;
   padding-right:2.3vw;
 }
 
@@ -387,7 +386,7 @@ button.sign-up-button:hover{
   transform: scale(1.1); 
   border: 0.2vw solid #5aa4c2;
   outline:0.1vw solid white;
-  filter:brightness(0.90)
+  /* filter:brightness(0.95) */
 }
 
 .play-container p{
