@@ -6,6 +6,7 @@ import Cookie from "../helpers/Cookie.js";
 // Socket
 import Token from "../io/auth/Token.js";
 import clientSocketConnect, { socket } from '../io/client.js';
+import { playSound, sounds } from "../core/sounds.js";
 
 
 // changing map button appearance according to map selection
@@ -90,17 +91,26 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
   /* Customize Pigeon */
   if (target.classList.contains('customizePigeon-button')) {
-    location.href = '/customizePigeon';
+    setTimeout(() => {
+      location.href = '/customizePigeon';
+    }, 300);
+    playSound(sounds.shieldClicked);
   }
 
   /* Change Arena (mapselection) */
   if (target.classList.contains('map-button')) {
-    location.href = '/mapselection';
+    setTimeout(() => {
+      location.href = '/mapselection';
+    }, 300);
+    playSound(sounds.shieldClicked);
   }
 
   /* Analyze Gameplay (profile) */
   if (target.classList.contains('stats-button')) {
-    location.href = '/profile';
+    setTimeout(() => {
+      location.href = '/profile';
+    }, 300);
+    playSound(sounds.shieldClicked);
   }
 
   /* Logout Button */

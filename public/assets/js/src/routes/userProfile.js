@@ -1,5 +1,6 @@
 // Auth
 import Token from "../io/auth/Token.js";
+import { playSound, sounds } from "../core/sounds.js";
 
 // Fetch username from cookie
 let username = Token.fetchCachedUsernameOnly();
@@ -11,7 +12,11 @@ const winRatio = document.querySelector('.win-ratio');
 console.log('username', username);
 
 document.querySelector(".back-btn").addEventListener("click", async event => {
-  location.href = "/userHome";
+  setTimeout(() => {
+    location.href = "/userHome";
+  }, 300);
+  playSound(sounds.softClick);
+
 });
 
 document.querySelector('.username').innerHTML = username;

@@ -61,57 +61,14 @@ document.querySelector("body").addEventListener('click', async function (event) 
       titleEnterName.classList.add('d-none');
 
     } else {
-      /* if (socket?.connected) {
-        socket.disconnect();
-// <<<<<<< yevgeniy-login
-      } */
-      // blueClouds.classList.add("d-none");
-      // SearchingText.DOMElement.style.display = "none";
       loginInputs.classList.remove('d-none');
       startBtn.classList.remove("d-none");
-
       // usernameSpan.classList.add('d-none');
       playWrapper.classList.add('d-none');
 
       titleEnterName.classList.remove('d-none');
-// =======
-//       }
-//       startBtn.classList.remove("playAsGuest", "d-none");
-//       blueClouds.classList.add("d-none");
-//       startBtn.classList.remove("pressed");
-//       SearchingText.DOMElement.style.display = "none";
-//       loginOptions.forEach((span) => {
-//         span.classList.remove("d-none")
-//         if (span.classList.contains("username")) {
-//           span.classList.add("d-none")
-//         }
-//       })
-//       titleEnterName.innerHTML = "Login to account:"
-// >>>>>>> team-multiplayer-fix
+
     }
-  }
-
-  /* ---- Map Selection Button ---- */
-  // if (target.tagName === "DIV" && target.classList.contains("map-selection-button")) {
-  //   location.href = "/map/selection";
-  // }
-  // console.log(event.target)
-
-  /* ---- Profile Button ---- */
-  if (target.tagName === "BUTTON" && target.classList.contains("profile")) {
-    console.log(event.target)
-    window.location.href = "/profile";
-    // location.href = "/profile";
-  }
-
-  /* ---- Customize Pigeon Button ---- */
-  if (target.tagName === "BUTTON" && target.classList.contains("customize")) {
-    location.href = "/customizePigeon";
-  }
-
-  /* ---- Sign Up Link ---- */
-  if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
-    location.href = '/signup';
   }
 });
 
