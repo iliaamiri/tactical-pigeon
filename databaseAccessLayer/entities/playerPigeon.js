@@ -1,10 +1,10 @@
-const {tableName: playerTableName} = require('./player');
-const {tableName: pigeonTableName} = require('./pigeon');
-const {tableName: pigeonTypeTableName} = require('./pigeonType');
-
 const tableName = 'player_pigeon';
 
 function init() {
+  const {tableName: playerTableName} = require('./player');
+  const {tableName: pigeonTableName} = require('./pigeon');
+  const {tableName: pigeonTypeTableName} = require('./pigeonType');
+
   const database = this.databaseInstance;
   async function getPigeons(playerId) {
     let sqlSelectQuery =

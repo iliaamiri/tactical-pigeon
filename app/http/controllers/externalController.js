@@ -23,6 +23,7 @@ const ExternalController = {
     }
     result += `},`;
 
+    result += `};`
     res.end(result);
   },
 }

@@ -9,7 +9,7 @@ const Player = require("../../models/Player");
 const AuthExceptions = include('core/Exceptions/AuthExceptions');
 
 module.exports = (strict = true) => {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     try {
       // Verify the JWT cookie's existence
       const jwtToken = req.cookies.JWT;
@@ -61,6 +61,7 @@ module.exports = (strict = true) => {
 
       req.user = foundPlayer;
     } catch (err) {
+      console.log("error", err); // debug
       if (strict) {
         throw err;
       }
