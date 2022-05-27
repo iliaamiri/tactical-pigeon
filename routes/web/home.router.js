@@ -6,8 +6,8 @@ const HomeController = require('../../app/http/controllers/homeController');
 const userAuthMiddleware = require("../../app/http/middlewares/userAuth");
 
 homeRouter.get("/", userAuthMiddleware(false), HomeController.gameHome);
+homeRouter.get('/signup', userAuthMiddleware(false), HomeController.signUp);
 
-homeRouter.get('/signup', HomeController.signUp);
 
 homeRouter.use(userAuthMiddleware(true));
 

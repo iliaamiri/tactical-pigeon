@@ -3,20 +3,17 @@ const tableName = 'player_pigeon';
 function init() {
   const {tableName: playerTableName} = require('./player');
   const {tableName: pigeonTableName} = require('./pigeon');
-  const {tableName: pigeonTypeTableName} = require('./pigeonType');
 
   const database = this.databaseInstance;
   async function getPigeons(playerId) {
     let sqlSelectQuery =
       `SELECT 
         ${pigeonTableName}.pigeon_id AS pigeon_id,
-        ${pigeonTypeTableName}.pigeon_type_id AS pigeon_type_id,
-        ${pigeonTableName}.hue_angle AS hue_angle,
-        ${pigeonTypeTableName}.name AS name,
-        ${pigeonTypeTableName}.asset_folder_path AS asset_folder_path
+        ${tableName}.hue_angle AS hue_angle,
+        ${pigeonTableName}.name AS name,
+        ${pigeonTableName}.asset_folder_path AS asset_folder_path
         FROM ${tableName} 
         INNER JOIN ${pigeonTableName} ON ${tableName}.pigeon_id = ${pigeonTableName}.pigeon_id
-        INNER JOIN ${pigeonTypeTableName} ON ${pigeonTableName}.pigeon_type_id = ${pigeonTypeTableName}.pigeon_type_id
         WHERE ${tableName}.player_id = :player_id`;
     let params = {player_id: playerId};
     let [result] = await database.query(sqlSelectQuery, params);
@@ -48,6 +45,12 @@ function init() {
     }
   }
 
+  /**
+   * Get the given player's pigeons
+   * @param playerId
+   * @param pigeonId
+   * @returns {Promise<null|*>}
+   */
   async function getPlayerPigeon(playerId, pigeonId) {
     let sqlSelectQuery =
       `SELECT 
@@ -56,13 +59,12 @@ function init() {
         ${playerTableName}.games_played AS games_played,
         ${playerTableName}.games_won AS games_won,
         ${playerTableName}.games_lost AS games_lost,
-        ${pigeonTableName}.hue_angle AS hue_angle,
-        ${pigeonTypeTableName}.name AS name,
-        ${pigeonTypeTableName}.asset_folder_path AS asset_folder_path
+        ${tableName}.hue_angle AS hue_angle,
+        ${pigeonTableName}.name AS name,
+        ${pigeonTableName}.asset_folder_path AS asset_folder_path
         FROM ${tableName}
         INNER JOIN ${playerTableName} ON ${tableName}.player_id = ${playerTableName}.player_id
         INNER JOIN ${pigeonTableName} ON ${tableName}.pigeon_id = ${pigeonTableName}.pigeon_id
-        INNER JOIN ${pigeonTypeTableName} ON ${pigeonTableName}.pigeon_type_id = ${pigeonTypeTableName}.pigeon_type_id
         WHERE ${tableName}.player_id = :player_id AND ${tableName}.pigeon_id = :pigeon_id`;
     let params = {
       player_id: playerId,

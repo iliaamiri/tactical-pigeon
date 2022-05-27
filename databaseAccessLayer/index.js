@@ -4,13 +4,11 @@ const databaseConfig = {databaseInstance: database};
 
 const {init: playerEntity} = require('./entities/player');
 const {init: pigeonEntity} = require('./entities/pigeon');
-const {init: pigeonTypeEntity} = require('./entities/pigeonType');
 const {init: playerPigeonEntity} = require('./entities/playerPigeon');
 
 const entities = {
   playerEntity,
   pigeonEntity,
-  pigeonTypeEntity,
   playerPigeonEntity
 };
 

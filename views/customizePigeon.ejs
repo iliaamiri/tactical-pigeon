@@ -79,8 +79,8 @@
 
                     <!-- Main Pigeon -->
                     <div class="col">
-                        <% if (selectedPigeon && selectedPigeon.pigeonType && selectedPigeon.pigeonType.name) { %>
-                        <div class="selectedPigeon <%= selectedPigeon.pigeonType.name.replace(/\s+/g, '-') %>">
+                        <% if (selectedPigeon && selectedPigeon.name) { %>
+                        <div class="selectedPigeon <%= selectedPigeon.name.replace(/\s+/g, '-') %>">
                         <% } else { %>
                         <div class="selectedPigeon">
                         <% } %>
@@ -101,13 +101,13 @@
                                 <% for (let i = 0; i < myPigeons.length; i += 2) { %>
                                 <div class="row type-row justify-content-around">
                                     <div class="col type-background">
-                                        <div class="pigeon-type-option <%= myPigeons[i].pigeonType.name.replace(/\s+/g, '-') %> <%= (myPigeons[i].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                        <div class="pigeon-type-option <%= myPigeons[i].name.replace(/\s+/g, '-') %> <%= (myPigeons[i].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
                                             <div class="locked hidden"></div>
                                         </div>
                                     </div>
                                     <% if (myPigeons[i + 1]) { %>
                                         <div class="col type-background">
-                                            <div class="pigeon-type-option <%= myPigeons[i + 1]?.pigeonType.name.replace(/\s+/g, '-') %> <%= (myPigeons[i + 1].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
+                                            <div class="pigeon-type-option <%= myPigeons[i + 1]?.name.replace(/\s+/g, '-') %> <%= (myPigeons[i + 1].isSelected) ? "animate__animated animate__pulse animate__infinite" : "" %>">
                                                 <div class="locked hidden"></div>
                                             </div>
                                         </div>

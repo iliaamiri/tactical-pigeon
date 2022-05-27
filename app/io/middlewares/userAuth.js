@@ -5,7 +5,7 @@ const Players = include("app/repos/Players").Players;
 
 const Player = include("app/models/Player");
 
-module.exports = (socket, next) => {
+module.exports = async (socket, next) => {
   const jwtToken = socket.handshake.auth.token;
 
   if (!jwtToken) {
@@ -21,7 +21,7 @@ module.exports = (socket, next) => {
   }
 
   // Fetch the player
-  let foundPlayer = Players.fetchThePlayerById(foundTokenObj.playerId);
+  let foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId, Player);
 
   // If player does not exist at all.
   if (!foundPlayer) {

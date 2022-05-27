@@ -157,10 +157,11 @@ const Players = {
   /**
    * Fetches the player object. If the player object's socketId property wasn't null, it means that the player is online.
    * @param playerId
+   * @param Player
    * @returns {boolean}
    */
-  isOnline(playerId) {
-    const foundPlayer = this.fetchThePlayerById(playerId);
+  isOnline(playerId, Player) {
+    const foundPlayer = this.fetchThePlayerById(playerId, Player);
     return !!(foundPlayer.socketId);
   },
 
@@ -191,9 +192,10 @@ const Players = {
    * player, it will try to search it in the database. If it found the user from database, it will automatically adds the
    * player object as an active player. If not, it will return null.
    * @param playerId
+   * @param Player
    * @returns {null|*}
    */
-  async fetchThePlayerById(playerId) {
+  async fetchThePlayerById(playerId, Player) {
     const foundPlayerInRepo = this.findActiveUserById(playerId);
     if (foundPlayerInRepo) {
       return foundPlayerInRepo;
@@ -201,8 +203,10 @@ const Players = {
 
     const foundPlayerInDatabase = await this.findFromDatabase(playerId);
     if (foundPlayerInDatabase) {
-      this.addAsActivePlayer(foundPlayerInDatabase);
-      return foundPlayerInDatabase;
+      const playerInstance = Object.create(Player);
+      playerInstance.initOnlinePlayer(foundPlayerInDatabase.playerId, foundPlayerInDatabase.username, foundPlayerInDatabase.email, foundPlayerInDatabase.games_played, foundPlayerInDatabase.games_won, foundPlayerInDatabase.games_lost);
+      this.addAsActivePlayer(playerInstance);
+      return playerInstance;
     }
 
     return null;
@@ -210,12 +214,18 @@ const Players = {
 
   async findFromDatabase(playerId) {
     // TODO: ask the database for the player's information
-    const dbInfo = await database.playerEntity.getUserById(playerId);
-    const playerInfo = dbInfo[0][0];
+    const foundPlayer = await database.playerEntity.getUserById(playerId);
+    if (!foundPlayer) {
+      return null;
+    }
+    const playerInfo = foundPlayer;
     return {
       playerId: playerInfo.player_id,
       email: playerInfo.email,
-      username: playerInfo.username
+      username: playerInfo.username,
+      games_played: playerInfo.games_played,
+      games_won: playerInfo.games_won,
+      games_lost: playerInfo.games_lost
     };
     // TODO: return null if the database didn't have the user.
 

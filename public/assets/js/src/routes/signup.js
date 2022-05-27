@@ -29,6 +29,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       console.log('signup authResult:', authResult);
       if (!authResult.status) {
         // console.log(authResult); // debug
+        // document.querySelector(".signup-error-exists").classList.remove("d-none")
         throw new Error(authResult.error);
       }
 
@@ -47,6 +48,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);
+      document.querySelector(".signup-error").classList.remove("d-none")
     }
   }
 
