@@ -10,7 +10,11 @@ const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
 const emailInput = document.querySelector('input.emailInput');
 const passwordInput = document.querySelector('input.passwordInput');
 // const logInButton = document.querySelector('button.log-in-button');
-let loginOptions = document.querySelectorAll(".start span");
+// let loginOptions = document.querySelectorAll(".start span");
+const playContainer = document.querySelector('.play-container');
+const loginInputs = document.querySelector('.login-inputs');
+const usernameSpan = document.querySelector('span.username');
+const usernameInput = document.querySelector('input.usernameInput');
 
 // Socket
 import Token from "../io/auth/Token.js";
@@ -50,6 +54,7 @@ if (Token.fetchCachedUsernameOnly()) {
 // General Click Event Listener
 document.querySelector("body").addEventListener('click', async function (event) {
   let target = event.target;
+  console.log('click target:', target);
 
   /* ---- Mobile Toggle ---- */
   if ((target.tagName === "LABEL" && target.classList.contains("toggleLabel"))
@@ -58,30 +63,42 @@ document.querySelector("body").addEventListener('click', async function (event) 
     iosToggleInput.checked = !iosToggleInput.checked;
 
     if (iosToggleInput.checked) {
+      loginInputs.classList.add('d-none');
       startBtn.classList.add("d-none");
-      loginOptions.forEach((span) => {
-        span.classList.add("d-none")
-        if (span.classList.contains("username")) {
-          span.classList.remove("d-none")
-        }
-      })
-      titleEnterName.innerHTML = "Enter a Username:"
+
+      // usernameSpan.classList.remove('d-none');
+      playContainer.classList.remove('d-none');
+
+      titleEnterName.classList.add('d-none');
 
     } else {
-      if (socket?.connected) {
+      /* if (socket?.connected) {
         socket.disconnect();
-      }
-      startBtn.classList.remove("playAsGuest", "d-none");
-      blueClouds.classList.add("d-none");
-      startBtn.classList.remove("pressed");
-      SearchingText.DOMElement.style.display = "none";
-      loginOptions.forEach((span) => {
-        span.classList.remove("d-none")
-        if (span.classList.contains("username")) {
-          span.classList.add("d-none")
-        }
-      })
-      titleEnterName.innerHTML = "Login to account:"
+// <<<<<<< yevgeniy-login
+      } */
+      // blueClouds.classList.add("d-none");
+      // SearchingText.DOMElement.style.display = "none";
+      loginInputs.classList.remove('d-none');
+      startBtn.classList.remove("d-none");
+
+      // usernameSpan.classList.add('d-none');
+      playContainer.classList.add('d-none');
+
+      titleEnterName.classList.remove('d-none');
+// =======
+//       }
+//       startBtn.classList.remove("playAsGuest", "d-none");
+//       blueClouds.classList.add("d-none");
+//       startBtn.classList.remove("pressed");
+//       SearchingText.DOMElement.style.display = "none";
+//       loginOptions.forEach((span) => {
+//         span.classList.remove("d-none")
+//         if (span.classList.contains("username")) {
+//           span.classList.add("d-none")
+//         }
+//       })
+//       titleEnterName.innerHTML = "Login to account:"
+// >>>>>>> team-multiplayer-fix
     }
   }
 
@@ -103,32 +120,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
     location.href = "/customizePigeon";
   }
 
-  /* ---- Log In Button ---- */
-  if (target.tagName === "BUTTON" && target.classList.contains("log-in-button")) {
-    try {
-      const logInResponse = await axios.post("/api/auth/login", {
-        givenEmail: emailInput.value,
-        givenPassword: passwordInput.value
-      });
-
-      const authResult = logInResponse.data;
-      if (!authResult.status) {
-        // console.log(authResult); // debug
-        throw new Error(authResult.error);
-      }
-
-      const tokenValue = authResult.tokenValue;
-      const username = authResult.username;
-
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(emailInput.value, username);
-
-      location.href = '/userHome';
-    } catch (error) {
-      let errMessage = error.message;
-      console.log(errMessage);
-    }
-  }
+  
 
   /* ---- Sign Up Link ---- */
   if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
@@ -136,19 +128,54 @@ document.querySelector("body").addEventListener('click', async function (event) 
   }
 });
 
+/* ---- Log In Button ---- */
+startBtn.addEventListener('click', async function (event) {
+  try {
+    console.log('login button hit');
+    const logInResponse = await axios.post("/api/auth/login", {
+      givenEmail: emailInput.value,
+      givenPassword: passwordInput.value
+    });
+
+    const authResult = logInResponse.data;
+    if (!authResult.status) {
+      // console.log(authResult); // debug
+      throw new Error(authResult.error);
+    }
+
+    Cookie.destroy('JWT');
+    Cookie.destroy('email');
+    Cookie.destroy('user');
+    Cookie.destroy('guestId');
+
+    const tokenValue = authResult.tokenValue;
+    if (tokenValue) {
+      Token.save(tokenValue);
+    }
+
+    const username = authResult.username;
+    Token.saveEmailAndUsername(emailInput.value, username);
+
+    location.href = '/userHome';
+  } catch (error) {
+    let errMessage = error.message;
+    console.log(errMessage);
+  }
+}) 
+
 // Start Button Hover
 startBtn.addEventListener('mouseover', event => event.target.classList.add("hover"));
 startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
 
-// Start Button Click Listener
-startBtn.addEventListener('click', async function (event) {
-  let target = this;
-  console.log("start hit")
+// Offline Button Click Listener
+playContainer.addEventListener('click', async function (event) {
+  let target = event.target;
+  console.log("play container hit. target:", target);
 
   // If the button was already pressed, don't continue anymore.
-  if (target.classList.contains('pressed')) {
-    return;
-  }
+  // if (target.classList.contains('pressed')) {
+  //   return;
+  // }
 
   let audio = new Audio("/assets/music/SuccessAttack.mp3");
   await audio.play();
@@ -156,14 +183,15 @@ startBtn.addEventListener('click', async function (event) {
   // Get username and verify that it is not empty
   /* const playerUsername = usernameInput.value;
   if (playerUsername.length < 1) {
+    console.log('username too short!');
     usernameInput.focus();
     titleEnterName.classList.add("error-alert");
     return;
   } */
 
   // Make it pressed
-  target.classList.remove('unpressed');
-  target.classList.add('pressed');
+  // target.classList.remove('unpressed');
+  // target.classList.add('pressed');
 
   if (target.classList.contains("playOnlineBtn")) { // Play Online
     // usernameInput.disabled = true;
@@ -243,8 +271,8 @@ startBtn.addEventListener('click', async function (event) {
     });
 
     socket.emit("game:searchForOpponent");
-  } else { // Play Offline
-
+  } else if (target.classList.contains("playOfflineBtn")) { // Play Offline
+    console.log('play offline hit');
     try {
       const authResponse = await axios.post("/api/auth/letMeIn", {
         // givenUsername: playerUsername,
@@ -252,6 +280,7 @@ startBtn.addEventListener('click', async function (event) {
       });
 
       const authResult = authResponse.data;
+      console.log('authResult', authResult);
       if (!authResult.status) {
         console.log(authResult); // debug
         throw new Error(authResult.error);
@@ -261,7 +290,7 @@ startBtn.addEventListener('click', async function (event) {
       const guestId = authResult.guestId;
 
       Token.save(tokenValue);
-      Token.saveEmailAndUsername(null, username); //
+      Token.saveEmailAndUsername(null, guestId); //
       Token.saveGuest(guestId);
     } catch (error) {
       let errMessage = error.message;
@@ -282,14 +311,10 @@ startBtn.addEventListener('click', async function (event) {
 
     const playerUsername = Token.guestId;
     Token.saveEmailAndUsername(null, playerUsername);
-
+    console.log('window.location.href', window.location.href);
     let tID = setTimeout(function () {
-      window.location.href = document.location.href + "play";
+      window.location.href = "/play";
       window.clearTimeout(tID);		// clear time out.
     }, 1350);
   }
 });
-
-// Play Button Hover
-startBtn.addEventListener('mouseover', event => event.target.classList.add("hover"));
-startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));

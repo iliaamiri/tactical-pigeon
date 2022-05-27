@@ -62,7 +62,7 @@ const AuthController = {
       Players.addAsActivePlayer(user);
     }
 
-    console.log("Authenticated as a guest. Guest ID:", user.playerId); // debug
+    console.log("ID:", user.playerId); // debug
 
     // Make a JWT token and login the guest user.
     const generatedTokenValue = Tokens.create(user.playerId, user.playerId);
@@ -70,7 +70,7 @@ const AuthController = {
     // Send back the token value to the user.
     res.json({
       status: true,
-      tokenValue: generatedTokenValue,
+      //tokenValue: generatedTokenValue,
       guestId: user.playerId
     });
   },

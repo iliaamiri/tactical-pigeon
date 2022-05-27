@@ -65,17 +65,22 @@ const Tokens = {
    * @returns {boolean|{createdAt}|{username}|{playerId}|*}
    */
   verifyIntegrity(tokenValue) {
-    // Try to decode the JWT token value using Public Key (RS256 Algorithm).
-    let decodedData = jwt.verify(tokenValue, config.JWT_RSA_PUBLIC_KEY, {algorithm: "RS256"});
+    try {
+      // Try to decode the JWT token value using Public Key (RS256 Algorithm).
+      let decodedData = jwt.verify(tokenValue, config.JWT_RSA_PUBLIC_KEY, { algorithm: "RS256" });
 
-    // Check if whether the decodedData is there, and it has the three properties of a valid token (playerId, username, and
-    // createdAt). If not, return `false` to say it is invalid.
-    if (!decodedData || !decodedData.playerId || !decodedData.username || !decodedData.createdAt) {
-      return false;
+      // Check if whether the decodedData is there, and it has the three properties of a valid token (playerId, username, and
+      // createdAt). If not, return `false` to say it is invalid.
+      if (!decodedData || !decodedData.playerId || !decodedData.username || !decodedData.createdAt) {
+        return false;
+      }
+
+      // Return the decoded payload (data) if the JWT token were valid.
+      return decodedData;
+    } catch (error) {
+      console.log(error);
     }
-
-    // Return the decoded payload (data) if the JWT token were valid.
-    return decodedData;
+    return false;
   },
 
   /**

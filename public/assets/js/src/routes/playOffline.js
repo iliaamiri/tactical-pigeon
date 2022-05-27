@@ -76,7 +76,7 @@ Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.curre
 
 // check if old or new user.
 if (Cookie.get(username)) {
-  Cookie.set(username, "oldUser");
+  //Cookie.set(username, "oldUser");
 
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
@@ -97,7 +97,7 @@ if (Cookie.get(username)) {
   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
   document.querySelector('.done').classList.add('pop-in-animation');
 } else {
-  Cookie.set(username, "newUser");
+  // Cookie.set(username, "newUser");
 
   // show the intro page
   document.querySelector(".intro-page").classList.remove("d-none");
@@ -178,6 +178,6 @@ if (Cookie.get(username)) {
   // })
 
 }
-console.log(Cookie.get(username));
+console.log('getting username from cookie:', Cookie.get(username));
 
 await import('./_common_play.js');

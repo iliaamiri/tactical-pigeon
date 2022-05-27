@@ -2,7 +2,7 @@ const Player = require('../../models/player');
 
 const HomeController = {
   async gameHome(req, res) {
-    res.render('index');
+    res.redirect('/userHome');
   },
   async userHome(req, res) {
     res.render('userHome');
