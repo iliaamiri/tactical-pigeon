@@ -134,6 +134,16 @@ const AuthController = {
     // TODO: Verify about the strength of the password.
     // TODO: at least 6 characters. at least 1 number, at least one uncommon character.
 
+    // Verify we don't have a user with this email yet; get out if such record exists
+    let existingUserWithThisEmail = await database.playerEntity.getUserByEmail(givenEmail);
+    if (existingUserWithThisEmail) {
+      res.json({
+        status: false,
+        error: 'This email is already registered!',
+      });
+      return;
+    }
+
     const passwordSalt = crypto.randomUUID({disableEntropyCache : true});
     console.log('passwordSalt', passwordSalt);
     const passwordHash = SHA2["SHA-512"](givenEmail + givenUsername + givenPassword + passwordPepper + passwordSalt).toString("hex");
