@@ -32,7 +32,10 @@ document.querySelector("body").addEventListener('click', async function (event) 
         throw new Error(authResult.error);
       }
 
-      Cookie.destroy();
+      Cookie.destroy('JWT');
+      Cookie.destroy('email');
+      Cookie.destroy('user');
+      Cookie.destroy('guestId');
 
       const tokenValue = authResult.tokenValue;
       const username = authResult.username;

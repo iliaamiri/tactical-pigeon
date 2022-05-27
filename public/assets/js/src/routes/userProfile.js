@@ -10,11 +10,8 @@ const winRatio = document.querySelector('.win-ratio');
 
 console.log('username', username);
 
-
-
-
 document.querySelector(".back-btn").addEventListener("click", async event => {
-  location.href = "/";
+  location.href = "/userHome";
 });
 
 document.querySelector('.username').innerHTML = username;

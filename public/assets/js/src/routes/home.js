@@ -128,12 +128,17 @@ startBtn.addEventListener('click', async function (event) {
       throw new Error(authResult.error);
     }
 
-    Cookie.destroy();
+    Cookie.destroy('JWT');
+    Cookie.destroy('email');
+    Cookie.destroy('user');
+    Cookie.destroy('guestId');
 
     const tokenValue = authResult.tokenValue;
-    const username = authResult.username;
+    if (tokenValue) {
+      Token.save(tokenValue);
+    }
 
-    Token.save(tokenValue);
+    const username = authResult.username;
     Token.saveEmailAndUsername(emailInput.value, username);
 
     location.href = '/userHome';

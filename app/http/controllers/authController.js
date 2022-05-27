@@ -70,7 +70,7 @@ const AuthController = {
     // Send back the token value to the user.
     res.json({
       status: true,
-      tokenValue: generatedTokenValue,
+      //tokenValue: generatedTokenValue,
       guestId: user.playerId
     });
   },

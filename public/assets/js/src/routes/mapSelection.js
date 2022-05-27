@@ -21,11 +21,11 @@ document.querySelector('div.select-done-button').addEventListener('click', event
 
   Cookie.set("selectedMap", selectedMap);
 
-  location.href = "/";
+  location.href = "/userHome";
 });
 
 document.querySelector("div.back-button").addEventListener("click", event => {
-  location.href = "/";
+  location.href = "/userHome";
 })
 
 export default selectedMap;
