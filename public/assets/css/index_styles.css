@@ -169,6 +169,13 @@ div.playAsGuest.playAsGuest.pressed {
   background-image: url("/assets/img/GUI-controls/MenuStart/startPressed.svg");
 }
 
+span.login-error {
+  font-family: "Titan One", cursive;
+  font-size: 3vw;
+  /* -webkit-text-stroke-width: 0.1vw;
+  -webkit-text-stroke-color: white; */
+}
+
 /* Logo */
 
 div.logo {

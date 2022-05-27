@@ -152,6 +152,7 @@ startBtn.addEventListener('click', async function (event) {
     playSound(sounds.loseRound);
     let errMessage = error.message;
     console.log(errMessage);
+    document.querySelector(".login-error").classList.remove("d-none")
   }
 }) 
 
