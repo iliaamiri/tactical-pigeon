@@ -7,6 +7,19 @@ import Cookie from "../helpers/Cookie.js";
 import Token from "../io/auth/Token.js";
 import clientSocketConnect, { socket } from '../io/client.js';
 
+
+// changing map button appearance according to map selection
+let selectedMap = Cookie.get("selectedMap");
+let mapButton = document.querySelector("img.map-button");
+console.log(selectedMap);
+if (selectedMap === "playground") {
+  mapButton.src = "/assets/img/backgrounds/SVG/playground-button.svg";
+} else if (selectedMap === "pigeon-nights") {
+  mapButton.src = "/assets/img/backgrounds/SVG/night-button.svg";
+} else if (selectedMap === "street") {
+  mapButton.src = "/assets/img/backgrounds/SVG/street-button.svg";
+}
+
 // Reloads page if accessed from cache
 window.addEventListener("pageshow", function (event) {
   let historyTraversal = event.persisted;
@@ -21,43 +34,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
   /* Play Online or Offline */
   if (target.classList.contains("playOnlineBtn")) { // Play Online
-    // usernameInput.disabled = true;
-
-    /* try {
-      const authResponse = await axios.post("/api/auth/letMeIn", {
-        // givenUsername: playerUsername,
-        givenGuestId: Token.guestId
-      });
-
-      const authResult = authResponse.data;
-      if (!authResult.status) {
-        console.log(authResult); // debug
-        throw new Error(authResult.error);
-      }
-
-      const tokenValue = authResult.tokenValue;
-      const email = authResult.email;
-      const guestId = authResult.guestId;
-
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(email, guestId); //
-      Token.saveGuest(guestId);
-    } catch (error) {
-      let errMessage = error.message;
-
-      switch (errMessage) {
-        case "ALREADY_AUTHENTICATED":
-          console.log("Already Authenticated");
-          break;
-        default:
-          // Revert everything back if the user couldn't be authenticated by axios request.
-          SearchingText.DOMElement.style.display = "none";
-          // usernameInput.disabled = false;
-          target.classList.remove("pressed");
-          target.classList.add('unpressed');
-          break;
-      }
-    } */
+   
     // Connect to the web socket.
     const socket = await clientSocketConnect();
 
@@ -101,42 +78,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
     socket.emit("game:searchForOpponent");
   } else if (target.classList.contains("playOfflineBtn")) { // Play Offline
     console.log('play offline hit');
-    /* try {
-      const authResponse = await axios.post("/api/auth/letMeIn", {
-        // givenUsername: playerUsername,
-        givenGuestId: Token.guestId
-      });
-
-      const authResult = authResponse.data;
-      console.log('authResult', authResult);
-      if (!authResult.status) {
-        console.log(authResult); // debug
-        throw new Error(authResult.error);
-      }
-
-      const tokenValue = authResult.tokenValue;
-      const guestId = authResult.guestId;
-
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(null, guestId); //
-      Token.saveGuest(guestId);
-    } catch (error) {
-      let errMessage = error.message;
-
-      switch (errMessage) {
-        case "ALREADY_AUTHENTICATED":
-          console.log("Already Authenticated");
-          break;
-        default:
-          // Revert everything back if the user couldn't be authenticated by axios request.
-          SearchingText.DOMElement.style.display = "none";
-          // usernameInput.disabled = false;
-          target.classList.remove("pressed");
-          target.classList.add('unpressed');
-          break;
-      }
-    } */
-
+  
     const playerUsername = Token.username;
     // Token.saveEmailAndUsername(null, playerUsername);
     console.log('window.location.href', window.location.href);
