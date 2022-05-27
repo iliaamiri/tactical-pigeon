@@ -176,13 +176,6 @@ div.dial-container .slidecontainer {
   background-color: transparent;
 }
 
-@media only screen and (min-width: 1200px) {
-  #myRange {
-    width: 261px;
-    top: 103px;
-  }
-}
-
 @media only screen and (min-width: 900px) {
   #myRange {
     width: 200px;
@@ -201,6 +194,22 @@ div.dial-container .slidecontainer {
   #myRange {
     width: 125px;
     top: -33px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #myRange {
+    /* width: 261px; */
+    width: 261px;
+    top: 103px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  #myRange {
+    /* width: 261px; */
+    width: 355px;
+    top: 197px;
   }
 }
 
