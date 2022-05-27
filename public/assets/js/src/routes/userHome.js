@@ -62,12 +62,13 @@ document.querySelector("body").addEventListener('click', async function (event) 
     const socket = await clientSocketConnect();
 
     // Show the "Finding an opponent" text block and start animating it for searching
-    //SearchingText.show();
-    //SearchingForOpponent.animate();
+    SearchingText.show();
+    SearchingForOpponent.animate();
 
     // Show blue clouds
-    //blueClouds.classList.remove("d-none");
-    //blueClouds.classList.add("animate__fadeIn");
+    const blueClouds = document.querySelector(".loading-clouds-noBK-overlay");
+    blueClouds.classList.remove("d-none");
+    blueClouds.classList.add("animate__fadeIn");
 
     // Handle any socket connection error.
     socket.on('connect_error', socketError => {

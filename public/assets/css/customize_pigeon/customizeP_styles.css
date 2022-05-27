@@ -71,8 +71,12 @@ div.top-background {
   }
 }
 
-
 /* --------------- Nav Buttons --------------- */
+div.nav-buttons {
+  position: relative;
+  left: 2vw;
+}
+
 div.nav-buttons div {
   align-items: center;
   margin-bottom: 2vw;
@@ -112,8 +116,6 @@ div.nav-buttons span {
   }
 }
 
-
-
 /* -------------- Hue Adjuster ---------------- */
 div.dial-container .dial-title-background {
   background-color: #CADDE8;
@@ -146,24 +148,20 @@ div.dial-container .slidecontainer {
   border-bottom-right-radius: 110px;
   padding-bottom: 35px;
   width: 10vw;
-  height: 20vw;
+  height: 22vw;
   /* width: 10vw; */
+
+
 }
 
 .slider-wrapper {
+  /* width: 10vw;
+  height: 22vw; */
   display: inline-block;
   width: 20px;
-  height: 200px;
+  height: 22vw;
   padding: 0;
   text-align: center;
-}
-
-@media only screen and (min-width: 900px) {
-
-}
-
-@media only screen and (max-width: 900px) {
-
 }
 
 #myRange {
@@ -171,12 +169,39 @@ div.dial-container .slidecontainer {
   -webkit-appearance: none; /* Chromium */
   transform-origin: 75px 75px;
   transform: rotate(-90deg);
-  width: 200px;
   cursor: pointer;
   position: relative;
   top: 42px;
   text-align: center;
   background-color: transparent;
+}
+
+@media only screen and (min-width: 1200px) {
+  #myRange {
+    width: 261px;
+    top: 103px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #myRange {
+    width: 200px;
+    top: 42px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #myRange {
+    width: 160px;
+    top: 3px;
+  }
+}
+
+@media only screen and (max-width: 722px) {
+  #myRange {
+    width: 125px;
+    top: -33px;
+  }
 }
 
 #myRange::-webkit-slider-runnable-track {
@@ -231,14 +256,19 @@ div.dial-container .slidecontainer {
   margin-top: -16px;
 }
 
+@media only screen and (min-width: 900px) {
+}
 
+@media only screen and (max-width: 900px) {
+
+}
 
 /* --------------- Pigeon -------------------- */
 div.selectedPigeon {
   position: relative;
   top: -4.5vw;
   left: -4vw;
-  /* margin-bottom: 2vw; */
+  margin-left: 2.5vw;
   height: 40vw;
   width: 40vw;
   background-size: contain;
@@ -305,9 +335,13 @@ div.type-background {
   /* width: 10vw;
   height: 90%; */
   height: 8vw;
-  width: 8vw;
+  /* width: 8vw; */
   margin-right: 1vw;
   /* opacity: 50%; */
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -316,12 +350,12 @@ div.pigeon-type-option {
   width: 100%;
   /* background-color: #fdeda8; */
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.pigeon-type-option.active {
@@ -329,20 +363,22 @@ div.pigeon-type-option.active {
 }
 
 div.pigeon-placeholder {
+  height: 70%;
+  width: 70%;
   background-image: url("/assets/img/Icons/pigeon-placeholder.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 25%;
-  
+  /* opacity: 25%; */
 }
 
-div.pigeon-type-option .locked {
+div.pigeon-type-option div.locked {
   height: 30px;
   width: 30px;
   background-image: url("/assets/img/Icons/LockIcon.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  /* opacity: 100%; */
 }
 
 div.pigeon-type-option > .locked.hidden {

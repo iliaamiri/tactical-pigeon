@@ -10,15 +10,16 @@ document.querySelector('input#myRange').addEventListener('change', async event =
 body.addEventListener('click', async event => {
   let target = event.target;
   let tagName = target.tagName;
+  console.log(target)
 
   /* ----- Save Button ----- */
-  if (tagName === "DIV" && target.classList.contains("save-btn")) {
+  if (tagName === "IMG" && target.classList.contains("save")) {
 
   }
 
   /* ----- Exit Button ----- */
-  if (tagName === "DIV" && target.classList.contains("exit-btn")) {
-
+  if (tagName === "IMG" && target.classList.contains("exit")) {
+    location.href = '/userHome'; // this doesnt work
   }
 
   /* ----- Type Selector ----- */
