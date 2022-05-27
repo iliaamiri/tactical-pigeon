@@ -157,10 +157,11 @@ const Players = {
   /**
    * Fetches the player object. If the player object's socketId property wasn't null, it means that the player is online.
    * @param playerId
+   * @param Player
    * @returns {boolean}
    */
-  isOnline(playerId) {
-    const foundPlayer = this.fetchThePlayerById(playerId);
+  isOnline(playerId, Player) {
+    const foundPlayer = this.fetchThePlayerById(playerId, Player);
     return !!(foundPlayer.socketId);
   },
 
@@ -191,9 +192,10 @@ const Players = {
    * player, it will try to search it in the database. If it found the user from database, it will automatically adds the
    * player object as an active player. If not, it will return null.
    * @param playerId
+   * @param Player
    * @returns {null|*}
    */
-  async fetchThePlayerById(playerId) {
+  async fetchThePlayerById(playerId, Player) {
     const foundPlayerInRepo = this.findActiveUserById(playerId);
     if (foundPlayerInRepo) {
       return foundPlayerInRepo;
@@ -201,8 +203,10 @@ const Players = {
 
     const foundPlayerInDatabase = await this.findFromDatabase(playerId);
     if (foundPlayerInDatabase) {
-      this.addAsActivePlayer(foundPlayerInDatabase);
-      return foundPlayerInDatabase;
+      const playerInstance = Object.create(Player);
+      playerInstance.initOnlinePlayer(foundPlayerInDatabase.playerId, foundPlayerInDatabase.username, foundPlayerInDatabase.email);
+      this.addAsActivePlayer(playerInstance);
+      return playerInstance;
     }
 
     return null;

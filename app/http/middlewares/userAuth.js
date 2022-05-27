@@ -9,7 +9,7 @@ const Player = require("../../models/Player");
 const AuthExceptions = include('core/Exceptions/AuthExceptions');
 
 module.exports = (strict = true) => {
-  return async (req, res, next) => {
+  return (async (req, res, next) => {
     // console.log('userAugh req.cookies:', req.cookies);
     try {
       // Verify the JWT cookie's existence
@@ -32,10 +32,10 @@ module.exports = (strict = true) => {
         foundPlayer = Players.findGuestUser(foundTokenObj.playerId);
       } else {
         // Find the player object from the online players' collection. This attempt potentially will include querying the database.
-        foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId);
+        foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId, Player);
       }
 
-      // console.log('did userAuth find player in Players', foundPlayer);
+      console.log('did userAuth find player in Players', foundPlayer);
 
       // If the player couldn't be found.
       if (!foundPlayer) {
@@ -72,5 +72,5 @@ module.exports = (strict = true) => {
     }
 
     next();
-  }
+  });
 };

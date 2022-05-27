@@ -1,6 +1,7 @@
 // Repos
 const {Players} = require("../../repos/Players");
 const Games = require("../../repos/Games");
+const Player = require("../../models/Player");
 
 module.exports = async (io, socket) => {
   const handler = (reason) => {
@@ -45,7 +46,7 @@ module.exports = async (io, socket) => {
     // opponentDisconnected
     // Try finding the opponent player in the game, and emit them the "game:won:opponentLeft"
     const opponentPlayerId = onGoingGame.players.find(playerId => playerId !== socket.user.playerId);
-    const opponentPlayer = Players.fetchThePlayerById(opponentPlayerId) || null;
+    const opponentPlayer = Players.fetchThePlayerById(opponentPlayerId, Player) || null;
     console.log(opponentPlayer); // debug
     if (opponentPlayer) {
       // Tell the other player that this player disconnected.
@@ -73,7 +74,7 @@ module.exports = async (io, socket) => {
     console.log("---------- DC before going to game");
     socket.user.disconnectDetectionWhileTransitioningBetweenPages_SetTimeoutId = setTimeout(() => {
       const opponentPlayerId = onGoingGame.players.find(playerId => playerId !== socket.user.playerId);
-      const opponentPlayer = Players.fetchThePlayerById(opponentPlayerId) || null;
+      const opponentPlayer = Players.fetchThePlayerById(opponentPlayerId, Player) || null;
       if (!socket.user.isOnline()) {
         if (!onGoingGame.isPlayerReady(opponentPlayer.playerId)) {
           // End the ongoing invalid game. Since neither of the players showed up ready, their game is announced as draw.

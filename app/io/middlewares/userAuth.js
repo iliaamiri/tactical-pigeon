@@ -21,7 +21,7 @@ module.exports = async (socket, next) => {
   }
 
   // Fetch the player
-  let foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId);
+  let foundPlayer = await Players.fetchThePlayerById(foundTokenObj.playerId, Player);
 
   // If player does not exist at all.
   if (!foundPlayer) {
