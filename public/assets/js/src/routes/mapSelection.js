@@ -1,4 +1,5 @@
 import { backgroundsCssClassNames } from "../helpers/Backgrounds.js";
+import { playSound, sounds } from "../core/sounds.js";
 
 import Cookie from "../helpers/Cookie.js";
 
@@ -20,12 +21,17 @@ document.querySelector('div.select-done-button').addEventListener('click', event
   }
 
   Cookie.set("selectedMap", selectedMap);
-
-  location.href = "/userHome";
+  setTimeout(() => {
+    location.href = "/userHome";
+  }, 300);
+  playSound(sounds.buttonClick);
 });
 
 document.querySelector("div.back-button").addEventListener("click", event => {
-  location.href = "/userHome";
+  setTimeout(() => {
+    location.href = "/userHome";
+  }, 300);
+  playSound(sounds.softClick);
 })
 
 export default selectedMap;

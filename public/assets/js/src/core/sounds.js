@@ -48,6 +48,14 @@ export const sounds = {
   doneChecked: {
     path: "/assets/music/SuccessAttack.mp3",
     soundLevel: 0.5
+  },
+  softClick:{
+    path: "/assets/music/softclick.mp3",
+    soundLevel: 0.5
+  }, 
+  buttonClick:{
+    path: "/assets/music/buttonclick.mp3",
+    soundLevel: 0.5
   }
 }
 

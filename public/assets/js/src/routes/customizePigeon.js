@@ -1,3 +1,5 @@
+import { playSound, sounds } from "../core/sounds.js";
+
 const body = document.querySelector("body");
 const typeSelector = document.querySelector("div.type-selector");
 const selectedPigeon = document.querySelector("div.selectedPigeon");
@@ -19,7 +21,10 @@ body.addEventListener('click', async event => {
 
   /* ----- Exit Button ----- */
   if (tagName === "IMG" && target.classList.contains("exit")) {
-    location.href = '/userHome'; // this doesnt work
+    setTimeout(() => {
+      location.href = "/userHome";
+    }, 300);
+    playSound(sounds.softClick);
   }
 
   /* ----- Type Selector ----- */
