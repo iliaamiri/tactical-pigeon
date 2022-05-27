@@ -115,11 +115,11 @@ const Game = {
     console.log("Player2 set : ", player2);
     console.log("winnerPlayer? : ", winnerPlayer);
 
-    if (player1.gamesPlayed) {
+    if (player1.gamesPlayed || player1.gamesPlayed === 0) {
       player1.gamesPlayed += 1;
     }
 
-    if (player2.gamesPlayed) {
+    if (player2.gamesPlayed || player2.gamesPlayed === 0) {
       player2.gamesPlayed += 1;
     }
 
@@ -128,14 +128,14 @@ const Game = {
       const loserPlayer = (player1.playerId === winnerPlayer.playerId) ? player2 : player1;
 
       if (winnerPlayer.isTracked()) {
-        if (winnerPlayer.gamesWon) {
+        if (winnerPlayer.gamesWon || winnerPlayer.gamesWon === 0) {
           winnerPlayer.gamesWon += 1;
         }
         database.playerEntity.incrementGameStatsById(winnerPlayer.playerId, "won")
           .catch(err => console.debug(new Error(err)));
       }
       if (loserPlayer.isTracked()) {
-        if (loserPlayer.gamesLost) {
+        if (loserPlayer.gamesLost || winnerPlayer.gamesLost === 0) {
           loserPlayer.gamesLost += 1;
         }
         database.playerEntity.incrementGameStatsById(loserPlayer.playerId, "lost")
