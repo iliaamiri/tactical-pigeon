@@ -71,7 +71,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       if (socket?.connected) {
         socket.disconnect();
       }
-      startBtn.classList.remove("playAsGuest");
+      startBtn.classList.remove("playAsGuest", "d-none");
       blueClouds.classList.add("d-none");
       startBtn.classList.remove("pressed");
       SearchingText.DOMElement.style.display = "none";
