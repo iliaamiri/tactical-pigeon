@@ -16,7 +16,7 @@ h1.title{
   color: white;
   -webkit-text-stroke-width: 0.05vw;
   -webkit-text-stroke-color: rgb(12, 98, 179);
-  padding: 0.2vw 0 1vw;
+  padding-top: 3vw;
 }
 
 .play-options p{
@@ -26,6 +26,7 @@ h1.title{
   -webkit-text-stroke-width: 0.05vw;
   -webkit-text-stroke-color: rgb(12, 98, 179);
   padding: 0.5vw 0 0 0;
+  margin: 0;
 }
 
 .banner {
@@ -39,6 +40,10 @@ h1.title{
   bottom:-10vw;
 }
 
+.button-container {
+  margin-top: 1vw;
+}
+
 .button-label {
   font-family: "Titan One", cursive;
   font-size: 1.3vw;
@@ -50,10 +55,10 @@ h1.title{
 
 /* logout button */
 
-.logout{
+/* .logout{
   height: 2.2vw;
   top:1vw;
-}
+} */
 
 .logout-title{
   opacity:0;
@@ -61,6 +66,9 @@ h1.title{
 
 img.logout-button{
   height:7vw;
+  position: relative;
+  top: 2vw;
+  right: 2vw;
 }
 
 
@@ -77,7 +85,7 @@ img.logout-button{
 }
 
 .imgContainer{
-  height:17vw;
+  height: 17vw;
   display: flex;
   align-items: center;
 }
@@ -100,6 +108,16 @@ img.logout-button{
   outline:0.2vw solid white;
 }
 
+span.online-text-searching {
+  display: none;
+  font-family: "Titan One", cursive;
+  color: white;
+  font-size: 1.7vw;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #407d96;
+  margin: 0vw 0 1vw 0;
+}
+
 @media only screen and (min-width: 1000px) {
   h1.title{
     padding: 1.7vw 0 2.8vw;
@@ -109,5 +127,76 @@ img.logout-button{
     font-size: 1.45vw;
     padding: 1.4vw 0 0 0;
   }
+}
 
+/* Loading Clouds no BK Overlay */
+div.loading-clouds-noBK-overlay {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  z-index: -60;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/assets/img/Overlays/LoadingCloudsNoBK.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.loading-clouds-noBK-overlay div.loading-text {
+  width: 30%;
+  height: 30%;
+  position: fixed;
+  z-index: 60;
+  font-family: "Titan One", cursive;
+  font-size: 4em;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
+}
+
+/* Portrait Overlay */
+
+span.portrait {
+  font-family: "Titan One", cursive;
+  font-size: 35px;
+  color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #407d96;
+  margin-top: 10px;
+}
+
+div.flip-overlay img {
+  width: 30%;
+}
+
+@media only screen and (min-width: 350px) and (orientation: portrait) {
+  div.flip-overlay {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  div.flip-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    left: 0;
+    background-color: #ffdc4b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  div.flip-overlay {
+    display: none;
+  }
 }

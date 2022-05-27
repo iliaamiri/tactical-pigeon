@@ -59,6 +59,7 @@ const HomeController = {
       myPigeons: myPigeons,
       numberOfLockedPigeons: numberOfLockedPigeons,
     });
+    
     res.render('customizePigeon', {
       selectedPigeon: selectedPigeon,
       myPigeons: myPigeons,

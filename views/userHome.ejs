@@ -18,7 +18,7 @@
 
 <body>
 
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 logout text-center d-flex justify-content-end">
         <div>
@@ -28,6 +28,12 @@
       </div>
 
     </div>
+  </div> -->
+
+  <!-- Portrait Mode Overlay -->
+  <div class="flip-overlay">
+    <img src="/assets/img/Overlays/flipPhone.svg" alt="flip to phone">
+    <span class="portrait">FLIP TO PLAY</span>
   </div>
 
   <div class="container-fluid">
@@ -37,7 +43,12 @@
       <div class="col-sm-10  text-center">
         <h1 class="title">Explore Your Tactical Pigeon!</h1>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-sm-1">
+        <div>
+          <img class="logout-button" src="/assets/img/GUI-controls/MainControls/SVG/logout.svg" alt="">
+          <div class="logout-title"> Exit?</div>
+        </div>
+      </div>
       <!-- <div class="floating">
         <img src="/assets/img/GUI-controls/MenuStart/Game Title-01.svg" alt="">
       </div> -->
@@ -56,18 +67,20 @@
           <img class="img-fluid playOnlineBtn" src="/assets/img/GUI-controls/MainControls/SVG/multiplayer.svg" alt="">
         </div>
         <p> MULTIPLAYER</p>
+        <span class="online-text-searching">Finding an opponent</span>
       </div>
       <div class="col-sm-1"></div>
 
-    
+
     </div>
-    
+
 
     <div class="row button-container text-center d-flex justify-content-center">
       <div class="col-sm-2"></div>
       <div class="col-sm-2">
         <div>
-          <img class="customizePigeon-button grow img-fluid" src="/assets/img/GUI-controls/MainControls/SVG/customizePigeon.svg" alt="">
+          <img class="customizePigeon-button grow img-fluid"
+            src="/assets/img/GUI-controls/MainControls/SVG/customizePigeon.svg" alt="">
           <div class="customizePigeon-title button-label">
             Customize Pigeon
           </div>
@@ -96,6 +109,9 @@
 
     </div>
 
+    <!-- Loading Clouds -->
+    <div class="loading-clouds-noBK-overlay d-none animate__animated animate__slower 3s">
+    </div>
 
   </div>
 
