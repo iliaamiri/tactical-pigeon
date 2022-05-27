@@ -104,6 +104,7 @@ function init() {
     const {gamesPlayed, gamesWon, gamesLost} = newGameStats;
     let sqlUpdateQuery = `UPDATE ${tableName} SET games_played = :games_played, games_won = :games_won, games_lost = :games_lost WHERE player_id = :player_id`;
     let params = {
+      player_id: playerId,
       games_played: gamesPlayed,
       games_won: gamesWon,
       games_lost: gamesLost,
@@ -117,7 +118,7 @@ function init() {
       sqlUpdateQuery += `games_won = games_won + 1`;
     }
     if (gameResult === "lost") {
-      sqlUpdateQuery += `games_won = games_won + 1`;
+      sqlUpdateQuery += `games_won = games_lost + 1`;
     }
     sqlUpdateQuery += ` WHERE player_id = :player_id`;
 
