@@ -241,6 +241,10 @@ div.pigeon-type-option {
   justify-content: center;
 }
 
+div.pigeon-type-option.active {
+  filter: brightness(0.7);
+}
+
 div.pigeon-placeholder {
   background-image: url("/assets/img/Icons/pigeon-placeholder.svg");
   background-size: cover;
