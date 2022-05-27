@@ -1,11 +1,9 @@
 const database = require("../../databaseAccessLayer");
 
-const PigeonType = require("./PigeonType");
-
 const Pigeon = {
   _pigeonId: null,
-  pigeonTypeId: null,
-  pigeonType: null,
+  name: null,
+  assetFolderPath: null,
 
   hueAngle: null,
 
@@ -14,28 +12,19 @@ const Pigeon = {
     if (!result) {
       return null;
     }
-    this.pigeonType = Object.create(PigeonType);
-    this.pigeonType.initExistingPigeonType(result['pigeon_type_id'], result['name'], result['asset_folder_path']);
-    this.initExistingPigeon(result['pigeon_id'], result['pigeon_type_id'], result['hue_angle']);
+    this.initExistingPigeon(result['pigeon_id'], result['name'], result['asset_folder_path']);
     return this;
   },
 
-  initNewPigeon(pigeonTypeId, hueAngle) {
-    this.pigeonTypeId = pigeonTypeId;
-    this.hueAngle = hueAngle;
+  initNewPigeon(pigeonTypeId, name, assetFolderPath) {
+    this.name = name;
+    this.assetFolderPath = assetFolderPath;
   },
 
-  initExistingPigeon(pigeonId, pigeonTypeId, hueAngle) {
+  initExistingPigeon(pigeonId, name, assetFolderPath) {
     this._pigeonId = pigeonId;
-    this.pigeonTypeId = pigeonTypeId;
-    this.hueAngle = hueAngle;
-  },
-
-  updateHueAngle(hueAngle) {
-    if (typeof hueAngle !== "string") {
-      throw new Error("Hue Angle must be a string. Check your code logic.");
-    }
-    this.hueAngle = hueAngle;
+    this.name = name;
+    this.assetFolderPath = assetFolderPath;
   },
 
   async save() {
@@ -47,11 +36,11 @@ const Pigeon = {
   },
 
   async _updateToDatabase() {
-    return await database.pigeonEntity.updatePigeon(this._pigeonId, this.pigeonTypeId, this.hueAngle);
+    return await database.pigeonEntity.updatePigeon(this._pigeonId, this.name, this.assetFolderPath);
   },
 
   async _addToDatabase() {
-    const result = await database.pigeonEntity.addNewPigeon(this.pigeonTypeId, this.hueAngle);
+    const result = await database.pigeonEntity.addNewPigeon(this.name, this.assetFolderPath);
     this._pigeonId = result.insertId;
     return result;
   },
@@ -64,26 +53,34 @@ const Pigeon = {
     return this._pigeonId;
   },
 
-  setPigeonTypeId(pigeonTypeId) {
-    this.pigeonTypeId = pigeonTypeId;
+  getName() {
+    return this.name;
   },
 
-  getPigeonTypeId() {
-    return this.pigeonTypeId;
+  getAssetFolderPath() {
+    return this.assetFolderPath;
   },
 
-  getHueAngle() {
-    return this.hueAngle;
+  setPigeonName(newName) {
+    this.name = newName;
+  },
+
+  setAssetFolderPath(newPath) {
+    this.assetFolderPath = newPath;
   },
 
   setHueAngle(hueAngle) {
+    if (hueAngle < 0 || hueAngle > 100) {
+      throw new Error("Hue angle must be between 0 and 100");
+    }
     this.hueAngle = hueAngle;
   },
 
   toJSON() {
     return {
-      pigeonType: this.pigeonType?.toJSON(),
-      hueAngle: this.hueAngle
+      name: this.name,
+      assetFolderPath: this.assetFolderPath,
+      hueAngle: (this.hueAngle !== null) ? this.hueAngle : 0,
     };
   }
 };

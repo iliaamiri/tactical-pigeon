@@ -1,7 +1,6 @@
 const tableName = "pigeon";
 
 function init() {
-  const {tableName: pigeonTypeTableName} = require('./pigeonType');
 
   const database = this.databaseInstance;
 
@@ -25,15 +24,16 @@ function init() {
     }
   }
 
+  /**
+   * Find a pigeon by its id. Note: this query will not return the hue_angle. hue_angle is only returned when the pigeon is owned by a player.
+   * @param pigeonId
+   * @returns {Promise<*>}
+   */
   async function findByPK(pigeonId) {
     let sqlSelectQuery =
       `SELECT
-        ${tableName}.pigeon_id AS pigeon_id,
-        ${tableName}.pigeon_type_id AS pigeon_type_id,
-        ${tableName}.hue_angle AS hue_angle,
-        ${pigeonTypeTableName}.asset_folder_path AS asset_folder_path
+        *
         FROM ${tableName}
-         INNER JOIN ${pigeonTypeTableName} ON ${tableName}.pigeon_type_id = ${pigeonTypeTableName}.pigeon_type_id
          WHERE ${tableName}.pigeon_id = :pigeon_id`;
 
     let params = {pigeon_id: pigeonId};
@@ -48,26 +48,55 @@ function init() {
     return result;
   }
 
-  async function addNewPigeon(pigeonTypeId, hueAngle) {
-    let sqlInsertQuery = `INSERT INTO ${tableName} (hue_angle, pigeon_type_id) VALUES (:hue_angle, :pigeon_type_id)`;
+  /**
+   * Finds a pigeon from the pigeon table by its name.
+   * @param givenName
+   * @returns {Promise<void>}
+   */
+  async function findByPigeonName(givenName) {
+    let sqlSelectQuery = `SELECT * FROM ${tableName} WHERE name = :name`;
+    let params = {name: givenName};
+    let [result] = await database.query(sqlSelectQuery, params);
+    if (result && result.length > 0) {
+      result = result[0];
+    } else {
+      result = null;
+    }
+  }
+
+  /**
+   * Insert a new pigeon into the database. Only takes name and asset_folder_path.
+   * @param name
+   * @param assetFolderPath
+   * @returns {Promise<*>}
+   */
+  async function addNewPigeon(name, assetFolderPath) {
+    let sqlInsertQuery = `INSERT INTO ${tableName} (name, asset_folder_path) VALUES (:name, :asset_folder_path)`;
 
     let params = {
-      hue_angle: hueAngle,
-      pigeon_type_id: pigeonTypeId
+      name: name,
+      asset_folder_path: assetFolderPath
     };
 
-    const [result] = database.query(sqlInsertQuery, params);
+    const [result] = await database.query(sqlInsertQuery, params);
     return result;
   }
 
-  async function updatePigeon(pigeonId, hueAngle, pigeonTypeId = null) {
-    let sqlUpdateQuery = `UPDATE ${tableName} SET hue_angle = :hue_angle`;
+  /**
+   * Update a pigeon's name and asset_folder_path by their id.
+   * the newAssetFolderPath is optional. It won't be updated unless it is filled.
+   * @param pigeonId
+   * @param newName
+   * @param newAssetFolderPath
+   */
+  async function updatePigeon(pigeonId, newName, newAssetFolderPath = null) {
+    let sqlUpdateQuery = `UPDATE ${tableName} SET newName = :new_name`;
 
-    let params = { hue_angle: hueAngle, pigeon_id: pigeonId };
+    let params = { new_name: newName, pigeon_id: pigeonId };
 
-    if (pigeonTypeId) {
-      sqlUpdateQuery += `, pigeon_type_id = :pigeon_type_id`;
-      params.pigeon_type_id = pigeonTypeId;
+    if (newAssetFolderPath) {
+      sqlUpdateQuery += `, asset_folder_path = :asset_folder_path`;
+      params.asset_folder_path = newAssetFolderPath;
     }
 
     sqlUpdateQuery += ` WHERE pigeon_id = :pigeon_id`;

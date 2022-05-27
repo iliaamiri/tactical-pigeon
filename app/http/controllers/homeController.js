@@ -10,10 +10,6 @@ const HomeController = {
     res.render('index');
   },
   async userHome(req, res) {
-    if (!req.user || !req.user.email) {
-      res.redirect('/');
-      return;
-    }
     res.render('userHome');
   },
   async signUp(req, res) {
@@ -25,24 +21,12 @@ const HomeController = {
     res.render('register');
   },
   async profile(req, res) {
-    if (!req.user || !req.user.email) {
-      res.redirect('/');
-      return;
-    }
     res.render('profile');
   },
   async mapSelection(req, res) {
-    if (!req.user || !req.user.email) {
-      res.redirect('/');
-      return;
-    }
     res.render('chooseMap');
   },
   async customizePigeon(req, res) {
-    if (!req.user || !req.user.email) {
-      res.redirect('/');
-      return;
-    }
     console.log("req.user received: ", req.user);
 
     // /* FOR TEST PURPOSES ONLY */
@@ -61,17 +45,13 @@ const HomeController = {
       const foundSelectedPigeon = await req.user.fetchSelectedPigeon();
       console.log(foundSelectedPigeon.getPigeonId())
       if (foundSelectedPigeon) {
-        selectedPigeon = {
-          pigeonType: foundSelectedPigeon.pigeonType.toJSON(),
-          ...foundSelectedPigeon.toJSON(),
-        };
+        selectedPigeon = foundSelectedPigeon.toJSON();
       }
 
       myPigeons = playerPigeons.map(pigeon => {
         return {
           isSelected: foundSelectedPigeon.getPigeonId() === pigeon.getPigeonId(),
           ...pigeon.toJSON(),
-          pigeonType: pigeon.pigeonType.toJSON()
         }
       });
       numberOfLockedPigeons = await req.user.countUnlockedPigeons();

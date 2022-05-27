@@ -4,7 +4,6 @@ const Life = require("./Life");
 const {Players} = require("../repos/Players");
 
 const Pigeon = require("./Pigeon");
-const PigeonType = require("./PigeonType");
 
 const database = require("../../databaseAccessLayer");
 
@@ -94,10 +93,8 @@ const Player = {
     const pigeonsResult = [];
     for (let pigeonRow of myPigeons) {
       const pigeon = Object.create(Pigeon);
-      pigeon.initExistingPigeon(pigeonRow.pigeon_id, pigeonRow.pigeon_type_id, pigeonRow.hue_angle);
-      const pigeonType = Object.create(PigeonType);
-      pigeonType.initExistingPigeonType(pigeonRow.pigeon_type_id, pigeonRow.name, pigeonRow.asset_folder_path);
-      pigeon.pigeonType = pigeonType;
+      pigeon.initExistingPigeon(pigeonRow.pigeon_id, pigeonRow.name, pigeonRow.asset_folder_path);
+      pigeon.setHueAngle(pigeonRow.hue_angle);
       pigeonsResult.push(pigeon);
     }
 
@@ -111,9 +108,8 @@ const Player = {
     }
 
     this.currentPigeon = Object.create(Pigeon);
-    this.currentPigeon.pigeonType = Object.create(PigeonType);
-    this.currentPigeon.initExistingPigeon(selectedPigeon.pigeon_id, selectedPigeon.pigeon_type_id, selectedPigeon.hue_angle);
-    this.currentPigeon.pigeonType.initExistingPigeonType(selectedPigeon.pigeon_type_id, selectedPigeon.name, selectedPigeon.asset_folder_path);
+    this.currentPigeon.initExistingPigeon(selectedPigeon.pigeon_id, selectedPigeon.name, selectedPigeon.asset_folder_path);
+    this.currentPigeon.setHueAngle(selectedPigeon.hue_angle);
 
     return this.currentPigeon;
   },
@@ -130,6 +126,7 @@ const Player = {
       username: this.username,
       ammoInventory: this.ammoInventory,
       life: this.life,
+      selectedPigeon: this.selectedPigeon?.toJSON(),
     };
   },
 };

@@ -15,6 +15,11 @@ apiRouter.use('/external', require('./external.router'));
 apiRouter.use((err, req, res, next) => {
   console.log(err);
 
+  if (err?.errMessage && err.errMessage === "AUTHENTICATION_FAILED") {
+    res.redirect('/');
+    return;
+  }
+
   res.status(err.httpStatus ?? 500).json({
     status: false,
     error: err.errMessage ?? "Internal Error"
