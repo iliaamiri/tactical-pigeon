@@ -11,7 +11,7 @@ const emailInput = document.querySelector('input.emailInput');
 const passwordInput = document.querySelector('input.passwordInput');
 // const logInButton = document.querySelector('button.log-in-button');
 // let loginOptions = document.querySelectorAll(".start span");
-const playContainer = document.querySelector('.play-container');
+const playWrapper = document.querySelector('.play-wrapper');
 const loginInputs = document.querySelector('.login-inputs');
 const usernameSpan = document.querySelector('span.username');
 const usernameInput = document.querySelector('input.usernameInput');
@@ -67,7 +67,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       startBtn.classList.add("d-none");
 
       // usernameSpan.classList.remove('d-none');
-      playContainer.classList.remove('d-none');
+      playWrapper.classList.remove('d-none');
 
       titleEnterName.classList.add('d-none');
 
@@ -82,7 +82,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       startBtn.classList.remove("d-none");
 
       // usernameSpan.classList.add('d-none');
-      playContainer.classList.add('d-none');
+      playWrapper.classList.add('d-none');
 
       titleEnterName.classList.remove('d-none');
 // =======
@@ -169,7 +169,7 @@ startBtn.addEventListener('mouseover', event => event.target.classList.add("hove
 startBtn.addEventListener('mouseout', event => event.target.classList.remove('hover'));
 
 // Offline Button Click Listener
-playContainer.addEventListener('click', async function (event) {
+playWrapper.addEventListener('click', async function (event) {
   let target = event.target;
   console.log("play container hit. target:", target);
 
