@@ -10,6 +10,7 @@ apiRouter.use(express.json());
 apiRouter.use('/auth', require("./auth.router"));
 apiRouter.use('/games', require('./game.router'));
 apiRouter.use('/profile', require('./profile.router'));
+apiRouter.use('/external', require('./external.router'));
 
 apiRouter.use((err, req, res, next) => {
   console.log(err);

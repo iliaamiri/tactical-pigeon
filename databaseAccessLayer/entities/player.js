@@ -1,12 +1,56 @@
-let tableName = "player";
+const tableName = "player";
 
 function init() {
+  const {tableName: playerPigeonTableName} = require('./playerPigeon');
+  const {tableName: pigeonTableName} = require('./pigeon');
+  const {tableName: pigeonTypeTableName} = require('./pigeonType');
+
   const database = this.databaseInstance;
+
   async function getAllUsers() {
     let sqlQuery = `SELECT * FROM ${tableName}`;
 
     return database.query(sqlQuery);
   }
+
+  async function getSelectedPigeon(playerId) {
+    let sqlSelectQuery =
+      `SELECT
+        ${pigeonTableName}.pigeon_id AS pigeon_id,
+        ${pigeonTypeTableName}.pigeon_type_id AS pigeon_type_id,
+        ${pigeonTableName}.hue_angle AS hue_angle,
+        ${pigeonTypeTableName}.name AS name,
+        ${pigeonTypeTableName}.asset_folder_path AS asset_folder_path      
+      FROM ${tableName}
+      INNER JOIN ${playerPigeonTableName} ON ${tableName}.selected_pigeon = ${playerPigeonTableName}.player_pigeon_id
+      INNER JOIN ${pigeonTableName} ON ${playerPigeonTableName}.pigeon_id = ${pigeonTableName}.pigeon_id
+      INNER JOIN ${pigeonTypeTableName} ON ${pigeonTableName}.pigeon_type_id = ${pigeonTypeTableName}.pigeon_type_id
+      WHERE ${tableName}.player_id = :player_id`;
+
+    let params = {player_id: playerId};
+
+    let result = await database.query(sqlSelectQuery, params);
+    if (result && result.length > 0) {
+      return result[0];
+    } else {
+      return null;
+    }
+  }
+
+  async function updateSelectedPigeon(playerId, playerPigeonId) {
+    let sqlUpdateQuery =
+      `UPDATE ${tableName}
+      SET selected_pigeon = :selected_pigeon
+      WHERE player_id = :player_id`;
+
+    let params = {
+      selected_pigeon: playerPigeonId,
+      player_id: playerId
+    };
+
+    return database.query(sqlUpdateQuery, params);
+  }
+
 
   async function getUserByEmail(email) {
     let sqlQuery = `SELECT player_id, email, username, password_hash, password_salt, games_played, games_won, games_lost FROM ${tableName} WHERE email = :email`;
@@ -80,4 +124,5 @@ function init() {
     deleteUser
   };
 }
+
 module.exports = {init, tableName};
