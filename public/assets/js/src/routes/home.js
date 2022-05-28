@@ -1,8 +1,7 @@
 // Components
 import SearchingText from "../components/Home/SearchingText.js";
 import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
-import Cookie from "../helpers/Cookie.js";
-import { playSound, sounds } from "../core/sounds.js";
+import {playSound, sounds} from "../core/sounds.js";
 
 const startBtn = document.querySelector('div.startBtn');
 const titleEnterName = document.querySelector("p.title-enter-name");
@@ -18,8 +17,9 @@ const usernameSpan = document.querySelector('span.username');
 const usernameInput = document.querySelector('input.usernameInput');
 
 // Socket
-import Token from "../io/auth/Token.js";
-import clientSocketConnect, { socket } from '../io/client.js';
+import clientSocketConnect, {socket} from '../io/client.js';
+
+import Auth from "../auth/Auth.js";
 
 // Reloads page if accessed from cache
 window.addEventListener("pageshow", function (event) {
@@ -29,10 +29,8 @@ window.addEventListener("pageshow", function (event) {
   }
 });
 
-// Fetch guestId (if exists)
-Token.fetchCachedGuestId();
-
-if (Token.fetchCachedUsernameOnly()) {
+if (Auth.isLoggedIn) {
+  document.querySelector('.loggedIn-as-guest-title').classList.remove('d-none');
   // TODO: This should redirect us to the profile page if we have a good token
 
   // titleEnterName.innerHTML = `Welcome back, ${Token.username}`;
@@ -70,10 +68,10 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
     }
   }
-   /* ---- Sign Up Link ---- */
-   if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
+  /* ---- Sign Up Link ---- */
+  if (target.tagName === "P" && target.classList.contains('sign-up-link')) {
     location.href = '/signup';
-    }
+  }
 });
 
 /* ---- Log In Button ---- */
@@ -81,33 +79,19 @@ startBtn.addEventListener('click', async function (event) {
   try {
     console.log('login button hit');
 
-    Cookie.destroy('JWT');
-    Cookie.destroy('email');
-    Cookie.destroy('user');
-    Cookie.destroy('guestId');
-
-    const logInResponse = await axios.post("/api/auth/login", {
-      givenEmail: emailInput.value,
-      givenPassword: passwordInput.value
-    });
-
-    const authResult = logInResponse.data;
-    if (!authResult.status) {
-      // console.log(authResult); // debug
-      throw new Error(authResult.error);
-    }
-    
-    const tokenValue = authResult.tokenValue;
-    if (tokenValue) {
-      Token.save(tokenValue);
+    if (Auth.isLoggedIn) {
+      console.log('already logged in');
+      return;
     }
 
-    const username = authResult.username;
-    Token.saveEmailAndUsername(emailInput.value, username);
-    setTimeout(() => {
-      location.href = '/userHome';
-    }, 1050);
-    playSound(sounds.doneChecked);
+    const successfulLogin = await Auth.login(emailInput.value, passwordInput.value);
+
+    if (successfulLogin) {
+      setTimeout(() => {
+        location.href = '/userHome';
+      }, 1050);
+      playSound(sounds.doneChecked);
+    }
 
   } catch (error) {
     playSound(sounds.loseRound);
@@ -115,7 +99,7 @@ startBtn.addEventListener('click', async function (event) {
     console.log(errMessage);
     document.querySelector(".login-error").classList.remove("d-none")
   }
-}) 
+})
 
 // Start Button Hover
 startBtn.addEventListener('mouseover', event => event.target.classList.add("hover"));
@@ -147,41 +131,20 @@ playWrapper.addEventListener('click', async function (event) {
   if (target.classList.contains("playOnlineBtn")) { // Play Online
     // usernameInput.disabled = true;
 
-    try {
-      const authResponse = await axios.post("/api/auth/letMeIn", {
-        // givenUsername: playerUsername,
-        givenGuestId: Token.guestId
-      });
+    if (!Auth.isLoggedIn) {
+      // let successfulLoginAsGuest = await Auth.loginAsGuest(usernameInput.value);
+      let successfulLoginAsGuest = await Auth.loginAsGuest();
 
-      const authResult = authResponse.data;
-      if (!authResult.status) {
-        console.log(authResult); // debug
-        throw new Error(authResult.error);
-      }
-
-      const tokenValue = authResult.tokenValue;
-      const email = authResult.email;
-      const guestId = authResult.guestId;
-
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(email, guestId); //
-      Token.saveGuest(guestId);
-    } catch (error) {
-      let errMessage = error.message;
-
-      switch (errMessage) {
-        case "ALREADY_AUTHENTICATED":
-          console.log("Already Authenticated");
-          break;
-        default:
-          // Revert everything back if the user couldn't be authenticated by axios request.
-          SearchingText.DOMElement.style.display = "none";
-          // usernameInput.disabled = false;
-          target.classList.remove("pressed");
-          target.classList.add('unpressed');
-          break;
+      if (!successfulLoginAsGuest) {
+        // Revert everything back if the user couldn't be authenticated by axios request.
+        SearchingText.DOMElement.style.display = "none";
+        // usernameInput.disabled = false;
+        target.classList.remove("pressed");
+        target.classList.add('unpressed');
+        return;
       }
     }
+
     // Connect to the web socket.
     const socket = await clientSocketConnect();
 
@@ -224,44 +187,22 @@ playWrapper.addEventListener('click', async function (event) {
     socket.emit("game:searchForOpponent");
   } else if (target.classList.contains("playOfflineBtn")) { // Play Offline
     console.log('play offline hit');
-    try {
-      const authResponse = await axios.post("/api/auth/letMeIn", {
-        // givenUsername: playerUsername,
-        givenGuestId: Token.guestId
-      });
 
-      const authResult = authResponse.data;
-      console.log('authResult', authResult);
-      if (!authResult.status) {
-        console.log(authResult); // debug
-        throw new Error(authResult.error);
-      }
+    if (!Auth.isLoggedIn) {
+      let successfulLoginAsGuest = await Auth.loginAsGuest();
 
-      const tokenValue = authResult.tokenValue;
-      const guestId = authResult.guestId;
+      if (!successfulLoginAsGuest) {
+        alert("Couldn't log in as guest! Please Report this bug to the devs");
 
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(null, guestId); //
-      Token.saveGuest(guestId);
-    } catch (error) {
-      let errMessage = error.message;
-
-      switch (errMessage) {
-        case "ALREADY_AUTHENTICATED":
-          console.log("Already Authenticated");
-          break;
-        default:
-          // Revert everything back if the user couldn't be authenticated by axios request.
-          SearchingText.DOMElement.style.display = "none";
-          // usernameInput.disabled = false;
-          target.classList.remove("pressed");
-          target.classList.add('unpressed');
-          break;
+        // Revert everything back if the user couldn't be authenticated by axios request.
+        SearchingText.DOMElement.style.display = "none";
+        // usernameInput.disabled = false;
+        target.classList.remove("pressed");
+        target.classList.add('unpressed');
+        return;
       }
     }
 
-    const playerUsername = Token.guestId;
-    Token.saveEmailAndUsername(null, playerUsername);
     console.log('window.location.href', window.location.href);
     let tID = setTimeout(function () {
       window.location.href = "/play";

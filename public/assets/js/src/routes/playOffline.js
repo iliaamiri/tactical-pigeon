@@ -30,13 +30,12 @@ import roundCountdown from "../helpers/roundCountdown.js";
 import Cookie from "../helpers/Cookie.js";
 
 // Core and Utils
-import { sounds } from "../core/sounds.js";
 
 // Auth
-import Token from "../io/auth/Token.js";
+import Auth from "../auth/Auth.js";
 
-// Fetch username from cookie
-export let username = Token.fetchCachedUsernameOnly();
+// Fetch username
+let username = Auth.displayName;
 
 // Hide the clouds overlay and playAgainButton
 loadingCloudsOverlay.classList.add("d-none");

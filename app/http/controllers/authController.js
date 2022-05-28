@@ -17,10 +17,7 @@ const AuthController = {
    * Handles login/signup for a guest.
    *
    * Definition of a guest: A guest is a user who doesn't want to be tracked and just wants to play casually. Their info
-   * will not be tracked. There can be many guests with the exact same username.
-   *
-   * This controller expects an optional `guestId`. If there was an `guestId`, they will be logged-in as that guest.
-   * If there were no guestId, the controller will make a new guest user and logs them in.
+   * will not be tracked. There can be many guests with the exact same display name, which is only tracked in the frontend.
    * @param req
    * @param res
    * @returns {Promise<void>}
@@ -33,34 +30,10 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    // Get the guestId input from body. This is optional.
-    let {givenGuestId} = req.body;
+    let user = Object.create(Player);
+    user.initNewGuestPlayer();
 
-    console.log('givenGuestId:', givenGuestId);
-
-    let user;
-
-    if (givenGuestId) {
-      // Validate the guestId.
-      givenGuestId = givenGuestId.trim().toLowerCase();
-      if (givenGuestId.length < 5 || givenGuestId.substring(0, 6) !== "guest_") {
-        console.log("here", givenGuestId, givenGuestId.length, givenGuestId.substring(0, 6), givenGuestId.substring(0, 6) === "guest_")
-        throw AuthExceptions.badInput;
-      }
-
-      user = Players.findGuestUser(givenGuestId);
-      if (!user) {
-        user = Object.create(Player);
-        user.initNewGuestPlayer();
-
-        Players.addAsActivePlayer(user);
-      }
-    } else {
-      user = Object.create(Player);
-      user.initNewGuestPlayer();
-
-      Players.addAsActivePlayer(user);
-    }
+    Players.addAsActivePlayer(user);
 
     console.log("ID:", user.playerId); // debug
 
@@ -137,11 +110,7 @@ const AuthController = {
     // Verify we don't have a user with this email yet; get out if such record exists
     let existingUserWithThisEmail = await database.playerEntity.getUserByEmail(givenEmail);
     if (existingUserWithThisEmail) {
-      res.json({
-        status: false,
-        error: 'This email is already registered!',
-      });
-      return;
+      throw AuthExceptions.emailAlreadyExists;
     }
 
     const passwordSalt = crypto.randomUUID({disableEntropyCache : true});
@@ -175,6 +144,21 @@ const AuthController = {
       tokenValue: generatedTokenValue,
       username: newUser.username
     });
+  },
+
+  async authenticate(req, res) {
+    if (req.user) {
+      res.json({
+        status: true,
+        username: req.user.username,
+        email: req.user.email || null,
+        selectedPigeon: req.user.selectedPigeon || null,
+      });
+    } else {
+      res.json({
+        status: false,
+      });
+    }
   },
 };
 

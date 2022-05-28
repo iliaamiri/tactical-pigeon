@@ -1,6 +1,5 @@
-import Cookie from "../helpers/Cookie.js";
-import Token from "../io/auth/Token.js";
 import { playSound, sounds } from "../core/sounds.js";
+import Auth from "../auth/Auth.js";
 
 const emailInput = document.querySelector('input.emailInput');
 const usernameInput = document.querySelector('input.usernameInput');
@@ -19,44 +18,26 @@ document.querySelector("body").addEventListener('click', async function (event) 
 
   /* ---- Sign Up Button ---- */
   if (target.tagName === "BUTTON" && target.classList.contains("sign-up-button")) {
-    try {
-
-      const signUpResponse = await axios.post("/api/auth/signup", {
-        givenEmail: emailInput.value,
-        givenUsername: usernameInput.value,
-        givenPassword: passwordInput.value
-      });
-
-      //console.log('signUpResponse', signUpResponse);
-
-      const authResult = signUpResponse.data;
-      //console.log('signup authResult:', authResult);
-      if (!authResult.status) {
-        // console.log(authResult); // debug
-        document.querySelector(".signup-error-exists").classList.remove("d-none")
-        throw new Error(authResult.error);
-      }
-
-      Cookie.destroy('JWT');
-      Cookie.destroy('email');
-      Cookie.destroy('user');
-      Cookie.destroy('guestId');
-
-      const tokenValue = authResult.tokenValue;
-      const username = authResult.username;
-
-      Token.save(tokenValue);
-      Token.saveEmailAndUsername(emailInput.value, username);
-      setTimeout(() => {
-        location.href = '/userHome';
-      }, 1050);
-      playSound(sounds.doneChecked);
-    } catch (error) {
-      let errMessage = error.message;
-      console.log(errMessage);
-      document.querySelector(".signup-error").classList.remove("d-none");
-      playSound(sounds.loseRound);
+    if (Auth.isLoggedIn && !Auth.isLoggedInAsGuest) {
+      console.error("User is already logged in as a tracked user. This code should not be reached. Please contact the developer.");
+      return;
     }
+
+    let signUpResult = await Auth.signUp(emailInput.value, usernameInput.value, passwordInput.value);
+    if (!signUpResult.status) {
+      if (signUpResult.error === "EMAIL_ALREADY_EXISTS") {
+        document.querySelector(".signup-error-exists").classList.remove("d-none");
+      } else {
+        document.querySelector(".signup-error").classList.remove("d-none");
+      }
+      playSound(sounds.loseRound);
+      return;
+    }
+
+    setTimeout(() => {
+      location.href = '/userHome';
+    }, 1050);
+    playSound(sounds.doneChecked);
   }
 
   /* ---- Index Page Link ---- */

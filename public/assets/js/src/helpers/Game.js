@@ -4,22 +4,21 @@ import AmmoInventory from "../components/Inventories/AmmoInventory.js";
 import Sunglasses from "../components/Pigeons/Sunglasses.js";
 import ResultOverlay from '../components/ResultOverlay.js';
 import Tally from "../components/Tallies/Tally.js";
-import MovePlaceholder from "../components/Play/MovePlaceholder.js";
 import Timer from "../components/Play/Timer.js";
 import ReplayButton from "../components/Play/ReplayButton.js";
 import BackHomeButton from "../components/Play/BackHomeButton.js";
+import DoneButton from "../components/DoneButton.js";
 
 // Helpers
 import Players from "./Players.js";
 import Player from "./Player.js";
 import Round from "./Round.js";
-import BotPlayer from "./BotPlayer.js";
 
 // Core and utils
 import { playSound, sounds } from "../core/sounds.js";
-import LocalStorageCache from "../core/LocalStorageCache.js";
-import Token from "../io/auth/Token.js";
-import DoneButton from "../components/DoneButton.js";
+
+import gameCache from "../storage/gameCache.js";
+import Auth from "../auth/Auth.js";
 
 
 class Game {
@@ -43,7 +42,7 @@ class Game {
   }
   
   static findByGameFromCache() {
-    const { playerMe, playerOpponent, gameStatus } = LocalStorageCache.fetch();
+    const { playerMe, playerOpponent, gameStatus } = gameCache.fetch();
 
     // Check if cache data is corrupted
     if (!playerMe || !playerOpponent || gameStatus) {
@@ -55,7 +54,7 @@ class Game {
 
   initiateOnline(playerMe, playerOpponent, gameComplete, timeLeft) {
     // Player 1 (Me)
-    let myUsername = playerMe.username;
+    let myUsername = Auth.displayName;
     let myAmmoInventories = playerMe.ammoInventories;
     let myLives = playerMe.lives.lives;
     let myMoveHistory = playerMe.moveHistory;
@@ -75,10 +74,6 @@ class Game {
       });
     }
 
-    if (myUsername.substring(0, 6) === "guest_") {
-      Token.fetchCachedUsernameOnly();
-      myUsername = Token.username;
-    }
 
     // Initiating the players.
     Players.all.player1 = new Player(myUsername, {
