@@ -176,43 +176,6 @@ div.dial-container .slidecontainer {
   background-color: transparent;
 }
 
-@media only screen and (min-width: 900px) {
-  #myRange {
-    width: 200px;
-    top: 42px;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  #myRange {
-    width: 160px;
-    top: 3px;
-  }
-}
-
-@media only screen and (max-width: 722px) {
-  #myRange {
-    width: 125px;
-    top: -33px;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  #myRange {
-    /* width: 261px; */
-    width: 261px;
-    top: 103px;
-  }
-}
-
-@media only screen and (min-width: 1600px) {
-  #myRange {
-    /* width: 261px; */
-    width: 355px;
-    top: 197px;
-  }
-}
-
 #myRange::-webkit-slider-runnable-track {
   -webkit-appearance: none; /* Override default look */
   background-color: #407D96;

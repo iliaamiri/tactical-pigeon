@@ -2,8 +2,9 @@ const body = document.querySelector("body");
 const typeSelector = document.querySelector("div.type-selector");
 const selectedPigeon = document.querySelector("div.selectedPigeon");
 const saveButton = document.querySelector("img.save");
+const hueRangeSlider = document.querySelector("input#myRange");
 
-document.querySelector('input#myRange').addEventListener('change', async event => {
+hueRangeSlider.addEventListener('change', async event => {
   let value = event.target.value;
 
   // Change the hue of the selected pigeon. And update the dataset.hueAngle value.
@@ -31,14 +32,15 @@ body.addEventListener('click', async event => {
   /* ----- Save Button ----- */
   if (tagName === "IMG" && target.classList.contains("save")) {
     try {
+      saveButton.classList.toggle("disabled", true);
       let apiResponse = await axios.post('/api/profile/updatePigeonCustomization', {
         myPigeons: myPigeons
       });
 
       if (apiResponse.data.status) {
         console.log("Successfully updated the user's pigeon customization.");
-        saveButton.classList.toggle("disabled", true);
       } else {
+        saveButton.classList.toggle("disabled", false);
         console.log("Failed to update the user's pigeon customization.");
       }
 
@@ -116,6 +118,8 @@ async function typeSelectorClickEventHandler(event) {
 
   selectedPigeon.dataset.hueAngle = pigeonTypeOption.dataset.hueAngle;
   selectedPigeon.style.setProperty('filter', `hue-rotate(${(pigeonTypeOption.dataset.hueAngle / 100).toFixed(2)}turn)`);
+
+  hueRangeSlider.value = pigeonTypeOption.dataset.hueAngle;
 
   saveButton.classList.toggle("disabled", false);
   console.log(myPigeons);
