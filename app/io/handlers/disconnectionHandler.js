@@ -105,6 +105,7 @@ module.exports = async (io, socket) => {
     console.log("---------- DC in the middle of the game");
     socket.user.disconnectDetectionSetTimoutId = setTimeout(() => {
       console.log("user", socket.user); // debug
+      console.log("opponentPlayer", opponentPlayer); // debug
       console.log("is the user online: ", socket.user.isOnline()); // debug
 
       // If this player was connected, tell the opponent that this player got reconnected.

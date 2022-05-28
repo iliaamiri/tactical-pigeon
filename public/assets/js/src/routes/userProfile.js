@@ -1,9 +1,9 @@
 // Auth
-import Token from "../io/auth/Token.js";
 import { playSound, sounds } from "../core/sounds.js";
+import Auth from "../auth/Auth.js";
 
-// Fetch username from cookie
-let username = Token.fetchCachedUsernameOnly();
+// Fetch username
+let username = Auth.username;
 
 const gamesPlayed = document.querySelector('.games-played');
 const gamesWon = document.querySelector('.games-won');

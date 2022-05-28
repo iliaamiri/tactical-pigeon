@@ -4,7 +4,6 @@ import SearchingForOpponent from "../components/Home/SearchingForOpponent.js";
 import Cookie from "../helpers/Cookie.js";
 
 // Socket
-import Token from "../io/auth/Token.js";
 import clientSocketConnect, { socket } from '../io/client.js';
 import { playSound, sounds } from "../core/sounds.js";
 
@@ -115,9 +114,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
     socket.emit("game:searchForOpponent");
   } else if (target.classList.contains("playOfflineBtn")) { // Play Offline
     console.log('play offline hit');
-  
-    const playerUsername = Token.username;
-    // Token.saveEmailAndUsername(null, playerUsername);
+
     console.log('window.location.href', window.location.href);
     let tID = setTimeout(function () {
       window.location.href = "/play";

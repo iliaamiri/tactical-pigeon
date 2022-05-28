@@ -18,6 +18,11 @@ const AuthExceptions = {
     errMessage: "ALREADY_AUTHENTICATED",
     userErrorMessage: "You are already logged-in.",
     httpStatus: 200
-  }
+  },
+  emailAlreadyExists: {
+    errMessage: "EMAIL_ALREADY_EXISTS",
+    userErrorMessage: "Email already exists.",
+    httpStatus: 400
+  },
 };
 module.exports = AuthExceptions;

@@ -5,6 +5,10 @@ import init from "./core/init.js";
 
 init();
 
+// Check for authentication
+import Auth from "./auth/Auth.js";
+await Auth.authenticate();
+
 await import('./routes/_common.js');
 
 Router.assign('/', 'home');

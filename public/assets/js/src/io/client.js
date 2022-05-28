@@ -1,21 +1,21 @@
 // import {io} from "socket.io-client"; // for webpack
 import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import Token from './auth/Token.js';
-
+import Auth from "../auth/Auth.js";
 import handlersIndex from "./handlersIndex.js";
 
 export let socket;
 
 export default async function clientSocketConnect() {
-  Token.fetchCachedToken();
-  console.log("----------------------------------------", Token.tokenVal)
-  if (!Token.tokenVal) {
-    // console.log("Auth Failed"); // debug
+  if (!Auth.isLoggedIn) {
+    console.error("Auth Failed. User is not logged-in and yet socket client is being called to connect to the web socket." +
+      "Code must not reach here without user being logged-out!");
     return;
   }
 
+  let tokenValue = Auth.jwtToken;
+
   socket = io("/", {
-    auth: { token: Token.tokenVal}
+    auth: { token: tokenValue}
   });
 
   console.log(socket); // debug
