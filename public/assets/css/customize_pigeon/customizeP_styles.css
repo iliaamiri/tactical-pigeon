@@ -84,6 +84,7 @@ div.nav-buttons div {
 }
 
 div.nav-buttons img {
+  cursor: pointer;
   border-radius: 200px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
