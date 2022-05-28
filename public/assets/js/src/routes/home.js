@@ -79,7 +79,7 @@ startBtn.addEventListener('click', async function (event) {
   try {
     console.log('login button hit');
 
-    if (Auth.isLoggedIn) {
+    if (Auth.isLoggedIn && !Auth.isLoggedInAsGuest) {
       console.log('already logged in');
       return;
     }

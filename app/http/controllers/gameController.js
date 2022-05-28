@@ -46,7 +46,7 @@ const GameController = {
   },
 
   async showGamePage(req, res) {
-    res.render('play', {
+    res.render('battle/play', {
       playMode: "offline"
     });
   },
@@ -109,7 +109,7 @@ const GameController = {
     myUsername = Players.findActiveUserById(foundPlayer.playerId).username;
     opponentUsername = Players.findActiveUserById(opponentPlayerId).username;
 
-    res.render('play', {
+    res.render('battle/play', {
       playMode: "online",
       gameId: gameId,
       myUsername: myUsername,

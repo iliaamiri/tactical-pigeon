@@ -13,7 +13,7 @@ apiRouter.use('/profile', require('./profile.router'));
 apiRouter.use('/external', require('./external.router'));
 
 apiRouter.use((err, req, res, next) => {
-  console.log(err);
+  console.log("API ROUTER CENTRALIZED ERROR (DEBUG): ", err);
 
   if (err?.errMessage && err.errMessage === "AUTHENTICATION_FAILED") {
     res.redirect('/');

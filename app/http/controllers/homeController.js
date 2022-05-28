@@ -18,13 +18,13 @@ const HomeController = {
       res.redirect('/userHome');
       return;
     }
-    res.render('register');
+    res.render('auth/register');
   },
   async profile(req, res) {
-    res.render('profile');
+    res.render('profile/profile');
   },
   async mapSelection(req, res) {
-    res.render('chooseMap');
+    res.render('profile/chooseMap');
   },
   async customizePigeon(req, res) {
     console.log("req.user received: ", req.user);
@@ -65,7 +65,7 @@ const HomeController = {
       numberOfLockedPigeons: numberOfLockedPigeons,
     });
     
-    res.render('customizePigeon', {
+    res.render('profile/customizePigeon', {
       selectedPigeon: selectedPigeon,
       myPigeons: myPigeons,
       numberOfLockedPigeons: numberOfLockedPigeons,
