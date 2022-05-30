@@ -9,6 +9,8 @@ import RoundPoints from "../components/Tallies/RoundPoints.js";
 import BackHomeButton from "../components/Play/BackHomeButton.js";
 import ReplayButton from "../components/Play/ReplayButton.js";
 import WaitSign from "../components/Multiplayer/WaitSign.js";
+import LeftPigeon from "../components/Pigeons/LeftPigeon.js";
+import RightPigeon from "../components/Pigeons/RightPigeon.js";
 
 
 const roundTitle = document.querySelector('div.round-title');
@@ -25,7 +27,6 @@ import restingMode from "./restingMode.js";
 // Cores and Utils
 import wait from '../utils/wait.js';
 import {socket} from "../io/client.js";
-import LeftPigeon from "../components/Pigeons/LeftPigeon.js";
 
 class Round {
   #currentRoundNumber = 1;
@@ -167,15 +168,12 @@ class Round {
     // Calculate the result of this round
     let roundResult = this.tripletCompare(playerMoves);
 
-    let leftPigeon = document.querySelector("img.pigeon-left");
-    let rightPigeon = document.querySelector("img.pigeon-right");
-
     // Aftermath
     if (roundResult === 1) { // Player 1 won ; Player 2 lost
       myTally.fillColumnVictory();
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_hand_to_chest_alternate_1.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_rip.svg";
+        LeftPigeon.renderRoundWinning();
+        RightPigeon.renderRoundLosing();
       }, 600)
 
       setTimeout(function () {
@@ -183,8 +181,8 @@ class Round {
       }, 750)
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
+        LeftPigeon.renderNormalPhase();
+        RightPigeon.renderNormalPhase();
       }, 1440);
 
       opponentTally.fillColumnDefeat();
@@ -199,8 +197,8 @@ class Round {
     } else if (roundResult === 2) { // Player 1 lost ; Player 2 won
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_rip.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_hand_to_chest.svg";
+        LeftPigeon.renderRoundLosing();
+        RightPigeon.renderRoundWinning();
       }, 600);
 
       myTally.fillColumnDefeat();
@@ -210,8 +208,8 @@ class Round {
       }, 700);
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
+        LeftPigeon.renderNormalPhase();
+        RightPigeon.renderNormalPhase();
       }, 1440);
 
       opponentTally.fillColumnVictory();
@@ -227,15 +225,13 @@ class Round {
       opponentTally.fillColumnDraw();
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_no_legs_normal_alternate_1.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/right_no_legs_normal_alternate.svg";
-
-      }, 650)
+        LeftPigeon.renderRoundDraw();
+        RightPigeon.renderRoundDraw();
+      }, 650);
 
       setTimeout(() => {
-        leftPigeon.src = "/assets/img/pigeons/pusiness_pigeon/right_normal.svg";
-        rightPigeon.src = "/assets/img/pigeons/hoodie_pigeon/left_normal.svg";
-
+        LeftPigeon.renderNormalPhase();
+        RightPigeon.renderNormalPhase();
       }, 1500);
 
       RoundPoints.exhibit("draw", "draw!");

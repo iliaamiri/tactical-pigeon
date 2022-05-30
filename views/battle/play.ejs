@@ -25,14 +25,25 @@
 
     <!-- For Online Game -->
     <script>
+      let playMode;
+      let mySelectedPigeon;
+      let opponentSelectedPigeon;
         <% if (typeof playMode !== "undefined" && playMode === "online") { %>
-        const playMode = "online";
+        playMode = "online";
         const gameId = "<%= gameId %>";
         const myUsername = "<%= myUsername %>";
         const opponentUsername = "<%= opponentUsername %>";
+        mySelectedPigeon = '<%- JSON.stringify(mySelectedPigeon) %>';
+        mySelectedPigeon = JSON.parse(mySelectedPigeon);
+
+        opponentSelectedPigeon = '<%- JSON.stringify(opponentSelectedPigeon) %>';
+        opponentSelectedPigeon = JSON.parse(opponentSelectedPigeon);
         <% } else { %>
-        const playMode = "offline";
+        playMode = "offline";
+        mySelectedPigeon = '<%- JSON.stringify(mySelectedPigeon) %>';
+        mySelectedPigeon = JSON.parse(mySelectedPigeon);
         <% } %>
+      console.log("selectedPigeons: ", mySelectedPigeon, opponentSelectedPigeon); // debug
     </script>
 </head>
 

@@ -102,6 +102,9 @@ const Player = {
   },
 
   async fetchSelectedPigeon() {
+    if (this.currentPigeon) {
+      return this.currentPigeon;
+    }
     const selectedPigeon = await database.playerEntity.getSelectedPigeon(this.playerId);
     if (!selectedPigeon) {
       return null;
@@ -112,6 +115,15 @@ const Player = {
     this.currentPigeon.setHueAngle(selectedPigeon.hue_angle);
 
     return this.currentPigeon;
+  },
+
+  async updateSelectedPigeon(pigeonId) {
+    if (this.currentPigeon.pigeonId === pigeonId) {
+      return;
+    }
+
+    await database.playerEntity.updateSelectedPigeon(this.playerId, pigeonId);
+    this.currentPigeon = null;
   },
 
   async countUnlockedPigeons() {

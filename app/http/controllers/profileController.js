@@ -32,7 +32,7 @@ const ProfileController = {
         }
 
         if (pigeon.isSelected) {
-          await database.playerEntity.updateSelectedPigeon(req.user.playerId, pigeon.pigeonId);
+          await req.user.updateSelectedPigeon(pigeon.pigeonId)
         }
 
         if (pigeon.hueAngle < 0 || pigeon.hueAngle > 100) {
