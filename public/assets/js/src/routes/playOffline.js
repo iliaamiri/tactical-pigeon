@@ -33,6 +33,7 @@ import Cookie from "../helpers/Cookie.js";
 
 // Auth
 import Auth from "../auth/Auth.js";
+import tutorialCache from "../storage/tutorialCache.js";
 
 // Fetch username
 let username = Auth.displayName;
@@ -74,8 +75,7 @@ Tally.all = {
 Tally.all.player1.currentTallyColumnNumber = Game.currentGame.currentRound.currentRoundNumber + 1;
 
 // check if old or new user.
-if (Cookie.get(username)) {
-  //Cookie.set(username, "oldUser");
+if (tutorialCache.haveSeenTutorial()) {
 
   countdownOverlayComponent.classList.remove("d-none");
   countdownOverlayComponent.classList.add("opaque");
@@ -96,7 +96,7 @@ if (Cookie.get(username)) {
   document.querySelector('.moves-placeholder').classList.add('pop-in-animation');
   document.querySelector('.done').classList.add('pop-in-animation');
 } else {
-  // Cookie.set(username, "newUser");
+  tutorialCache.checkTutorial();
 
   // show the intro page
   document.querySelector(".intro-page").classList.remove("d-none");

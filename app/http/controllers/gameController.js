@@ -46,8 +46,15 @@ const GameController = {
   },
 
   async showGamePage(req, res) {
+    let mySelectedPigeon = null;
+
+    if (req.user) {
+      mySelectedPigeon = await req.user.fetchSelectedPigeon();
+    }
+
     res.render('battle/play', {
-      playMode: "offline"
+      playMode: "offline",
+      mySelectedPigeon: mySelectedPigeon
     });
   },
 
@@ -107,12 +114,20 @@ const GameController = {
     let opponentPlayerId = game.players.find(playerId => playerId !== foundPlayer.playerId);
 
     myUsername = Players.findActiveUserById(foundPlayer.playerId).username;
-    opponentUsername = Players.findActiveUserById(opponentPlayerId).username;
+    let opponent = Players.findActiveUserById(opponentPlayerId);
+    opponentUsername = opponent.username;
+
+    let mySelectedPigeon = await foundPlayer.fetchSelectedPigeon();
+    let opponentSelectedPigeon = await opponent.fetchSelectedPigeon();
+    console.log("My Selected Pigeon: ", mySelectedPigeon);
+    console.log("Opponent Selected Pigeon: ", opponentSelectedPigeon);
 
     res.render('battle/play', {
       playMode: "online",
       gameId: gameId,
       myUsername: myUsername,
+      mySelectedPigeon: mySelectedPigeon,
+      opponentSelectedPigeon: opponentSelectedPigeon,
       gameComplete: gameComplete,
       opponentUsername: opponentUsername
     });
