@@ -117,6 +117,17 @@ class Game {
       Life.all.opponentLife.decreaseCounter();
     }
 
+    // Sync the ammo inventories
+    if (myAmmoInventories) {
+      Players.all.player1.ammoInventory.blocks.counter = myAmmoInventories.blockCount;
+      Players.all.player1.ammoInventory.attacks.counter = myAmmoInventories.attackCount;
+    }
+
+    if (opponentAmmoInventories) {
+      Players.all.player2.ammoInventory.blocks.counter = opponentAmmoInventories.blockCount;
+      Players.all.player2.ammoInventory.attacks.counter = opponentAmmoInventories.attackCount;
+    }
+
     if (this.currentRound.currentRoundNumber !== 1 || timeLeft) {
       Timer.all['myTimer'].counter = Math.floor(timeLeft / 1000);
     }

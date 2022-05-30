@@ -24,7 +24,6 @@ const LeftPigeon = {
   },
 
   renderNormalPhase() {
-    console.log("dadash?")
     this.DOMElement.src = `${this.assetFolderPath}/right_normal.svg`;
   },
 
