@@ -50,7 +50,7 @@ const AuthController = {
 
   async login(req, res) {
     // Check if the user is already authenticated or not.
-    if (req.user) {
+    if (req.user && !Players.isGuest(req.user)) {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
