@@ -30,7 +30,7 @@
     "jest": "^27.5.1",
     "socket.io-client": "^4.5.1",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2",
+    "webpack-cli": "^4.10.0",
     "webpack-remove-debug": "^0.1.0"
   },
   "scripts": {
