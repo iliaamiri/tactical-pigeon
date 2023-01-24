@@ -1,5 +1,4 @@
-// import {io} from "socket.io-client"; // for webpack
-import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import * as socketIo from "socket.io-client"; // for webpack
 import Auth from "../auth/Auth.js";
 import handlersIndex from "./handlersIndex.js";
 
@@ -14,14 +13,14 @@ export default async function clientSocketConnect() {
 
   let tokenValue = Auth.jwtToken;
 
-  socket = io("/", {
+  socket = socketIo.io("/", {
     auth: { token: tokenValue}
   });
 
   console.log(socket); // debug
 
   try {
-    await handlersIndex(io, socket);
+    await handlersIndex(socketIo.io, socket);
   } catch (err) {
     console.log(err);
   }
