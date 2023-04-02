@@ -96,7 +96,7 @@ const AuthController = {
       throw AuthExceptions.alreadyAuthenticated;
     }
 
-    const {givenEmail, givenUsername, givenPassword} = req.body;
+    const {givenEmail, givenDisplayName, givenPassword} = req.body;
 
     // Verify that inputs exists
     if (!givenEmail || !givenPassword || givenPassword.length < 2) {
@@ -115,14 +115,14 @@ const AuthController = {
 
     const passwordSalt = crypto.randomUUID({disableEntropyCache : true});
     console.log('passwordSalt', passwordSalt);
-    const passwordHash = SHA2["SHA-512"](givenEmail + givenUsername + givenPassword + passwordPepper + passwordSalt).toString("hex");
+    const passwordHash = SHA2["SHA-512"](givenEmail + givenDisplayName + givenPassword + passwordPepper + passwordSalt).toString("hex");
 
     // TODO: Call Player.addToDatabase and verify that it was done successfully
     let signInResult;
     try {
       signInResult = await database.playerEntity.addUser({
         email: givenEmail, 
-        username: givenUsername,
+        username: givenDisplayName,
         hash: passwordHash,
         salt: passwordSalt,
       });

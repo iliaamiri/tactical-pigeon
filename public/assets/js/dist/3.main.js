@@ -896,13 +896,11 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 var Player = /*#__PURE__*/function () {
-  // username of the player : String
-
-  // Set of moves of the player : RoundMove
-
   function Player(username, ammoInventory) {
     _classCallCheck(this, Player);
+    // username of the player : String
     _defineProperty(this, "username", void 0);
+    // Set of moves of the player : RoundMove
     _defineProperty(this, "moves", new _RoundMove_js__WEBPACK_IMPORTED_MODULE_0__["default"]());
     _defineProperty(this, "ammoInventory", {
       'blocks': null,
@@ -962,14 +960,17 @@ var _legs = /*#__PURE__*/new WeakMap();
 var RoundMove = /*#__PURE__*/function () {
   function RoundMove() {
     _classCallCheck(this, RoundMove);
+    // The head body-part property. Has a default of 'none'.
     _classPrivateFieldInitSpec(this, _head, {
       writable: true,
       value: RoundMove.moveTypeEnum[2]
     });
+    // The body body-part property. Has a default of 'none'.
     _classPrivateFieldInitSpec(this, _body, {
       writable: true,
       value: RoundMove.moveTypeEnum[2]
     });
+    // The legs body-part property. Has a default of 'none'.
     _classPrivateFieldInitSpec(this, _legs, {
       writable: true,
       value: RoundMove.moveTypeEnum[2]
@@ -988,8 +989,6 @@ var RoundMove = /*#__PURE__*/function () {
     set: function set(moveType) {
       _classPrivateFieldSet(this, _head, RoundMove.getValidMoveType(moveType));
     }
-
-    // The body body-part property. Has a default of 'none'.
   }, {
     key: "body",
     get:
@@ -1003,8 +1002,6 @@ var RoundMove = /*#__PURE__*/function () {
     set: function set(moveType) {
       _classPrivateFieldSet(this, _body, RoundMove.getValidMoveType(moveType));
     }
-
-    // The legs body-part property. Has a default of 'none'.
   }, {
     key: "legs",
     get:
@@ -1056,7 +1053,9 @@ var RoundMove = /*#__PURE__*/function () {
   }]);
   return RoundMove;
 }();
+// Enums of the move types. Will be used everywhere in the frontend application
 _defineProperty(RoundMove, "moveTypeEnum", ['attack', 'block', 'none']);
+// Enums of the body parts. Will be used everywhere in the frontend application
 _defineProperty(RoundMove, "bodyPartsEnum", ['head', 'body', 'legs']);
 var _selectedMoveType = {
   writable: true,
@@ -1604,26 +1603,22 @@ function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { 
 var _bodyPartType = /*#__PURE__*/new WeakMap();
 var _moveType = /*#__PURE__*/new WeakMap();
 var MovePlaceholder = /*#__PURE__*/function () {
-  // The placeholder body-type. It can be either of these three: `head`, `body`, `legs`.
-
-  // The move type that the user selected. This value is 'none' by default. It will be changed later for every instance.
-
-  // The move the user placed on a particular placeholder. This value is 'none' by default and will be changed later.
-
-  // The DOM element corresponding to either the `head`, `body`, or `legs` placeholders.
-
   function MovePlaceholder(bodyPartType) {
     _classCallCheck(this, MovePlaceholder);
     _defineProperty(this, "checked", false);
+    // The placeholder body-type. It can be either of these three: `head`, `body`, `legs`.
     _classPrivateFieldInitSpec(this, _bodyPartType, {
       writable: true,
       value: void 0
     });
+    // The move type that the user selected. This value is 'none' by default. It will be changed later for every instance.
     _classPrivateFieldInitSpec(this, _moveType, {
       writable: true,
       value: 'none'
     });
+    // The move the user placed on a particular placeholder. This value is 'none' by default and will be changed later.
     _defineProperty(this, "movePlaced", 'none');
+    // The DOM element corresponding to either the `head`, `body`, or `legs` placeholders.
     _defineProperty(this, "target", void 0);
     // Here, at the very beginning of initializing this, we tell the instance to recognize the DOM element.
     this.target = document.querySelector("div.mv-placeholder.".concat(bodyPartType));
@@ -1724,13 +1719,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var player1_shield = document.querySelector('img.my-shield');
 var player1_attack = document.querySelector('img.my-attack');
 var AmmoIcon = /*#__PURE__*/function () {
-  // Img tag element in DOM
-
-  // Ammo is either attack or block
-
   function AmmoIcon(type, iconElement) {
     _classCallCheck(this, AmmoIcon);
+    // Img tag element in DOM
     _defineProperty(this, "iconElement", void 0);
+    // Ammo is either attack or block
     _defineProperty(this, "type", void 0);
     this.iconElement = iconElement;
     this.type = type;

@@ -204,15 +204,15 @@ var Socket = /*#__PURE__*/function (_Emitter) {
   /**
    * Socket constructor.
    *
-   * @param {String|Object} uri or options
+   * @param {String|Object} uri - uri or options
    * @param {Object} opts - options
-   * @api public
    */
   function Socket(uri) {
     var _this;
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     _classCallCheck(this, Socket);
     _this = _super.call(this);
+    _this.writeBuffer = [];
     if (uri && "object" === _typeof(uri)) {
       opts = uri;
       uri = null;
@@ -235,7 +235,6 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     _this.hostname = opts.hostname || (typeof location !== "undefined" ? location.hostname : "localhost");
     _this.port = opts.port || (typeof location !== "undefined" && location.port ? location.port : _this.secure ? "443" : "80");
     _this.transports = opts.transports || ["polling", "websocket"];
-    _this.readyState = "";
     _this.writeBuffer = [];
     _this.prevBufferLen = 0;
     _this.opts = _extends({
@@ -245,6 +244,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
       upgrade: true,
       timestampParam: "t",
       rememberUpgrade: false,
+      addTrailingSlash: true,
       rejectUnauthorized: true,
       perMessageDeflate: {
         threshold: 1024
@@ -252,7 +252,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
       transportOptions: {},
       closeOnBeforeunload: true
     }, opts);
-    _this.opts.path = _this.opts.path.replace(/\/$/, "") + "/";
+    _this.opts.path = _this.opts.path.replace(/\/$/, "") + (_this.opts.addTrailingSlash ? "/" : "");
     if (typeof _this.opts.query === "string") {
       _this.opts.query = (0,_contrib_parseqs_js__WEBPACK_IMPORTED_MODULE_2__.decode)(_this.opts.query);
     }
@@ -292,9 +292,9 @@ var Socket = /*#__PURE__*/function (_Emitter) {
   /**
    * Creates transport of the given type.
    *
-   * @param {String} transport name
+   * @param {String} name - transport name
    * @return {Transport}
-   * @api private
+   * @private
    */
   _createClass(Socket, [{
     key: "createTransport",
@@ -318,7 +318,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Initializes transport to use and starts probe.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "open",
@@ -351,7 +351,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Sets the current transport. Disables the existing one (if any).
      *
-     * @api private
+     * @private
      */
   }, {
     key: "setTransport",
@@ -370,8 +370,8 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Probes a transport.
      *
-     * @param {String} transport name
-     * @api private
+     * @param {String} name - transport name
+     * @private
      */
   }, {
     key: "probe",
@@ -461,7 +461,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Called when connection is deemed open.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onOpen",
@@ -472,7 +472,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
       this.flush();
       // we check for `readyState` in case an `open`
       // listener already closed the socket
-      if ("open" === this.readyState && this.opts.upgrade && this.transport.pause) {
+      if ("open" === this.readyState && this.opts.upgrade) {
         var i = 0;
         var l = this.upgrades.length;
         for (; i < l; i++) {
@@ -483,7 +483,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Handles a packet.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onPacket",
@@ -519,7 +519,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
      * Called upon handshake completion.
      *
      * @param {Object} data - handshake obj
-     * @api private
+     * @private
      */
   }, {
     key: "onHandshake",
@@ -539,7 +539,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Sets and resets ping timeout timer based on server pings.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "resetPingTimeout",
@@ -556,7 +556,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Called on `drain` event
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onDrain",
@@ -575,7 +575,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Flush write buffers.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "flush",
@@ -619,11 +619,10 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Sends a message.
      *
-     * @param {String} message.
-     * @param {Function} callback function.
+     * @param {String} msg - message.
      * @param {Object} options.
+     * @param {Function} callback function.
      * @return {Socket} for chaining.
-     * @api public
      */
   }, {
     key: "write",
@@ -640,11 +639,11 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Sends a packet.
      *
-     * @param {String} packet type.
+     * @param {String} type: packet type.
      * @param {String} data.
      * @param {Object} options.
-     * @param {Function} callback function.
-     * @api private
+     * @param {Function} fn - callback function.
+     * @private
      */
   }, {
     key: "sendPacket",
@@ -674,8 +673,6 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     }
     /**
      * Closes the connection.
-     *
-     * @api public
      */
   }, {
     key: "close",
@@ -716,7 +713,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon transport error
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onError",
@@ -728,7 +725,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon transport close.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onClose",
@@ -761,9 +758,8 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     /**
      * Filters upgrades, returning only those matching client transports.
      *
-     * @param {Array} server upgrades
-     * @api private
-     *
+     * @param {Array} upgrades - server upgrades
+     * @private
      */
   }, {
     key: "filterUpgrades",
@@ -851,7 +847,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
    * XHR Polling constructor.
    *
    * @param {Object} opts
-   * @api public
+   * @package
    */
   function Polling(opts) {
     var _this;
@@ -875,9 +871,6 @@ var Polling = /*#__PURE__*/function (_Transport) {
     _this.supportsBinary = hasXHR2 && !forceBase64;
     return _this;
   }
-  /**
-   * Transport name.
-   */
   _createClass(Polling, [{
     key: "name",
     get: function get() {
@@ -887,7 +880,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
      * Opens the socket (triggers polling). We write a PING message to determine
      * when the transport is open.
      *
-     * @api private
+     * @protected
      */
   }, {
     key: "doOpen",
@@ -897,8 +890,8 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Pauses polling.
      *
-     * @param {Function} callback upon buffers are flushed and transport is paused
-     * @api private
+     * @param {Function} onPause - callback upon buffers are flushed and transport is paused
+     * @package
      */
   }, {
     key: "pause",
@@ -930,7 +923,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Starts polling cycle.
      *
-     * @api public
+     * @private
      */
   }, {
     key: "poll",
@@ -942,7 +935,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Overloads onData to detect payloads.
      *
-     * @api private
+     * @protected
      */
   }, {
     key: "onData",
@@ -978,7 +971,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * For polling, send a close packet.
      *
-     * @api private
+     * @protected
      */
   }, {
     key: "doClose",
@@ -1000,9 +993,8 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Writes a packets payload.
      *
-     * @param {Array} data packets
-     * @param {Function} drain callback
-     * @api private
+     * @param {Array} packets - data packets
+     * @protected
      */
   }, {
     key: "write",
@@ -1019,7 +1011,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Generates uri for connection.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "uri",
@@ -1046,7 +1038,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
      * Creates a request.
      *
      * @param {String} method
-     * @api private
+     * @private
      */
   }, {
     key: "request",
@@ -1063,7 +1055,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
      *
      * @param {String} data to send.
      * @param {Function} called upon flush.
-     * @api private
+     * @private
      */
   }, {
     key: "doWrite",
@@ -1081,7 +1073,7 @@ var Polling = /*#__PURE__*/function (_Transport) {
     /**
      * Starts a poll cycle.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "doPoll",
@@ -1104,7 +1096,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
    * Request constructor
    *
    * @param {Object} options
-   * @api public
+   * @package
    */
   function Request(uri, opts) {
     var _this8;
@@ -1122,7 +1114,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
   /**
    * Creates the XHR object and sends the request.
    *
-   * @api private
+   * @private
    */
   _createClass(Request, [{
     key: "create",
@@ -1189,7 +1181,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon error.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onError",
@@ -1200,7 +1192,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
     /**
      * Cleans up house.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "cleanup",
@@ -1222,7 +1214,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon load.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "onLoad",
@@ -1237,7 +1229,7 @@ var Request = /*#__PURE__*/function (_Emitter) {
     /**
      * Aborts the request.
      *
-     * @api public
+     * @package
      */
   }, {
     key: "abort",
@@ -1324,8 +1316,8 @@ var Transport = /*#__PURE__*/function (_Emitter) {
   /**
    * Transport abstract constructor.
    *
-   * @param {Object} options.
-   * @api private
+   * @param {Object} opts - options
+   * @protected
    */
   function Transport(opts) {
     var _this2;
@@ -1335,7 +1327,6 @@ var Transport = /*#__PURE__*/function (_Emitter) {
     (0,_util_js__WEBPACK_IMPORTED_MODULE_2__.installTimerFunctions)(_assertThisInitialized(_this2), opts);
     _this2.opts = opts;
     _this2.query = opts.query;
-    _this2.readyState = "";
     _this2.socket = opts.socket;
     return _this2;
   }
@@ -1346,7 +1337,7 @@ var Transport = /*#__PURE__*/function (_Emitter) {
    * @param description
    * @param context - the error context
    * @return {Transport} for chaining
-   * @api protected
+   * @protected
    */
   _createClass(Transport, [{
     key: "onError",
@@ -1356,27 +1347,21 @@ var Transport = /*#__PURE__*/function (_Emitter) {
     }
     /**
      * Opens the transport.
-     *
-     * @api public
      */
   }, {
     key: "open",
     value: function open() {
-      if ("closed" === this.readyState || "" === this.readyState) {
-        this.readyState = "opening";
-        this.doOpen();
-      }
+      this.readyState = "opening";
+      this.doOpen();
       return this;
     }
     /**
      * Closes the transport.
-     *
-     * @api public
      */
   }, {
     key: "close",
     value: function close() {
-      if ("opening" === this.readyState || "open" === this.readyState) {
+      if (this.readyState === "opening" || this.readyState === "open") {
         this.doClose();
         this.onClose();
       }
@@ -1386,12 +1371,11 @@ var Transport = /*#__PURE__*/function (_Emitter) {
      * Sends multiple packets.
      *
      * @param {Array} packets
-     * @api public
      */
   }, {
     key: "send",
     value: function send(packets) {
-      if ("open" === this.readyState) {
+      if (this.readyState === "open") {
         this.write(packets);
       } else {
         // this might happen if the transport was silently closed in the beforeunload event handler
@@ -1400,7 +1384,7 @@ var Transport = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon open
      *
-     * @api protected
+     * @protected
      */
   }, {
     key: "onOpen",
@@ -1413,7 +1397,7 @@ var Transport = /*#__PURE__*/function (_Emitter) {
      * Called with data.
      *
      * @param {String} data
-     * @api protected
+     * @protected
      */
   }, {
     key: "onData",
@@ -1424,7 +1408,7 @@ var Transport = /*#__PURE__*/function (_Emitter) {
     /**
      * Called with a decoded packet.
      *
-     * @api protected
+     * @protected
      */
   }, {
     key: "onPacket",
@@ -1434,7 +1418,7 @@ var Transport = /*#__PURE__*/function (_Emitter) {
     /**
      * Called upon close.
      *
-     * @api protected
+     * @protected
      */
   }, {
     key: "onClose",
@@ -1442,6 +1426,14 @@ var Transport = /*#__PURE__*/function (_Emitter) {
       this.readyState = "closed";
       _get(_getPrototypeOf(Transport.prototype), "emitReserved", this).call(this, "close", details);
     }
+    /**
+     * Pauses the transport, in order not to lose packets during an upgrade.
+     *
+     * @param onPause
+     */
+  }, {
+    key: "pause",
+    value: function pause(onPause) {}
   }]);
   return Transport;
 }(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__.Emitter);
@@ -1883,15 +1875,15 @@ function pick(obj) {
   }, {});
 }
 // Keep a reference to the real timeout functions so they can be used when overridden
-var NATIVE_SET_TIMEOUT = setTimeout;
-var NATIVE_CLEAR_TIMEOUT = clearTimeout;
+var NATIVE_SET_TIMEOUT = _globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.setTimeout;
+var NATIVE_CLEAR_TIMEOUT = _globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.clearTimeout;
 function installTimerFunctions(obj, opts) {
   if (opts.useNativeTimers) {
     obj.setTimeoutFn = NATIVE_SET_TIMEOUT.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
     obj.clearTimeoutFn = NATIVE_CLEAR_TIMEOUT.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
   } else {
-    obj.setTimeoutFn = setTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
-    obj.clearTimeoutFn = clearTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+    obj.setTimeoutFn = _globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.setTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+    obj.clearTimeoutFn = _globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.clearTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
   }
 }
 // base64 encoded buffers are about 33% bigger (https://en.wikipedia.org/wiki/Base64)
@@ -2135,8 +2127,8 @@ var WS = /*#__PURE__*/function (_Transport) {
   /**
    * WebSocket transport constructor.
    *
-   * @api {Object} connection options
-   * @api public
+   * @param {Object} opts - connection options
+   * @protected
    */
   function WS(opts) {
     var _this;
@@ -2145,21 +2137,11 @@ var WS = /*#__PURE__*/function (_Transport) {
     _this.supportsBinary = !opts.forceBase64;
     return _this;
   }
-  /**
-   * Transport name.
-   *
-   * @api public
-   */
   _createClass(WS, [{
     key: "name",
     get: function get() {
       return "websocket";
     }
-    /**
-     * Opens socket.
-     *
-     * @api private
-     */
   }, {
     key: "doOpen",
     value: function doOpen() {
@@ -2185,7 +2167,7 @@ var WS = /*#__PURE__*/function (_Transport) {
     /**
      * Adds event listeners to the socket
      *
-     * @api private
+     * @private
      */
   }, {
     key: "addEventListeners",
@@ -2210,12 +2192,6 @@ var WS = /*#__PURE__*/function (_Transport) {
         return _this2.onError("websocket error", e);
       };
     }
-    /**
-     * Writes data to socket.
-     *
-     * @param {Array} array of packets.
-     * @api private
-     */
   }, {
     key: "write",
     value: function write(packets) {
@@ -2267,11 +2243,6 @@ var WS = /*#__PURE__*/function (_Transport) {
         _loop();
       }
     }
-    /**
-     * Closes socket.
-     *
-     * @api private
-     */
   }, {
     key: "doClose",
     value: function doClose() {
@@ -2283,7 +2254,7 @@ var WS = /*#__PURE__*/function (_Transport) {
     /**
      * Generates uri for connection.
      *
-     * @api private
+     * @private
      */
   }, {
     key: "uri",
@@ -2311,7 +2282,7 @@ var WS = /*#__PURE__*/function (_Transport) {
      * Feature detection for WebSocket.
      *
      * @return {Boolean} whether this transport is available.
-     * @api public
+     * @private
      */
   }, {
     key: "check",
@@ -2361,12 +2332,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // imported from https://github.com/galkn/parseuri
 /**
- * Parses an URI
+ * Parses a URI
+ *
+ * Note: we could also have used the built-in URL object, but it isn't supported on all platforms.
+ *
+ * See:
+ * - https://developer.mozilla.org/en-US/docs/Web/API/URL
+ * - https://caniuse.com/url
+ * - https://www.rfc-editor.org/rfc/rfc3986#appendix-B
+ *
+ * History of the parse() method:
+ * - first commit: https://github.com/socketio/socket.io-client/commit/4ee1d5d94b3906a9c052b459f1a818b15f38f91c
+ * - export into its own module: https://github.com/socketio/engine.io-client/commit/de2c561e4564efeb78f1bdb1ba39ef81b2822cb3
+ * - reimport: https://github.com/socketio/engine.io-client/commit/df32277c3f6d622eec5ed09f493cae3f3391d242
  *
  * @author Steven Levithan <stevenlevithan.com> (MIT license)
  * @api private
  */
-var re = /^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+var re = /^(?:(?![^:@\/?#]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@\/?#]*)(?::([^:@\/?#]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
 var parts = ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'];
 function parse(str) {
   var src = str,
@@ -2692,6 +2675,8 @@ var Manager = /*#__PURE__*/function (_Emitter) {
       if (!socket) {
         socket = new _socket_js__WEBPACK_IMPORTED_MODULE_1__.Socket(this, nsp, opts);
         this.nsps[nsp] = socket;
+      } else if (this._autoConnect && !socket.active) {
+        socket.connect();
       }
       return socket;
     }
@@ -2854,6 +2839,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -2934,6 +2920,11 @@ var Socket = /*#__PURE__*/function (_Emitter) {
      */
     _this.connected = false;
     /**
+     * Whether the connection state was recovered after a temporary disconnection. In that case, any missed packets will
+     * be transmitted by the server.
+     */
+    _this.recovered = false;
+    /**
      * Buffer for packets received before the CONNECT packet
      */
     _this.receiveBuffer = [];
@@ -2941,6 +2932,18 @@ var Socket = /*#__PURE__*/function (_Emitter) {
      * Buffer for packets that will be sent once the socket is connected
      */
     _this.sendBuffer = [];
+    /**
+     * The queue of packets to be sent with retry in case of failure.
+     *
+     * Packets are sent one by one, each waiting for the server acknowledgement, in order to guarantee the delivery order.
+     * @private
+     */
+    _this._queue = [];
+    /**
+     * A sequence to generate the ID of the {@link QueuedPacket}.
+     * @private
+     */
+    _this._queueSeq = 0;
     _this.ids = 0;
     _this.acks = {};
     _this.flags = {};
@@ -2949,6 +2952,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     if (opts && opts.auth) {
       _this.auth = opts.auth;
     }
+    _this._opts = _extends({}, opts);
     if (_this.io._autoConnect) _this.open();
     return _this;
   }
@@ -3084,6 +3088,10 @@ var Socket = /*#__PURE__*/function (_Emitter) {
         args[_key2 - 1] = arguments[_key2];
       }
       args.unshift(ev);
+      if (this._opts.retries && !this.flags.fromQueue && !this.flags["volatile"]) {
+        this._addToQueue(args);
+        return this;
+      }
       var packet = {
         type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.EVENT,
         data: args
@@ -3115,7 +3123,8 @@ var Socket = /*#__PURE__*/function (_Emitter) {
     key: "_registerAckCallback",
     value: function _registerAckCallback(id, ack) {
       var _this2 = this;
-      var timeout = this.flags.timeout;
+      var _a;
+      var timeout = (_a = this.flags.timeout) !== null && _a !== void 0 ? _a : this._opts.ackTimeout;
       if (timeout === undefined) {
         this.acks[id] = ack;
         return;
@@ -3140,6 +3149,114 @@ var Socket = /*#__PURE__*/function (_Emitter) {
       };
     }
     /**
+     * Emits an event and waits for an acknowledgement
+     *
+     * @example
+     * // without timeout
+     * const response = await socket.emitWithAck("hello", "world");
+     *
+     * // with a specific timeout
+     * try {
+     *   const response = await socket.timeout(1000).emitWithAck("hello", "world");
+     * } catch (err) {
+     *   // the server did not acknowledge the event in the given delay
+     * }
+     *
+     * @return a Promise that will be fulfilled when the server acknowledges the event
+     */
+  }, {
+    key: "emitWithAck",
+    value: function emitWithAck(ev) {
+      var _this3 = this;
+      for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        args[_key4 - 1] = arguments[_key4];
+      }
+      // the timeout flag is optional
+      var withErr = this.flags.timeout !== undefined || this._opts.ackTimeout !== undefined;
+      return new Promise(function (resolve, reject) {
+        args.push(function (arg1, arg2) {
+          if (withErr) {
+            return arg1 ? reject(arg1) : resolve(arg2);
+          } else {
+            return resolve(arg1);
+          }
+        });
+        _this3.emit.apply(_this3, [ev].concat(args));
+      });
+    }
+    /**
+     * Add the packet to the queue.
+     * @param args
+     * @private
+     */
+  }, {
+    key: "_addToQueue",
+    value: function _addToQueue(args) {
+      var _this4 = this;
+      var ack;
+      if (typeof args[args.length - 1] === "function") {
+        ack = args.pop();
+      }
+      var packet = {
+        id: this._queueSeq++,
+        tryCount: 0,
+        pending: false,
+        args: args,
+        flags: _extends({
+          fromQueue: true
+        }, this.flags)
+      };
+      args.push(function (err) {
+        if (packet !== _this4._queue[0]) {
+          // the packet has already been acknowledged
+          return;
+        }
+        var hasError = err !== null;
+        if (hasError) {
+          if (packet.tryCount > _this4._opts.retries) {
+            _this4._queue.shift();
+            if (ack) {
+              ack(err);
+            }
+          }
+        } else {
+          _this4._queue.shift();
+          if (ack) {
+            for (var _len5 = arguments.length, responseArgs = new Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+              responseArgs[_key5 - 1] = arguments[_key5];
+            }
+            ack.apply(void 0, [null].concat(responseArgs));
+          }
+        }
+        packet.pending = false;
+        return _this4._drainQueue();
+      });
+      this._queue.push(packet);
+      this._drainQueue();
+    }
+    /**
+     * Send the first packet of the queue, and wait for an acknowledgement from the server.
+     * @param force - whether to resend a packet that has not been acknowledged yet
+     *
+     * @private
+     */
+  }, {
+    key: "_drainQueue",
+    value: function _drainQueue() {
+      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      if (!this.connected || this._queue.length === 0) {
+        return;
+      }
+      var packet = this._queue[0];
+      if (packet.pending && !force) {
+        return;
+      }
+      packet.pending = true;
+      packet.tryCount++;
+      this.flags = packet.flags;
+      this.emit.apply(this, packet.args);
+    }
+    /**
      * Sends a packet.
      *
      * @param packet
@@ -3159,20 +3276,31 @@ var Socket = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "onopen",
     value: function onopen() {
-      var _this3 = this;
+      var _this5 = this;
       if (typeof this.auth == "function") {
         this.auth(function (data) {
-          _this3.packet({
-            type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT,
-            data: data
-          });
+          _this5._sendConnectPacket(data);
         });
       } else {
-        this.packet({
-          type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT,
-          data: this.auth
-        });
+        this._sendConnectPacket(this.auth);
       }
+    }
+    /**
+     * Sends a CONNECT packet to initiate the Socket.IO session.
+     *
+     * @param data
+     * @private
+     */
+  }, {
+    key: "_sendConnectPacket",
+    value: function _sendConnectPacket(data) {
+      this.packet({
+        type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT,
+        data: this._pid ? _extends({
+          pid: this._pid,
+          offset: this._lastOffset
+        }, data) : data
+      });
     }
     /**
      * Called upon engine or manager `error`.
@@ -3215,8 +3343,7 @@ var Socket = /*#__PURE__*/function (_Emitter) {
       switch (packet.type) {
         case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT:
           if (packet.data && packet.data.sid) {
-            var id = packet.data.sid;
-            this.onconnect(id);
+            this.onconnect(packet.data.sid, packet.data.pid);
           } else {
             this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
           }
@@ -3279,6 +3406,9 @@ var Socket = /*#__PURE__*/function (_Emitter) {
         }
       }
       _get(_getPrototypeOf(Socket.prototype), "emit", this).apply(this, args);
+      if (this._pid && args.length && typeof args[args.length - 1] === "string") {
+        this._lastOffset = args[args.length - 1];
+      }
     }
     /**
      * Produces an ack callback to emit with an event.
@@ -3294,8 +3424,8 @@ var Socket = /*#__PURE__*/function (_Emitter) {
         // prevent double callbacks
         if (sent) return;
         sent = true;
-        for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-          args[_key4] = arguments[_key4];
+        for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+          args[_key6] = arguments[_key6];
         }
         self.packet({
           type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.ACK,
@@ -3326,11 +3456,14 @@ var Socket = /*#__PURE__*/function (_Emitter) {
      */
   }, {
     key: "onconnect",
-    value: function onconnect(id) {
+    value: function onconnect(id, pid) {
       this.id = id;
+      this.recovered = pid && this._pid === pid;
+      this._pid = pid; // defined only if connection state recovery is enabled
       this.connected = true;
       this.emitBuffered();
       this.emitReserved("connect");
+      this._drainQueue(true);
     }
     /**
      * Emit buffered events (received and emitted).
@@ -3340,14 +3473,14 @@ var Socket = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "emitBuffered",
     value: function emitBuffered() {
-      var _this4 = this;
+      var _this6 = this;
       this.receiveBuffer.forEach(function (args) {
-        return _this4.emitEvent(args);
+        return _this6.emitEvent(args);
       });
       this.receiveBuffer = [];
       this.sendBuffer.forEach(function (packet) {
-        _this4.notifyOutgoingListeners(packet);
-        _this4.packet(packet);
+        _this6.notifyOutgoingListeners(packet);
+        _this6.packet(packet);
       });
       this.sendBuffer = [];
     }

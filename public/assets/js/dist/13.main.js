@@ -44,7 +44,7 @@ document.querySelector("body").addEventListener('click', /*#__PURE__*/function (
           return _context.abrupt("return");
         case 5:
           _context.next = 7;
-          return _auth_Auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].signUp(emailInput.value, usernameInput.value, passwordInput.value);
+          return _auth_Auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].signUp(emailInput.value, passwordInput.value, usernameInput.value);
         case 7:
           signUpResult = _context.sent;
           if (signUpResult.status) {

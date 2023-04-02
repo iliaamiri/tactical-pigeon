@@ -23,7 +23,7 @@ document.querySelector("body").addEventListener('click', async function (event) 
       return;
     }
 
-    let signUpResult = await Auth.signUp(emailInput.value, usernameInput.value, passwordInput.value);
+    let signUpResult = await Auth.signUp(emailInput.value, passwordInput.value, usernameInput.value);
     if (!signUpResult.status) {
       if (signUpResult.error === "EMAIL_ALREADY_EXISTS") {
         document.querySelector(".signup-error-exists").classList.remove("d-none");
