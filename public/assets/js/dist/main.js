@@ -338,7 +338,7 @@ var Auth = {
 
             // Remember that the user is logged in.
             _this4.isLoggedIn = true;
-            return _context4.abrupt("return", true);
+            return _context4.abrupt("return", signUpResult);
           case 12:
             _context4.prev = 12;
             _context4.t0 = _context4["catch"](0);

@@ -128,7 +128,7 @@ const Auth = {
       // Remember that the user is logged in.
       this.isLoggedIn = true;
 
-      return true;
+      return signUpResult;
     } catch (error) {
       let errMessage = error.message;
       console.log(errMessage);
